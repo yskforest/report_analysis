@@ -4,7 +4,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from analyzers import run_cloc, run_pmd, run_understand, write_global_summary
+from analyzers import run_cloc, run_file_metrics_excel, run_pmd, run_understand, write_global_summary
 from advanced_visualizations import run_advanced_visualizations
 from io_models import resolve_inputs
 
@@ -37,6 +37,7 @@ def main(argv: list[str]) -> int:
         run_understand(inputs),
         run_cloc(inputs),
         run_pmd(inputs),
+        run_file_metrics_excel(inputs),
         run_advanced_visualizations(inputs),
     ]
 

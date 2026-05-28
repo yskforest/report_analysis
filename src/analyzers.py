@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import os
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -29,6 +30,128 @@ def _normalize_paths(df: pd.DataFrame, columns: list[str], remove_prefix: str) -
 
 def _safe_num(series: pd.Series) -> pd.Series:
     return pd.to_numeric(series, errors="coerce").fillna(0)
+
+
+def _build_hierarchy_agg(df: pd.DataFrame, path_col: str, max_level: int | None = None) -> pd.DataFrame:
+    work = df.copy()
+    work[path_col] = work[path_col].astype(str).str.replace("\\\\", "/", regex=False).str.strip("/")
+    parts = work[path_col].str.split("/")
+    depth = int(parts.map(len).max()) if len(work.index) else 0
+    use_depth = min(depth, max_level) if max_level is not None else depth
+
+    rows: list[pd.DataFrame] = []
+    total_row = pd.DataFrame(
+        [
+            {
+                "Level": 0,
+                "Path": "ALL_FILES",
+                "SourceLines": int(_safe_num(work["SourceLines"]).sum()),
+                "TotalLines": int(_safe_num(work["TotalLines"]).sum()),
+                "CommentLines": int(_safe_num(work["CommentLines"]).sum()),
+                "FileCount": int(len(work.index)),
+            }
+        ]
+    )
+    rows.append(total_row)
+
+    for i in range(1, use_depth + 1):
+        key = parts.map(lambda x: "/".join(x[:i]) if len(x) >= i else "")
+        tmp = work.copy()
+        tmp["Path"] = key.replace("", "root")
+        agg = (
+            tmp.groupby("Path", dropna=False)[["SourceLines", "TotalLines", "CommentLines"]]
+            .sum(numeric_only=True)
+            .reset_index()
+        )
+        file_count = tmp.groupby("Path", dropna=False).size().reset_index(name="FileCount")
+        agg = agg.merge(file_count, on="Path", how="left")
+        agg.insert(0, "Level", i)
+        agg = agg.sort_values(by=["SourceLines", "TotalLines"], ascending=False)
+        rows.append(agg)
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
+
+
+def run_file_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
+    out_file = inputs.output_dir / "file_metrics_hierarchy.xlsx"
+    try:
+        max_level = int(os.getenv("FILE_METRICS_MAX_LEVEL", "8"))
+        if max_level < 0:
+            max_level = 8
+
+        metrics = pd.DataFrame()
+        und_csv = inputs.output_dir / "und" / "und_file.csv"
+        source_name = "understand"
+
+        if und_csv.exists():
+            u = pd.read_csv(und_csv, dtype=object, na_filter=False)
+            if {"File", "CountLineCode", "CountLineComment", "CountLine"}.issubset(u.columns):
+                metrics = pd.DataFrame(
+                    {
+                        "File": u["File"].astype(str),
+                        "SourceLines": _safe_num(u["CountLineCode"]),
+                        "CommentLines": _safe_num(u["CountLineComment"]),
+                        "TotalLines": _safe_num(u["CountLine"]),
+                    }
+                )
+
+        if metrics.empty:
+            return TaskResult(
+                name="file_metrics_excel",
+                executed=False,
+                success=True,
+                message="file metrics excel skipped (no usable understand file metrics)",
+            )
+
+        metrics = _normalize_paths(metrics, ["File"], inputs.remove_path_prefix)
+        metrics = metrics[metrics["File"].astype(str) != ""].copy()
+        # Exclude hidden files such as Open3D/.codacy.yml
+        metrics = metrics[
+            ~metrics["File"].astype(str).str.split("/").map(
+                lambda parts: any(part.startswith(".") for part in parts if part)
+            )
+        ].copy()
+        metrics["SourceLines"] = _safe_num(metrics["SourceLines"])
+        metrics["CommentLines"] = _safe_num(metrics["CommentLines"])
+        metrics["TotalLines"] = _safe_num(metrics["TotalLines"])
+        metrics = metrics.sort_values(by=["SourceLines", "TotalLines"], ascending=False)
+
+        # Aggregate by directory hierarchy only (exclude per-file rows)
+        metrics["Dir"] = metrics["File"].astype(str).map(lambda p: str(Path(p).parent).replace("\\", "/"))
+        metrics["Dir"] = metrics["Dir"].replace(".", "").str.strip("/")
+        metrics = metrics[metrics["Dir"] != ""].copy()
+
+        hierarchy = _build_hierarchy_agg(metrics, "Dir", max_level=max_level)
+        summary = pd.DataFrame(
+            [
+                {
+                    "Source": source_name,
+                    "MaxLevel": max_level,
+                    "Rows": int(len(metrics.index)),
+                    "TotalSourceLines": int(metrics["SourceLines"].sum()),
+                    "TotalLines": int(metrics["TotalLines"].sum()),
+                    "TotalCommentLines": int(metrics["CommentLines"].sum()),
+                }
+            ]
+        )
+
+        with pd.ExcelWriter(out_file, engine="openpyxl") as writer:
+            summary.to_excel(writer, sheet_name="summary", index=False)
+            hierarchy.to_excel(writer, sheet_name="hierarchy", index=False)
+
+        return TaskResult(
+            name="file_metrics_excel",
+            executed=True,
+            success=True,
+            outputs=[out_file],
+            message=f"file metrics excel generated ({out_file.name})",
+        )
+    except Exception as exc:
+        return TaskResult(
+            name="file_metrics_excel",
+            executed=True,
+            success=False,
+            message=f"file metrics excel failed: {exc}",
+        )
 
 
 def run_understand(inputs: AnalysisInputs) -> TaskResult:
@@ -81,10 +204,21 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
         tree_html = out_plot / "UndCountLineCode(Area)-UndRatioCommentToFile(Color)_treemap.html"
         essential_tree_html = out_plot / "CountLineCode(Area)-Essential(FileAverage)_treemap.html"
         cyclomatic_tree_html = out_plot / "CountLineCode(Area)-Cyclomatic(FileAverage)_treemap.html"
+        countline_comment_ratio_tree_html = out_plot / "CountLine(Area)-RatioCommentToCountLine(Color)_treemap.html"
+        code_comment_ratio_tree_html = out_plot / "CountLineCode(Area)-RatioCommentToCode(Color)_treemap.html"
         if not file_df.empty and "File" in file_df.columns:
             t = file_df.copy()
             t["CountLineCode"] = _safe_num(t.get("CountLineCode", pd.Series(dtype=float)))
+            t["CountLine"] = _safe_num(t.get("CountLine", pd.Series(dtype=float)))
+            t["CountLineComment"] = _safe_num(t.get("CountLineComment", pd.Series(dtype=float)))
             t["RatioCommentToCode"] = _safe_num(t.get("RatioCommentToCode", pd.Series(dtype=float)))
+            if "RatioCommentToCountLine" in t.columns:
+                t["RatioCommentToCountLine"] = _safe_num(t["RatioCommentToCountLine"])
+            else:
+                t["RatioCommentToCountLine"] = t.apply(
+                    lambda r: (r["CountLineComment"] / r["CountLine"] * 100) if r["CountLine"] else 0,
+                    axis=1,
+                )
             write_treemap_by_path(
                 t,
                 file_col="File",
@@ -118,6 +252,26 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
                     title="CountLineCode(Area)-Cyclomatic(FileAverage)",
                     prefix_to_remove=inputs.remove_path_prefix,
                 )
+
+            write_treemap_by_path(
+                t,
+                file_col="File",
+                size_col="CountLine",
+                color_col="RatioCommentToCountLine",
+                output_html=countline_comment_ratio_tree_html,
+                title="CountLine(Area)-RatioCommentToCountLine(Color)",
+                prefix_to_remove=inputs.remove_path_prefix,
+            )
+
+            write_treemap_by_path(
+                t,
+                file_col="File",
+                size_col="CountLineCode",
+                color_col="RatioCommentToCode",
+                output_html=code_comment_ratio_tree_html,
+                title="CountLineCode(Area)-RatioCommentToCode(Color)",
+                prefix_to_remove=inputs.remove_path_prefix,
+            )
 
         return TaskResult(
             name="und",
