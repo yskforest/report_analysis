@@ -5,19 +5,25 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pandas as pd
-import plotly.express as px
 
 from io_models import AnalysisInputs, TaskResult
+from plotly_visualize import write_pie_chart, write_treemap_by_path
 
 
 def _normalize_paths(df: pd.DataFrame, columns: list[str], remove_prefix: str) -> pd.DataFrame:
+    prefix = (remove_prefix or "").replace("\\", "/")
+
+    def _strip_prefix(value: str) -> str:
+        if not prefix or prefix in {"/", "\\"}:
+            return value
+        return value[len(prefix) :] if value.startswith(prefix) else value
+
     out = df.copy()
     for col in columns:
         if col not in out.columns:
             continue
         out[col] = out[col].astype(str).str.replace("\\\\", "/", regex=False)
-        if remove_prefix:
-            out[col] = out[col].str.replace(remove_prefix, "", regex=False)
+        out[col] = out[col].map(_strip_prefix)
     return out
 
 
@@ -72,28 +78,20 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
         summary_csv = inputs.output_dir / "und_summary.csv"
         summary.to_csv(summary_csv, index=False)
 
-        # simple treemap by first directory
         tree_html = out_plot / "UndCountLineCode(Area)-UndRatioCommentToFile(Color)_treemap.html"
         if not file_df.empty and "File" in file_df.columns:
             t = file_df.copy()
-            t["File"] = t["File"].astype(str)
-            t["level1"] = t["File"].str.split("/").str[0].replace("", "root")
             t["CountLineCode"] = _safe_num(t.get("CountLineCode", pd.Series(dtype=float)))
             t["RatioCommentToCode"] = _safe_num(t.get("RatioCommentToCode", pd.Series(dtype=float)))
-            t_group = (
-                t.groupby("level1", dropna=False)[["CountLineCode", "RatioCommentToCode"]]
-                .mean(numeric_only=True)
-                .reset_index()
-            )
-            fig = px.treemap(
-                t_group,
-                path=["level1"],
-                values="CountLineCode",
-                color="RatioCommentToCode",
-                color_continuous_scale="OrRd",
+            write_treemap_by_path(
+                t,
+                file_col="File",
+                size_col="CountLineCode",
+                color_col="RatioCommentToCode",
+                output_html=tree_html,
                 title="UndCountLineCode(Area)-UndRatioCommentToFile(Color)",
+                prefix_to_remove=inputs.remove_path_prefix,
             )
-            fig.write_html(tree_html)
 
         return TaskResult(
             name="und",
@@ -122,8 +120,11 @@ def run_cloc(inputs: AnalysisInputs) -> TaskResult:
 
         f = df[df["language"].astype(str) != "SUM"].copy()
         f["filename"] = f["filename"].astype(str).str.replace("\\\\", "/", regex=False)
-        if inputs.remove_path_prefix:
-            f["filename"] = f["filename"].str.replace(inputs.remove_path_prefix, "", regex=False)
+        if inputs.remove_path_prefix and inputs.remove_path_prefix not in {"/", "\\"}:
+            normalized_prefix = inputs.remove_path_prefix.replace("\\", "/")
+            f["filename"] = f["filename"].map(
+                lambda p: (p[len(normalized_prefix) :] if p.startswith(normalized_prefix) else p)
+            )
 
         filtered_csv = out_cloc / "cloc_filtered.csv"
         f[required].to_csv(filtered_csv, index=False)
@@ -132,8 +133,14 @@ def run_cloc(inputs: AnalysisInputs) -> TaskResult:
         p = f.copy()
         p["code"] = _safe_num(p["code"])
         by_lang = p.groupby("language", dropna=False)["code"].sum().reset_index()
-        fig = px.pie(by_lang, values="code", names="language", title="Cloc Count Line Code Pie Chart")
-        fig.write_html(pie_html)
+        write_pie_chart(
+            by_lang,
+            value_column="code",
+            label_column="language",
+            title="Cloc Count Line Code Pie Chart",
+            output_html=pie_html,
+            exclude_label=None,
+        )
 
         summary_csv = inputs.output_dir / "summary_cloc.csv"
         pd.DataFrame(
@@ -246,16 +253,15 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
 
         tree_html = out_pmd / "PmdCloneTokens(Area)-PmdCloneRatio(Color)_treemap.html"
         t = df[df["PmdTotalTokens"] > 0].copy()
-        t["level1"] = t["File"].astype(str).str.split("/").str[0].replace("", "root")
-        fig = px.treemap(
+        write_treemap_by_path(
             t,
-            path=["level1", "File"],
-            values="PmdTotalTokens",
-            color="PmdCloneRatio",
-            color_continuous_scale="OrRd",
+            file_col="File",
+            size_col="PmdTotalTokens",
+            color_col="PmdCloneRatio",
+            output_html=tree_html,
             title="PmdCloneTokens(Area)-PmdCloneRatio(Color)",
+            prefix_to_remove=inputs.remove_path_prefix,
         )
-        fig.write_html(tree_html)
 
         merge_out = None
         pmd_summary_out = None
@@ -264,7 +270,11 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
             und_df = _normalize_paths(und_df, ["File"], inputs.remove_path_prefix)
             if "Kind" in und_df.columns:
                 und_df = und_df[und_df["Kind"].astype(str).str.contains("File", na=False)].copy()
-            keep_cols = [c for c in ["File", "CountLineCode", "CountLine", "CountLineComment", "RatioCommentToCode"] if c in und_df.columns]
+            keep_cols = [
+                c
+                for c in ["File", "CountLineCode", "CountLine", "CountLineComment", "RatioCommentToCode"]
+                if c in und_df.columns
+            ]
             und_df = und_df[keep_cols].copy()
 
             merged = und_df.merge(df, how="outer", on="File")
@@ -277,9 +287,13 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
                     {
                         "CountLineCode": int(_safe_num(merged.get("CountLineCode", pd.Series(dtype=float))).sum()),
                         "CountLine": int(_safe_num(merged.get("CountLine", pd.Series(dtype=float))).sum()),
-                        "CountLineComment": int(_safe_num(merged.get("CountLineComment", pd.Series(dtype=float))).sum()),
+                        "CountLineComment": int(
+                            _safe_num(merged.get("CountLineComment", pd.Series(dtype=float))).sum()
+                        ),
                         "PmdTotalTokens": int(_safe_num(merged.get("PmdTotalTokens", pd.Series(dtype=float))).sum()),
-                        "PmdCloneTokensSum": int(_safe_num(merged.get("PmdCloneTokensSum", pd.Series(dtype=float))).sum()),
+                        "PmdCloneTokensSum": int(
+                            _safe_num(merged.get("PmdCloneTokensSum", pd.Series(dtype=float))).sum()
+                        ),
                     }
                 ]
             ).to_csv(pmd_summary_out, index=False)

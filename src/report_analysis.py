@@ -7,7 +7,6 @@ from pathlib import Path
 from analyzers import run_cloc, run_pmd, run_understand, write_global_summary
 from io_models import resolve_inputs
 
-
 USAGE = (
     "usage: report_analysis.py "
     "{UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}"
