@@ -1,0 +1,10 @@
+tqdm
+
+matplotlib
+plotly
+
+pandas
+openpyxl
+chardet
+jupyterlab
+xmltodict
