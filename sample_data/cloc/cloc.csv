@@ -1,0 +1,2140 @@
+language,filename,blank,comment,code,"github.com/AlDanial/cloc v 2.06  T=0.81 s (2626.9 files/s 634916.5 lines/s)"
+C,Open3D/3rdparty/glew/src/glew.c,2883,90,25608
+C/C++ Header,Open3D/3rdparty/glfw/deps/nuklear.h,2369,3228,18120
+C/C++ Header,Open3D/3rdparty/glew/include/GL/glew.h,4870,922,17894
+C,Open3D/3rdparty/glew/src/glewinfo.c,3733,67,13081
+C,Open3D/3rdparty/tinyfiledialogs/include/tinyfiledialogs/tinyfiledialogs.c,478,335,4851
+C/C++ Header,Open3D/3rdparty/glfw/deps/vulkan/vulkan.h,634,23,4106
+C/C++ Header,Open3D/3rdparty/glfw/deps/glad/glad.h,16,22,3642
+C++,Open3D/cpp/tests/core/Tensor.cpp,579,257,2732
+C,Open3D/3rdparty/glfw/src/x11_window.c,461,197,2384
+C++,Open3D/cpp/open3d/visualization/visualizer/O3DVisualizer.cpp,302,88,2182
+C/C++ Header,Open3D/3rdparty/glfw/deps/mingw/dinput.h,189,188,2090
+C++,Open3D/cpp/tests/geometry/TriangleMesh.cpp,283,46,1913
+C++,Open3D/cpp/pybind/visualization/gui/gui.cpp,81,132,1694
+C/C++ Header,Open3D/cpp/open3d/core/linalg/kernel/SVD3x3.h,366,187,1667
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentScene.cpp,202,94,1637
+C,Open3D/3rdparty/glfw/deps/glad.c,29,23,1626
+C/C++ Header,Open3D/3rdparty/glew/include/GL/eglew.h,792,209,1617
+CMake,Open3D/3rdparty/find_dependencies.cmake,85,319,1564
+C++,Open3D/cpp/open3d/core/Tensor.cpp,277,107,1562
+C,Open3D/3rdparty/glfw/src/win32_window.c,313,144,1555
+C++,Open3D/cpp/open3d/geometry/TriangleMesh.cpp,148,48,1524
+C/C++ Header,Open3D/3rdparty/uvatlas/sal.h,607,838,1513
+Objective-C,Open3D/3rdparty/glfw/src/cocoa_window.m,336,121,1448
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/VoxelBlockGridImpl.h,256,103,1335
+C++,Open3D/cpp/tests/geometry/PointCloud.cpp,173,81,1282
+C,Open3D/3rdparty/rply/rply/rply.c,124,212,1257
+C,Open3D/3rdparty/glfw/src/wl_window.c,212,86,1244
+Python,Open3D/python/test/core/test_core.py,266,109,1216
+C++,Open3D/cpp/pybind/data/dataset.cpp,57,59,1160
+C++,Open3D/cpp/open3d/visualization/visualizer/GuiVisualizer.cpp,152,68,1148
+C/C++ Header,Open3D/3rdparty/glew/include/GL/glxew.h,479,151,1145
+C++,Open3D/cpp/open3d/t/geometry/PointCloud.cpp,154,45,1099
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/PointCloudImpl.h,176,59,1059
+C++,Open3D/cpp/open3d/t/geometry/TriangleMesh.cpp,132,70,1055
+C++,Open3D/cpp/open3d/t/io/file_format/FilePCD.cpp,124,30,1052
+C++,Open3D/cpp/open3d/visualization/gui/SceneWidget.cpp,150,52,1029
+C,Open3D/3rdparty/glew/src/visualinfo.c,77,192,1028
+C++,Open3D/cpp/tests/t/geometry/TriangleMesh.cpp,161,52,1003
+C,Open3D/3rdparty/glfw/src/wl_init.c,114,42,1001
+C++,Open3D/cpp/tests/t/geometry/PointCloud.cpp,177,63,993
+JavaScript,Open3D/python/open3d/visualization/tensorboard_plugin/frontend/index.js,56,314,983
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentResourceManager.cpp,148,44,981
+C++,Open3D/cpp/tests/data/Dataset.cpp,195,6,974
+C++,Open3D/cpp/open3d/t/geometry/RaycastingScene.cpp,147,53,968
+C,Open3D/3rdparty/glfw/src/input.c,259,82,967
+C/C++ Header,Open3D/3rdparty/glew/include/GL/wglew.h,380,115,952
+CUDA,Open3D/cpp/open3d/core/kernel/ReductionCUDA.cu,116,82,936
+C/C++ Header,Open3D/cpp/apps/OfflineReconstruction/LegacyReconstructionUtil.h,118,47,916
+C++,Open3D/cpp/open3d/visualization/gui/Window.cpp,153,173,902
+C++,Open3D/cpp/tests/geometry/Image.cpp,199,78,880
+C,Open3D/3rdparty/glfw/src/xkb_unicode.c,15,67,858
+C/C++ Header,Open3D/cpp/open3d/core/SmallVector.h,215,310,857
+C++,Open3D/cpp/open3d/io/file_format/FilePLY.cpp,122,10,856
+C++,Open3D/cpp/pybind/core/tensor.cpp,78,59,856
+C,Open3D/3rdparty/glfw/src/window.c,183,69,847
+HTML,Open3D/3rdparty/rply/rply/manual/manual.html,191,28,837
+C,Open3D/3rdparty/glfw/src/x11_init.c,128,124,801
+C++,Open3D/cpp/open3d/geometry/TriangleMeshFactory.cpp,80,42,796
+Python,Open3D/python/test/data/test_data.py,214,6,793
+C++,Open3D/cpp/pybind/t/geometry/trianglemesh.cpp,173,21,775
+C++,Open3D/cpp/pybind/geometry/trianglemesh.cpp,7,6,772
+C++,Open3D/cpp/open3d/visualization/shader/SimpleShader.cpp,59,28,770
+C/C++ Header,Open3D/3rdparty/glfw/deps/stb_image_write.h,136,148,764
+C,Open3D/3rdparty/glfw/src/mir_window.c,177,41,757
+C++,Open3D/cpp/open3d/io/file_format/FilePCD.cpp,28,17,756
+C++,Open3D/cpp/tests/t/geometry/Image.cpp,104,75,746
+CUDA,Open3D/cpp/open3d/core/nns/FixedRadiusSearchImpl.cuh,132,207,738
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/K4aPlugin.cpp,93,26,723
+C++,Open3D/cpp/open3d/geometry/PointCloud.cpp,69,21,718
+C++,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithVertexSelection.cpp,71,31,718
+C++,Open3D/cpp/open3d/geometry/Octree.cpp,76,38,690
+C/C++ Header,Open3D/cpp/open3d/utility/Optional.h,172,84,686
+C++,Open3D/cpp/open3d/visualization/rendering/filament/TriangleMeshBuffers.cpp,110,50,673
+CUDA,Open3D/cpp/open3d/ml/impl/misc/Voxelize.cuh,97,195,669
+C++,Open3D/cpp/pybind/visualization/rendering/rendering.cpp,31,25,669
+C++,Open3D/cpp/open3d/geometry/PointCloudPlanarPatchDetection.cpp,121,233,668
+C++,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithEditing.cpp,25,13,660
+C++,Open3D/cpp/tests/geometry/Line3D.cpp,88,86,648
+C++,Open3D/cpp/open3d/geometry/SurfaceReconstructionBallPivoting.cpp,87,10,647
+C++,Open3D/cpp/open3d/geometry/SurfaceReconstructionPoisson.cpp,73,38,647
+C++,Open3D/cpp/pybind/pipelines/registration/registration.cpp,38,26,641
+C++,Open3D/cpp/pybind/t/geometry/pointcloud.cpp,118,20,633
+C,Open3D/3rdparty/glfw/src/egl_context.c,104,55,627
+C++,Open3D/cpp/open3d/visualization/webrtc_server/PeerConnectionManager.cpp,78,57,614
+C/C++ Header,Open3D/examples/cpp/OnlineSLAMUtil.h,92,46,614
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/util.py,90,150,606
+Python,Open3D/examples/python/visualization/vis_gui.py,96,83,596
+JavaScript,Open3D/cpp/open3d/visualization/webrtc_server/html/webrtcstreamer.js,54,119,593
+C,Open3D/3rdparty/glfw/src/win32_joystick.c,98,66,587
+C++,Open3D/cpp/open3d/pipelines/registration/GlobalOptimization.cpp,68,51,584
+C++,Open3D/cpp/open3d/t/io/NumpyIO.cpp,108,101,580
+C/C++ Header,Open3D/3rdparty/glfw/src/internal.h,94,105,572
+C/C++ Header,Open3D/cpp/open3d/data/Dataset.h,155,542,572
+C/C++ Header,Open3D/3rdparty/glfw/include/GLFW/glfw3.h,241,4712,569
+C/C++ Header,Open3D/cpp/open3d/core/Tensor.h,204,657,568
+C++,Open3D/cpp/open3d/t/pipelines/kernel/RegistrationCPU.cpp,70,39,564
+C,Open3D/3rdparty/glfw/src/wgl_context.c,105,60,563
+C++,Open3D/cpp/open3d/visualization/gui/Layout.cpp,98,23,552
+C++,Open3D/cpp/open3d/utility/FileSystem.cpp,67,26,550
+Python,Open3D/docs/make_docs.py,94,76,545
+C,Open3D/3rdparty/glfw/src/context.c,117,97,544
+C++,Open3D/cpp/tests/core/ParallelFor.cpp,77,6,542
+C++,Open3D/cpp/open3d/core/Indexer.cpp,79,56,541
+C++,Open3D/cpp/benchmarks/t/geometry/PointCloud.cpp,95,29,536
+C++,Open3D/cpp/open3d/visualization/gui/Application.cpp,90,103,535
+Bourne Shell,Open3D/docker/docker_build.sh,60,44,534
+C,Open3D/3rdparty/glfw/src/glx_context.c,107,61,530
+Python,Open3D/python/test/ml_ops/cconv_python.py,173,174,528
+C/C++ Header,Open3D/3rdparty/dirent/dirent/dirent.h,173,218,526
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LapackWrapper.h,45,6,511
+C++,Open3D/cpp/open3d/io/file_format/FileGLTF.cpp,55,30,510
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/SlabHashBackendImpl.h,122,94,509
+CUDA,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvCUDAKernels.cu,62,9,506
+C++,Open3D/cpp/open3d/visualization/rendering/filament/LineSetBuffers.cpp,89,62,499
+C/C++ Header,Open3D/3rdparty/glfw/deps/linmath.h,63,15,496
+C++,Open3D/cpp/open3d/t/geometry/VoxelBlockGrid.cpp,92,34,486
+C++,Open3D/cpp/open3d/t/geometry/BoundingVolume.cpp,82,15,484
+C++,Open3D/cpp/open3d/pipelines/odometry/Odometry.cpp,45,10,483
+C++,Open3D/cpp/open3d/visualization/visualizer/Visualizer.cpp,60,20,480
+C++,Open3D/cpp/pybind/io/class_io.cpp,36,20,479
+C++,Open3D/cpp/open3d/t/geometry/Image.cpp,61,17,478
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/summary.py,76,240,478
+Python,Open3D/python/test/t/geometry/test_trianglemesh.py,136,48,478
+C++,Open3D/cpp/open3d/visualization/gui/PickPointsInteractor.cpp,50,59,477
+C/C++ Header,Open3D/cpp/open3d/ml/ShapeChecking.h,75,127,473
+C,Open3D/3rdparty/glfw/deps/tinycthread.c,67,55,472
+C++,Open3D/cpp/open3d/geometry/TriangleMeshSimplification.cpp,61,39,463
+C++,Open3D/cpp/open3d/pipelines/integration/UniformTSDFVolume.cpp,29,20,458
+C++,Open3D/cpp/open3d/t/geometry/VtkUtils.cpp,63,71,456
+C++,Open3D/cpp/open3d/geometry/EstimateNormals.cpp,60,37,451
+C++,Open3D/examples/cpp/TICPSequential.cpp,108,164,451
+C++,Open3D/cpp/tests/core/HashMap.cpp,109,30,448
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/GeometryMacros.h,21,13,444
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/RegistrationImpl.h,69,16,442
+C,Open3D/3rdparty/glfw/src/win32_init.c,87,66,434
+C/C++ Header,Open3D/cpp/open3d/core/nns/NanoFlannImpl.h,77,190,431
+C++,Open3D/cpp/open3d/t/pipelines/odometry/RGBDOdometry.cpp,68,19,430
+C++,Open3D/cpp/open3d/visualization/gui/GLFWWindowSystem.cpp,72,52,427
+C++,Open3D/cpp/benchmarks/core/HashMap.cpp,95,10,426
+C++,Open3D/cpp/pybind/t/pipelines/registration/registration.cpp,19,18,423
+Python,Open3D/python/open3d/ml/tf/python/layers/convolutions.py,180,213,423
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/VoxelPooling.h,69,76,421
+C/C++ Header,Open3D/3rdparty/glfw/src/mappings.h,4,58,416
+C++,Open3D/cpp/open3d/pipelines/integration/ScalableTSDFVolume.cpp,17,9,416
+C++,Open3D/cpp/tests/core/Linalg.cpp,96,53,416
+C++,Open3D/cpp/pybind/visualization/o3dvisualizer.cpp,12,14,415
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/plugin.py,78,299,415
+Markdown,Open3D/3rdparty/glfw/README.md,51,0,412
+C++,Open3D/cpp/open3d/visualization/visualizer/VisualizerRender.cpp,52,55,407
+C++,Open3D/cpp/open3d/t/geometry/kernel/NPPImage.cpp,43,38,405
+C++,Open3D/cpp/open3d/visualization/webrtc_server/WebRTCWindowSystem.cpp,50,47,404
+C++,Open3D/cpp/pybind/geometry/pointcloud.cpp,11,6,402
+Python,Open3D/python/test/visualization/test_tensorboard_plugin.py,39,25,402
+C++,Open3D/cpp/open3d/visualization/rendering/filament/PointCloudBuffers.cpp,52,44,399
+C++,Open3D/cpp/open3d/visualization/visualizer/GuiSettingsView.cpp,47,24,399
+CMake,Open3D/CMakeLists.txt,56,101,398
+C++,Open3D/cpp/open3d/t/io/file_format/FileASSIMP.cpp,38,41,397
+Python,Open3D/python/test/core/test_linalg.py,74,35,397
+CUDA,Open3D/cpp/open3d/t/pipelines/kernel/RegistrationCUDA.cu,60,23,394
+YAML,Open3D/.github/workflows/windows.yml,38,17,393
+C++,Open3D/cpp/tests/core/MemoryManager.cpp,142,8,393
+Bourne Shell,Open3D/util/ci_utils.sh,27,38,393
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/FillInLinearSystemImpl.h,60,30,387
+Python,Open3D/python/test/ml_ops/test_sparseconv.py,91,40,386
+C++,Open3D/cpp/tests/io/PointCloudIO.cpp,53,45,385
+C++,Open3D/cpp/open3d/visualization/gui/ImguiFilamentBridge.cpp,63,54,382
+C++,Open3D/cpp/open3d/visualization/rendering/Open3DScene.cpp,62,36,382
+C/C++ Header,Open3D/cpp/open3d/core/Indexer.h,84,199,380
+CUDA,Open3D/cpp/open3d/t/pipelines/kernel/RGBDOdometryCUDA.cu,61,11,378
+C++,Open3D/cpp/tests/t/pipelines/registration/Registration.cpp,75,69,378
+C++,Open3D/cpp/open3d/io/rpc/RemoteFunctions.cpp,45,10,377
+C++,Open3D/cpp/open3d/visualization/shader/GeometryRenderer.cpp,48,8,377
+Python,Open3D/python/open3d/ml/torch/python/layers/convolutions.py,164,199,377
+C++,Open3D/cpp/pybind/t/geometry/boundingvolume.cpp,24,8,376
+C++,Open3D/cpp/open3d/t/pipelines/registration/Registration.cpp,57,37,375
+C++,Open3D/cpp/open3d/utility/Eigen.cpp,34,15,375
+Python,Open3D/examples/python/visualization/online_processing.py,69,93,374
+C++,Open3D/cpp/open3d/visualization/gui/TreeView.cpp,70,61,373
+C,Open3D/3rdparty/glfw/src/win32_monitor.c,90,51,372
+C++,Open3D/cpp/tests/geometry/HalfEdgeTriangleMesh.cpp,47,70,372
+Objective-C,Open3D/3rdparty/glfw/src/cocoa_monitor.m,94,61,371
+C/C++ Header,Open3D/cpp/open3d/core/nns/FixedRadiusSearchImpl.h,60,155,371
+C++,Open3D/cpp/tests/t/io/PointCloudIO.cpp,77,34,371
+C,Open3D/3rdparty/glfw/src/x11_monitor.c,87,50,367
+C++,Open3D/cpp/open3d/core/hashmap/HashMap.cpp,75,8,363
+C++,Open3D/cpp/open3d/core/kernel/BinaryEWCPU.cpp,23,12,363
+C++,Open3D/cpp/open3d/t/geometry/kernel/VoxelBlockGrid.cpp,23,6,360
+C/C++ Header,Open3D/cpp/open3d/io/rpc/Messages.h,73,117,359
+C++,Open3D/cpp/tests/t/geometry/VoxelBlockGrid.cpp,80,27,355
+Python,Open3D/python/test/ml_ops/test_cconv.py,48,26,355
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentView.cpp,60,51,354
+C++,Open3D/cpp/open3d/pipelines/color_map/NonRigidOptimizer.cpp,30,19,353
+C++,Open3D/cpp/open3d/io/file_format/FileASSIMP.cpp,61,51,351
+C++,Open3D/cpp/open3d/core/MemoryManagerCached.cpp,101,64,349
+C++,Open3D/cpp/open3d/t/io/file_format/FilePLY.cpp,56,19,349
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/PeerConnectionManager.h,44,65,349
+Python,Open3D/examples/python/t_reconstruction_system/dense_slam_gui.py,90,33,348
+CUDA,Open3D/cpp/open3d/core/kernel/UnaryEWCUDA.cu,29,17,346
+C/C++ Header,Open3D/cpp/open3d/geometry/TriangleMesh.h,101,418,346
+C++,Open3D/cpp/open3d/geometry/Image.cpp,41,10,345
+C++,Open3D/cpp/pybind/t/geometry/raycasting_scene.cpp,97,7,345
+C++,Open3D/cpp/open3d/visualization/visualizer/ViewControl.cpp,45,21,342
+C++,Open3D/cpp/tests/core/FixedRadiusIndex.cpp,53,46,342
+Objective-C,Open3D/3rdparty/glfw/src/cocoa_joystick.m,69,52,341
+C++,Open3D/cpp/pybind/utility/eigen.cpp,45,61,341
+C++,Open3D/cpp/tests/geometry/Octree.cpp,44,26,340
+C,Open3D/3rdparty/glfw/src/monitor.c,103,66,339
+C++,Open3D/cpp/open3d/visualization/gui/FileDialog.cpp,51,32,339
+C++,Open3D/cpp/open3d/visualization/visualizer/GuiSettingsModel.cpp,46,14,339
+CUDA,Open3D/cpp/open3d/core/nns/kernel/Select.cuh,101,132,338
+C++,Open3D/cpp/open3d/core/kernel/UnaryEWCPU.cpp,31,12,334
+C++,Open3D/cpp/tools/ManuallyAlignPointCloud/VisualizerForAlignment.cpp,13,9,332
+C++,Open3D/cpp/open3d/visualization/visualizer/VisualizerCallback.cpp,13,7,331
+C++,Open3D/cpp/tests/utility/FileSystem.cpp,127,87,331
+CMake,Open3D/3rdparty/vtk/vtk_build.cmake,13,2,329
+C++,Open3D/cpp/tests/geometry/LineSet.cpp,124,10,329
+C++,Open3D/cpp/open3d/geometry/BoundingVolume.cpp,50,6,328
+C++,Open3D/cpp/open3d/t/pipelines/kernel/RGBDOdometryCPU.cpp,55,14,328
+C++,Open3D/cpp/tests/core/TensorList.cpp,69,29,327
+C/C++ Header,Open3D/3rdparty/glfw/src/x11_platform.h,57,61,326
+C++,Open3D/cpp/tests/geometry/TetraMesh.cpp,121,25,325
+C++,Open3D/cpp/open3d/io/rpc/MessageUtils.cpp,42,19,323
+C++,Open3D/cpp/open3d/visualization/shader/PhongShader.cpp,21,15,320
+C++,Open3D/cpp/pybind/geometry/octree.cpp,19,15,316
+Python,Open3D/python/tools/cli.py,49,10,316
+C++,Open3D/cpp/open3d/geometry/TriangleMeshSubdivide.cpp,35,10,315
+C++,Open3D/cpp/open3d/pipelines/registration/Registration.cpp,30,14,315
+C++,Open3D/cpp/pybind/t/geometry/image.cpp,21,26,315
+CUDA,Open3D/cpp/open3d/core/nns/kernel/MergeNetwork.cuh,83,155,314
+Python,Open3D/util/check_style.py,71,62,314
+CUDA,Open3D/cpp/open3d/core/kernel/BinaryEWCUDA.cu,24,15,312
+C/C++ Header,Open3D/cpp/open3d/pipelines/integration/MarchingCubesConst.h,8,8,312
+C++,Open3D/cpp/pybind/ml/contrib/contrib_subsample.cpp,25,22,312
+C/C++ Header,Open3D/3rdparty/glfw/deps/nuklear_glfw_gl2.h,42,28,311
+CMake,Open3D/cmake/Open3DISPC.cmake,74,144,309
+C++,Open3D/cpp/open3d/geometry/VoxelGrid.cpp,36,14,309
+C++,Open3D/cpp/pybind/docstring.cpp,36,43,308
+C++,Open3D/cpp/open3d/t/pipelines/registration/TransformationEstimation.cpp,61,31,305
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/StdGPUHashBackend.h,76,44,304
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/VoxelBlockGrid.h,30,7,304
+C++,Open3D/cpp/pybind/pipelines/registration/global_optimization.cpp,15,12,304
+C++,Open3D/cpp/open3d/visualization/shader/TexturePhongShader.cpp,41,17,302
+C++,Open3D/cpp/tests/t/geometry/LineSet.cpp,81,26,302
+Bourne Shell,Open3D/docker/docker_test.sh,27,45,299
+SVG,Open3D/cpp/apps/Open3DViewer/documentIcon.svg,1,1,298
+C++,Open3D/cpp/open3d/pipelines/registration/FastGlobalRegistration.cpp,46,24,297
+C,Open3D/3rdparty/glfw/src/linux_joystick.c,77,62,295
+C++,Open3D/cpp/open3d/visualization/visualizer/ViewControlWithCustomAnimation.cpp,24,10,295
+C++,Open3D/cpp/open3d/io/file_format/FileOBJ.cpp,54,40,293
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/ImageImpl.h,44,13,293
+C++,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeOps.cpp,27,11,292
+C++,Open3D/cpp/pybind/t/io/sensor.cpp,26,14,291
+C++,Open3D/cpp/tests/core/NearestNeighborSearch.cpp,51,39,290
+C++,Open3D/cpp/open3d/core/kernel/ReductionCPU.cpp,27,21,288
+C++,Open3D/cpp/open3d/geometry/TetraMesh.cpp,42,15,288
+Objective-C,Open3D/3rdparty/glfw/src/cocoa_init.m,50,38,286
+C/C++ Header,Open3D/3rdparty/glfw/src/win32_platform.h,58,62,284
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/CoordinateTransformation.h,46,77,284
+C++,Open3D/cpp/open3d/t/io/file_format/FilePTS.cpp,29,23,284
+C/C++ Header,Open3D/cpp/open3d/t/geometry/TriangleMesh.h,97,577,282
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/RGBDOdometryJacobianImpl.h,47,14,282
+C++,Open3D/cpp/open3d/t/pipelines/slac/SLACOptimizer.cpp,67,70,282
+C++,Open3D/examples/cpp/OpenMP.cpp,33,13,282
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/GeometryIndexer.h,47,37,281
+Python,Open3D/examples/python/open3d_example.py,62,9,280
+Python,Open3D/python/test/ml_ops/test_fixed_radius_search.py,55,26,278
+CUDA,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvCUDAKernels.cu,34,7,277
+C++,Open3D/cpp/open3d/pipelines/color_map/ColorMapUtils.cpp,17,17,277
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentScene.h,37,29,277
+Jupyter Notebook,Open3D/docs/jupyter/t_pipelines/t_icp_registration.ipynb,0,1011,277
+C,Open3D/3rdparty/glfw/src/osmesa_context.c,57,37,276
+C++,Open3D/cpp/open3d/visualization/visualizer/MessageProcessor.cpp,18,8,276
+Python,Open3D/examples/python/visualization/all_widgets.py,79,116,276
+CUDA,Open3D/cpp/open3d/core/nns/KnnSearchOps.cu,32,19,274
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentCamera.cpp,55,15,274
+C++,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithCustomAnimation.cpp,16,10,273
+C++,Open3D/cpp/open3d/t/io/sensor/realsense/RealSenseSensor.cpp,17,10,272
+YAML,Open3D/.github/workflows/macos.yml,27,24,269
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentRenderer.cpp,66,28,269
+C++,Open3D/cpp/pybind/visualization/gui/events.cpp,9,6,268
+C++,Open3D/cpp/pybind/visualization/visualizer.cpp,13,7,266
+Python,Open3D/examples/python/visualization/non_english.py,74,127,265
+C++,Open3D/cpp/pybind/geometry/image.cpp,11,7,263
+C++,Open3D/cpp/tests/core/KnnIndex.cpp,39,33,263
+C++,Open3D/cpp/tests/t/pipelines/odometry/RGBDOdometry.cpp,39,6,263
+C++,Open3D/cpp/open3d/core/CUDAUtils.cpp,52,18,262
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/AzureKinectSensor.cpp,40,16,262
+CMake,Open3D/3rdparty/cmake/FindLAPACKE.cmake,33,127,261
+C++,Open3D/cpp/pybind/core/hashmap.cpp,34,6,258
+CUDA,Open3D/cpp/open3d/ml/impl/continuous_conv/CoordinateTransformation.cuh,37,84,257
+C++,Open3D/cpp/open3d/visualization/gui/UIImage.cpp,24,12,257
+Jupyter Notebook,Open3D/docs/jupyter/geometry/mesh.ipynb,0,428,257
+Python,Open3D/examples/python/visualization/draw.py,56,14,257
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvTransposeBackpropFilter.h,38,92,256
+CUDA,Open3D/cpp/open3d/t/geometry/kernel/VoxelBlockGridCUDA.cu,42,11,256
+Python,Open3D/python/test/core/test_tensor_function.py,73,36,254
+CMake,Open3D/3rdparty/glfw/CMakeLists.txt,73,85,253
+C/C++ Header,Open3D/3rdparty/glfw/src/wl_platform.h,51,36,252
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/AzureKinectSensorConfig.cpp,34,15,251
+C++,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvOps.cpp,27,11,251
+C++,Open3D/cpp/open3d/visualization/utility/SelectionPolygon.cpp,18,9,251
+C++,Open3D/cpp/pybind/t/pipelines/slac/slac.cpp,12,7,250
+C++,Open3D/cpp/tests/geometry/RGBDImage.cpp,45,11,250
+CSS,Open3D/python/open3d/visualization/tensorboard_plugin/frontend/style.css,61,47,250
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvBackpropFilter.h,40,81,248
+C++,Open3D/cpp/open3d/t/io/TriangleMeshIO.cpp,23,32,247
+C++,Open3D/cpp/open3d/t/io/file_format/FileTXT.cpp,24,11,247
+C++,Open3D/cpp/open3d/t/pipelines/slac/ControlGrid.cpp,57,24,246
+C++,Open3D/cpp/pybind/t/pipelines/odometry/odometry.cpp,15,10,246
+C++,Open3D/cpp/pybind/visualization/utility.cpp,12,7,246
+C,Open3D/3rdparty/glfw/src/vulkan.c,52,33,244
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvTranspose.h,34,91,244
+C++,Open3D/cpp/pybind/t/geometry/lineset.cpp,47,16,244
+Python,Open3D/python/test/t/geometry/test_raycasting_scene.py,90,30,242
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConv.h,37,85,241
+C++,Open3D/cpp/open3d/t/geometry/kernel/UVUnwrapping.cpp,34,27,241
+C++,Open3D/cpp/open3d/t/pipelines/kernel/Registration.cpp,43,23,241
+C++,Open3D/cpp/open3d/visualization/utility/DrawGeometry.cpp,13,6,241
+C++,Open3D/cpp/pybind/pipelines/registration/robust_kernels.cpp,44,18,241
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/IoUImpl.h,42,23,238
+C++,Open3D/cpp/tests/t/geometry/OrientedBoundingBox.cpp,72,18,238
+C/C++ Header,Open3D/3rdparty/tomasakeninemoeller/include/tomasakeninemoeller/opttritri.h,43,41,237
+C++,Open3D/cpp/open3d/visualization/visualizer/RenderOption.cpp,26,6,237
+C++,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeOps.cpp,24,10,235
+CUDA,Open3D/cpp/open3d/ml/contrib/RoiPoolKernel.cu,40,61,234
+C++,Open3D/cpp/open3d/t/geometry/TriangleMeshFactory.cpp,46,10,234
+C++,Open3D/cpp/open3d/t/geometry/kernel/IPPImage.cpp,28,36,233
+C++,Open3D/cpp/open3d/core/ShapeUtil.cpp,28,31,232
+C,Open3D/3rdparty/glfw/src/null_window.c,61,30,230
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/SlabHashBackend.h,51,16,230
+C++,Open3D/cpp/open3d/visualization/gui/BitmapWindowSystem.cpp,64,22,230
+Jupyter Notebook,Open3D/docs/jupyter/t_geometry/pointcloud.ipynb,0,594,230
+C++,Open3D/cpp/tests/t/geometry/AxisAlignedBoundingBox.cpp,80,28,228
+C++,Open3D/cpp/open3d/geometry/HalfEdgeTriangleMesh.cpp,33,26,227
+C++,Open3D/cpp/open3d/t/io/sensor/realsense/RealSenseSensorConfig.cpp,28,17,227
+C++,Open3D/cpp/open3d/visualization/gui/MenuImgui.cpp,44,32,226
+C++,Open3D/cpp/open3d/visualization/shader/RGBDImageShader.cpp,34,18,226
+Python,Open3D/python/open3d/ml/tf/python/ops/gradients.py,40,11,226
+C++,Open3D/cpp/pybind/geometry/kdtreeflann.cpp,10,29,225
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeOps.cpp,54,15,224
+C++,Open3D/cpp/pybind/t/io/class_io.cpp,25,13,223
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentGeometryBuffersBuilder.cpp,37,18,222
+C++,Open3D/cpp/pybind/geometry/voxelgrid.cpp,8,6,222
+C++,Open3D/cpp/open3d/t/geometry/kernel/VoxelBlockGridCPU.cpp,38,9,221
+C++,Open3D/cpp/tests/geometry/AxisAlignedBoundingBox.cpp,45,10,221
+Objective-C,Open3D/3rdparty/glfw/src/nsgl_context.m,61,56,218
+C++,Open3D/cpp/benchmarks/t/pipelines/registration/Registration.cpp,43,19,218
+C,Open3D/3rdparty/glfw/src/init.c,56,49,217
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Material.h,38,71,217
+Python,Open3D/python/test/ml_ops/mltest.py,43,28,217
+C++,Open3D/examples/cpp/Draw.cpp,29,11,215
+Python,Open3D/python/test/t/geometry/test_tensormap.py,48,51,215
+C++,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvOps.cpp,24,10,214
+C++,Open3D/cpp/open3d/visualization/gui/Util.cpp,15,14,212
+C++,Open3D/cpp/open3d/io/PointCloudIO.cpp,21,6,211
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvOps.cpp,57,17,211
+C++,Open3D/cpp/open3d/core/nns/FixedRadiusIndex.cpp,40,10,209
+C++,Open3D/cpp/open3d/pipelines/registration/ColoredICP.cpp,31,10,209
+C++,Open3D/cpp/open3d/visualization/shader/ImageShader.cpp,26,19,209
+C++,Open3D/cpp/tests/core/TensorObject.cpp,52,21,209
+C/C++ Header,Open3D/cpp/open3d/t/geometry/PointCloud.h,80,419,208
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/GeometryRenderer.h,56,14,208
+Jupyter Notebook,Open3D/docs/jupyter/core/tensor.ipynb,0,1037,208
+C++,Open3D/cpp/tests/core/Indexer.cpp,43,10,207
+Python,Open3D/examples/python/benchmark/benchmark_nns.py,43,14,207
+C/C++ Header,Open3D/cpp/open3d/core/linalg/kernel/Matrix.h,24,10,206
+C++,Open3D/cpp/pybind/io/rpc.cpp,20,7,206
+C++,Open3D/cpp/open3d/visualization/shader/TextureSimpleShader.cpp,34,18,205
+Python,Open3D/python/test/ml_ops/test_cconv_python.py,42,19,205
+C++,Open3D/cpp/open3d/t/io/ImageIO.cpp,25,19,204
+C++,Open3D/cpp/pybind/geometry/geometry.cpp,17,11,204
+C++,Open3D/cpp/tests/core/TensorFunction.cpp,64,57,204
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/K4aPlugin.h,84,10,203
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeBackpropFilterOps.cpp,50,16,203
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/registration/TransformationEstimation.h,41,204,203
+C++,Open3D/cpp/tests/t/pipelines/slac/SLAC.cpp,44,30,203
+Python,Open3D/python/test/io/rpc/test_serialization.py,25,22,202
+YAML,Open3D/.github/workflows/ubuntu-wheel.yml,6,5,200
+CUDA,Open3D/cpp/open3d/core/nns/FixedRadiusSearchOps.cu,31,10,200
+C++,Open3D/cpp/open3d/pipelines/color_map/RigidOptimizer.cpp,20,16,199
+C++,Open3D/cpp/open3d/io/TriangleMeshIO.cpp,25,18,198
+C++,Open3D/cpp/open3d/ml/pytorch/misc/VoxelPoolingOps.cpp,22,8,198
+C++,Open3D/cpp/tests/utility/Eigen.cpp,60,18,198
+C++,Open3D/cpp/tools/ManuallyAlignPointCloud/ManuallyAlignPointCloud.cpp,17,9,198
+Python,Open3D/python/test/ml/test_contrib_subsample.py,22,19,198
+C++,Open3D/cpp/tools/ViewGeometry.cpp,13,8,197
+C++,Open3D/examples/cpp/RealSenseBagReader.cpp,27,11,196
+C++,Open3D/examples/cpp/Visualizer.cpp,17,8,196
+Python,Open3D/examples/python/reconstruction_system/opencv_pose_estimation.py,34,28,196
+C++,Open3D/cpp/open3d/geometry/KDTreeFlann.cpp,22,17,195
+C++,Open3D/cpp/open3d/geometry/Line3D.cpp,53,143,195
+C++,Open3D/cpp/open3d/visualization/shader/NormalShader.cpp,17,14,195
+C++,Open3D/cpp/open3d/t/pipelines/kernel/RGBDOdometry.cpp,31,9,194
+Python,Open3D/python/open3d/visualization/draw_plotly.py,34,7,194
+Python,Open3D/python/test/ml_ops/test_general_sparseconv.py,31,11,194
+Python,Open3D/examples/python/reconstruction_system/refine_registration.py,30,12,192
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/SlabNodeManager.h,33,55,191
+C++,Open3D/cpp/open3d/geometry/PointCloudSegmentation.cpp,36,31,191
+C++,Open3D/cpp/open3d/io/file_format/FileOFF.cpp,25,6,191
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/FeatureImpl.h,22,10,191
+C++,Open3D/cpp/pybind/pipelines/odometry/odometry.cpp,22,12,191
+C++,Open3D/cpp/tests/t/io/ImageIO.cpp,39,10,190
+C,Open3D/3rdparty/liblzf/liblzf/lzf_c.c,43,67,189
+C++,Open3D/cpp/open3d/io/rpc/ZMQReceiver.cpp,24,7,189
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/slac/FillInLinearSystemImpl.h,36,16,189
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Events.h,18,13,188
+CUDA,Open3D/cpp/open3d/core/nns/kernel/L2Select.cuh,38,44,187
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/TensorFlowHelper.h,19,79,187
+CMake,Open3D/cpp/pybind/CMakeLists.txt,27,38,187
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvBackpropFilterOps.cpp,47,16,186
+C++,Open3D/cpp/open3d/t/geometry/LineSet.cpp,24,6,186
+C++,Open3D/cpp/open3d/t/pipelines/slac/Visualization.cpp,40,10,186
+C++,Open3D/cpp/pybind/t/geometry/voxel_block_grid.cpp,24,7,186
+Python,Open3D/python/test/ml_ops/test_knn_search.py,41,17,186
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/PointCloud.h,39,6,185
+C++,Open3D/cpp/open3d/t/io/sensor/realsense/RSBagReader.cpp,19,16,185
+C,Open3D/3rdparty/glfw/src/mir_init.c,26,30,184
+C++,Open3D/cpp/open3d/core/AdvancedIndexing.cpp,22,41,184
+C++,Open3D/cpp/open3d/geometry/PointCloudFactory.cpp,12,6,184
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeBackpropFilterOpKernel.h,37,6,184
+C++,Open3D/examples/cpp/TriangleMesh.cpp,10,9,183
+CUDA,Open3D/cpp/open3d/core/nns/kernel/DistancesUtils.cuh,79,48,182
+C/C++ Header,Open3D/cpp/open3d/geometry/Octree.h,54,190,182
+C++,Open3D/cpp/pybind/pipelines/integration/integration.cpp,19,12,182
+Python,Open3D/python/test/ml_ops/test_radius_search.py,39,18,182
+CUDA,Open3D/cpp/open3d/ml/impl/misc/InvertNeighborsList.cuh,35,96,181
+C++,Open3D/cpp/tests/test_utility/Rand.cpp,47,70,181
+C++,Open3D/cpp/open3d/core/SYCLUtils.cpp,28,24,180
+Markdown,Open3D/3rdparty/README.md,14,0,179
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/TorchHelper.h,22,32,179
+C++,Open3D/examples/cpp/TICP.cpp,42,50,179
+Python,Open3D/examples/cpp/registration_example_util/download_kitti.py,37,20,178
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CPU/TBBHashBackend.h,48,12,176
+C++,Open3D/cpp/open3d/geometry/IntersectionTest.cpp,16,10,176
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/SimpleShader.h,32,6,176
+HTML,Open3D/cpp/open3d/visualization/webrtc_server/html/index.html,26,0,176
+C++,Open3D/cpp/pybind/core/tensor_converter.cpp,19,42,176
+C/C++ Header,Open3D/cpp/open3d/core/linalg/BlasWrapper.h,13,6,175
+C++,Open3D/cpp/open3d/geometry/Geometry3D.cpp,25,9,175
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeOpKernel.h,36,8,175
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/FixedRadiusSearchOps.cpp,40,7,175
+C++,Open3D/cpp/open3d/t/io/PointCloudIO.cpp,22,8,175
+C++,Open3D/cpp/open3d/visualization/gui/WidgetProxy.cpp,26,6,175
+C++,Open3D/cpp/pybind/core/tensor_accessor.cpp,27,32,175
+C++,Open3D/cpp/open3d/pipelines/registration/Feature.cpp,15,18,174
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentEntitiesMods.cpp,40,7,174
+Python,Open3D/examples/python/visualization/mitsuba_material_estimation.py,33,29,174
+YAML,Open3D/.github/workflows/ubuntu-cuda.yml,10,4,173
+C++,Open3D/cpp/tools/ConvertPointCloud.cpp,17,14,173
+C++,Open3D/cpp/pybind/pipelines/color_map/color_map.cpp,11,6,171
+C++,Open3D/cpp/tests/io/rpc/RemoteFunctions.cpp,35,22,171
+Python,Open3D/python/test/t/registration/test_registration.py,52,10,171
+C/C++ Header,Open3D/3rdparty/glfw/src/egl_context.h,18,31,170
+C++,Open3D/cpp/tests/core/TensorCheck.cpp,19,15,170
+CUDA,Open3D/cpp/open3d/core/nns/kernel/BlockMerge.cuh,52,84,169
+C++,Open3D/cpp/open3d/visualization/gui/Events.cpp,15,6,169
+Python,Open3D/examples/python/t_reconstruction_system/common.py,47,23,169
+C++,Open3D/cpp/open3d/core/TensorKey.cpp,22,6,168
+CMake,Open3D/cpp/open3d/ml/tensorflow/CMakeLists.txt,28,8,167
+C/C++ Header,Open3D/cpp/open3d/core/Scalar.h,17,27,166
+Dockerfile,Open3D/docker/Dockerfile.ci,21,39,166
+C++,Open3D/examples/cpp/TIntegrateRGBD.cpp,31,13,166
+CMake,Open3D/cpp/open3d/CMakeLists.txt,27,21,165
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelPoolingOps.cpp,35,9,165
+C++,Open3D/examples/cpp/OfflineSLAM.cpp,23,22,165
+Python,Open3D/examples/python/reconstruction_system/register_fragments.py,29,9,165
+Python,Open3D/examples/python/visualization/tensorboard_tensorflow.py,20,18,165
+C++,Open3D/cpp/open3d/io/file_format/FileJPG.cpp,15,10,164
+C++,Open3D/cpp/open3d/geometry/SurfaceReconstructionAlphaShape.cpp,16,10,163
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/VideoScaler.h,19,18,163
+C++,Open3D/cpp/benchmarks/t/pipelines/odometry/RGBDOdometry.cpp,28,8,162
+C++,Open3D/cpp/open3d/core/nns/NanoFlannIndex.cpp,32,8,162
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvBackpropFilterOpKernel.h,33,6,162
+C++,Open3D/cpp/open3d/utility/ExtractZIP.cpp,31,18,162
+C++,Open3D/cpp/open3d/utility/IJsonConvertible.cpp,23,6,162
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Scene.h,23,14,162
+C++,Open3D/cpp/open3d/visualization/visualizer/O3DVisualizerSelections.cpp,34,7,162
+C++,Open3D/examples/cpp/RegistrationRANSAC.cpp,25,12,162
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/RadiusSearchOpKernel.cpp,23,8,161
+reStructuredText,Open3D/docs/contribute/contribution_recipes.rst,58,56,161
+C++,Open3D/cpp/open3d/geometry/TriangleMeshDeformation.cpp,15,14,160
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/pointnet/InterpolateOpKernel.h,27,6,160
+CMake,Open3D/3rdparty/mkl/mkl.cmake,8,30,159
+CMake,Open3D/cpp/open3d/ml/pytorch/CMakeLists.txt,25,2,158
+reStructuredText,Open3D/docs/tutorial/data/index.rst,306,574,158
+Markdown,Open3D/.github/workflows/README.md,37,0,157
+C/C++ Header,Open3D/cpp/open3d/geometry/PointCloud.h,48,268,157
+C++,Open3D/cpp/open3d/ml/pytorch/misc/FixedRadiusSearchOps.cpp,13,10,157
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/KnnSearchOpKernel.cpp,23,8,157
+C++,Open3D/cpp/open3d/pipelines/registration/PoseGraph.cpp,23,6,157
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentRenderToBuffer.cpp,35,19,157
+C++,Open3D/cpp/pybind/geometry/boundingvolume.cpp,10,6,157
+C++,Open3D/cpp/open3d/t/geometry/TensorMap.cpp,19,9,156
+C/C++ Header,Open3D/cpp/open3d/utility/MiniVec.h,27,8,156
+C++,Open3D/cpp/open3d/visualization/gui/Combobox.cpp,34,6,156
+C++,Open3D/cpp/open3d/visualization/rendering/LightDirectionInteractorLogic.cpp,27,13,156
+Jupyter Notebook,Open3D/docs/jupyter/geometry/pointcloud.ipynb,0,379,156
+C++,Open3D/examples/cpp/OnlineSLAMRGBD.cpp,27,13,156
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/Voxelize.h,24,65,155
+C/C++ Header,Open3D/cpp/open3d/utility/Logging.h,30,76,155
+C++,Open3D/cpp/open3d/visualization/shader/SimpleBlackShader.cpp,18,14,155
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/O3DVisualizer.h,48,19,155
+C++,Open3D/cpp/tests/camera/PinholeCameraIntrinsic.cpp,79,6,154
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvOpKernel.h,31,6,153
+C++,Open3D/cpp/tests/core/ShapeUtil.cpp,24,22,153
+C/C++ Header,Open3D/3rdparty/glfw/deps/vs2008/stdint.h,40,55,152
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/PluginMacros.h,33,31,152
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/registration/RobustKernelImpl.h,7,20,152
+Python,Open3D/examples/python/reconstruction_system/make_fragments.py,24,11,152
+C++,Open3D/cpp/open3d/t/pipelines/kernel/FillInLinearSystem.cpp,18,6,151
+Objective-C++,Open3D/cpp/open3d/visualization/gui/MenuMacOS.mm,34,26,151
+C++,Open3D/examples/cpp/AzureKinectMKVReader.cpp,27,8,151
+C++,Open3D/examples/cpp/SLACIntegrate.cpp,26,16,151
+JavaScript,Open3D/python/js/lib/web_visualizer.js,21,34,151
+C++,Open3D/cpp/open3d/io/file_format/FilePTS.cpp,17,14,150
+C++,Open3D/cpp/open3d/ml/contrib/GridSubsampling.cpp,40,61,150
+CUDA,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvTransposeBackpropFilter.cuh,27,113,150
+C++,Open3D/cpp/open3d/visualization/shader/ImageMaskShader.cpp,21,14,150
+YAML,Open3D/.github/workflows/webrtc.yml,24,3,149
+C/C++ Header,Open3D/cpp/open3d/core/nns/FixedRadiusIndex.h,22,290,149
+C++,Open3D/cpp/open3d/geometry/LineSetFactory.cpp,18,10,149
+C/C++ Header,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvTransposeBackpropFilter.h,28,59,149
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/TransformImpl.h,19,6,149
+C++,Open3D/examples/cpp/RealSenseRecorder.cpp,20,14,149
+C++,Open3D/cpp/open3d/geometry/Qhull.cpp,30,9,148
+Python,Open3D/examples/python/visualization/tensorboard_pytorch.py,20,19,148
+Python,Open3D/python/test/core/test_nn.py,35,11,148
+C++,Open3D/cpp/open3d/visualization/gui/NumberEdit.cpp,30,10,147
+reStructuredText,Open3D/docs/compilation.rst,140,161,147
+reStructuredText,Open3D/docs/tutorial/visualization/web_visualizer.rst,75,61,147
+C++,Open3D/examples/cpp/EvaluatePCDMatch.cpp,11,8,147
+Python,Open3D/python/test/core/test_hashmap.py,41,6,147
+C/C++ Header,Open3D/cpp/open3d/core/TensorList.h,49,133,146
+C/C++ Header,Open3D/cpp/open3d/geometry/VoxelGrid.h,40,112,146
+C++,Open3D/cpp/open3d/geometry/VoxelGridFactory.cpp,13,8,146
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/RenderOption.h,24,40,146
+Python,Open3D/examples/python/t_reconstruction_system/config.py,19,11,146
+C,Open3D/3rdparty/glfw/src/mir_monitor.c,36,37,145
+C/C++ Header,Open3D/cpp/apps/OfflineReconstruction/Config.h,24,14,145
+CUDA,Open3D/cpp/open3d/core/nns/kernel/BlockSelectFloat32.cu,22,30,145
+CUDA,Open3D/cpp/open3d/core/nns/kernel/BlockSelectFloat64.cu,22,30,145
+C++,Open3D/cpp/open3d/visualization/rendering/MatrixInteractorLogic.cpp,32,42,145
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/Visualizer.h,51,135,145
+Jupyter Notebook,Open3D/docs/jupyter/geometry/voxelization.ipynb,0,163,145
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/ragged_tensor/RaggedTensor.h,29,30,144
+C++,Open3D/cpp/open3d/t/pipelines/kernel/TransformationConverter.cpp,29,13,144
+C++,Open3D/cpp/benchmarks/core/BinaryEW.cpp,30,18,143
+C++,Open3D/cpp/open3d/core/EigenConverter.cpp,27,24,143
+CUDA,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvTransposeBackpropFilter.cuh,27,80,143
+Python,Open3D/examples/python/reconstruction_system/sensors/realsense_recorder.py,34,32,143
+Python,Open3D/python/setup.py,23,20,143
+Objective-C++,Open3D/cpp/apps/Open3DViewer/Open3DViewer_mac.mm,25,66,142
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/KnnSearchOps.cpp,33,7,142
+C++,Open3D/cpp/open3d/ml/tensorflow/pvcnn/TrilinearDevoxelizeOps.cpp,40,6,142
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Layout.h,43,45,142
+C++,Open3D/cpp/open3d/visualization/utility/SelectionPolygonVolume.cpp,13,6,142
+C++,Open3D/cpp/pybind/t/pipelines/slam/slam.cpp,18,6,142
+C/C++ Header,Open3D/cpp/open3d/core/ParallelFor.h,31,92,141
+C++,Open3D/cpp/open3d/core/TensorList.cpp,29,23,141
+C++,Open3D/cpp/open3d/visualization/visualizer/ViewTrajectory.cpp,24,16,141
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/pvcnn/TrilinearDevoxelizeKernel.h,22,6,140
+C++,Open3D/cpp/open3d/utility/Download.cpp,30,18,140
+Python,Open3D/python/test/t/geometry/test_pointcloud.py,39,16,140
+CUDA,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvTranspose.cuh,27,15,139
+Python,Open3D/examples/python/t_reconstruction_system/integrate_custom.py,38,15,139
+Python,Open3D/examples/python/visualization/demo_scene.py,18,18,139
+YAML,Open3D/.github/workflows/ubuntu-openblas.yml,7,4,138
+C/C++ Header,Open3D/3rdparty/glfw/deps/tinycthread.h,55,250,138
+C/C++ Header,Open3D/cpp/open3d/io/PointCloudIO.h,27,64,138
+Python,Open3D/examples/python/t_reconstruction_system/rgbd_odometry.py,38,21,138
+C++,Open3D/cpp/open3d/geometry/ImageFactory.cpp,10,8,137
+Python,Open3D/python/open3d/ml/tf/python/layers/neighbor_search.py,79,161,137
+C++,Open3D/cpp/open3d/core/nns/NearestNeighborSearch.cpp,21,6,136
+C++,Open3D/cpp/open3d/io/file_format/FileXYZ.cpp,16,7,136
+CUDA,Open3D/cpp/open3d/ml/contrib/TrilinearDevoxelize.cu,14,30,136
+C++,Open3D/cpp/pybind/t/geometry/tensormap.cpp,33,46,136
+C,Open3D/3rdparty/glfw/src/wl_monitor.c,36,37,135
+C,Open3D/3rdparty/liblzf/liblzf/lzf_d.c,21,37,135
+C/C++ Header,Open3D/cpp/open3d/t/geometry/TensorMap.h,35,48,135
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/TriangleMeshImpl.h,19,6,135
+C++,Open3D/cpp/open3d/visualization/gui/Button.cpp,26,16,135
+C++,Open3D/cpp/open3d/visualization/gui/ListView.cpp,25,18,135
+Python,Open3D/python/test/test_open3d_eigen.py,22,34,135
+C++,Open3D/cpp/open3d/visualization/shader/Simple2DShader.cpp,16,14,134
+Python,Open3D/python/test/ml_ops/test_ragged_tensor.py,36,27,134
+Python,Open3D/python/test/ml_ops/test_voxelize.py,28,26,134
+C++,Open3D/cpp/benchmarks/core/UnaryEW.cpp,33,24,133
+CUDA,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvBackpropFilter.cuh,26,103,133
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/SceneWidget.h,37,17,133
+Python,Open3D/cpp/pybind/generate_torch_ops_wrapper.py,37,50,133
+C++,Open3D/cpp/tests/t/pipelines/registration/TransformationEstimation.cpp,30,12,133
+CMake,Open3D/3rdparty/glfw/src/CMakeLists.txt,16,13,132
+C++,Open3D/cpp/open3d/visualization/gui/Widget.cpp,38,31,132
+C++,Open3D/cpp/tests/core/NanoFlannIndex.cpp,32,26,132
+C++,Open3D/examples/cpp/PointCloud.cpp,34,33,132
+C++,Open3D/cpp/benchmarks/io/PointCloudIO.cpp,17,14,131
+CUDA,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvTranspose.cuh,27,15,131
+C++,Open3D/cpp/open3d/t/io/file_format/FilePNG.cpp,12,9,131
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentGeometryBuffersBuilder.h,47,31,131
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentResourceManager.h,29,28,131
+C++,Open3D/cpp/pybind/camera/camera.cpp,9,10,131
+C++,Open3D/cpp/pybind/core/linalg.cpp,13,6,131
+Python,Open3D/docs/jupyter/open3d_tutorial.py,17,8,131
+C/C++ Header,Open3D/3rdparty/glfw/src/glx_context.h,17,34,130
+C/C++ Header,Open3D/3rdparty/tomasakeninemoeller/include/tomasakeninemoeller/tribox3.h,30,41,130
+C++,Open3D/cpp/apps/OfflineReconstruction/OfflineReconstruction.cpp,14,10,130
+C++,Open3D/cpp/open3d/core/SizeVector.cpp,26,6,130
+CUDA,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConv.cuh,27,108,130
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/RadiusSearchOps.cpp,35,7,130
+C/C++ Header,Open3D/cpp/open3d/t/geometry/BoundingVolume.h,72,272,130
+Python,Open3D/python/test/ml_ops/particle_network_tf.py,28,24,130
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/RendererHandle.h,36,15,129
+C++,Open3D/cpp/open3d/visualization/shader/ShaderWrapper.cpp,19,8,129
+C++,Open3D/examples/cpp/RegistrationDopplerICP.cpp,34,27,129
+Python,Open3D/python/open3d/ml/torch/python/layers/neighbor_search.py,78,157,129
+C/C++ Header,Open3D/3rdparty/glfw/deps/mingw/xinput.h,32,79,128
+C++,Open3D/cpp/open3d/core/MemoryManagerStatistic.cpp,31,23,128
+C/C++ Header,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvBackpropFilter.h,30,61,128
+C++,Open3D/cpp/open3d/pipelines/registration/GeneralizedICP.cpp,19,20,128
+C++,Open3D/cpp/pybind/io/sensor.cpp,11,10,128
+C/C++ Header,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvTranspose.h,24,54,127
+Python,Open3D/examples/python/visualization/customized_visualization.py,31,18,127
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvOps.cpp,39,10,126
+CMake,Open3D/cpp/open3d/visualization/CMakeLists.txt,17,2,126
+C++,Open3D/cpp/tests/core/CoreTest.cpp,23,12,126
+C++,Open3D/cpp/tests/utility/IJsonConvertible.cpp,40,29,126
+reStructuredText,Open3D/docs/tutorial/sensor/realsense.rst,59,79,126
+CMake,Open3D/cmake/Open3DSetGlobalProperties.cmake,15,57,125
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/MKVReader.cpp,31,7,125
+C++,Open3D/cpp/open3d/pipelines/odometry/RGBDOdometryJacobian.cpp,16,6,125
+C++,Open3D/examples/cpp/AzureKinectRecord.cpp,22,12,125
+Markdown,Open3D/3rdparty/glew/README.md,66,0,124
+CUDA,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvBackpropFilter.cuh,26,70,124
+C/C++ Header,Open3D/cpp/tests/test_utility/Compare.h,28,16,124
+Python,Open3D/examples/python/reconstruction_system/run_system.py,16,9,124
+C++,Open3D/cpp/open3d/core/Device.cpp,20,7,123
+C/C++ Header,Open3D/cpp/open3d/core/nns/MemoryAllocation.h,28,38,123
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/MemoryAllocation.h,28,38,123
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/odometry/RGBDOdometry.h,17,172,123
+C++,Open3D/cpp/open3d/t/pipelines/registration/Feature.cpp,20,12,123
+C++,Open3D/cpp/tests/pipelines/integration/UniformTSDFVolume.cpp,23,29,123
+C/C++ Header,Open3D/cpp/open3d/core/AdvancedIndexing.h,33,51,122
+C++,Open3D/cpp/open3d/t/geometry/kernel/PointCloud.cpp,23,9,122
+C++,Open3D/cpp/open3d/visualization/gui/RadioButton.cpp,21,6,122
+Python,Open3D/examples/python/reconstruction_system/color_map_optimization_for_reconstruction_system.py,28,17,122
+Python,Open3D/python/test/ml_ops/test_invert_neighbors_list.py,24,20,122
+CUDA,Open3D/cpp/open3d/ml/contrib/PointSampling.cuh,14,13,121
+CUDA,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConv.cuh,27,75,121
+C++,Open3D/cpp/open3d/t/io/file_format/FileJPG.cpp,14,9,121
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/ViewControl.h,28,71,121
+Jupyter Notebook,Open3D/docs/jupyter/core/hashmap.ipynb,0,633,121
+C++,Open3D/examples/cpp/MultipleWindows.cpp,24,16,121
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/plugin_data_pb2.py,7,20,121
+CMake,Open3D/cpp/open3d/core/CMakeLists.txt,8,2,120
+CUDA,Open3D/cpp/open3d/core/nns/KnnSearchImpl.cuh,18,7,120
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelizeOps.cpp,31,6,120
+C/C++ Header,Open3D/cpp/open3d/t/geometry/LineSet.h,56,220,120
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/FillInLinearSystem.h,12,6,120
+C++,Open3D/cpp/open3d/visualization/visualizer/ViewControlWithEditing.cpp,10,9,120
+C++,Open3D/examples/cpp/Image.cpp,17,10,120
+CUDA,Open3D/cpp/open3d/ml/contrib/Nms.cu,22,55,119
+C++,Open3D/cpp/open3d/visualization/gui/ImageWidget.cpp,26,8,119
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/GuiSettingsModel.h,33,13,119
+C++,Open3D/cpp/pybind/geometry/halfedgetrianglemesh.cpp,8,7,119
+C++,Open3D/cpp/pybind/geometry/lineset.cpp,6,6,119
+C++,Open3D/examples/cpp/OnlineSLAMRealSense.cpp,21,12,119
+Python,Open3D/examples/python/pipelines/registration_ransac.py,20,10,119
+CMake,Open3D/cpp/apps/CMakeLists.txt,14,12,118
+CUDA,Open3D/cpp/open3d/core/nns/kernel/BlockSelect.cuh,28,36,118
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/BuildSpatialHashTableOps.cpp,34,7,118
+C/C++ Header,Open3D/cpp/open3d/utility/Helper.h,30,37,118
+CUDA,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeOpKernel.cu,11,8,117
+C/C++ Header,Open3D/cpp/apps/OfflineReconstruction/FileSystemUtil.h,21,6,116
+C/C++ Header,Open3D/cpp/open3d/core/CUDAUtils.h,57,119,116
+C/C++ Header,Open3D/cpp/open3d/core/Dispatch.h,7,23,116
+CUDA,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeBackpropFilterOpKernel.cu,11,8,116
+Python,Open3D/docs/conf.py,48,111,116
+Python,Open3D/python/benchmarks/core/test_unary_ew.py,32,10,116
+Python,Open3D/python/test/ml_ops/test_voxel_pooling.py,30,19,116
+C/C++ Header,Open3D/cpp/open3d/t/geometry/Image.h,47,183,115
+C++,Open3D/cpp/open3d/visualization/rendering/CameraInteractorLogic.cpp,21,12,115
+C++,Open3D/cpp/open3d/visualization/rendering/ModelInteractorLogic.cpp,29,16,115
+C++,Open3D/cpp/open3d/visualization/shader/PickingShader.cpp,16,14,115
+C++,Open3D/cpp/pybind/visualization/viewcontrol.cpp,7,7,115
+C/C++ Header,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConv.h,27,54,114
+C++,Open3D/cpp/open3d/visualization/rendering/Renderer.cpp,12,25,114
+C++,Open3D/cpp/open3d/core/nns/KnnIndex.cpp,20,7,113
+C/C++ Header,Open3D/cpp/open3d/geometry/BoundingVolume.h,38,128,113
+C++,Open3D/cpp/pybind/visualization/renderoption.cpp,9,13,113
+C++,Open3D/examples/cpp/SLAC.cpp,18,15,113
+C++,Open3D/examples/cpp/ViewPCDMatch.cpp,13,8,113
+Python,Open3D/python/open3d/__init__.py,26,56,113
+C/C++ Header,Open3D/3rdparty/glfw/src/wgl_context.h,16,31,112
+C++,Open3D/cpp/benchmarks/core/MemoryManager.cpp,23,8,112
+C++,Open3D/cpp/benchmarks/t/pipelines/registration/Feature.cpp,14,7,112
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/RGBDOdometryImpl.h,13,7,112
+C++,Open3D/cpp/tests/test_utility/Raw.cpp,14,29,112
+C++,Open3D/examples/cpp/IntegrateRGBD.cpp,7,8,112
+C++,Open3D/cpp/open3d/core/MemoryManagerCUDA.cpp,12,6,111
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeOps.cpp,33,10,111
+C++,Open3D/cpp/pybind/t/pipelines/registration/robust_kernel.cpp,19,7,111
+Python,Open3D/python/benchmarks/core/test_nns.py,27,6,111
+YAML,Open3D/.github/ISSUE_TEMPLATE/1-bug-report.yml,28,4,110
+CMake,Open3D/cmake/Open3DMakeHardeningFlags.cmake,10,13,110
+C++,Open3D/cpp/open3d/core/nns/FixedRadiusSearchOps.cpp,13,7,110
+C++,Open3D/cpp/open3d/data/Dataset.cpp,15,16,110
+C/C++ Header,Open3D/cpp/open3d/geometry/Line3D.h,53,271,110
+C++,Open3D/cpp/open3d/ml/pytorch/misc/RadiusSearchOps.cpp,13,9,110
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/FixedRadiusSearchOpKernel.h,22,10,110
+C++,Open3D/cpp/open3d/t/geometry/kernel/PCAPartition.cpp,17,16,110
+C++,Open3D/cpp/open3d/visualization/rendering/Material.cpp,7,12,110
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/global_registration.ipynb,0,271,110
+C++,Open3D/examples/cpp/TrimMeshBasedOnPointCloud.cpp,9,8,110
+Python,Open3D/examples/python/pipelines/doppler_icp_registration.py,51,74,110
+C,Open3D/3rdparty/glfw/deps/getopt.c,35,86,109
+C/C++ Header,Open3D/cpp/open3d/core/Dtype.h,29,8,109
+CUDA,Open3D/cpp/open3d/core/nns/kernel/Reduction.cuh,27,34,109
+C/C++ Header,Open3D/cpp/open3d/geometry/Image.h,39,80,109
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Open3DScene.h,26,16,109
+CUDA,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeBackpropFilterOpKernel.cu,11,8,108
+CUDA,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeOpKernel.cu,11,8,108
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Camera.h,23,46,108
+C++,Open3D/cpp/tests/t/geometry/VtkUtils.cpp,31,8,108
+YAML,Open3D/.github/workflows/documentation.yml,12,13,107
+C++,Open3D/cpp/open3d/geometry/ISSKeypoints.cpp,18,10,107
+C++,Open3D/cpp/open3d/utility/Logging.cpp,24,10,107
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/multiway_registration.ipynb,0,176,107
+C++,Open3D/cpp/open3d/core/TensorFunction.cpp,31,12,106
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/Dispatch.h,10,10,106
+C++,Open3D/cpp/open3d/ml/pytorch/misc/KnnSearchOps.cpp,13,9,106
+CUDA,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvBackpropFilterOpKernel.cu,11,8,106
+C++,Open3D/cpp/open3d/utility/CPUInfo.cpp,17,13,106
+Jupyter Notebook,Open3D/docs/jupyter/geometry/rgbd_image.ipynb,0,220,106
+C++,Open3D/examples/cpp/DepthCapture.cpp,14,8,106
+C++,Open3D/examples/cpp/TOdometryRGBD.cpp,17,16,106
+Python,Open3D/examples/python/reconstruction_system/sensors/azure_kinect_mkv_reader.py,25,7,106
+Python,Open3D/python/open3d/web_visualizer.py,21,24,106
+C++,Open3D/cpp/open3d/core/SmallVector.cpp,18,48,105
+C++,Open3D/cpp/open3d/ml/pytorch/misc/RadiusSearchOpKernel.cpp,14,11,105
+C++,Open3D/cpp/open3d/utility/Helper.cpp,19,9,105
+C++,Open3D/cpp/open3d/visualization/gui/Label.cpp,25,14,105
+C++,Open3D/cpp/open3d/visualization/gui/TextEdit.cpp,27,8,105
+C/C++ Header,Open3D/cpp/tests/test_utility/Print.h,35,14,105
+C++,Open3D/cpp/open3d/ml/pytorch/pvcnn/TrilinearDevoxelizeOps.cpp,13,32,104
+CUDA,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvOpKernel.cu,11,8,104
+CMake,Open3D/examples/cpp/CMakeLists.txt,13,5,104
+C++,Open3D/cpp/open3d/io/file_format/FilePNG.cpp,18,10,103
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/Registration.h,19,103,103
+C/C++ Header,Open3D/cpp/open3d/t/geometry/VoxelBlockGrid.h,30,120,103
+C++,Open3D/cpp/tests/t/io/NumpyIO.cpp,33,25,103
+C/C++ Header,Open3D/3rdparty/glfw/deps/mingw/_mingw_dxhelper.h,9,6,102
+C++,Open3D/cpp/open3d/io/file_format/FileLOG.cpp,7,10,102
+C++,Open3D/cpp/open3d/visualization/gui/ToggleSwitch.cpp,23,6,102
+C++,Open3D/cpp/open3d/visualization/utility/Draw.cpp,15,7,102
+C++,Open3D/cpp/pybind/ml/contrib/iou.cpp,24,8,102
+Python,Open3D/python/open3d/ml/torch/classes/ragged_tensor.py,44,49,102
+C++,Open3D/cpp/benchmarks/t/io/PointCloudIO.cpp,20,12,101
+C++,Open3D/cpp/open3d/ml/contrib/Nms.cpp,17,46,101
+CUDA,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeBackpropFilterOpKernel.cu,11,9,101
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/InvertNeighborsListOps.cpp,24,11,101
+C,Open3D/3rdparty/rply/rply/etc/convert.c,7,23,100
+C++,Open3D/cpp/open3d/core/MemoryManager.cpp,14,15,100
+CUDA,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeOpKernel.cu,12,9,100
+C++,Open3D/cpp/open3d/ml/pytorch/misc/KnnSearchOpKernel.cpp,15,10,100
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelPoolingGradOpKernel.h,22,11,100
+C++,Open3D/cpp/open3d/t/pipelines/slam/Model.cpp,14,9,100
+CMake,Open3D/cpp/pybind/make_python_package.cmake,13,21,100
+YAML,Open3D/.github/workflows/ubuntu.yml,4,0,99
+YAML,Open3D/.github/workflows/vtk_packages.yml,7,5,99
+C/C++ Header,Open3D/3rdparty/glfw/deps/KHR/khrplatform.h,27,156,99
+CUDA,Open3D/cpp/open3d/ml/tensorflow/pointnet/InterpolateOpKernel.cu,23,21,99
+C++,Open3D/cpp/open3d/visualization/gui/TabControl.cpp,22,7,99
+C++,Open3D/cpp/open3d/visualization/webrtc_server/HttpServerRequestHandler.cpp,19,20,99
+Python,Open3D/examples/python/io/realsense_io.py,29,34,99
+Text,Open3D/3rdparty/librealsense/libusb-CMakeLists.txt,11,0,98
+C++,Open3D/cpp/open3d/core/linalg/LU.cpp,18,28,98
+C++,Open3D/cpp/open3d/utility/Console.cpp,11,7,98
+CMake,Open3D/cpp/open3d/visualization/gui/CMakeLists.txt,12,4,98
+C++,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithKeyCallback.cpp,12,6,98
+Python,Open3D/examples/python/t_reconstruction_system/pose_graph_optim.py,28,18,98
+Markdown,Open3D/3rdparty/README_SYCL.md,20,0,97
+CMake,Open3D/3rdparty/cmake/FindPytorch.cmake,13,31,97
+C/C++ Header,Open3D/3rdparty/glfw/src/cocoa_platform.h,30,42,97
+C/C++ Header,Open3D/cpp/open3d/core/MemoryManager.h,33,82,97
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/HashMap.h,45,80,97
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/Cloud.h,32,67,97
+Python,Open3D/examples/python/benchmark/benchmark_utils.py,30,9,97
+CUDA,Open3D/cpp/open3d/ml/contrib/InterpolatePoints.cu,18,20,96
+CUDA,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvBackpropFilterOpKernel.cu,11,8,96
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Window.h,42,68,96
+C++,Open3D/cpp/open3d/visualization/rendering/Gradient.cpp,17,7,96
+Bourne Shell,Open3D/3rdparty/webrtc/webrtc_build.sh,10,41,95
+Markdown,Open3D/README.md,32,0,95
+C++,Open3D/cpp/open3d/ml/pytorch/misc/VoxelPoolingOpKernel.cpp,15,7,95
+C++,Open3D/cpp/open3d/t/geometry/kernel/Image.cpp,10,6,95
+Objective-C++,Open3D/cpp/open3d/visualization/gui/NativeMacOS.mm,20,79,95
+Python,Open3D/examples/python/reconstruction_system/sensors/azure_kinect_recorder.py,24,8,95
+Python,Open3D/python/test/t/io/test_noise.py,27,23,95
+CUDA,Open3D/cpp/open3d/core/nns/kernel/WarpShuffle.cuh,19,36,94
+C++,Open3D/cpp/open3d/data/dataset/DemoDopplerICPSequence.cpp,21,6,94
+Dockerfile,Open3D/docker/Dockerfile.wheel,18,31,94
+Python,Open3D/examples/python/reconstruction_system/initialize_config.py,17,21,94
+CMake,Open3D/cmake/Open3DPrintConfigurationSummary.cmake,4,4,93
+C/C++ Header,Open3D/cpp/open3d/t/geometry/Utility.h,20,10,93
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentRenderer.h,25,11,93
+C++,Open3D/cpp/tests/t/io/TriangleMeshIO.cpp,17,8,93
+C++,Open3D/examples/cpp/DrawWebRTC.cpp,15,12,93
+Python,Open3D/python/test/test_octree.py,30,19,93
+C++,Open3D/cpp/open3d/core/hashmap/HashBackendBuffer.cpp,25,8,92
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelizeOpKernel.h,16,12,92
+CUDA,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvOpKernel.cu,11,8,92
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/Image.h,22,6,92
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Renderer.h,26,8,92
+C++,Open3D/cpp/open3d/visualization/utility/ColorMap.cpp,17,6,92
+C++,Open3D/cpp/open3d/visualization/utility/GLHelper.cpp,11,6,92
+CUDA,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvBackpropFilterOpKernel.cu,11,9,91
+C++,Open3D/cpp/pybind/geometry/meshbase.cpp,10,6,91
+C/C++ Header,Open3D/3rdparty/glfw/include/GLFW/glfw3native.h,41,441,90
+C++,Open3D/cpp/open3d/geometry/MeshBase.cpp,20,6,90
+C++,Open3D/cpp/open3d/pipelines/color_map/ImageWarpingField.cpp,13,7,90
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/TreeView.h,29,25,90
+C++,Open3D/cpp/open3d/visualization/utility/PointCloudPicker.cpp,17,10,90
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithVertexSelection.h,20,8,90
+C++,Open3D/cpp/pybind/core/nns/nearest_neighbor_search.cpp,10,10,90
+Jupyter Notebook,Open3D/docs/jupyter/t_pipelines/t_robust_kernel.ipynb,0,314,90
+C++,Open3D/examples/cpp/OdometryRGBD.cpp,12,8,90
+Python,Open3D/examples/python/t_reconstruction_system/run_system.py,20,9,90
+Python,Open3D/examples/python/visualization/video.py,23,13,90
+Python,Open3D/python/test/t/geometry/test_image.py,18,23,90
+CUDA,Open3D/cpp/open3d/core/kernel/IndexGetSetCUDA.cu,10,8,89
+C++,Open3D/cpp/open3d/io/ImageIO.cpp,15,6,89
+C++,Open3D/cpp/open3d/io/ImageWarpingFieldIO.cpp,15,6,89
+CUDA,Open3D/cpp/open3d/ml/tensorflow/pointnet/SamplingOpKernel.cu,11,12,89
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeBackpropFilterOps.cpp,27,11,89
+C++,Open3D/cpp/pybind/geometry/tetramesh.cpp,6,6,89
+Python,Open3D/python/test/t/registration/test_transformation_estimation.py,33,6,89
+C/C++ Header,Open3D/cpp/open3d/core/TensorInit.h,18,11,88
+C++,Open3D/cpp/open3d/core/hashmap/HashSet.cpp,28,6,88
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/PhongShader.h,18,7,88
+C++,Open3D/cpp/tests/core/CUDAUtils.cpp,28,9,88
+CMake,Open3D/3rdparty/embree/embree.cmake,9,7,87
+C++,Open3D/cpp/open3d/io/PinholeCameraTrajectoryIO.cpp,15,6,87
+C++,Open3D/cpp/open3d/ml/pytorch/misc/BuildSpatialHashTableOps.cpp,17,10,87
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/TransformationEstimation.h,20,44,87
+Python,Open3D/examples/python/reconstruction_system/debug/visualize_alignment.py,12,8,87
+C++,Open3D/cpp/open3d/io/VoxelGridIO.cpp,12,6,86
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelPoolingOpKernel.h,19,11,86
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvBackpropFilterOps.cpp,28,11,86
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeBackpropFilterOpKernel.h,16,6,86
+C++,Open3D/cpp/open3d/visualization/gui/Slider.cpp,22,9,86
+Jupyter Notebook,Open3D/docs/jupyter/geometry/surface_reconstruction.ipynb,0,217,86
+Python,Open3D/examples/python/pipelines/multiway_registration.py,12,7,86
+Python,Open3D/python/open3d/visualization/draw.py,34,107,86
+CMake,Open3D/3rdparty/vtk/CMakeLists.txt,11,22,85
+C++,Open3D/cpp/open3d/io/LineSetIO.cpp,12,6,85
+CUDA,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeBackpropFilterOpKernel.cu,12,9,85
+C++,Open3D/cpp/open3d/t/geometry/kernel/Transform.cpp,20,6,85
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/registration/Registration.h,17,101,85
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/slac/SLACOptimizer.h,24,66,85
+C++,Open3D/cpp/open3d/visualization/webrtc_server/ImageCapturer.cpp,17,8,85
+C/C++ Header,Open3D/cpp/pybind/open3d_pybind.h,19,57,85
+C++,Open3D/cpp/tests/geometry/KDTreeFlann.cpp,38,6,85
+C++,Open3D/cpp/tests/pipelines/odometry/RGBDOdometryJacobianFromHybridTerm.cpp,21,8,85
+C/C++ Header,Open3D/3rdparty/tinyfiledialogs/include/tinyfiledialogs/tinyfiledialogs.h,44,170,84
+C++,Open3D/cpp/open3d/geometry/RGBDImageFactory.cpp,8,15,84
+CUDA,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvOpKernel.cu,12,9,84
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeOpKernel.h,15,6,84
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/ColorGrading.h,24,8,84
+Python,Open3D/examples/python/visualization/add_geometry.py,18,32,84
+Python,Open3D/examples/python/visualization/multiple_windows.py,23,13,84
+C++,Open3D/cpp/open3d/core/TensorCheck.cpp,10,6,83
+C++,Open3D/cpp/open3d/core/linalg/AddMM.cpp,17,9,83
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LinalgUtils.h,17,6,83
+C++,Open3D/cpp/open3d/data/dataset/SampleFountainRGBDImages.cpp,8,6,83
+C++,Open3D/cpp/open3d/io/file_format/FileXYZN.cpp,11,6,83
+C++,Open3D/cpp/open3d/io/file_format/FileXYZRGB.cpp,11,6,83
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/GridSubsampling.h,15,35,83
+C++,Open3D/cpp/open3d/t/io/sensor/RGBDVideoReader.cpp,8,6,83
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Application.h,35,79,83
+C++,Open3D/cpp/pybind/core/tensor_function.cpp,13,6,83
+C++,Open3D/cmake/ShaderEncoder.cpp,19,25,82
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/CUDAHashBackendBufferAccessor.h,24,8,82
+C/C++ Header,Open3D/cpp/open3d/geometry/Geometry3D.h,27,104,82
+C/C++ Header,Open3D/cpp/open3d/io/TriangleMeshIO.h,20,52,82
+C++,Open3D/cpp/open3d/ml/pytorch/pointnet/InterpolateOps.cpp,23,32,82
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/TexturePhongShader.h,19,7,82
+C++,Open3D/cpp/tests/t/pipelines/registration/Feature.cpp,19,9,82
+C++,Open3D/examples/cpp/AzureKinectViewer.cpp,18,13,82
+Python,Open3D/examples/python/reconstruction_system/sensors/realsense_pcd_visualizer.py,32,26,82
+Python,Open3D/examples/python/reconstruction_system/slac_integrate.py,24,14,82
+Python,Open3D/examples/python/t_reconstruction_system/dense_slam.py,21,10,82
+Python,Open3D/python/test/ml_ops/test_tf_training_graph_mode.py,25,27,82
+CMake,Open3D/3rdparty/zeromq/zeromq_build.cmake,11,13,81
+C++,Open3D/cpp/open3d/io/PoseGraphIO.cpp,14,6,81
+CUDA,Open3D/cpp/open3d/ml/tensorflow/misc/InvertNeighborsListOpKernel.cu,10,8,81
+CUDA,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelizeOpKernel.cu,9,6,81
+C++,Open3D/cpp/open3d/visualization/gui/Menu.cpp,24,6,81
+C++,Open3D/cpp/open3d/visualization/rendering/filament/FilamentEngine.cpp,24,9,81
+C++,Open3D/cpp/pybind/visualization/webrtc_server/webrtc_window_system.cpp,14,7,81
+Python,Open3D/examples/python/reconstruction_system/debug/visualize_pointcloud.py,8,8,81
+Python,Open3D/examples/python/t_reconstruction_system/integrate.py,20,9,81
+Python,Open3D/examples/python/t_reconstruction_system/ray_casting.py,18,12,81
+Python,Open3D/python/test/t/io/test_realsense.py,13,12,81
+C++,Open3D/cpp/benchmarks/pipelines/registration/Registration.cpp,20,11,80
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/AzureKinectRecorder.cpp,16,8,80
+CUDA,Open3D/cpp/open3d/ml/contrib/IoU.cu,12,8,80
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/BuildSpatialHashTableOpKernel.h,17,6,80
+CUDA,Open3D/cpp/open3d/ml/tensorflow/misc/FixedRadiusSearchOpKernel.cu,11,9,80
+C++,Open3D/cpp/open3d/visualization/visualizer/ViewParameters.cpp,10,6,80
+C++,Open3D/cpp/tests/ml/ShapeChecking.cpp,18,6,80
+CUDA,Open3D/cpp/open3d/core/kernel/NonZeroCUDA.cu,17,8,79
+CUDA,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeOpKernel.cu,13,9,79
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvBackpropFilterOpKernel.h,14,6,79
+C++,Open3D/cpp/open3d/utility/Timer.cpp,18,7,79
+C/C++ Header,Open3D/cpp/tests/test_utility/Sort.h,12,30,79
+C++,Open3D/examples/cpp/RegistrationFGR.cpp,15,9,79
+C++,Open3D/cmake/ShaderLinker.cpp,12,27,78
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/DeviceHashBackend.h,29,30,78
+C++,Open3D/cpp/open3d/geometry/LineSet.cpp,20,6,78
+C/C++ Header,Open3D/cpp/open3d/geometry/LineSet.h,25,68,78
+C/C++ Header,Open3D/cpp/open3d/pipelines/odometry/RGBDOdometryJacobian.h,15,40,78
+C++,Open3D/cpp/open3d/visualization/gui/Checkbox.cpp,19,8,78
+reStructuredText,Open3D/docs/getting_started.in.rst,63,100,78
+YAML,Open3D/.github/ISSUE_TEMPLATE/0-build-issue-report.yml,26,2,77
+C++,Open3D/cpp/open3d/io/OctreeIO.cpp,11,6,77
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/pointnet/RoiPoolOpKernel.h,12,6,77
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Widget.h,28,27,77
+C++,Open3D/cpp/tests/core/Scalar.cpp,19,9,77
+C++,Open3D/cpp/tests/test_utility/Sort.cpp,9,6,77
+C++,Open3D/examples/cpp/ViewDistances.cpp,7,8,77
+Python,Open3D/python/test/ml_ops/check_gradients.py,42,37,77
+C/C++ Header,Open3D/3rdparty/liblzf/liblzf/lzfP.h,22,92,76
+C/C++ Header,Open3D/cpp/open3d/geometry/MeshBase.h,24,57,76
+C/C++ Header,Open3D/cpp/open3d/io/rpc/RemoteFunctions.h,14,124,76
+CUDA,Open3D/cpp/open3d/ml/pytorch/misc/VoxelizeOpKernel.cu,9,7,76
+CUDA,Open3D/cpp/open3d/t/geometry/kernel/PointCloudCUDA.cu,16,12,76
+C++,Open3D/cpp/tests/test_utility/Compare.cpp,14,6,76
+reStructuredText,Open3D/docs/tutorial/sensor/azure_kinect.rst,57,39,76
+Python,Open3D/examples/python/geometry/point_cloud_transformation.py,12,6,76
+Python,Open3D/python/open3d/visualization/to_mitsuba.py,23,30,76
+C++,Open3D/cpp/open3d/io/file_format/FileJSON.cpp,14,6,75
+C++,Open3D/cpp/open3d/ml/tensorflow/tf_subsampling/tf_batch_subsampling.cpp,24,50,75
+C++,Open3D/cpp/open3d/pipelines/registration/TransformationEstimation.cpp,13,6,75
+C++,Open3D/cpp/open3d/visualization/gui/VectorEdit.cpp,20,6,75
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/O3DVisualizerSelections.h,21,10,75
+C/C++ Header,Open3D/cpp/tests/test_utility/Rand.h,21,38,75
+Python,Open3D/examples/python/geometry/voxel_grid_carving.py,22,13,75
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvCUDAKernels.h,9,100,74
+CUDA,Open3D/cpp/open3d/ml/pytorch/misc/InvertNeighborsListOpKernel.cu,10,9,74
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvOpKernel.h,16,6,74
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentView.h,24,9,74
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/ColorMap.h,15,11,74
+Python,Open3D/examples/python/visualization/to_mitsuba.py,11,17,74
+CMake,Open3D/3rdparty/curl/curl.cmake,9,9,73
+C++,Open3D/cpp/open3d/core/linalg/LinalgUtils.cpp,12,8,73
+C++,Open3D/cpp/open3d/io/rpc/MessageProcessorBase.cpp,18,6,73
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/VoxelizeOpKernel.h,10,7,73
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/RadiusSearchOpKernel.h,14,9,73
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/GlobalOptimizationConvergenceCriteria.h,7,63,73
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/MaterialModifier.h,23,39,73
+C++,Open3D/cpp/tools/GLInfo.cpp,12,10,73
+C++,Open3D/examples/cpp/Flann.cpp,16,8,73
+C++,Open3D/examples/cpp/PlanarPatchDetection.cpp,16,12,73
+Python,Open3D/examples/python/geometry/rgbd_datasets.py,21,11,73
+C++,Open3D/cpp/open3d/io/file_format/FileTUM.cpp,9,13,72
+CUDA,Open3D/cpp/open3d/ml/pytorch/misc/FixedRadiusSearchOpKernel.cu,11,9,72
+C++,Open3D/cpp/open3d/ml/pytorch/misc/RaggedToDenseOps.cpp,9,11,72
+CUDA,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvBackpropFilterOpKernel.cu,12,9,72
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/InvertNeighborsListOpKernel.h,19,13,72
+C++,Open3D/cpp/open3d/pipelines/registration/CorrespondenceChecker.cpp,8,7,72
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/ViewControlWithCustomAnimation.h,10,6,72
+C++,Open3D/examples/cpp/LineSet.cpp,11,8,72
+C++,Open3D/examples/cpp/Octree.cpp,14,9,72
+Python,Open3D/python/benchmarks/core/test_binary_ew.py,15,6,72
+Python,Open3D/python/open3d/visualization/_external_visualizer.py,35,86,72
+Python,Open3D/python/test/core/test_size_vector.py,19,20,72
+C/C++ Header,Open3D/3rdparty/glfw/src/mir_platform.h,25,37,71
+C++,Open3D/cpp/open3d/geometry/PointCloudCluster.cpp,15,12,71
+CUDA,Open3D/cpp/open3d/ml/pytorch/pointnet/InterpolateKernel.cu,20,46,71
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeBackpropFilterOpKernel.cpp,6,6,71
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/KnnSearchOpKernel.h,14,9,71
+C++,Open3D/cpp/open3d/utility/ProgressBar.cpp,12,7,71
+C++,Open3D/cpp/tests/pipelines/odometry/OdometryTools.cpp,21,22,71
+reStructuredText,Open3D/docs/arm.rst,50,68,71
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/robust_kernels.ipynb,0,249,71
+C++,Open3D/examples/cpp/GeneralizedICP.cpp,18,9,71
+C++,Open3D/examples/cpp/RegistrationColoredICP.cpp,18,9,71
+Python,Open3D/examples/python/visualization/interactive_visualization.py,17,10,71
+Protocol Buffers,Open3D/python/open3d/visualization/tensorboard_plugin/plugin_data.proto,14,57,71
+C++,Open3D/cpp/open3d/core/kernel/Reduction.cpp,11,10,70
+C++,Open3D/cpp/open3d/core/linalg/Tri.cpp,8,7,70
+C++,Open3D/cpp/open3d/io/file_format/FileBIN.cpp,11,6,70
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvTransposeOpKernel.cpp,6,6,70
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/CorrespondenceChecker.h,19,59,70
+C/C++ Header,Open3D/cpp/open3d/utility/FileSystem.h,42,56,70
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/PickPointsInteractor.h,23,19,70
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/NormalShader.h,16,6,70
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/DrawGeometry.h,12,70,70
+C++,Open3D/cpp/tests/t/geometry/TensorMap.cpp,21,12,70
+reStructuredText,Open3D/docs/tutorial/visualization/cpu_rendering.rst,39,26,70
+Markdown,Open3D/CHANGELOG.md,9,0,69
+XML,Open3D/cpp/apps/Open3DViewer/Open3DViewer.xml,17,0,69
+C++,Open3D/cpp/open3d/core/kernel/IndexGetSetCPU.cpp,8,6,69
+C++,Open3D/cpp/open3d/ml/pytorch/misc/InvertNeighborsListOps.cpp,12,9,69
+CUDA,Open3D/cpp/open3d/ml/tensorflow/pvcnn/TrilinearDevoxelizeKernel.cu,14,7,69
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentCamera.h,19,10,69
+C++,Open3D/cpp/tests/io/sensor/AzureKinect/AzureKinectSensorConfig.cpp,14,7,69
+Python,Open3D/python/test/ml/test_contrib_iou.py,14,10,69
+C/C++ Header,Open3D/3rdparty/rply/rply/rply.h,35,273,68
+CMake,Open3D/cmake/Open3DShowAndAbortOnWarning.cmake,8,6,68
+C++,Open3D/cpp/benchmarks/core/ParallelFor.cpp,14,8,68
+C++,Open3D/cpp/open3d/core/linalg/Solve.cpp,14,8,68
+CUDA,Open3D/cpp/open3d/core/nns/kernel/PtxUtils.cuh,16,31,68
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/InvertNeighborsList.h,14,59,68
+C++,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeBackpropFilterOpKernel.cpp,5,7,68
+C++,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeOpKernel.cpp,6,7,68
+CUDA,Open3D/cpp/open3d/ml/pytorch/pointnet/SamplingKernel.cu,10,36,68
+C/C++ Header,Open3D/cpp/open3d/utility/Eigen.h,22,48,68
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithEditing.h,13,12,68
+Jupyter Notebook,Open3D/docs/jupyter/visualization/visualization.ipynb,0,183,68
+Python,Open3D/examples/python/geometry/triangle_mesh_transformation.py,12,6,68
+Python,Open3D/python/test/test_color_map_optimization.py,13,15,68
+C/C++ Header,Open3D/cpp/open3d/core/nns/KnnIndex.h,14,10,67
+C++,Open3D/cpp/open3d/ml/pytorch/misc/VoxelizeOps.cpp,12,11,67
+CUDA,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvOpKernel.cu,13,9,67
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/IPPImage.h,14,7,67
+Python,Open3D/python/open3d/ml/torch/__init__.py,17,30,67
+Python,Open3D/python/test/core/test_torch_integration.py,21,10,67
+CMake,Open3D/3rdparty/filament/filament_download.cmake,6,7,66
+SVG,Open3D/cpp/apps/Open3DViewer/icon.svg,1,1,66
+C/C++ Header,Open3D/cpp/open3d/core/DLPack.h,11,114,66
+C/C++ Header,Open3D/cpp/open3d/utility/Random.h,18,92,66
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/BitmapWindowSystem.h,29,7,66
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/defaultLitTransparency.mat,5,0,66
+C++,Open3D/cpp/open3d/visualization/rendering/RotationInteractorLogic.cpp,16,25,66
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/SimpleBlackShader.h,16,6,66
+Dockerfile,Open3D/docker/Dockerfile.openblas,11,18,66
+Python,Open3D/examples/python/pipelines/registration_fgr.py,12,6,66
+Python,Open3D/examples/python/reconstruction_system/slac.py,23,13,66
+CMake,Open3D/util/check_cpp_style.cmake,7,21,66
+CMake,Open3D/3rdparty/filament/filament_build.cmake,7,4,65
+CMake,Open3D/3rdparty/webrtc/webrtc_common.cmake,12,22,65
+CMake,Open3D/3rdparty/webrtc/webrtc_download.cmake,6,5,65
+CUDA,Open3D/cpp/open3d/core/linalg/TriCUDA.cu,9,6,65
+C++,Open3D/cpp/open3d/io/file_format/FileSTL.cpp,11,6,65
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvBackpropFilterOpKernel.cpp,6,6,65
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/NmsOps.cpp,16,6,65
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeBackpropFilterOpKernel.cpp,6,6,65
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvTransposeOpKernel.cpp,6,6,65
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/slam/Model.h,16,56,65
+C++,Open3D/cpp/open3d/visualization/rendering/MaterialModifier.cpp,14,10,65
+C++,Open3D/cpp/tests/pipelines/odometry/RGBDOdometryJacobianFromColorTerm.cpp,20,8,65
+Jupyter Notebook,Open3D/docs/jupyter/geometry/distance_queries.ipynb,0,322,65
+Python,Open3D/examples/python/geometry/triangle_mesh_deformation.py,17,6,65
+Python,Open3D/examples/python/visualization/mouse_and_point_coord.py,21,36,65
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/metadata.py,13,32,65
+CMake,Open3D/3rdparty/libjpeg-turbo/libjpeg-turbo.cmake,6,10,64
+CUDA,Open3D/cpp/open3d/core/nns/kernel/StaticUtils.cuh,20,31,64
+C/C++ Header,Open3D/cpp/open3d/geometry/KDTreeFlann.h,15,35,64
+C++,Open3D/cpp/open3d/io/IJsonConvertibleIO.cpp,12,6,64
+CUDA,Open3D/cpp/open3d/ml/tensorflow/misc/BuildSpatialHashTableOpKernel.cu,10,9,64
+C/C++ Header,Open3D/cpp/open3d/pipelines/integration/UniformTSDFVolume.h,18,22,64
+C/C++ Header,Open3D/cpp/open3d/utility/IJsonConvertible.h,16,20,64
+C++,Open3D/cpp/tests/core/EigenConverter.cpp,13,12,64
+C++,Open3D/cpp/tests/io/OctreeIO.cpp,16,10,64
+C++,Open3D/cpp/open3d/core/linalg/TriCPU.cpp,9,6,63
+C++,Open3D/cpp/open3d/t/io/HashMapIO.cpp,22,8,63
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Theme.h,20,6,63
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/View.h,19,7,63
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/RGBDImageShader.h,15,7,63
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/ImageCapturer.h,17,9,63
+C/C++ Header,Open3D/cpp/pybind/geometry/geometry_trampoline.h,7,6,63
+C++,Open3D/cpp/pybind/pipelines/registration/feature.cpp,7,7,63
+Python,Open3D/python/test/ml_ops/test_ragged_to_dense.py,24,12,63
+CMake,Open3D/3rdparty/webrtc/webrtc_build.cmake,11,14,62
+C++,Open3D/cpp/open3d/core/linalg/LeastSquaresCUDA.cpp,10,15,62
+C++,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvBackpropFilterOpKernel.cpp,5,7,62
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/pointnet/BallQueryOpKernel.h,11,6,62
+C/C++ Header,Open3D/cpp/open3d/t/geometry/RGBDImage.h,18,33,62
+C++,Open3D/cpp/open3d/t/geometry/kernel/PointCloudCPU.cpp,15,10,62
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/GLFWWindowSystem.h,25,6,62
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/unlitBackground.mat,4,0,62
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/TextureSimpleShader.h,16,6,62
+Python,Open3D/cpp/pybind/generate_tf_ops_wrapper.py,18,30,62
+Python,Open3D/examples/python/utility/vector.py,8,8,62
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/colormap.py,15,30,62
+C++,Open3D/cpp/open3d/io/rpc/Connection.cpp,16,6,61
+C++,Open3D/cpp/open3d/ml/tensorflow/continuous_conv/ContinuousConvOpKernel.cpp,6,6,61
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/realsense/RSBagReader.h,23,57,61
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/realsense/RealSenseSensor.h,20,52,61
+C/C++ Header,Open3D/cpp/open3d/utility/ParallelScan.h,11,16,61
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Gui.h,19,6,61
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/defaultLit.mat,4,0,61
+C++,Open3D/cpp/pybind/pybind_utils.cpp,7,11,61
+Jupyter Notebook,Open3D/docs/jupyter/visualization/draw_plotly.ipynb,0,93,61
+C++,Open3D/examples/cpp/FileSystem.cpp,8,8,61
+Python,Open3D/examples/python/geometry/triangle_mesh_filtering_average.py,15,9,61
+Python,Open3D/examples/python/geometry/triangle_mesh_properties.py,10,6,61
+CMake,Open3D/cpp/open3d/io/CMakeLists.txt,6,0,60
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/FastGlobalRegistration.h,12,48,60
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/PoseGraph.h,14,41,60
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/RGBDOdometry.h,8,6,60
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/UIImage.h,16,15,60
+C++,Open3D/cpp/open3d/visualization/rendering/CameraSphereInteractorLogic.cpp,7,8,60
+C++,Open3D/cpp/tools/ManuallyAlignPointCloud/AlignmentSession.cpp,6,6,60
+C++,Open3D/examples/cpp/RGBDOdometry.cpp,10,8,60
+Python,Open3D/examples/python/benchmark/benchmark_ransac.py,14,9,60
+CMake,Open3D/3rdparty/cmake/FindTensorflow.cmake,10,12,59
+C++,Open3D/cpp/benchmarks/benchmark_utilities/Rand.cpp,11,7,59
+C++,Open3D/cpp/open3d/camera/PinholeCameraTrajectory.cpp,11,6,59
+C++,Open3D/cpp/open3d/core/linalg/Matmul.cpp,16,8,59
+C++,Open3D/cpp/open3d/data/dataset/FlightHelmetModel.cpp,6,6,59
+C++,Open3D/cpp/open3d/data/dataset/RedwoodIndoorLivingRoom1.cpp,14,14,59
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvBackpropFilterOpKernel.cpp,6,6,59
+C++,Open3D/cpp/open3d/utility/ISAInfo.cpp,14,11,59
+C++,Open3D/cpp/tests/t/pipelines/slac/ControlGrid.cpp,15,7,59
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/system_overview.rst,31,30,59
+C/C++ Header,Open3D/3rdparty/glfw/deps/vulkan/vk_platform.h,16,46,58
+C++,Open3D/cpp/open3d/core/SYCLContext.cpp,12,11,58
+C/C++ Header,Open3D/cpp/open3d/core/nns/NeighborSearchAllocator.h,16,6,58
+C++,Open3D/cpp/open3d/data/dataset/RedwoodIndoorLivingRoom2.cpp,14,14,58
+C++,Open3D/cpp/open3d/ml/pytorch/misc/VoxelizeOpKernel.cpp,9,7,58
+C++,Open3D/cpp/open3d/ml/tensorflow/pointnet/InterpolateOps.cpp,6,11,58
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/ImageMaskShader.h,14,6,58
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/SelectionPolygon.h,12,10,58
+C/C++ Header,Open3D/cpp/pybind/visualization/visualization_trampoline.h,6,6,58
+reStructuredText,Open3D/docs/docker.in.rst,47,104,58
+Text,Open3D/docs/documented_modules.txt,0,0,58
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/colored_pointcloud_registration.ipynb,0,154,58
+Python,Open3D/examples/python/benchmark/benchmark_fgr.py,16,9,58
+YAML,Open3D/.github/workflows/ubuntu-sycl.yml,5,0,57
+Ruby,Open3D/3rdparty/clang-format/clang-foramt@10.rb,13,30,57
+C,Open3D/3rdparty/glfw/src/posix_thread.c,17,29,57
+CMake,Open3D/3rdparty/librealsense/librealsense.cmake,5,4,57
+C/C++ Header,Open3D/cpp/open3d/core/Device.h,30,27,57
+C++,Open3D/cpp/open3d/core/kernel/Arange.cpp,15,9,57
+CUDA,Open3D/cpp/open3d/core/kernel/IndexReductionCUDA.cu,12,13,57
+C++,Open3D/cpp/open3d/data/dataset/RedwoodIndoorOffice1.cpp,14,14,57
+C++,Open3D/cpp/open3d/data/dataset/RedwoodIndoorOffice2.cpp,14,14,57
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/NeighborSearchCommon.h,19,14,57
+CUDA,Open3D/cpp/open3d/ml/impl/misc/RaggedToDense.cuh,13,42,57
+C++,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvOpKernel.cpp,5,7,57
+C++,Open3D/cpp/open3d/ml/tensorflow/sparse_conv/SparseConvOpKernel.cpp,6,6,57
+C++,Open3D/cpp/open3d/visualization/gui/ColorEdit.cpp,20,6,57
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/infiniteGroundPlane.mat,7,0,57
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/ShaderWrapper.h,20,18,57
+C/C++ Header,Open3D/cpp/pybind/docstring.h,21,61,57
+C++,Open3D/examples/cpp/ISSKeypoints.cpp,11,14,57
+Python,Open3D/examples/python/reconstruction_system/sensors/azure_kinect_viewer.py,17,7,57
+Markdown,Open3D/3rdparty/webrtc/README.md,7,0,56
+C++,Open3D/cpp/benchmarks/geometry/KDTreeFlann.cpp,14,11,56
+C/C++ Header,Open3D/cpp/open3d/core/kernel/Reduction.h,10,6,56
+C++,Open3D/cpp/open3d/core/linalg/Inverse.cpp,14,10,56
+C/C++ Header,Open3D/cpp/open3d/geometry/RGBDImage.h,17,56,56
+C/C++ Header,Open3D/cpp/open3d/ml/Helper.h,23,17,56
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/slac/ControlGrid.h,22,54,56
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/ImguiFilamentBridge.h,17,39,56
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/defaultLitSSR.mat,5,0,56
+C++,Open3D/cpp/open3d/visualization/gui/Task.cpp,13,7,56
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/GuiSettingsView.h,15,6,56
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithCustomAnimation.h,8,6,56
+Jupyter Notebook,Open3D/docs/jupyter/geometry/octree.ipynb,0,139,56
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/color_map_optimization.ipynb,0,159,56
+C++,Open3D/examples/cpp/PoseGraph.cpp,12,10,56
+Python,Open3D/examples/python/t_reconstruction_system/split_fragments.py,15,6,56
+CMake,Open3D/3rdparty/uvatlas/uvatlas.cmake,6,5,55
+CMake,Open3D/3rdparty/webrtc/CMakeLists.txt,10,42,55
+C++,Open3D/cpp/open3d/camera/PinholeCameraIntrinsic.cpp,12,6,55
+C++,Open3D/cpp/open3d/core/Dtype.cpp,9,8,55
+C/C++ Header,Open3D/cpp/open3d/core/SizeVector.h,34,21,55
+C/C++ Header,Open3D/cpp/open3d/io/rpc/MessageProcessorBase.h,10,17,55
+C++,Open3D/cpp/open3d/ml/tensorflow/tf_subsampling/tf_subsampling.cpp,16,40,55
+C/C++ Header,Open3D/cpp/open3d/pipelines/integration/ScalableTSDFVolume.h,16,28,55
+C/C++ Header,Open3D/cpp/open3d/t/geometry/RaycastingScene.h,21,182,55
+CUDA,Open3D/cpp/open3d/t/pipelines/kernel/TransformationConverter.cu,12,6,55
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/TransformationConverterImpl.h,10,18,55
+C/C++ Header,Open3D/cpp/open3d/utility/ProgressReporters.h,9,12,55
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/unlitLine.mat,7,0,55
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/PickingShader.h,14,6,55
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/ViewControlWithEditing.h,13,6,55
+C++,Open3D/cpp/tools/ManuallyCropGeometry.cpp,6,8,55
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/icp_registration.ipynb,0,206,55
+Python,Open3D/examples/python/geometry/image_processing.py,7,7,55
+Python,Open3D/examples/python/reconstruction_system/debug/visualize_scene.py,18,6,55
+CMake,Open3D/cmake/Open3DMakeCudaArchitectures.cmake,6,18,54
+C++,Open3D/cpp/open3d/core/MemoryManagerSYCL.cpp,11,6,54
+C++,Open3D/cpp/open3d/core/kernel/UnaryEW.cpp,9,10,54
+C++,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeBackpropFilterOpKernel.cpp,6,7,54
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/pointnet/SamplingOpKernel.h,11,6,54
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/ColoredICP.h,14,23,54
+C++,Open3D/cpp/open3d/visualization/rendering/ColorGrading.cpp,16,6,54
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/ImageShader.h,14,6,54
+C/C++ Header,Open3D/cpp/open3d/visualization/shader/Simple2DShader.h,14,6,54
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/BitmapTrackSource.h,10,37,54
+C++,Open3D/cpp/tests/geometry/IntersectionTest.cpp,11,6,54
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/rgbd_odometry.ipynb,0,151,54
+Python,Open3D/examples/python/visualization/headless_rendering.py,12,26,54
+C,Open3D/3rdparty/glfw/src/win32_thread.c,15,29,53
+C++,Open3D/cpp/open3d/core/kernel/IndexGetSet.cpp,8,10,53
+C++,Open3D/cpp/open3d/core/kernel/IndexReductionCPU.cpp,11,15,53
+C++,Open3D/cpp/open3d/core/linalg/LeastSquares.cpp,13,8,53
+C++,Open3D/cpp/open3d/ml/pytorch/misc/FixedRadiusSearchOpKernel.cpp,7,7,53
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/slam/Frame.h,13,15,53
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/WindowSystem.h,28,11,53
+Python,Open3D/examples/python/reconstruction_system/integrate_scene.py,14,7,53
+JSON,Open3D/python/js/package.json,0,0,53
+Python,Open3D/python/test/ml_ops/test_reduce_subarrays_sum.py,19,9,53
+Ruby,Open3D/3rdparty/clang-format/clang-format@5.rb,12,37,52
+CUDA,Open3D/cpp/open3d/core/nns/kernel/BlockSelectImpl.cuh,5,30,52
+CMake,Open3D/cpp/open3d/data/CMakeLists.txt,3,0,52
+C++,Open3D/cpp/open3d/geometry/RGBDImage.cpp,9,6,52
+C/C++ Header,Open3D/cpp/open3d/t/geometry/VtkUtils.h,13,88,52
+C/C++ Header,Open3D/cpp/open3d/t/io/PointCloudIO.h,19,16,52
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/Registration.h,9,99,52
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/MaterialRecord.h,19,24,52
+C++,Open3D/cpp/pybind/utility/logging.cpp,9,7,52
+C/C++ Header,Open3D/cpp/tools/ManuallyAlignPointCloud/VisualizerForAlignment.h,7,6,52
+Jupyter Notebook,Open3D/docs/jupyter/pipelines/rgbd_integration.ipynb,0,137,52
+C++,Open3D/examples/cpp/CameraPoseTrajectory.cpp,9,8,52
+C/C++ Header,Open3D/3rdparty/glfw/src/osmesa_context.h,13,30,51
+C,Open3D/3rdparty/rply/rply/etc/sconvert.c,3,10,51
+CMake,Open3D/cmake/Open3DAddEncodedShader.cmake,14,14,51
+C/C++ Header,Open3D/cpp/open3d/core/EigenConverter.h,17,86,51
+C/C++ Header,Open3D/cpp/open3d/geometry/HalfEdgeTriangleMesh.h,20,48,51
+C/C++ Header,Open3D/cpp/open3d/io/rpc/ZMQReceiver.h,17,16,51
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/MKVWriter.cpp,15,6,51
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentRenderToBuffer.h,15,13,51
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/ViewTrajectory.h,14,14,51
+C++,Open3D/cpp/pybind/core/dtype.cpp,6,9,51
+C++,Open3D/cpp/pybind/t/pipelines/registration/feature.cpp,6,6,51
+C++,Open3D/cpp/tests/core/SYCLUtils.cpp,12,9,51
+C++,Open3D/cpp/tests/utility/Preprocessor.cpp,18,11,51
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/make_fragments.rst,38,77,51
+Python,Open3D/examples/python/reconstruction_system/debug/pairwise_rgbd_alignment.py,11,7,51
+Python,Open3D/python/open3d/visualization/async_event_loop.py,16,25,51
+Python,Open3D/python/test/ml_ops/test_subsampling.py,18,6,51
+C++,Open3D/cpp/open3d/core/kernel/BinaryEW.cpp,9,8,50
+C/C++ Header,Open3D/cpp/open3d/io/rpc/DummyMessageProcessor.h,7,8,50
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/ReduceSubarraysSumOps.cpp,17,7,50
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelizeOpKernel.cpp,8,6,50
+C/C++ Header,Open3D/cpp/open3d/pipelines/color_map/ColorMapUtils.h,10,6,50
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/Draw.h,12,6,50
+CMake,Open3D/cpp/tests/CMakeLists.txt,11,5,50
+C++,Open3D/cpp/tests/utility/Helper.cpp,14,6,50
+Jupyter Notebook,Open3D/docs/jupyter/geometry/ray_casting.ipynb,0,280,50
+Python,Open3D/python/open3d/visualization/tensorboard_plugin/labellut.py,13,35,50
+Bourne Shell,Open3D/cpp/apps/fixup_macosx_bundle.sh,11,15,49
+C++,Open3D/cpp/open3d/core/kernel/NonZeroCPU.cpp,9,8,49
+C++,Open3D/cpp/open3d/core/linalg/SVD.cpp,11,7,49
+C++,Open3D/cpp/open3d/ml/pytorch/misc/InvertNeighborsListOpKernel.cpp,7,7,49
+C++,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeOpKernel.cpp,7,7,49
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/NmsOpKernel.h,13,12,49
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/RobustKernel.h,18,130,49
+C++,Open3D/cpp/open3d/visualization/gui/Color.cpp,14,6,49
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/TexturePhongFragmentShader.glsl,9,0,49
+Python,Open3D/examples/python/reconstruction_system/data_loader.py,16,12,49
+CMake,Open3D/cmake/Open3DMakeISPCInstructionSets.cmake,8,20,48
+C/C++ Header,Open3D/cpp/open3d/camera/PinholeCameraIntrinsic.h,17,54,48
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/HashSet.h,29,54,48
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeBackpropFilterOpKernel.h,4,7,48
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvTransposeOpKernel.h,4,7,48
+CUDA,Open3D/cpp/open3d/ml/pytorch/pvcnn/TrilinearDevoxelizeKernel.cu,11,30,48
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/GeneralizedICP.h,14,27,48
+C++,Open3D/cpp/open3d/visualization/rendering/IBLRotationInteractorLogic.cpp,15,6,48
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/MatrixInteractorLogic.h,20,18,48
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/PhongFragmentShader.glsl,9,0,48
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/register_fragments.rst,29,52,48
+C++,Open3D/examples/cpp/ColorMapOptimization.cpp,13,17,48
+Python,Open3D/examples/python/benchmark/benchmark_tsdf.py,12,6,48
+CMake,Open3D/3rdparty/boringssl/boringssl.cmake,5,16,47
+CMake,Open3D/3rdparty/ippicv/ippicv.cmake,5,5,47
+C/C++ Header,Open3D/cpp/open3d/core/TensorCheck.h,12,34,47
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CPU/CPUHashBackendBufferAccessor.hpp,12,26,47
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/HashBackendBuffer.h,27,35,47
+C/C++ Header,Open3D/cpp/open3d/io/IJsonConvertibleIO.h,13,29,47
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/InvertNeighborsListOpKernel.cpp,6,6,47
+C++,Open3D/cpp/open3d/visualization/visualizer/RenderOptionWithEditing.cpp,8,6,47
+Jupyter Notebook,Open3D/docs/jupyter/geometry/pointcloud_outlier_removal.ipynb,0,134,47
+Jupyter Notebook,Open3D/docs/jupyter/geometry/transformation.ipynb,0,175,47
+Python,Open3D/examples/python/visualization/render_to_image.py,14,6,47
+CUDA,Open3D/cpp/open3d/core/hashmap/CUDA/CreateCUDAHashBackend.cu,8,8,46
+C/C++ Header,Open3D/cpp/open3d/geometry/IntersectionTest.h,13,122,46
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/FixedRadiusSearchOpKernel.cpp,7,7,46
+C/C++ Header,Open3D/cpp/open3d/t/io/TriangleMeshIO.h,12,23,46
+C++,Open3D/cpp/open3d/visualization/gui/FileDialogNative.cpp,17,7,46
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/GuiVisualizer.h,21,9,46
+C++,Open3D/cpp/pybind/visualization/rendering/material.cpp,10,8,46
+Markdown,Open3D/docker/README.md,22,0,46
+Dockerfile,Open3D/docs/_static/docker/Dockerfile,9,9,46
+HTML,Open3D/docs/_static/google_analytics_header.html,1,17,46
+Python,Open3D/examples/python/visualization/text3d.py,15,6,46
+Python,Open3D/python/benchmarks/open3d_benchmark.py,11,6,46
+C++,Open3D/cpp/open3d/camera/PinholeCameraParameters.cpp,7,6,45
+C/C++ Header,Open3D/cpp/open3d/core/nns/NanoFlannIndex.h,13,54,45
+C/C++ Header,Open3D/cpp/open3d/geometry/KDTreeSearchParam.h,14,37,45
+C++,Open3D/cpp/open3d/ml/pytorch/ragged_tensor/RaggedTensor.cpp,12,6,45
+C++,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvBackpropFilterOpKernel.cpp,6,7,45
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelPoolingOpKernel.cpp,8,6,45
+C/C++ Header,Open3D/cpp/open3d/utility/Timer.h,13,9,45
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentEntitiesMods.h,14,8,45
+reStructuredText,Open3D/docs/tutorial/visualization/headless_rendering.rst,61,83,45
+JavaScript,Open3D/docs/versions.js,0,32,45
+Python,Open3D/examples/python/reconstruction_system/optimize_posegraph.py,10,8,45
+JavaScript,Open3D/python/js/webpack.config.js,2,25,45
+C/C++ Header,Open3D/cpp/open3d/core/FunctionTraits.h,13,29,44
+C/C++ Header,Open3D/cpp/open3d/core/kernel/BinaryEW.h,10,6,44
+C++,Open3D/cpp/open3d/core/linalg/Det.cpp,9,8,44
+C++,Open3D/cpp/open3d/core/linalg/SolveCUDA.cpp,8,8,44
+C/C++ Header,Open3D/cpp/open3d/core/nns/NearestNeighborSearch.h,16,74,44
+C/C++ Header,Open3D/cpp/open3d/geometry/TetraMesh.h,18,40,44
+CUDA,Open3D/cpp/open3d/ml/contrib/BallQuery.cu,7,10,44
+C/C++ Header,Open3D/cpp/open3d/ml/impl/sparse_conv/SparseConvCUDAKernels.h,5,59,44
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvBackpropFilterOpKernel.h,4,7,44
+C/C++ Header,Open3D/cpp/open3d/t/geometry/Geometry.h,16,36,44
+CUDA,Open3D/cpp/open3d/t/geometry/kernel/TriangleMeshCUDA.cu,7,6,44
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Menu.h,17,16,44
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/MenuBase.h,17,16,44
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/WidgetProxy.h,16,46,44
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/GLHelper.h,14,8,44
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/WebRTCWindowSystem.h,17,86,44
+Jupyter Notebook,Open3D/docs/jupyter/geometry/iss_keypoint_detector.ipynb,0,107,44
+reStructuredText,Open3D/docs/tutorial/geometry/uvmaps.rst,74,81,44
+C++,Open3D/examples/cpp/ProgramOptions.cpp,6,8,44
+CMake,Open3D/3rdparty/azure_kinect/azure_kinect.cmake,3,13,43
+Bourne Shell,Open3D/3rdparty/mesa/build-mesa-cpu.sh,5,14,43
+C/C++ Header,Open3D/cpp/open3d/core/MemoryManagerStatistic.h,24,27,43
+C/C++ Header,Open3D/cpp/open3d/core/kernel/IndexGetSet.h,10,6,43
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/unlitGradient.mat,5,0,43
+C/C++ Header,Open3D/cpp/tests/core/CoreTest.h,12,12,43
+C++,Open3D/cpp/tests/geometry/VoxelGrid.cpp,8,9,43
+C++,Open3D/cpp/tools/MergeMesh.cpp,8,8,43
+CSS,Open3D/docs/_static/css/furo_overrides.css,8,4,43
+Python,Open3D/examples/python/pipelines/icp_registration.py,11,7,43
+Python,Open3D/examples/python/pipelines/rgbd_odometry.py,7,7,43
+Python,Open3D/examples/python/pipelines/robust_icp.py,11,8,43
+reStructuredText,Open3D/python/README.rst,14,1,43
+PowerShell,Open3D/3rdparty/boringssl/build_boringssl.ps1,11,9,42
+diff,Open3D/3rdparty/jsoncpp/0001-optional-CXX11-ABI-and-MSVC-runtime.patch,7,40,42
+CMake,Open3D/cmake/Open3DAddCompiledMaterials.cmake,15,12,42
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvOpKernel.h,4,7,42
+C++,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvOpKernel.cpp,6,7,42
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/GlobalOptimizationMethod.h,14,26,42
+C++,Open3D/cpp/open3d/t/geometry/kernel/TriangleMeshCPU.cpp,8,6,42
+Bourne Shell,Open3D/3rdparty/boringssl/build_boringssl.sh,9,10,41
+C++,Open3D/cpp/open3d/core/linalg/InverseCUDA.cpp,8,6,41
+C++,Open3D/cpp/open3d/core/linalg/SVDCUDA.cpp,7,6,41
+CUDA,Open3D/cpp/open3d/core/nns/kernel/Pair.cuh,14,31,41
+CMake,Open3D/cpp/open3d/geometry/CMakeLists.txt,2,0,41
+CUDA,Open3D/cpp/open3d/ml/impl/misc/ReduceSubarraysSum.cuh,11,19,41
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/continuous_conv/ContinuousConvHelper.h,5,10,41
+C++,Open3D/cpp/open3d/ml/pytorch/misc/ReduceSubarraysSumOps.cpp,10,9,41
+CUDA,Open3D/cpp/open3d/ml/tensorflow/pointnet/RoiPoolOpKernel.cu,8,8,41
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/realsense/RealSenseSensorConfig.h,13,54,41
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/MenuImgui.h,15,6,41
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/MenuMacOS.h,15,6,41
+C++,Open3D/cpp/open3d/visualization/gui/ProgressBar.cpp,15,7,41
+C++,Open3D/cpp/open3d/visualization/gui/StackedWidget.cpp,13,8,41
+C++,Open3D/cpp/open3d/visualization/rendering/Camera.cpp,9,17,41
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/RGBDImageFragmentShader.glsl,7,3,41
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/VideoFilter.h,9,22,41
+C++,Open3D/cpp/pybind/geometry/keypoint.cpp,7,10,41
+Python,Open3D/examples/python/pipelines/pose_graph_optimization.py,7,6,41
+Bourne Shell,Open3D/util/install_deps_ubuntu.sh,6,10,41
+C,Open3D/3rdparty/glfw/src/posix_time.c,11,34,40
+C,Open3D/3rdparty/rply/rply/etc/dump.c,4,0,40
+CSS,Open3D/3rdparty/rply/rply/manual/reference.css,14,0,40
+C/C++ Header,Open3D/cpp/open3d/core/nns/NNSIndex.h,17,68,40
+C/C++ Header,Open3D/cpp/open3d/geometry/Geometry.h,10,35,40
+C/C++ Header,Open3D/cpp/open3d/ml/tensorflow/misc/ReduceSubarraysSumOpKernel.h,13,12,40
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/PointCloudPicker.h,13,25,40
+C++,Open3D/cpp/pybind/core/device.cpp,6,6,40
+reStructuredText,Open3D/docs/tutorial/visualization/customized_visualization.rst,52,88,40
+C++,Open3D/examples/cpp/OffscreenRendering.cpp,12,15,40
+Python,Open3D/examples/python/visualization/non_blocking_visualization.py,12,7,40
+Python,Open3D/examples/python/visualization/remove_geometry.py,10,6,40
+Python,Open3D/python/test/ml_ops/test_nms.py,10,7,40
+C/C++ Header,Open3D/cpp/open3d/core/StdAllocator.h,19,26,39
+C/C++ Header,Open3D/cpp/open3d/core/linalg/AddMM.h,7,11,39
+CUDA,Open3D/cpp/open3d/core/nns/kernel/Limits.cuh,14,33,39
+C/C++ Header,Open3D/cpp/open3d/io/rpc/MessageUtils.h,19,38,39
+CUDA,Open3D/cpp/open3d/ml/pytorch/misc/BuildSpatialHashTableOpKernel.cu,9,9,39
+CUDA,Open3D/cpp/open3d/ml/tensorflow/pointnet/BallQueryOpKernel.cu,9,12,39
+C/C++ Header,Open3D/cpp/open3d/t/io/ImageIO.h,19,54,39
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/RGBDSensor.h,16,40,39
+C++,Open3D/cpp/open3d/utility/Parallel.cpp,9,10,39
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/RenderToBuffer.h,12,13,39
+C/C++ Header,Open3D/cpp/open3d/visualization/utility/SelectionPolygonVolume.h,11,22,39
+C++,Open3D/cpp/pybind/t/geometry/geometry.cpp,8,7,39
+Python,Open3D/docs/jupyter/jupyter_run_all.py,9,9,39
+Text,Open3D/examples/cpp/registration_example_util/TICPSequentialConfigKitti.txt,9,0,39
+Python,Open3D/examples/python/geometry/octree_traversal.py,9,9,39
+Python,Open3D/examples/python/pipelines/colored_icp_registration.py,10,14,39
+CMake,Open3D/3rdparty/glew/CMakeLists.txt,8,1,38
+CMake,Open3D/cmake/Open3DFetchISPCCompiler.cmake,9,9,38
+C++,Open3D/cpp/benchmarks/geometry/TriangleMesh.cpp,12,9,38
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/VoxelPoolingGradOpKernel.cpp,6,7,38
+CMake,Open3D/cpp/open3d/t/geometry/kernel/CMakeLists.txt,5,0,38
+C++,Open3D/cpp/open3d/utility/CompilerInfo.cpp,13,6,38
+C++,Open3D/cpp/open3d/utility/Extract.cpp,8,6,38
+C++,Open3D/cpp/open3d/utility/Random.cpp,14,14,38
+C++,Open3D/cpp/open3d/visualization/app/Viewer.cpp,12,8,38
+C++,Open3D/cpp/open3d/visualization/gui/WidgetStack.cpp,7,6,38
+C++,Open3D/cpp/tests/camera/PinholeCameraTrajectory.cpp,17,6,38
+C++,Open3D/cpp/tests/utility/Random.cpp,8,6,38
+Python,Open3D/examples/python/geometry/ray_casting_closest_geometry.py,7,10,38
+Python,Open3D/examples/python/geometry/triangle_mesh_connected_components.py,5,6,38
+CMake,Open3D/3rdparty/assimp/assimp.cmake,4,2,37
+CMake,Open3D/3rdparty/glfw/CMake/modules/FindVulkan.cmake,4,5,37
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/SlabMacros.h,15,35,37
+C++,Open3D/cpp/open3d/ml/contrib/IoU.cpp,7,6,37
+C++,Open3D/cpp/open3d/ml/pytorch/misc/NmsOps.cpp,6,6,37
+C/C++ Header,Open3D/cpp/open3d/pipelines/integration/TSDFVolume.h,11,36,37
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/NPPImage.h,10,6,37
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/Transform.h,16,6,37
+C++,Open3D/cpp/open3d/visualization/gui/Dialog.cpp,12,6,37
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/ViewParameters.h,9,6,37
+Python,Open3D/examples/python/pipelines/rgbd_integration_uniform.py,11,10,37
+C/C++ Header,Open3D/cpp/open3d/core/Blob.h,14,41,36
+C++,Open3D/cpp/open3d/core/kernel/Kernel.cpp,7,8,36
+C++,Open3D/cpp/open3d/core/linalg/AddMMCUDA.cpp,4,6,36
+C/C++ Header,Open3D/cpp/open3d/io/ImageIO.h,17,29,36
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/AzureKinectSensor.h,14,13,36
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/RaggedToDense.h,8,40,36
+C++,Open3D/cpp/open3d/ml/pytorch/misc/RoiPoolOps.cpp,8,32,36
+C++,Open3D/cpp/open3d/visualization/gui/Gui.cpp,19,8,36
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/defaultUnlit.mat,5,0,36
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/ModelInteractorLogic.h,15,6,36
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/RendererStructs.h,12,8,36
+C/C++ Header,Open3D/cpp/pybind/t/geometry/geometry.h,9,7,36
+C++,Open3D/cpp/tests/Main.cpp,9,7,36
+CMake,Open3D/cpp/tests/core/CMakeLists.txt,2,0,36
+C++,Open3D/cpp/tests/io/VoxelGridIO.cpp,9,12,36
+C/C++ Header,Open3D/cpp/tests/test_utility/Raw.h,17,24,36
+reStructuredText,Open3D/docs/tutorial/t_reconstruction_system/index.rst,31,31,36
+Text,Open3D/examples/cpp/registration_example_util/TICPSequentialConfigLyft.txt,9,0,36
+Python,Open3D/examples/python/geometry/kd_tree_feature_matching.py,7,6,36
+Python,Open3D/examples/python/reconstruction_system/debug/visualize_fragments.py,6,8,36
+C/C++ Header,Open3D/cpp/open3d/core/TensorKey.h,19,66,35
+C++,Open3D/cpp/open3d/core/hashmap/CPU/CreateCPUHashBackend.cpp,8,8,35
+C++,Open3D/cpp/open3d/core/kernel/IndexReduction.cpp,7,7,35
+C/C++ Header,Open3D/cpp/open3d/core/kernel/UnaryEW.h,11,8,35
+CUDA,Open3D/cpp/open3d/core/nns/kernel/ReductionOps.cuh,15,32,35
+C++,Open3D/cpp/open3d/data/dataset/BedroomRGBDImages.cpp,7,6,35
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeBackpropFilterOpKernel.h,4,7,35
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/Feature.h,12,36,35
+C++,Open3D/cpp/open3d/t/io/sensor/RGBDVideoMetadata.cpp,12,6,35
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Combobox.h,16,24,35
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/ImageWidget.h,13,21,35
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Gradient.h,13,27,35
+C++,Open3D/cpp/pybind/open3d_pybind.cpp,10,15,35
+C/C++ Header,Open3D/cpp/pybind/visualization/visualization.h,13,23,35
+C++,Open3D/examples/cpp/Voxelization.cpp,10,8,35
+Python,Open3D/examples/python/visualization/textured_model.py,8,8,35
+Text,Open3D/cpp/apps/Open3DViewer/Debian/CMakeLists.in.txt,5,0,34
+CUDA,Open3D/cpp/open3d/ml/pytorch/misc/RaggedToDenseOpKernel.cu,7,7,34
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/BuildSpatialHashTableOpKernel.cpp,6,7,34
+C/C++ Header,Open3D/cpp/open3d/pipelines/odometry/Odometry.h,9,25,34
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/TriangleMesh.h,12,6,34
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/RGBDVideoMetadata.h,23,26,34
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/RenderOptionWithEditing.h,10,8,34
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/VisualizerWithKeyCallback.h,10,22,34
+CMake,Open3D/cpp/tests/io/CMakeLists.txt,3,0,34
+C++,Open3D/examples/cpp/PCDFileFormat.cpp,9,8,34
+Python,Open3D/examples/python/camera/camera_trajectory.py,4,6,34
+Python,Open3D/python/test/t/geometry/test_lineset.py,9,6,34
+CMake,Open3D/3rdparty/mkl/tbb.cmake,5,12,33
+C/C++ Header,Open3D/cpp/open3d/core/Atomic.h,7,14,33
+C++,Open3D/cpp/open3d/core/linalg/LUCUDA.cpp,8,6,33
+C/C++ Header,Open3D/cpp/open3d/core/nns/NeighborSearchCommon.h,12,14,33
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/AzureKinectRecorder.h,13,20,33
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/NeighborSearchAllocator.h,9,9,33
+CUDA,Open3D/cpp/open3d/ml/tensorflow/misc/ReduceSubarraysSumOpKernel.cu,6,6,33
+C++,Open3D/cpp/open3d/visualization/gui/Label3D.cpp,16,6,33
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/MessageProcessor.h,11,8,33
+CSS,Open3D/cpp/open3d/visualization/webrtc_server/html/styles.css,0,0,33
+C++,Open3D/cpp/pybind/core/cuda_utils.cpp,5,6,33
+C++,Open3D/cpp/pybind/visualization/app/viewer.cpp,7,6,33
+C++,Open3D/cpp/pybind/visualization/visualization.cpp,8,6,33
+C++,Open3D/cpp/tests/core/Blob.cpp,11,6,33
+C++,Open3D/cpp/tests/t/pipelines/TransformationConverter.cpp,11,6,33
+reStructuredText,Open3D/docs/builddocs.rst,41,25,33
+Markdown,Open3D/docs/release.md,9,0,33
+CMake,Open3D/3rdparty/fmt/fmt.cmake,4,2,32
+CMake,Open3D/3rdparty/zlib/zlib.cmake,4,2,32
+CMake,Open3D/cmake/Open3DPackaging.cmake,1,3,32
+C++,Open3D/cpp/benchmarks/t/io/TriangleMeshIO.cpp,12,6,32
+C++,Open3D/cpp/open3d/core/hashmap/DeviceHashBackend.cpp,5,6,32
+C++,Open3D/cpp/open3d/core/linalg/AddMMCPU.cpp,4,6,32
+CMake,Open3D/cpp/open3d/t/io/CMakeLists.txt,5,0,32
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/registration/RobustKernel.h,6,42,32
+C/C++ Header,Open3D/cpp/open3d/utility/ProgressBar.h,7,6,32
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Button.h,15,16,32
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/colorMap.mat,7,0,32
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/depth_value.mat,8,0,32
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/normals.mat,7,0,32
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/NumberEdit.h,14,6,32
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/LightDirectionInteractorLogic.h,13,6,32
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/filament/FilamentEngine.h,16,16,32
+CMake,Open3D/cpp/open3d/visualization/webrtc_server/CMakeLists.txt,6,1,32
+reStructuredText,Open3D/docs/tutorial/t_reconstruction_system/integration.rst,19,25,32
+Python,Open3D/examples/python/geometry/triangle_mesh_with_numpy.py,3,8,32
+CMake,Open3D/cmake/Open3DLink3rdpartyLibraries.cmake,3,8,31
+CUDA,Open3D/cpp/open3d/ml/contrib/InterpolatePoints.cuh,6,6,31
+C++,Open3D/cpp/open3d/ml/pytorch/misc/RaggedToDenseOpKernel.cpp,7,7,31
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvTransposeOpKernel.h,4,7,31
+CMake,Open3D/cpp/open3d/pipelines/CMakeLists.txt,5,0,31
+C/C++ Header,Open3D/cpp/open3d/utility/ISAInfo.h,9,17,31
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Font.h,10,38,31
+C++,Open3D/cpp/open3d/visualization/webrtc_server/BitmapTrackSource.cpp,8,17,31
+C++,Open3D/cpp/tests/core/Device.cpp,10,6,31
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/refine_registration.rst,20,36,31
+Python,Open3D/examples/python/visualization/customized_visualization_key_action.py,12,8,31
+Python,Open3D/python/open3d/ml/tf/python/ops/lib.py,5,8,31
+YAML,Open3D/.github/ISSUE_TEMPLATE/3-feature-request.yml,5,0,30
+YAML,Open3D/.github/workflows/clean-gcloud-profiles.yml,4,21,30
+C,Open3D/3rdparty/glfw/src/win32_time.c,10,34,30
+CMake,Open3D/3rdparty/libpng/libpng.cmake,3,0,30
+CMake,Open3D/cmake/ispc_isas/CMakeLists.txt,12,5,30
+CMake,Open3D/cpp/benchmarks/CMakeLists.txt,6,0,30
+C++,Open3D/cpp/benchmarks/geometry/SamplePoints.cpp,10,7,30
+CUDA,Open3D/cpp/open3d/core/kernel/ArangeCUDA.cu,4,6,30
+C++,Open3D/cpp/open3d/io/FileFormatIO.cpp,7,6,30
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/MKVReader.h,10,20,30
+CUDA,Open3D/cpp/open3d/ml/tensorflow/misc/NmsOpKernel.cu,6,6,30
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/ReduceSubarraysSumOpKernel.cpp,6,6,30
+C++,Open3D/cpp/open3d/ml/tensorflow/pointnet/RoiPoolOps.cpp,6,11,30
+C/C++ Header,Open3D/cpp/open3d/pipelines/color_map/NonRigidOptimizer.h,16,46,30
+C++,Open3D/cpp/open3d/pipelines/registration/RobustKernel.cpp,11,10,30
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/RGBDVideoReader.h,18,30,30
+C++,Open3D/cpp/open3d/t/pipelines/kernel/Feature.cpp,5,6,30
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/Feature.h,6,6,30
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/FileDialog.h,17,16,30
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/ListView.h,14,15,30
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/CameraInteractorLogic.h,14,7,30
+C++,Open3D/cpp/open3d/visualization/rendering/RendererHandle.cpp,10,6,30
+C/C++ Header,Open3D/cpp/pybind/core/tensor_converter.h,12,67,30
+C++,Open3D/cpp/tests/utility/ProgressBar.cpp,9,6,30
+Jupyter Notebook,Open3D/docs/jupyter/geometry/mesh_deformation.ipynb,0,89,30
+reStructuredText,Open3D/docs/tutorial/visualization/interactive_visualization.rst,46,57,30
+Python,Open3D/examples/python/geometry/ray_casting_to_image.py,4,8,30
+Python,Open3D/python/test/open3d_test.py,10,19,30
+CMake,Open3D/3rdparty/cmake/FindOSMesa.cmake,7,10,29
+CMake,Open3D/3rdparty/ippicv/CMakeLists.txt,4,1,29
+C++,Open3D/cpp/benchmarks/core/Reduction.cpp,7,6,29
+CMake,Open3D/cpp/open3d/Open3DConfig.cmake.in,7,0,29
+C++,Open3D/cpp/open3d/core/linalg/SVDCPU.cpp,4,6,29
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/IoU.h,8,28,29
+CUDA,Open3D/cpp/open3d/ml/pytorch/pointnet/BallQueryKernel.cu,8,37,29
+C++,Open3D/cpp/open3d/ml/pytorch/pointnet/BallQueryOps.cpp,7,32,29
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvBackpropFilterOpKernel.h,4,7,29
+C/C++ Header,Open3D/cpp/open3d/pipelines/odometry/OdometryOption.h,6,27,29
+C/C++ Header,Open3D/cpp/open3d/utility/Console.h,10,6,29
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/defaultUnlitTransparency.mat,5,0,29
+CUDA,Open3D/cpp/tests/core/ParallelFor.cu,9,11,29
+C/C++ Header,Open3D/cpp/tests/pipelines/odometry/OdometryTools.h,8,10,29
+reStructuredText,Open3D/docs/contribute/contribute.rst,14,2,29
+C++,Open3D/examples/cpp/FileDialog.cpp,6,8,29
+Python,Open3D/examples/python/geometry/kd_tree_search.py,11,7,29
+CMake,Open3D/3rdparty/civetweb/civetweb.cmake,2,0,28
+C,Open3D/3rdparty/glfw/src/null_monitor.c,11,29,28
+CMake,Open3D/3rdparty/jsoncpp/jsoncpp.cmake,3,0,28
+C/C++ Header,Open3D/cpp/apps/OfflineReconstruction/DebugUtil.h,6,6,28
+C/C++ Header,Open3D/cpp/open3d/Macro.h,6,14,28
+C/C++ Header,Open3D/cpp/open3d/core/ShapeUtil.h,16,60,28
+C++,Open3D/cpp/open3d/core/linalg/MatmulCUDA.cpp,4,6,28
+C++,Open3D/cpp/open3d/data/dataset/SampleRedwoodRGBDImages.cpp,9,6,28
+C/C++ Header,Open3D/cpp/open3d/io/LineSetIO.h,10,16,28
+C/C++ Header,Open3D/cpp/open3d/io/VoxelGridIO.h,10,16,28
+C++,Open3D/cpp/open3d/ml/pytorch/pointnet/SamplingOps.cpp,9,32,28
+C++,Open3D/cpp/open3d/ml/tensorflow/misc/NmsOpKernel.cpp,7,6,28
+C/C++ Header,Open3D/cpp/open3d/pipelines/color_map/RigidOptimizer.h,14,36,28
+CMake,Open3D/cpp/open3d/t/pipelines/kernel/CMakeLists.txt,4,2,28
+CMake,Open3D/cpp/open3d/utility/CMakeLists.txt,3,0,28
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/img_blit.mat,1,0,28
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/ui_blit.mat,1,0,28
+C++,Open3D/cpp/open3d/visualization/gui/NativeLinux.cpp,9,7,28
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Slider.h,12,15,28
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/TextEdit.h,13,17,28
+C++,Open3D/cpp/pybind/core/core.cpp,7,8,28
+CMake,Open3D/cpp/pybind/visualization/CMakeLists.txt,5,0,28
+C++,Open3D/cpp/tests/utility/Download.cpp,10,11,28
+C++,Open3D/cpp/tests/utility/Extract.cpp,9,13,28
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/capture_your_own_dataset.rst,22,29,28
+C++,Open3D/examples/cpp/Log.cpp,9,6,28
+Python,Open3D/examples/python/benchmark/benchmark_pre.py,11,7,28
+YAML,Open3D/examples/python/t_reconstruction_system/default_config.yml,0,0,28
+YAML,Open3D/.github/workflows/style.yml,3,0,27
+C/C++ Header,Open3D/3rdparty/glfw/src/null_platform.h,7,28,27
+C++,Open3D/cpp/open3d/core/MemoryManagerCPU.cpp,7,6,27
+C/C++ Header,Open3D/cpp/open3d/core/hashmap/CUDA/SlabTraits.h,9,19,27
+C/C++ Header,Open3D/cpp/open3d/core/linalg/SVD.h,7,8,27
+C++,Open3D/cpp/open3d/data/dataset/DemoICPPointClouds.cpp,7,6,27
+C++,Open3D/cpp/open3d/data/dataset/LivingRoomPointClouds.cpp,7,6,27
+C++,Open3D/cpp/open3d/data/dataset/OfficePointClouds.cpp,7,6,27
+C++,Open3D/cpp/open3d/io/rpc/BufferConnection.cpp,9,6,27
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/AzureKinectSensorConfig.h,11,13,27
+C++,Open3D/cpp/open3d/io/sensor/azure_kinect/MKVMetadata.cpp,11,6,27
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/MKVWriter.h,9,7,27
+CUDA,Open3D/cpp/open3d/ml/contrib/TrilinearDevoxelize.cuh,5,30,27
+C/C++ Header,Open3D/cpp/open3d/ml/impl/misc/ReduceSubarraysSum.h,6,18,27
+CUDA,Open3D/cpp/open3d/ml/pytorch/misc/ReduceSubarraysSumOpKernel.cu,4,7,27
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/sparse_conv/SparseConvOpKernel.h,4,7,27
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Color.h,12,9,27
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/RadioButton.h,12,11,27
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/IBLRotationInteractorLogic.h,12,6,27
+C++,Open3D/cpp/tests/io/TriangleMeshIO.cpp,13,13,27
+reStructuredText,Open3D/docs/cpp_project.rst,11,4,27
+Jupyter Notebook,Open3D/docs/jupyter/geometry/kdtree.ipynb,0,133,27
+Python,Open3D/docs/jupyter/jupyter_strip_output.py,7,9,27
+Python,Open3D/examples/python/reconstruction_system/sensors/realsense_helper.py,8,9,27
+Python,Open3D/python/test/io/rpc/test_remote_functions.py,12,13,27
+Python,Open3D/python/test/ml_ops/test_roi_pool.py,8,7,27
+Python,Open3D/python/test/visualization/test_cpu_rendering.py,5,7,27
+CMake,Open3D/3rdparty/openblas/openblas.cmake,4,0,26
+CMake,Open3D/3rdparty/stdgpu/stdgpu.cmake,3,3,26
+Text,Open3D/3rdparty/vtk/Copyright.txt,8,0,26
+CMake,Open3D/cmake/Open3DSYCLTargetSources.cmake,1,14,26
+C/C++ Header,Open3D/cpp/open3d/core/SYCLContext.h,17,22,26
+C++,Open3D/cpp/open3d/core/kernel/ArangeCPU.cpp,4,6,26
+C++,Open3D/cpp/open3d/core/linalg/InverseCPU.cpp,4,6,26
+C++,Open3D/cpp/open3d/data/dataset/LoungeRGBDImages.cpp,7,6,26
+C/C++ Header,Open3D/cpp/open3d/io/PinholeCameraTrajectoryIO.h,12,15,26
+C/C++ Header,Open3D/cpp/open3d/io/rpc/Connection.h,10,19,26
+C++,Open3D/cpp/open3d/ml/contrib/Cloud.cpp,16,53,26
+C/C++ Header,Open3D/cpp/open3d/pipelines/color_map/ImageWarpingField.h,7,6,26
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/slac/Visualization.h,8,14,26
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Label.h,12,8,26
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/depth.mat,6,0,26
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Native.h,9,8,26
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/TabControl.h,12,6,26
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/PhongVertexShader.glsl,8,0,26
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/TexturePhongVertexShader.glsl,9,0,26
+C/C++ Header,Open3D/cpp/pybind/geometry/geometry.h,6,6,26
+C++,Open3D/cpp/tests/visualization/rendering/MaterialModifier.cpp,5,6,26
+Python,Open3D/examples/python/geometry/ray_casting_sdf.py,10,11,26
+CMake,Open3D/3rdparty/glfw/cmake_uninstall.cmake.in,4,0,25
+C/C++ Header,Open3D/3rdparty/glfw/src/linux_joystick.h,8,29,25
+diff,Open3D/3rdparty/zlib/0001-patch-zlib-to-enable-unzip.patch,7,31,25
+C,Open3D/cmake/ispc_isas/ISADispatcher.c,5,27,25
+Bourne Shell,Open3D/cpp/apps/Open3DViewer/makeMacIcon.sh,6,1,25
+C++,Open3D/cpp/open3d/data/dataset/DemoColoredICPPointClouds.cpp,7,6,25
+C++,Open3D/cpp/open3d/data/dataset/MonkeyModel.cpp,6,6,25
+C++,Open3D/cpp/open3d/io/ModelIO.cpp,7,6,25
+CMake,Open3D/cpp/open3d/t/pipelines/CMakeLists.txt,7,0,25
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Label3D.h,12,17,25
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/ToggleSwitch.h,12,11,25
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/VectorEdit.h,11,9,25
+C++,Open3D/cpp/pybind/core/tensor_type_caster.cpp,7,6,25
+C/C++ Header,Open3D/cpp/pybind/visualization/gui/gui.h,9,6,25
+C++,Open3D/cpp/tests/pipelines/registration/Registration.cpp,15,6,25
+Jupyter Notebook,Open3D/docs/jupyter/geometry/working_with_numpy.ipynb,0,96,25
+Python,Open3D/examples/python/geometry/point_cloud_to_rgbd.py,5,6,25
+Bourne Shell,Open3D/util/run_ci.sh,10,3,25
+C/C++ Header,Open3D/cpp/open3d/core/linalg/Matmul.h,5,7,24
+C++,Open3D/cpp/open3d/data/dataset/DemoFeatureMatchingPointClouds.cpp,6,6,24
+C/C++ Header,Open3D/cpp/open3d/io/FileFormatIO.h,7,9,24
+C++,Open3D/cpp/open3d/io/rpc/ZMQContext.cpp,6,6,24
+C/C++ Header,Open3D/cpp/open3d/io/sensor/azure_kinect/MKVMetadata.h,10,15,24
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/pointnet/InterpolateKernel.h,4,32,24
+C++,Open3D/cpp/open3d/t/geometry/RGBDImage.cpp,6,6,24
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/ColorEdit.h,12,8,24
+C++,Open3D/cpp/open3d/visualization/gui/Font.cpp,7,7,24
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/pointcloud.mat,2,0,24
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/unlitSolidColor.mat,4,0,24
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/RotationInteractorLogic.h,11,8,24
+C++,Open3D/cpp/tests/io/file_format/FileGLTF.cpp,8,24,24
+reStructuredText,Open3D/docs/contribute/styleguide.rst,22,19,24
+reStructuredText,Open3D/docs/tutorial/t_reconstruction_system/dense_slam.rst,16,11,24
+Python,Open3D/examples/python/visualization/textured_mesh.py,8,10,24
+YAML,Open3D/.github/ISSUE_TEMPLATE/2-questions.yml,3,0,23
+CMake,Open3D/3rdparty/glfw/CMake/GenerateMappings.cmake,8,2,23
+C/C++ Header,Open3D/3rdparty/glfw/deps/getopt.h,9,25,23
+C++,Open3D/cpp/benchmarks/core/Linalg.cpp,8,6,23
+C/C++ Header,Open3D/cpp/open3d/core/kernel/IndexReduction.h,7,6,23
+C++,Open3D/cpp/open3d/core/kernel/NonZero.cpp,5,6,23
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LeastSquares.h,7,7,23
+C++,Open3D/cpp/open3d/core/linalg/LeastSquaresCPU.cpp,4,6,23
+C/C++ Header,Open3D/cpp/open3d/core/linalg/Solve.h,7,7,23
+C++,Open3D/cpp/open3d/core/linalg/SolveCPU.cpp,4,6,23
+C++,Open3D/cpp/open3d/ml/pytorch/misc/BuildSpatialHashTableOpKernel.cpp,3,7,23
+C++,Open3D/cpp/open3d/ml/tensorflow/pointnet/BallQueryOps.cpp,3,11,23
+CMake,Open3D/cpp/open3d/t/geometry/CMakeLists.txt,4,0,23
+C/C++ Header,Open3D/cpp/open3d/t/geometry/DrawableGeometry.h,10,14,23
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Checkbox.h,11,8,23
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Dialog.h,10,7,23
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/StackedWidget.h,11,10,23
+CSS,Open3D/cpp/open3d/visualization/webrtc_server/html/nav.css,0,0,23
+C++,Open3D/cpp/pybind/core/size_vector.cpp,7,22,23
+C/C++ Header,Open3D/cpp/pybind/geometry/octree.h,8,8,23
+C++,Open3D/cpp/tests/io/file_format/FileSTL.cpp,7,6,23
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/integrate_scene.rst,12,20,23
+Python,Open3D/examples/python/geometry/point_cloud_outlier_removal_statistical.py,9,6,23
+Python,Open3D/examples/python/geometry/point_cloud_with_numpy.py,4,10,23
+Python,Open3D/examples/python/reconstruction_system/debug/pairwise_pc_alignment.py,6,7,23
+Python,Open3D/examples/python/visualization/line_width.py,10,15,23
+Python,Open3D/examples/python/visualization/load_save_viewpoint.py,7,6,23
+Python,Open3D/python/open3d/visualization/__main__.py,5,6,23
+Python,Open3D/python/test/ml_ops/test_three_nn.py,7,7,23
+CMake,Open3D/3rdparty/benchmark/MakeAvailable/CMakeLists.txt,4,5,22
+C++,Open3D/cpp/open3d/core/linalg/LUCPU.cpp,4,6,22
+C++,Open3D/cpp/open3d/core/linalg/MatmulCPU.cpp,3,6,22
+C++,Open3D/cpp/open3d/data/dataset/SwordModel.cpp,6,6,22
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/cuda_utils.h,8,32,22
+C++,Open3D/cpp/open3d/ml/pytorch/misc/ReduceSubarraysSumOpKernel.cpp,5,7,22
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/registration/Feature.h,7,34,22
+C/C++ Header,Open3D/cpp/open3d/utility/CompilerInfo.h,10,9,22
+C/C++ Header,Open3D/cpp/open3d/utility/Overload.h,9,29,22
+Unity-Prefab,Open3D/cpp/open3d/visualization/gui/Materials/unlitPolygonOffset.mat,5,0,22
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Task.h,11,11,22
+C/C++ Header,Open3D/cpp/pybind/core/core.h,5,6,22
+C/C++ Header,Open3D/cpp/tests/Tests.h,8,8,22
+Jupyter Notebook,Open3D/docs/jupyter/geometry/file_io.ipynb,0,139,22
+Python,Open3D/examples/python/geometry/point_cloud_outlier_removal_radius.py,9,6,22
+Python,Open3D/examples/python/geometry/point_cloud_to_depth.py,4,6,22
+Python,Open3D/python/open3d/ml/tf/__init__.py,7,10,22
+Python,Open3D/python/test/ml_ops/test_three_interp.py,7,7,22
+CMake,Open3D/3rdparty/glfw/CMake/modules/FindWaylandProtocols.cmake,5,0,21
+C++,Open3D/cpp/benchmarks/core/Zeros.cpp,8,6,21
+C/C++ Header,Open3D/cpp/open3d/core/linalg/Inverse.h,7,7,21
+C/C++ Header,Open3D/cpp/open3d/core/linalg/TriImpl.h,9,6,21
+CUDA,Open3D/cpp/open3d/core/nns/kernel/DeviceDefs.cuh,8,38,21
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/pvcnn/TrilinearDevoxelizeKernel.h,3,61,21
+C++,Open3D/cpp/open3d/ml/tensorflow/pointnet/SamplingOps.cpp,3,11,21
+C++,Open3D/cpp/open3d/visualization/gui/NativeWin32.cpp,7,17,21
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/ProgressBar.h,9,7,21
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/WidgetStack.h,10,36,21
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Light.h,8,8,21
+CMake,Open3D/cpp/pybind/core/CMakeLists.txt,1,0,21
+C++,Open3D/cpp/pybind/core/scalar.cpp,6,6,21
+C++,Open3D/cpp/tests/io/PinholeCameraTrajectoryIO.cpp,8,6,21
+CMake,Open3D/cpp/tests/pipelines/CMakeLists.txt,2,0,21
+C++,Open3D/cpp/tests/pipelines/registration/TransformationEstimation.cpp,11,6,21
+DOS Batch,Open3D/docs/make.bat,6,1,21
+reStructuredText,Open3D/docs/tutorial/visualization/non_blocking_visualization.rst,25,43,21
+Python,Open3D/python/test/ml_ops/test_query_pts.py,8,7,21
+CMake,Open3D/3rdparty/glfw/CMake/modules/FindXKBCommon.cmake,7,7,20
+C/C++ Header,Open3D/3rdparty/glfw/src/win32_joystick.h,7,29,20
+diff,Open3D/3rdparty/webrtc/0001-third_party-enable-rtc_use_cxx11_abi-option.patch,6,17,20
+Bourne Shell,Open3D/cpp/apps/sign_open3d_app.sh,9,8,20
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LUImpl.h,6,7,20
+C++,Open3D/cpp/open3d/data/dataset/MetalTexture.cpp,6,6,20
+C/C++ Header,Open3D/cpp/open3d/io/rpc/BufferConnection.h,9,9,20
+C/C++ Header,Open3D/cpp/open3d/io/rpc/ConnectionBase.h,6,8,20
+C/C++ Header,Open3D/cpp/open3d/pipelines/registration/GlobalOptimization.h,8,20,20
+C/C++ Header,Open3D/cpp/open3d/utility/CPUInfo.h,9,13,20
+C++,Open3D/cpp/pybind/t/pipelines/pipelines.cpp,5,6,20
+C++,Open3D/cpp/tests/io/file_format/FilePCD.cpp,18,6,20
+C/C++ Header,Open3D/cpp/tools/ManuallyAlignPointCloud/AlignmentSession.h,6,6,20
+Jupyter Notebook,Open3D/docs/jupyter/geometry/half_edge_mesh.ipynb,0,105,20
+reStructuredText,Open3D/docs/tutorial/t_reconstruction_system/customized_integration.rst,12,17,20
+CMake,Open3D/3rdparty/cmake/FindTBB.cmake,1,1,19
+diff,Open3D/3rdparty/librealsense/fix-cudacrt.patch,3,8,19
+diff,Open3D/3rdparty/mkl/0001-Allow-selecttion-of-static-dynamic-MSVC-runtime.patch,4,9,19
+C/C++ Header,Open3D/cpp/open3d/camera/PinholeCameraParameters.h,7,12,19
+CMake,Open3D/cpp/open3d/cmake_uninstall.cmake.in,2,1,19
+C/C++ Header,Open3D/cpp/open3d/core/kernel/Arange.h,7,6,19
+C++,Open3D/cpp/open3d/data/dataset/DemoPoseGraphOptimization.cpp,6,6,19
+C++,Open3D/cpp/open3d/data/dataset/PaintedPlasterTexture.cpp,6,6,19
+C++,Open3D/cpp/open3d/data/dataset/TerrazzoTexture.cpp,6,6,19
+C++,Open3D/cpp/open3d/data/dataset/TilesTexture.cpp,6,6,19
+C++,Open3D/cpp/open3d/data/dataset/WoodFloorTexture.cpp,6,6,19
+C++,Open3D/cpp/open3d/data/dataset/WoodTexture.cpp,6,6,19
+C/C++ Header,Open3D/cpp/open3d/geometry/Qhull.h,7,13,19
+C/C++ Header,Open3D/cpp/open3d/io/ModelIO.h,7,12,19
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/Nms.h,7,27,19
+C/C++ Header,Open3D/cpp/open3d/ml/contrib/RoiPoolKernel.h,5,32,19
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/UVUnwrapping.h,5,44,19
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/CameraSphereInteractorLogic.h,9,6,19
+C/C++ Header,Open3D/cpp/open3d/visualization/webrtc_server/HttpServerRequestHandler.h,7,17,19
+C/C++ Header,Open3D/cpp/pybind/core/tensor_type_caster.h,6,8,19
+C++,Open3D/cpp/pybind/t/geometry/drawablegeometry.cpp,5,7,19
+C++,Open3D/cpp/tests/io/IJsonConvertibleIO.cpp,9,6,19
+C++,Open3D/cpp/tests/pipelines/registration/GlobalOptimization.cpp,9,6,19
+CMake,Open3D/cpp/tests/utility/CMakeLists.txt,1,0,19
+Python,Open3D/examples/python/geometry/octree_from_voxel_grid.py,3,7,19
+Python,Open3D/examples/python/geometry/triangle_mesh_cropping.py,3,6,19
+Python,Open3D/examples/python/geometry/triangle_mesh_simplification_vertex_clustering.py,5,6,19
+C/C++ Header,Open3D/cpp/open3d/camera/PinholeCameraTrajectory.h,8,11,18
+C++,Open3D/cpp/open3d/core/nns/NNSIndex.cpp,8,6,18
+C++,Open3D/cpp/open3d/data/dataset/CrateModel.cpp,6,6,18
+C++,Open3D/cpp/open3d/data/dataset/DemoCustomVisualization.cpp,6,6,18
+C/C++ Header,Open3D/cpp/open3d/geometry/Geometry2D.h,8,16,18
+C/C++ Header,Open3D/cpp/open3d/io/sensor/RGBDSensor.h,9,11,18
+CMake,Open3D/cpp/open3d/ml/contrib/CMakeLists.txt,4,0,18
+C/C++ Header,Open3D/cpp/open3d/visualization/rendering/Model.h,6,6,18
+C/C++ Header,Open3D/cpp/open3d/visualization/visualizer/GuiWidgets.h,9,6,18
+CMake,Open3D/cpp/pybind/pipelines/CMakeLists.txt,4,0,18
+C++,Open3D/cpp/tests/pipelines/integration/ScalableTSDFVolume.cpp,16,6,18
+C++,Open3D/cpp/tests/pipelines/registration/CorrespondenceChecker.cpp,10,6,18
+HTML,Open3D/docs/_templates/sidebar/variant-selector.html,1,2,18
+Text,Open3D/python/LICENSE.txt,4,0,18
+Python,Open3D/python/test/io/test_io.py,3,8,18
+CMake,Open3D/3rdparty/cmake/FindImGui.cmake,2,0,17
+CMake,Open3D/3rdparty/glfw/CMake/modules/FindMir.cmake,7,10,17
+C/C++ Header,Open3D/3rdparty/glfw/src/nsgl_context.h,9,30,17
+CMake,Open3D/3rdparty/tinyfiledialogs/CMakeLists.txt,5,2,17
+CUDA,Open3D/cpp/open3d/core/hashmap/CUDA/SlabNodeManager.cu,6,19,17
+C++,Open3D/cpp/open3d/data/dataset/DemoCropPointCloud.cpp,6,6,17
+C/C++ Header,Open3D/cpp/open3d/io/sensor/RGBDRecorder.h,9,17,17
+C/C++ Header,Open3D/cpp/open3d/t/pipelines/kernel/TransformationConverter.h,8,31,17
+C++,Open3D/cpp/pybind/pipelines/pipelines.cpp,5,6,17
+CMake,Open3D/cpp/pybind/t/pipelines/CMakeLists.txt,4,0,17
+C++,Open3D/cpp/tests/core/SizeVector.cpp,6,6,17
+CMake,Open3D/cpp/tests/geometry/CMakeLists.txt,0,0,17
+C++,Open3D/cpp/tests/pipelines/registration/GlobalOptimizationConvergenceCriteria.cpp,7,6,17
+reStructuredText,Open3D/docs/tutorial/t_reconstruction_system/voxel_block_grid.rst,12,5,17
+CMake,Open3D/examples/cpp/iterative_build_examples.cmake,0,0,17
+Python,Open3D/examples/python/geometry/octree_find_leaf.py,3,7,17
+Python,Open3D/examples/python/geometry/octree_point_cloud.py,3,7,17
+Python,Open3D/examples/python/geometry/point_cloud_dbscan_clustering.py,4,7,17
+Python,Open3D/examples/python/geometry/voxel_grid_from_point_cloud.py,4,7,17
+Python,Open3D/python/open3d/ml/tf/python/layers/voxel_pooling.py,24,59,17
+Python,Open3D/python/open3d/ml/torch/python/layers/voxel_pooling.py,22,61,17
+Python,Open3D/python/test/ml_ops/test_sampling.py,7,7,17
+Markdown,Open3D/.github/pull_request_template.md,10,8,16
+JSON,Open3D/.github/workflows/gcs.lifecycle.json,0,0,16
+Text,Open3D/3rdparty/glfw/COPYING.txt,6,0,16
+C/C++ Header,Open3D/3rdparty/glfw/src/cocoa_joystick.h,7,27,16
+C,Open3D/3rdparty/glfw/src/cocoa_time.c,11,33,16
+C/C++ Header,Open3D/3rdparty/liblzf/liblzf/lzf.h,9,83,16
+C++,Open3D/cpp/open3d/data/dataset/SampleNYURGBDImage.cpp,6,6,16
+C++,Open3D/cpp/open3d/data/dataset/SampleSUNRGBDImage.cpp,6,6,16
+C++,Open3D/cpp/open3d/data/dataset/SampleTUMRGBDImage.cpp,6,6,16
+C/C++ Header,Open3D/cpp/open3d/io/ImageWarpingFieldIO.h,9,12,16
+C/C++ Header,Open3D/cpp/open3d/io/OctreeIO.h,10,16,16
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/InvertNeighborsListOpKernel.h,3,7,16
+C/C++ Header,Open3D/cpp/open3d/t/io/NumpyIO.h,9,20,16
+C/C++ Header,Open3D/cpp/open3d/utility/Preprocessor.h,6,43,16
+C/C++ Header,Open3D/cpp/open3d/visualization/gui/Util.h,9,11,16
+C++,Open3D/cpp/open3d/visualization/visualizer/GuiWidgets.cpp,7,6,16
+C++,Open3D/cpp/tests/utility/Timer.cpp,14,6,16
+Python,Open3D/examples/python/geometry/point_cloud_distance.py,4,6,16
+Python,Open3D/examples/python/geometry/point_cloud_hidden_point_removal.py,6,9,16
+Python,Open3D/examples/python/geometry/triangle_mesh_from_point_cloud_alpha_shapes.py,3,6,16
+JSON,Open3D/examples/python/t_reconstruction_system/default_intrinsics.json,0,0,16
+CMake,Open3D/3rdparty/possionrecon/possionrecon.cmake,2,0,15
+CMake,Open3D/3rdparty/qhull/qhull.cmake,2,1,15
+diff,Open3D/3rdparty/webrtc/0001-build-enable-rtc_use_cxx11_abi-option.patch,5,9,15
+CMake,Open3D/cpp/benchmarks/core/CMakeLists.txt,1,0,15
+C++,Open3D/cpp/open3d/data/dataset/ArmadilloMesh.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/AvocadoModel.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/BunnyMesh.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/DamagedHelmetModel.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/EaglePointCloud.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/JuneauImage.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/KnotMesh.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/PCDPointCloud.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/PLYPointCloud.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/PTSPointCloud.cpp,6,6,15
+C++,Open3D/cpp/open3d/data/dataset/SampleL515Bag.cpp,6,6,15
+C/C++ Header,Open3D/cpp/open3d/geometry/Keypoint.h,7,28,15
+C++,Open3D/cpp/open3d/geometry/TetraMeshFactory.cpp,4,6,15
+C++,Open3D/cpp/open3d/io/FeatureIO.cpp,6,6,15
+C/C++ Header,Open3D/cpp/open3d/io/FeatureIO.h,9,10,15
+CUDA,Open3D/cpp/open3d/ml/contrib/BallQuery.cuh,4,6,15
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/PickingVertexShader.glsl,3,0,15
+CMake,Open3D/cpp/pybind/geometry/CMakeLists.txt,0,0,15
+C++,Open3D/cpp/pybind/ml/contrib/contrib.cpp,6,6,15
+C++,Open3D/cpp/pybind/t/t.cpp,5,6,15
+C++,Open3D/cpp/pybind/utility/random.cpp,7,6,15
+C++,Open3D/cpp/tests/io/file_format/FileJSON.cpp,9,6,15
+C++,Open3D/cpp/tests/io/file_format/FilePLY.cpp,13,6,15
+CMake,Open3D/cpp/tests/t/pipelines/CMakeLists.txt,3,0,15
+Python,Open3D/examples/python/geometry/point_cloud_bounding_box.py,2,7,15
+Python,Open3D/examples/python/geometry/point_cloud_iss_keypoint_detector.py,4,7,15
+Python,Open3D/examples/python/geometry/point_cloud_normal_estimation.py,6,7,15
+Python,Open3D/examples/python/geometry/point_cloud_plane_segmentation.py,3,7,15
+Python,Open3D/examples/python/geometry/triangle_mesh_simplification_decimation.py,5,6,15
+Python,Open3D/python/open3d/visualization/__init__.py,3,6,15
+CMake,Open3D/3rdparty/cub/cub.cmake,2,0,14
+CMake,Open3D/3rdparty/cutlass/cutlass.cmake,2,0,14
+CMake,Open3D/3rdparty/eigen/eigen.cmake,2,1,14
+C,Open3D/3rdparty/glfw/src/null_init.c,7,29,14
+CMake,Open3D/3rdparty/googletest/googletest.cmake,2,0,14
+CMake,Open3D/3rdparty/imgui/imgui.cmake,2,0,14
+CMake,Open3D/3rdparty/nanoflann/nanoflann.cmake,2,0,14
+CMake,Open3D/3rdparty/parallelstl/parallelstl.cmake,2,0,14
+CMake,Open3D/3rdparty/tinygltf/tinygltf.cmake,2,0,14
+CMake,Open3D/3rdparty/tinyobjloader/tinyobjloader.cmake,2,0,14
+C/C++ Header,Open3D/cpp/benchmarks/benchmark_utilities/Rand.h,5,7,14
+C/C++ Header,Open3D/cpp/open3d/core/SYCLUtils.h,11,20,14
+C/C++ Header,Open3D/cpp/open3d/core/TensorFunction.h,8,93,14
+C++,Open3D/cpp/open3d/core/hashmap/CPU/CPUHashBackendBuffer.cpp,3,6,14
+C++,Open3D/cpp/open3d/data/dataset/JackJackL515Bag.cpp,6,6,14
+C++,Open3D/cpp/open3d/io/rpc/DummyReceiver.cpp,6,6,14
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/RaggedToDenseOpKernel.h,3,7,14
+C/C++ Header,Open3D/cpp/open3d/t/geometry/kernel/PCAPartition.h,5,11,14
+C/C++ Header,Open3D/cpp/open3d/t/io/sensor/realsense/RealSensePrivate.h,6,8,14
+C/C++ Header,Open3D/cpp/open3d/utility/Download.h,7,28,14
+C++,Open3D/cpp/pybind/io/io.cpp,5,6,14
+C/C++ Header,Open3D/cpp/pybind/pipelines/registration/registration.h,6,6,14
+C++,Open3D/cpp/pybind/t/io/io.cpp,5,6,14
+C++,Open3D/cpp/tests/Tests.cpp,5,6,14
+CMake,Open3D/cpp/tools/CMakeLists.txt,4,0,14
+CMake,Open3D/cpp/tools/ManuallyAlignPointCloud/CMakeLists.txt,2,0,14
+Python,Open3D/examples/python/geometry/point_cloud_crop.py,3,7,14
+Python,Open3D/examples/python/geometry/triangle_mesh_from_point_cloud_ball_pivoting.py,4,6,14
+Python,Open3D/examples/python/geometry/triangle_mesh_from_point_cloud_poisson.py,3,6,14
+Python,Open3D/examples/python/geometry/voxel_grid_from_triangle_mesh.py,4,7,14
+JSON,Open3D/examples/python/reconstruction_system/config/realsense.json,0,0,14
+JSON,Open3D/examples/python/reconstruction_system/config/tutorial.json,0,0,14
+JavaScript,Open3D/python/js/lib/labplugin.js,1,0,14
+Python,Open3D/python/test/ml_ops/test_cublas.py,9,10,14
+Markdown,Open3D/python/test/readme.md,6,0,14
+C/C++ Header,Open3D/3rdparty/glfw/src/posix_thread.h,8,30,13
+CMake,Open3D/3rdparty/msgpack/msgpack_build.cmake,1,3,13
+diff,Open3D/3rdparty/webrtc/0001-src-enable-rtc_use_cxx11_abi-option.patch,4,10,13
+CUDA,Open3D/cpp/open3d/core/hashmap/CUDA/CUDAHashBackendBuffer.cu,3,6,13
+C/C++ Header,Open3D/cpp/open3d/core/kernel/Kernel.h,5,6,13
+C/C++ Header,Open3D/cpp/open3d/core/kernel/NonZero.h,7,6,13
+C++,Open3D/cpp/open3d/data/dataset/SampleICPPointClouds.cpp,6,6,13
+C/C++ Header,Open3D/cpp/open3d/io/PoseGraphIO.h,8,15,13
+C/C++ Header,Open3D/cpp/open3d/io/rpc/DummyReceiver.h,5,8,13
+C/C++ Header,Open3D/cpp/open3d/io/rpc/ZMQContext.h,7,9,13
+C/C++ Header,Open3D/cpp/open3d/ml/impl/continuous_conv/ContinuousConvTypes.h,5,16,13
+C++,Open3D/cpp/pybind/core/kernel.cpp,5,6,13
+C/C++ Header,Open3D/cpp/pybind/t/pipelines/registration/registration.h,5,6,13
+C++,Open3D/cpp/pybind/utility/utility.cpp,5,6,13
+C++,Open3D/cpp/tests/utility/Logging.cpp,6,6,13
+Python,Open3D/examples/python/geometry/triangle_mesh_normal_estimation.py,3,7,13
+Python,Open3D/examples/python/geometry/triangle_mesh_sampling.py,5,6,13
+CMake,Open3D/cpp/CMakeLists.txt,0,0,12
+C++,Open3D/cpp/benchmarks/Main.cpp,3,19,12
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LU.h,6,8,12
+C/C++ Header,Open3D/cpp/open3d/core/linalg/Tri.h,7,9,12
+C/C++ Header,Open3D/cpp/open3d/t/io/HashMapIO.h,7,14,12
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/NormalVertexShader.glsl,4,0,12
+C/C++ Header,Open3D/cpp/pybind/io/io.h,8,6,12
+C/C++ Header,Open3D/cpp/pybind/ml/contrib/contrib.h,5,6,12
+CMake,Open3D/cpp/pybind/t/geometry/CMakeLists.txt,0,0,12
+C/C++ Header,Open3D/cpp/pybind/utility/utility.h,7,6,12
+C++,Open3D/cpp/tests/io/ImageIO.cpp,10,6,12
+C++,Open3D/cpp/tests/pipelines/registration/PoseGraph.cpp,10,6,12
+reStructuredText,Open3D/docs/tutorial/t_reconstruction_system/ray_casting.rst,11,15,12
+Python,Open3D/examples/python/geometry/triangle_mesh_subdivision.py,2,6,12
+JavaScript,Open3D/python/js/lib/extension.js,2,5,12
+C++,Open3D/cpp/apps/Open3DViewer/Open3DViewer.cpp,4,7,11
+C/C++ Header,Open3D/cpp/apps/Open3DViewer/Open3DViewer.h,3,6,11
+C++,Open3D/cpp/pybind/ml/ml.cpp,5,6,11
+C/C++ Header,Open3D/cpp/pybind/pybind_utils.h,8,6,11
+C/C++ Header,Open3D/cpp/pybind/t/io/io.h,5,6,11
+C/C++ Header,Open3D/cpp/pybind/t/pipelines/odometry/odometry.h,5,6,11
+C/C++ Header,Open3D/cpp/pybind/t/pipelines/slac/slac.h,5,6,11
+C/C++ Header,Open3D/cpp/pybind/t/pipelines/slam/slam.h,5,6,11
+C++,Open3D/cpp/tests/pipelines/odometry/Odometry.cpp,7,6,11
+C++,Open3D/cpp/tests/pipelines/registration/FastGlobalRegistration.cpp,7,6,11
+CMake,Open3D/cpp/tests/t/geometry/CMakeLists.txt,0,0,11
+C++,Open3D/cpp/tests/utility/ISAInfo.cpp,5,6,11
+Python,Open3D/examples/python/geometry/point_cloud_convex_hull.py,4,6,11
+Python,Open3D/examples/python/geometry/point_cloud_paint.py,2,7,11
+Python,Open3D/examples/python/geometry/point_cloud_voxel_downsampling.py,2,7,11
+JSON,Open3D/examples/python/reconstruction_system/sensors/default_config.json,0,0,11
+CMake,Open3D/3rdparty/glfw/CMake/amd64-mingw32msvc.cmake,1,2,10
+CMake,Open3D/3rdparty/glfw/CMake/i586-mingw32msvc.cmake,1,2,10
+CMake,Open3D/3rdparty/glfw/CMake/i686-pc-mingw32.cmake,1,2,10
+CMake,Open3D/3rdparty/glfw/CMake/i686-w64-mingw32.cmake,1,2,10
+CMake,Open3D/3rdparty/glfw/CMake/x86_64-w64-mingw32.cmake,1,2,10
+CMake,Open3D/cpp/open3d/camera/CMakeLists.txt,2,0,10
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LinalgHeadersCPU.h,3,11,10
+CMake,Open3D/cpp/open3d/ml/CMakeLists.txt,3,1,10
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/ReduceSubarraysSumOpKernel.h,3,7,10
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/ImageMaskFragmentShader.glsl,4,0,10
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/ImageVertexShader.glsl,4,0,10
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/SimpleVertexShader.glsl,3,0,10
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/TextureSimpleVertexShader.glsl,3,0,10
+C/C++ Header,Open3D/cpp/pybind/core/nns/nearest_neighbor_search.h,5,6,10
+CMake,Open3D/cpp/pybind/io/CMakeLists.txt,1,0,10
+C++,Open3D/cpp/tests/io/file_format/FilePTS.cpp,8,6,10
+C++,Open3D/cpp/tests/pipelines/registration/Feature.cpp,8,6,10
+Jupyter Notebook,Open3D/docs/jupyter/visualization/jupyter_visualization.ipynb,0,49,10
+Python,Open3D/python/open3d/ml/__init__.py,2,6,10
+Python,Open3D/python/test/core/test_sycl_utils.py,4,6,10
+Python,Open3D/python/tools/app.py,6,6,10
+YAML,Open3D/.clang-format,0,0,9
+CMake,Open3D/3rdparty/benchmark/benchmark.cmake,2,1,9
+CMake,Open3D/3rdparty/pybind11/pybind11.cmake,2,0,9
+Bourne Shell,Open3D/cpp/apps/Open3DViewer/postinstall-linux.sh,1,3,9
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/pointnet/BallQueryKernel.h,2,32,9
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/ImageMaskVertexShader.glsl,3,0,9
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/Simple2DVertexShader.glsl,3,0,9
+C++,Open3D/cpp/pybind/core/blob.cpp,5,6,9
+C/C++ Header,Open3D/cpp/pybind/pipelines/color_map/color_map.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/pipelines/integration/integration.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/pipelines/odometry/odometry.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/t/pipelines/pipelines.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/visualization/app/viewer.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/visualization/rendering/material.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/visualization/rendering/rendering.h,5,6,9
+C/C++ Header,Open3D/cpp/pybind/visualization/webrtc_server/webrtc_window_system.h,5,6,9
+C++,Open3D/cpp/tests/io/FeatureIO.cpp,7,6,9
+C++,Open3D/cpp/tests/io/file_format/FileBIN.cpp,7,6,9
+C++,Open3D/cpp/tests/io/file_format/FileXYZ.cpp,7,6,9
+Python,Open3D/examples/python/io/point_cloud_io.py,2,6,9
+Python,Open3D/python/open3d/ml/tf/modules.py,2,7,9
+Python,Open3D/python/open3d/ml/torch/modules.py,2,7,9
+C,Open3D/3rdparty/glfw/src/null_joystick.c,6,28,8
+C/C++ Header,Open3D/3rdparty/glfw/src/posix_time.h,8,28,8
+XML,Open3D/cpp/apps/Open3DViewer/Open3DViewer.entitlements,0,0,8
+C/C++ Header,Open3D/cpp/open3d/utility/Extract.h,6,13,8
+C/C++ Header,Open3D/cpp/open3d/utility/ExtractZIP.h,6,10,8
+C/C++ Header,Open3D/cpp/open3d/visualization/app/Viewer.h,5,13,8
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/ImageFragmentShader.glsl,3,0,8
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/TextureSimpleFragmentShader.glsl,3,0,8
+C++,Open3D/cpp/pybind/core/sycl_utils.cpp,4,6,8
+CMake,Open3D/cpp/pybind/ml/CMakeLists.txt,1,0,8
+C++,Open3D/cpp/tests/camera/PinholeCameraParameters.cpp,4,6,8
+C++,Open3D/cpp/tests/io/PoseGraphIO.cpp,6,6,8
+C++,Open3D/cpp/tests/io/file_format/FileLOG.cpp,6,6,8
+C++,Open3D/cpp/tests/io/file_format/FilePNG.cpp,6,6,8
+C++,Open3D/cpp/tests/pipelines/odometry/OdometryOption.cpp,6,6,8
+Python,Open3D/examples/python/geometry/point_cloud_farthest_point_sampling.py,3,8,8
+Python,Open3D/examples/python/io/image_io.py,2,6,8
+Python,Open3D/examples/python/io/triangle_mesh_io.py,2,6,8
+Python,Open3D/python/test/test_flags.py,3,6,8
+YAML,Open3D/.github/ISSUE_TEMPLATE/config.yml,0,0,7
+C/C++ Header,Open3D/cpp/open3d/core/linalg/Det.h,5,7,7
+C/C++ Header,Open3D/cpp/open3d/io/sensor/RGBDSensorConfig.h,5,6,7
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/InvertNeighborsListOps.h,2,7,7
+C/C++ Header,Open3D/cpp/open3d/utility/Parallel.h,5,8,7
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/NormalFragmentShader.glsl,2,0,7
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/PickingFragmentShader.glsl,2,0,7
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/SimpleBlackVertexShader.glsl,2,0,7
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/SimpleFragmentShader.glsl,2,0,7
+C/C++ Header,Open3D/cpp/pybind/camera/camera.h,5,6,7
+C/C++ Header,Open3D/cpp/pybind/data/dataset.h,5,6,7
+C/C++ Header,Open3D/cpp/pybind/ml/ml.h,5,6,7
+C/C++ Header,Open3D/cpp/pybind/pipelines/pipelines.h,5,6,7
+C/C++ Header,Open3D/cpp/pybind/t/t.h,5,6,7
+C++,Open3D/cpp/tests/geometry/AccumulatedPoint.cpp,3,6,7
+C++,Open3D/cpp/tests/geometry/EstimateNormals.cpp,5,6,7
+C++,Open3D/cpp/tests/io/file_format/FileJPG.cpp,5,6,7
+C++,Open3D/cpp/tests/io/file_format/FileXYZN.cpp,5,6,7
+C++,Open3D/cpp/tests/io/file_format/FileXYZRGB.cpp,5,6,7
+C++,Open3D/cpp/tests/pipelines/registration/GeneralizedICP.cpp,4,10,7
+Jupyter Notebook,Open3D/docs/jupyter/geometry/python_interface.ipynb,0,134,7
+Text,Open3D/docs/requirements.txt,0,0,7
+Python,Open3D/examples/python/visualization/draw_webrtc.py,2,6,7
+Python,Open3D/python/open3d/ml/configs.py,2,6,7
+Python,Open3D/python/open3d/ml/datasets.py,2,6,7
+Python,Open3D/python/open3d/ml/tf/dataloaders.py,2,7,7
+Python,Open3D/python/open3d/ml/tf/models.py,2,7,7
+Python,Open3D/python/open3d/ml/tf/pipelines.py,2,7,7
+Python,Open3D/python/open3d/ml/torch/configs.py,2,7,7
+Python,Open3D/python/open3d/ml/torch/dataloaders.py,2,7,7
+Python,Open3D/python/open3d/ml/torch/datasets.py,2,7,7
+Python,Open3D/python/open3d/ml/torch/models.py,2,7,7
+Python,Open3D/python/open3d/ml/torch/pipelines.py,2,7,7
+Python,Open3D/python/open3d/ml/torch/vis.py,2,7,7
+Python,Open3D/python/open3d/ml/utils.py,2,6,7
+Python,Open3D/python/open3d/ml/vis.py,2,6,7
+YAML,Open3D/.github/config.yml,3,2,6
+CMake,Open3D/3rdparty/glfw/CMake/modules/FindOSMesa.cmake,4,8,6
+Markdown,Open3D/3rdparty/tomasakeninemoeller/readme.md,2,0,6
+Dockerfile,Open3D/3rdparty/webrtc/Dockerfile.webrtc,2,14,6
+C/C++ Header,Open3D/cpp/open3d/core/linalg/LinalgHeadersCUDA.h,3,10,6
+C++,Open3D/cpp/open3d/visualization/gui/Theme.cpp,2,6,6
+GLSL,Open3D/cpp/open3d/visualization/shader/glsl/SimpleBlackFragmentShader.glsl,2,0,6
+CMake,Open3D/cpp/pybind/utility/CMakeLists.txt,0,0,6
+CMake,Open3D/cpp/tests/t/io/CMakeLists.txt,0,0,6
+CMake,Open3D/cpp/tests/test_utility/CMakeLists.txt,0,0,6
+CMake,Open3D/docs/CMakeLists.txt,0,0,6
+reStructuredText,Open3D/docs/cpp_api.rst,3,1,6
+reStructuredText,Open3D/docs/open3d_ml.rst,4,4,6
+Text,Open3D/python/requirements_test.txt,0,0,6
+Bourne Shell,Open3D/cpp/apps/Open3DViewer/Open3DViewerLauncher.sh,0,2,5
+CMake,Open3D/cpp/benchmarks/geometry/CMakeLists.txt,0,0,5
+CMake,Open3D/cpp/benchmarks/t/pipelines/CMakeLists.txt,0,0,5
+C++,Open3D/cpp/open3d/Open3DConfig.cpp,5,6,5
+CMake,Open3D/cpp/pybind/t/io/CMakeLists.txt,0,0,5
+CMake,Open3D/cpp/tests/camera/CMakeLists.txt,0,0,5
+CMake,Open3D/cpp/tests/visualization/CMakeLists.txt,0,0,5
+reStructuredText,Open3D/docs/python_api_in/open3d.visualization.rst,12,66,5
+reStructuredText,Open3D/docs/tutorial/reconstruction_system/index.rst,4,8,5
+C++,Open3D/examples/cpp/SYCLDemo.cpp,2,6,5
+JSON,Open3D/python/install.json,0,0,5
+JSON,Open3D/python/open3d.json,0,0,5
+Python,Open3D/python/open3d/ml/contrib/__init__.py,1,6,5
+Text,Open3D/python/requirements.txt,0,0,5
+Text,Open3D/python/requirements_jupyter_build.txt,0,0,5
+Bourne Shell,Open3D/util/gcloud_auto_clean.sh,1,2,5
+CMake,Open3D/cpp/benchmarks/t/io/CMakeLists.txt,0,0,4
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/misc/ReduceSubarraysSumOps.h,2,7,4
+reStructuredText,Open3D/docs/python_api_in/open3d.io.rpc.rst,9,25,4
+JavaScript,Open3D/python/js/amd-public-path.js,0,4,4
+YAML,Open3D/.codacy.yml,0,0,3
+C/C++ Header,Open3D/3rdparty/glfw/src/null_joystick.h,3,25,3
+CMake,Open3D/cpp/benchmarks/benchmark_utilities/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/benchmarks/io/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/benchmarks/pipelines/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/benchmarks/t/geometry/CMakeLists.txt,0,0,3
+C/C++ Header,Open3D/cpp/open3d/ml/pytorch/pointnet/SamplingKernel.h,2,32,3
+Text,Open3D/cpp/open3d/version.txt,0,0,3
+CMake,Open3D/cpp/pybind/camera/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/pybind/data/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/pybind/make_install_pip_package.cmake,1,4,3
+CMake,Open3D/cpp/pybind/t/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/tests/data/CMakeLists.txt,0,0,3
+CMake,Open3D/cpp/tests/ml/CMakeLists.txt,0,0,3
+reStructuredText,Open3D/docs/index.rst,16,67,3
+reStructuredText,Open3D/docs/python_api_in/open3d.ml.tf.layers.rst,8,19,3
+reStructuredText,Open3D/docs/python_api_in/open3d.ml.tf.ops.rst,7,33,3
+reStructuredText,Open3D/docs/python_api_in/open3d.ml.torch.layers.rst,7,19,3
+reStructuredText,Open3D/docs/python_api_in/open3d.ml.torch.ops.rst,7,27,3
+reStructuredText,Open3D/docs/python_api_in/open3d.visualization.tensorboard_plugin.summary.rst,6,6,3
+Python,Open3D/python/open3d/ml/tf/layers/__init__.py,1,10,3
+Python,Open3D/python/open3d/ml/torch/layers/__init__.py,1,10,3
+TOML,Open3D/python/pyproject.toml,0,0,3
+Text,Open3D/python/requirements_build.txt,0,0,3
+Text,Open3D/python/requirements_style.txt,0,0,3
+CUDA,Open3D/cpp/open3d/t/geometry/kernel/ImageCUDA.cu,1,6,2
+CUDA,Open3D/cpp/open3d/t/geometry/kernel/TransformCUDA.cu,1,6,2
+CUDA,Open3D/cpp/open3d/t/pipelines/kernel/FillInLinearSystemCUDA.cu,1,6,2
+reStructuredText,Open3D/docs/introduction.rst,2,2,2
+reStructuredText,Open3D/docs/tutorial/core/index.rst,2,4,2
+reStructuredText,Open3D/docs/tutorial/geometry/index.rst,6,23,2
+reStructuredText,Open3D/docs/tutorial/pipelines/index.rst,2,10,2
+reStructuredText,Open3D/docs/tutorial/reference.rst,2,28,2
+reStructuredText,Open3D/docs/tutorial/sensor/index.rst,2,3,2
+reStructuredText,Open3D/docs/tutorial/t_geometry/index.rst,3,3,2
+reStructuredText,Open3D/docs/tutorial/t_pipelines/index.rst,4,4,2
+reStructuredText,Open3D/docs/tutorial/visualization/index.rst,2,9,2
+JavaScript,Open3D/python/js/lib/index.js,0,1,2
+Python,Open3D/python/open3d/ml/tf/ops/__init__.py,1,10,2
+Text,Open3D/python/requirements_jupyter_install.txt,0,0,2
+CMake,Open3D/3rdparty/glfw/src/glfw3Config.cmake.in,0,0,1
+C/C++ Header,Open3D/3rdparty/glfw/src/xkb_unicode.h,2,25,1
+Windows Resource File,Open3D/cpp/apps/Open3DViewer/icon.rc,0,0,1
+C++,Open3D/cpp/open3d/t/geometry/kernel/TriangleMesh.cpp,1,6,1
+CUDA,Open3D/cpp/open3d/t/pipelines/kernel/FeatureCUDA.cu,1,6,1
+Text,Open3D/cpp/open3d/visualization/gui/Resources/Roboto-License.txt,0,0,1
+CMake,Open3D/examples/CMakeLists.txt,0,0,1
+JavaScript,Open3D/python/js/lib/adapter.min.js,0,0,1
+Python,Open3D/python/open3d/ml/torch/classes/__init__.py,0,7,1
+Python,Open3D/python/open3d/ml/torch/ops/__init__.py,1,10,1
+Python,Open3D/python/test/conftest.py,1,6,1
+CMake,Open3D/3rdparty/liblzf/CMakeLists.txt,0,6,0
+CMake,Open3D/3rdparty/rply/CMakeLists.txt,0,6,0
+reStructuredText,Open3D/docs/tutorial/visualization/tensorboard_plugin.rst,1,2,0
+SUM,,68483,71042,377222

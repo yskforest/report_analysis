@@ -1,0 +1,4401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd xmlns="https://pmd-code.org/schema/cpd-report"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         pmdVersion="7.24.0"
+         timestamp="2026-05-24T02:33:04.955118866Z"
+         version="1.0.0"
+         xsi:schemaLocation="https://pmd-code.org/schema/cpd-report https://pmd.github.io/schema/cpd-report_1_0_0.xsd">
+   <file path="Open3D/cpp/pybind/generate_tf_ops_wrapper.py"
+         totalNumberOfTokens="448"/>
+   <file path="Open3D/cpp/pybind/generate_torch_ops_wrapper.py"
+         totalNumberOfTokens="1001"/>
+   <file path="Open3D/docs/conf.py"
+         totalNumberOfTokens="523"/>
+   <file path="Open3D/docs/jupyter/jupyter_run_all.py"
+         totalNumberOfTokens="252"/>
+   <file path="Open3D/docs/jupyter/jupyter_strip_output.py"
+         totalNumberOfTokens="181"/>
+   <file path="Open3D/docs/jupyter/open3d_tutorial.py"
+         totalNumberOfTokens="954"/>
+   <file path="Open3D/docs/make_docs.py"
+         totalNumberOfTokens="3289"/>
+   <file path="Open3D/examples/cpp/registration_example_util/download_kitti.py"
+         totalNumberOfTokens="1147"/>
+   <file path="Open3D/examples/python/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/benchmark/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/benchmark/benchmark_fgr.py"
+         totalNumberOfTokens="395"/>
+   <file path="Open3D/examples/python/benchmark/benchmark_nns.py"
+         totalNumberOfTokens="1656"/>
+   <file path="Open3D/examples/python/benchmark/benchmark_pre.py"
+         totalNumberOfTokens="201"/>
+   <file path="Open3D/examples/python/benchmark/benchmark_ransac.py"
+         totalNumberOfTokens="415"/>
+   <file path="Open3D/examples/python/benchmark/benchmark_tsdf.py"
+         totalNumberOfTokens="368"/>
+   <file path="Open3D/examples/python/benchmark/benchmark_utils.py"
+         totalNumberOfTokens="732"/>
+   <file path="Open3D/examples/python/camera/camera_trajectory.py"
+         totalNumberOfTokens="286"/>
+   <file path="Open3D/examples/python/geometry/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/geometry/image_processing.py"
+         totalNumberOfTokens="421"/>
+   <file path="Open3D/examples/python/geometry/kd_tree_feature_matching.py"
+         totalNumberOfTokens="406"/>
+   <file path="Open3D/examples/python/geometry/kd_tree_search.py"
+         totalNumberOfTokens="228"/>
+   <file path="Open3D/examples/python/geometry/octree_find_leaf.py"
+         totalNumberOfTokens="156"/>
+   <file path="Open3D/examples/python/geometry/octree_from_voxel_grid.py"
+         totalNumberOfTokens="164"/>
+   <file path="Open3D/examples/python/geometry/octree_point_cloud.py"
+         totalNumberOfTokens="152"/>
+   <file path="Open3D/examples/python/geometry/octree_traversal.py"
+         totalNumberOfTokens="311"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_bounding_box.py"
+         totalNumberOfTokens="136"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_convex_hull.py"
+         totalNumberOfTokens="94"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_crop.py"
+         totalNumberOfTokens="178"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_dbscan_clustering.py"
+         totalNumberOfTokens="198"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_distance.py"
+         totalNumberOfTokens="118"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_farthest_point_sampling.py"
+         totalNumberOfTokens="74"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_hidden_point_removal.py"
+         totalNumberOfTokens="139"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_iss_keypoint_detector.py"
+         totalNumberOfTokens="134"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_normal_estimation.py"
+         totalNumberOfTokens="124"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_outlier_removal_radius.py"
+         totalNumberOfTokens="198"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_outlier_removal_statistical.py"
+         totalNumberOfTokens="198"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_paint.py"
+         totalNumberOfTokens="122"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_plane_segmentation.py"
+         totalNumberOfTokens="162"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_to_depth.py"
+         totalNumberOfTokens="183"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_to_rgbd.py"
+         totalNumberOfTokens="235"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_transformation.py"
+         totalNumberOfTokens="493"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_voxel_downsampling.py"
+         totalNumberOfTokens="120"/>
+   <file path="Open3D/examples/python/geometry/point_cloud_with_numpy.py"
+         totalNumberOfTokens="238"/>
+   <file path="Open3D/examples/python/geometry/ray_casting_closest_geometry.py"
+         totalNumberOfTokens="373"/>
+   <file path="Open3D/examples/python/geometry/ray_casting_sdf.py"
+         totalNumberOfTokens="233"/>
+   <file path="Open3D/examples/python/geometry/ray_casting_to_image.py"
+         totalNumberOfTokens="292"/>
+   <file path="Open3D/examples/python/geometry/rgbd_datasets.py"
+         totalNumberOfTokens="550"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_connected_components.py"
+         totalNumberOfTokens="295"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_cropping.py"
+         totalNumberOfTokens="147"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_deformation.py"
+         totalNumberOfTokens="678"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_filtering_average.py"
+         totalNumberOfTokens="468"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_from_point_cloud_alpha_shapes.py"
+         totalNumberOfTokens="109"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_from_point_cloud_ball_pivoting.py"
+         totalNumberOfTokens="111"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_from_point_cloud_poisson.py"
+         totalNumberOfTokens="121"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_normal_estimation.py"
+         totalNumberOfTokens="114"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_properties.py"
+         totalNumberOfTokens="519"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_sampling.py"
+         totalNumberOfTokens="109"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_simplification_decimation.py"
+         totalNumberOfTokens="103"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_simplification_vertex_clustering.py"
+         totalNumberOfTokens="167"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_subdivision.py"
+         totalNumberOfTokens="93"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_transformation.py"
+         totalNumberOfTokens="432"/>
+   <file path="Open3D/examples/python/geometry/triangle_mesh_with_numpy.py"
+         totalNumberOfTokens="331"/>
+   <file path="Open3D/examples/python/geometry/voxel_grid_carving.py"
+         totalNumberOfTokens="717"/>
+   <file path="Open3D/examples/python/geometry/voxel_grid_from_point_cloud.py"
+         totalNumberOfTokens="146"/>
+   <file path="Open3D/examples/python/geometry/voxel_grid_from_triangle_mesh.py"
+         totalNumberOfTokens="114"/>
+   <file path="Open3D/examples/python/io/image_io.py"
+         totalNumberOfTokens="53"/>
+   <file path="Open3D/examples/python/io/point_cloud_io.py"
+         totalNumberOfTokens="53"/>
+   <file path="Open3D/examples/python/io/realsense_io.py"
+         totalNumberOfTokens="681"/>
+   <file path="Open3D/examples/python/io/triangle_mesh_io.py"
+         totalNumberOfTokens="53"/>
+   <file path="Open3D/examples/python/open3d_example.py"
+         totalNumberOfTokens="2295"/>
+   <file path="Open3D/examples/python/pipelines/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/pipelines/colored_icp_registration.py"
+         totalNumberOfTokens="303"/>
+   <file path="Open3D/examples/python/pipelines/doppler_icp_registration.py"
+         totalNumberOfTokens="842"/>
+   <file path="Open3D/examples/python/pipelines/icp_registration.py"
+         totalNumberOfTokens="374"/>
+   <file path="Open3D/examples/python/pipelines/multiway_registration.py"
+         totalNumberOfTokens="564"/>
+   <file path="Open3D/examples/python/pipelines/pose_graph_optimization.py"
+         totalNumberOfTokens="209"/>
+   <file path="Open3D/examples/python/pipelines/registration_fgr.py"
+         totalNumberOfTokens="403"/>
+   <file path="Open3D/examples/python/pipelines/registration_ransac.py"
+         totalNumberOfTokens="727"/>
+   <file path="Open3D/examples/python/pipelines/rgbd_integration_uniform.py"
+         totalNumberOfTokens="274"/>
+   <file path="Open3D/examples/python/pipelines/rgbd_odometry.py"
+         totalNumberOfTokens="322"/>
+   <file path="Open3D/examples/python/pipelines/robust_icp.py"
+         totalNumberOfTokens="370"/>
+   <file path="Open3D/examples/python/reconstruction_system/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/reconstruction_system/color_map_optimization_for_reconstruction_system.py"
+         totalNumberOfTokens="898"/>
+   <file path="Open3D/examples/python/reconstruction_system/data_loader.py"
+         totalNumberOfTokens="280"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/pairwise_pc_alignment.py"
+         totalNumberOfTokens="179"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/pairwise_rgbd_alignment.py"
+         totalNumberOfTokens="374"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/visualize_alignment.py"
+         totalNumberOfTokens="584"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/visualize_fragments.py"
+         totalNumberOfTokens="241"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/visualize_pointcloud.py"
+         totalNumberOfTokens="575"/>
+   <file path="Open3D/examples/python/reconstruction_system/debug/visualize_scene.py"
+         totalNumberOfTokens="593"/>
+   <file path="Open3D/examples/python/reconstruction_system/initialize_config.py"
+         totalNumberOfTokens="590"/>
+   <file path="Open3D/examples/python/reconstruction_system/integrate_scene.py"
+         totalNumberOfTokens="426"/>
+   <file path="Open3D/examples/python/reconstruction_system/make_fragments.py"
+         totalNumberOfTokens="1202"/>
+   <file path="Open3D/examples/python/reconstruction_system/opencv_pose_estimation.py"
+         totalNumberOfTokens="1797"/>
+   <file path="Open3D/examples/python/reconstruction_system/optimize_posegraph.py"
+         totalNumberOfTokens="294"/>
+   <file path="Open3D/examples/python/reconstruction_system/refine_registration.py"
+         totalNumberOfTokens="1387"/>
+   <file path="Open3D/examples/python/reconstruction_system/register_fragments.py"
+         totalNumberOfTokens="1378"/>
+   <file path="Open3D/examples/python/reconstruction_system/run_system.py"
+         totalNumberOfTokens="758"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/azure_kinect_mkv_reader.py"
+         totalNumberOfTokens="666"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/azure_kinect_recorder.py"
+         totalNumberOfTokens="529"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/azure_kinect_viewer.py"
+         totalNumberOfTokens="342"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/realsense_helper.py"
+         totalNumberOfTokens="216"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/realsense_pcd_visualizer.py"
+         totalNumberOfTokens="586"/>
+   <file path="Open3D/examples/python/reconstruction_system/sensors/realsense_recorder.py"
+         totalNumberOfTokens="861"/>
+   <file path="Open3D/examples/python/reconstruction_system/slac.py"
+         totalNumberOfTokens="587"/>
+   <file path="Open3D/examples/python/reconstruction_system/slac_integrate.py"
+         totalNumberOfTokens="780"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/common.py"
+         totalNumberOfTokens="1152"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/config.py"
+         totalNumberOfTokens="727"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/dense_slam.py"
+         totalNumberOfTokens="597"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/dense_slam_gui.py"
+         totalNumberOfTokens="3078"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/integrate.py"
+         totalNumberOfTokens="548"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/integrate_custom.py"
+         totalNumberOfTokens="1095"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/pose_graph_optim.py"
+         totalNumberOfTokens="725"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/ray_casting.py"
+         totalNumberOfTokens="628"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/rgbd_odometry.py"
+         totalNumberOfTokens="1237"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/run_system.py"
+         totalNumberOfTokens="588"/>
+   <file path="Open3D/examples/python/t_reconstruction_system/split_fragments.py"
+         totalNumberOfTokens="341"/>
+   <file path="Open3D/examples/python/utility/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/utility/vector.py"
+         totalNumberOfTokens="532"/>
+   <file path="Open3D/examples/python/visualization/__init__.py"
+         totalNumberOfTokens="0"/>
+   <file path="Open3D/examples/python/visualization/add_geometry.py"
+         totalNumberOfTokens="628"/>
+   <file path="Open3D/examples/python/visualization/all_widgets.py"
+         totalNumberOfTokens="2112"/>
+   <file path="Open3D/examples/python/visualization/customized_visualization.py"
+         totalNumberOfTokens="912"/>
+   <file path="Open3D/examples/python/visualization/customized_visualization_key_action.py"
+         totalNumberOfTokens="152"/>
+   <file path="Open3D/examples/python/visualization/demo_scene.py"
+         totalNumberOfTokens="1187"/>
+   <file path="Open3D/examples/python/visualization/draw.py"
+         totalNumberOfTokens="2139"/>
+   <file path="Open3D/examples/python/visualization/draw_webrtc.py"
+         totalNumberOfTokens="59"/>
+   <file path="Open3D/examples/python/visualization/headless_rendering.py"
+         totalNumberOfTokens="359"/>
+   <file path="Open3D/examples/python/visualization/interactive_visualization.py"
+         totalNumberOfTokens="479"/>
+   <file path="Open3D/examples/python/visualization/line_width.py"
+         totalNumberOfTokens="201"/>
+   <file path="Open3D/examples/python/visualization/load_save_viewpoint.py"
+         totalNumberOfTokens="162"/>
+   <file path="Open3D/examples/python/visualization/mitsuba_material_estimation.py"
+         totalNumberOfTokens="1382"/>
+   <file path="Open3D/examples/python/visualization/mouse_and_point_coord.py"
+         totalNumberOfTokens="576"/>
+   <file path="Open3D/examples/python/visualization/multiple_windows.py"
+         totalNumberOfTokens="669"/>
+   <file path="Open3D/examples/python/visualization/non_blocking_visualization.py"
+         totalNumberOfTokens="363"/>
+   <file path="Open3D/examples/python/visualization/non_english.py"
+         totalNumberOfTokens="1971"/>
+   <file path="Open3D/examples/python/visualization/online_processing.py"
+         totalNumberOfTokens="2961"/>
+   <file path="Open3D/examples/python/visualization/remove_geometry.py"
+         totalNumberOfTokens="336"/>
+   <file path="Open3D/examples/python/visualization/render_to_image.py"
+         totalNumberOfTokens="466"/>
+   <file path="Open3D/examples/python/visualization/tensorboard_pytorch.py"
+         totalNumberOfTokens="1196"/>
+   <file path="Open3D/examples/python/visualization/tensorboard_tensorflow.py"
+         totalNumberOfTokens="1282"/>
+   <file path="Open3D/examples/python/visualization/text3d.py"
+         totalNumberOfTokens="448"/>
+   <file path="Open3D/examples/python/visualization/textured_mesh.py"
+         totalNumberOfTokens="214"/>
+   <file path="Open3D/examples/python/visualization/textured_model.py"
+         totalNumberOfTokens="292"/>
+   <file path="Open3D/examples/python/visualization/to_mitsuba.py"
+         totalNumberOfTokens="462"/>
+   <file path="Open3D/examples/python/visualization/video.py"
+         totalNumberOfTokens="744"/>
+   <file path="Open3D/examples/python/visualization/vis_gui.py"
+         totalNumberOfTokens="4478"/>
+   <file path="Open3D/python/benchmarks/core/test_binary_ew.py"
+         totalNumberOfTokens="554"/>
+   <file path="Open3D/python/benchmarks/core/test_nns.py"
+         totalNumberOfTokens="1172"/>
+   <file path="Open3D/python/benchmarks/core/test_unary_ew.py"
+         totalNumberOfTokens="834"/>
+   <file path="Open3D/python/benchmarks/open3d_benchmark.py"
+         totalNumberOfTokens="240"/>
+   <file path="Open3D/python/open3d/__init__.py"
+         totalNumberOfTokens="753"/>
+   <file path="Open3D/python/open3d/ml/__init__.py"
+         totalNumberOfTokens="53"/>
+   <file path="Open3D/python/open3d/ml/configs.py"
+         totalNumberOfTokens="37"/>
+   <file path="Open3D/python/open3d/ml/contrib/__init__.py"
+         totalNumberOfTokens="37"/>
+   <file path="Open3D/python/open3d/ml/datasets.py"
+         totalNumberOfTokens="37"/>
+   <file path="Open3D/python/open3d/ml/tf/__init__.py"
+         totalNumberOfTokens="132"/>
+   <file path="Open3D/python/open3d/ml/tf/configs.py"
+         totalNumberOfTokens="38"/>
+   <file path="Open3D/python/open3d/ml/tf/dataloaders.py"
+         totalNumberOfTokens="42"/>
+   <file path="Open3D/python/open3d/ml/tf/datasets.py"
+         totalNumberOfTokens="38"/>
+   <file path="Open3D/python/open3d/ml/tf/layers/__init__.py"
+         totalNumberOfTokens="31"/>
+   <file path="Open3D/python/open3d/ml/tf/models.py"
+         totalNumberOfTokens="42"/>
+   <file path="Open3D/python/open3d/ml/tf/modules.py"
+         totalNumberOfTokens="60"/>
+   <file path="Open3D/python/open3d/ml/tf/ops/__init__.py"
+         totalNumberOfTokens="21"/>
+   <file path="Open3D/python/open3d/ml/tf/pipelines.py"
+         totalNumberOfTokens="42"/>
+   <file path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"
+         totalNumberOfTokens="2671"/>
+   <file path="Open3D/python/open3d/ml/tf/python/layers/neighbor_search.py"
+         totalNumberOfTokens="858"/>
+   <file path="Open3D/python/open3d/ml/tf/python/layers/voxel_pooling.py"
+         totalNumberOfTokens="126"/>
+   <file path="Open3D/python/open3d/ml/tf/python/ops/gradients.py"
+         totalNumberOfTokens="1609"/>
+   <file path="Open3D/python/open3d/ml/tf/python/ops/lib.py"
+         totalNumberOfTokens="210"/>
+   <file path="Open3D/python/open3d/ml/tf/vis.py"
+         totalNumberOfTokens="38"/>
+   <file path="Open3D/python/open3d/ml/torch/__init__.py"
+         totalNumberOfTokens="433"/>
+   <file path="Open3D/python/open3d/ml/torch/classes/__init__.py"
+         totalNumberOfTokens="6"/>
+   <file path="Open3D/python/open3d/ml/torch/classes/ragged_tensor.py"
+         totalNumberOfTokens="741"/>
+   <file path="Open3D/python/open3d/ml/torch/configs.py"
+         totalNumberOfTokens="38"/>
+   <file path="Open3D/python/open3d/ml/torch/dataloaders.py"
+         totalNumberOfTokens="42"/>
+   <file path="Open3D/python/open3d/ml/torch/datasets.py"
+         totalNumberOfTokens="38"/>
+   <file path="Open3D/python/open3d/ml/torch/layers/__init__.py"
+         totalNumberOfTokens="31"/>
+   <file path="Open3D/python/open3d/ml/torch/models.py"
+         totalNumberOfTokens="42"/>
+   <file path="Open3D/python/open3d/ml/torch/modules.py"
+         totalNumberOfTokens="60"/>
+   <file path="Open3D/python/open3d/ml/torch/ops/__init__.py"
+         totalNumberOfTokens="9"/>
+   <file path="Open3D/python/open3d/ml/torch/pipelines.py"
+         totalNumberOfTokens="42"/>
+   <file path="Open3D/python/open3d/ml/torch/python/layers/convolutions.py"
+         totalNumberOfTokens="2463"/>
+   <file path="Open3D/python/open3d/ml/torch/python/layers/neighbor_search.py"
+         totalNumberOfTokens="742"/>
+   <file path="Open3D/python/open3d/ml/torch/python/layers/voxel_pooling.py"
+         totalNumberOfTokens="124"/>
+   <file path="Open3D/python/open3d/ml/torch/vis.py"
+         totalNumberOfTokens="38"/>
+   <file path="Open3D/python/open3d/ml/utils.py"
+         totalNumberOfTokens="37"/>
+   <file path="Open3D/python/open3d/ml/vis.py"
+         totalNumberOfTokens="37"/>
+   <file path="Open3D/python/open3d/visualization/__init__.py"
+         totalNumberOfTokens="100"/>
+   <file path="Open3D/python/open3d/visualization/__main__.py"
+         totalNumberOfTokens="101"/>
+   <file path="Open3D/python/open3d/visualization/_external_visualizer.py"
+         totalNumberOfTokens="563"/>
+   <file path="Open3D/python/open3d/visualization/async_event_loop.py"
+         totalNumberOfTokens="362"/>
+   <file path="Open3D/python/open3d/visualization/draw.py"
+         totalNumberOfTokens="500"/>
+   <file path="Open3D/python/open3d/visualization/draw_plotly.py"
+         totalNumberOfTokens="1473"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/colormap.py"
+         totalNumberOfTokens="586"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/labellut.py"
+         totalNumberOfTokens="533"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/metadata.py"
+         totalNumberOfTokens="315"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/plugin.py"
+         totalNumberOfTokens="3021"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/plugin_data_pb2.py"
+         totalNumberOfTokens="507"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/summary.py"
+         totalNumberOfTokens="3385"/>
+   <file path="Open3D/python/open3d/visualization/tensorboard_plugin/util.py"
+         totalNumberOfTokens="4710"/>
+   <file path="Open3D/python/open3d/visualization/to_mitsuba.py"
+         totalNumberOfTokens="592"/>
+   <file path="Open3D/python/open3d/web_visualizer.py"
+         totalNumberOfTokens="646"/>
+   <file path="Open3D/python/setup.py"
+         totalNumberOfTokens="681"/>
+   <file path="Open3D/python/test/conftest.py"
+         totalNumberOfTokens="2"/>
+   <file path="Open3D/python/test/core/test_core.py"
+         totalNumberOfTokens="16984"/>
+   <file path="Open3D/python/test/core/test_hashmap.py"
+         totalNumberOfTokens="2072"/>
+   <file path="Open3D/python/test/core/test_linalg.py"
+         totalNumberOfTokens="5072"/>
+   <file path="Open3D/python/test/core/test_nn.py"
+         totalNumberOfTokens="1514"/>
+   <file path="Open3D/python/test/core/test_size_vector.py"
+         totalNumberOfTokens="1062"/>
+   <file path="Open3D/python/test/core/test_sycl_utils.py"
+         totalNumberOfTokens="70"/>
+   <file path="Open3D/python/test/core/test_tensor_function.py"
+         totalNumberOfTokens="2780"/>
+   <file path="Open3D/python/test/core/test_torch_integration.py"
+         totalNumberOfTokens="759"/>
+   <file path="Open3D/python/test/data/test_data.py"
+         totalNumberOfTokens="5650"/>
+   <file path="Open3D/python/test/io/rpc/test_remote_functions.py"
+         totalNumberOfTokens="243"/>
+   <file path="Open3D/python/test/io/rpc/test_serialization.py"
+         totalNumberOfTokens="1827"/>
+   <file path="Open3D/python/test/io/test_io.py"
+         totalNumberOfTokens="193"/>
+   <file path="Open3D/python/test/ml/test_contrib_iou.py"
+         totalNumberOfTokens="778"/>
+   <file path="Open3D/python/test/ml/test_contrib_subsample.py"
+         totalNumberOfTokens="1769"/>
+   <file path="Open3D/python/test/ml_ops/cconv_python.py"
+         totalNumberOfTokens="4968"/>
+   <file path="Open3D/python/test/ml_ops/check_gradients.py"
+         totalNumberOfTokens="572"/>
+   <file path="Open3D/python/test/ml_ops/mltest.py"
+         totalNumberOfTokens="1617"/>
+   <file path="Open3D/python/test/ml_ops/particle_network_tf.py"
+         totalNumberOfTokens="1073"/>
+   <file path="Open3D/python/test/ml_ops/test_cconv.py"
+         totalNumberOfTokens="2248"/>
+   <file path="Open3D/python/test/ml_ops/test_cconv_python.py"
+         totalNumberOfTokens="1674"/>
+   <file path="Open3D/python/test/ml_ops/test_cublas.py"
+         totalNumberOfTokens="122"/>
+   <file path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"
+         totalNumberOfTokens="2393"/>
+   <file path="Open3D/python/test/ml_ops/test_general_sparseconv.py"
+         totalNumberOfTokens="1180"/>
+   <file path="Open3D/python/test/ml_ops/test_invert_neighbors_list.py"
+         totalNumberOfTokens="881"/>
+   <file path="Open3D/python/test/ml_ops/test_knn_search.py"
+         totalNumberOfTokens="1542"/>
+   <file path="Open3D/python/test/ml_ops/test_nms.py"
+         totalNumberOfTokens="331"/>
+   <file path="Open3D/python/test/ml_ops/test_query_pts.py"
+         totalNumberOfTokens="97"/>
+   <file path="Open3D/python/test/ml_ops/test_radius_search.py"
+         totalNumberOfTokens="1542"/>
+   <file path="Open3D/python/test/ml_ops/test_ragged_tensor.py"
+         totalNumberOfTokens="1810"/>
+   <file path="Open3D/python/test/ml_ops/test_ragged_to_dense.py"
+         totalNumberOfTokens="805"/>
+   <file path="Open3D/python/test/ml_ops/test_reduce_subarrays_sum.py"
+         totalNumberOfTokens="463"/>
+   <file path="Open3D/python/test/ml_ops/test_roi_pool.py"
+         totalNumberOfTokens="122"/>
+   <file path="Open3D/python/test/ml_ops/test_sampling.py"
+         totalNumberOfTokens="82"/>
+   <file path="Open3D/python/test/ml_ops/test_sparseconv.py"
+         totalNumberOfTokens="3409"/>
+   <file path="Open3D/python/test/ml_ops/test_subsampling.py"
+         totalNumberOfTokens="711"/>
+   <file path="Open3D/python/test/ml_ops/test_tf_training_graph_mode.py"
+         totalNumberOfTokens="621"/>
+   <file path="Open3D/python/test/ml_ops/test_three_interp.py"
+         totalNumberOfTokens="97"/>
+   <file path="Open3D/python/test/ml_ops/test_three_nn.py"
+         totalNumberOfTokens="107"/>
+   <file path="Open3D/python/test/ml_ops/test_voxel_pooling.py"
+         totalNumberOfTokens="1001"/>
+   <file path="Open3D/python/test/ml_ops/test_voxelize.py"
+         totalNumberOfTokens="1137"/>
+   <file path="Open3D/python/test/open3d_test.py"
+         totalNumberOfTokens="182"/>
+   <file path="Open3D/python/test/t/geometry/test_image.py"
+         totalNumberOfTokens="1090"/>
+   <file path="Open3D/python/test/t/geometry/test_lineset.py"
+         totalNumberOfTokens="413"/>
+   <file path="Open3D/python/test/t/geometry/test_pointcloud.py"
+         totalNumberOfTokens="2113"/>
+   <file path="Open3D/python/test/t/geometry/test_raycasting_scene.py"
+         totalNumberOfTokens="3218"/>
+   <file path="Open3D/python/test/t/geometry/test_tensormap.py"
+         totalNumberOfTokens="2472"/>
+   <file path="Open3D/python/test/t/geometry/test_trianglemesh.py"
+         totalNumberOfTokens="7959"/>
+   <file path="Open3D/python/test/t/io/test_noise.py"
+         totalNumberOfTokens="911"/>
+   <file path="Open3D/python/test/t/io/test_realsense.py"
+         totalNumberOfTokens="602"/>
+   <file path="Open3D/python/test/t/registration/test_registration.py"
+         totalNumberOfTokens="2151"/>
+   <file path="Open3D/python/test/t/registration/test_transformation_estimation.py"
+         totalNumberOfTokens="859"/>
+   <file path="Open3D/python/test/test_color_map_optimization.py"
+         totalNumberOfTokens="648"/>
+   <file path="Open3D/python/test/test_flags.py"
+         totalNumberOfTokens="73"/>
+   <file path="Open3D/python/test/test_octree.py"
+         totalNumberOfTokens="825"/>
+   <file path="Open3D/python/test/test_open3d_eigen.py"
+         totalNumberOfTokens="1787"/>
+   <file path="Open3D/python/test/visualization/test_cpu_rendering.py"
+         totalNumberOfTokens="218"/>
+   <file path="Open3D/python/test/visualization/test_tensorboard_plugin.py"
+         totalNumberOfTokens="3316"/>
+   <file path="Open3D/python/tools/app.py"
+         totalNumberOfTokens="64"/>
+   <file path="Open3D/python/tools/cli.py"
+         totalNumberOfTokens="1580"/>
+   <file path="Open3D/util/check_style.py"
+         totalNumberOfTokens="1820"/>
+   <duplication lines="75" tokens="581">
+      <file begintoken="2783"
+            column="1"
+            endcolumn="16"
+            endline="156"
+            endtoken="3363"
+            line="82"
+            path="Open3D/docs/jupyter/open3d_tutorial.py"/>
+      <file begintoken="24202"
+            column="1"
+            endcolumn="16"
+            endline="125"
+            endtoken="24782"
+            line="51"
+            path="Open3D/examples/python/open3d_example.py"/>
+      <codefragment><![CDATA[def get_non_manifold_edge_mesh():
+    verts = np.array(
+        [[-1, 0, 0], [0, 1, 0], [1, 0, 0], [0, -1, 0], [0, 0, 1]],
+        dtype=np.float64,
+    )
+    triangles = np.array([[0, 1, 3], [1, 2, 3], [1, 3, 4]])
+    mesh = o3d.geometry.TriangleMesh()
+    mesh.vertices = o3d.utility.Vector3dVector(verts)
+    mesh.triangles = o3d.utility.Vector3iVector(triangles)
+    mesh.compute_vertex_normals()
+    mesh.rotate(
+        mesh.get_rotation_matrix_from_xyz((np.pi / 4, 0, np.pi / 4)),
+        center=mesh.get_center(),
+    )
+    return mesh
+
+
+def get_non_manifold_vertex_mesh():
+    verts = np.array(
+        [
+            [-1, 0, -1],
+            [1, 0, -1],
+            [0, 1, -1],
+            [0, 0, 0],
+            [-1, 0, 1],
+            [1, 0, 1],
+            [0, 1, 1],
+        ],
+        dtype=np.float64,
+    )
+    triangles = np.array([
+        [0, 1, 2],
+        [0, 1, 3],
+        [1, 2, 3],
+        [2, 0, 3],
+        [4, 5, 6],
+        [4, 5, 3],
+        [5, 6, 3],
+        [4, 6, 3],
+    ])
+    mesh = o3d.geometry.TriangleMesh()
+    mesh.vertices = o3d.utility.Vector3dVector(verts)
+    mesh.triangles = o3d.utility.Vector3iVector(triangles)
+    mesh.compute_vertex_normals()
+    mesh.rotate(
+        mesh.get_rotation_matrix_from_xyz((np.pi / 4, 0, np.pi / 4)),
+        center=mesh.get_center(),
+    )
+    return mesh
+
+
+def get_open_box_mesh():
+    mesh = o3d.geometry.TriangleMesh.create_box()
+    mesh.triangles = o3d.utility.Vector3iVector(np.asarray(mesh.triangles)[:-2])
+    mesh.compute_vertex_normals()
+    mesh.rotate(
+        mesh.get_rotation_matrix_from_xyz((0.8 * np.pi, 0, 0.66 * np.pi)),
+        center=mesh.get_center(),
+    )
+    return mesh
+
+
+def get_intersecting_boxes_mesh():
+    mesh0 = o3d.geometry.TriangleMesh.create_box()
+    T = np.eye(4)
+    T[:, 3] += (0.5, 0.5, 0.5, 0)
+    mesh1 = o3d.geometry.TriangleMesh.create_box()
+    mesh1.transform(T)
+    mesh = mesh0 + mesh1
+    mesh.compute_vertex_normals()
+    mesh.rotate(
+        mesh.get_rotation_matrix_from_xyz((0.7 * np.pi, 0, 0.6 * np.pi)),
+        center=mesh.get_center(),
+    )
+    return mesh
+]]></codefragment>
+   </duplication>
+   <duplication lines="102" tokens="542">
+      <file begintoken="59483"
+            column="9"
+            endcolumn="38"
+            endline="282"
+            endtoken="60024"
+            line="181"
+            path="Open3D/examples/python/visualization/all_widgets.py"/>
+      <file begintoken="70253"
+            column="9"
+            endcolumn="38"
+            endline="310"
+            endtoken="70794"
+            line="209"
+            path="Open3D/examples/python/visualization/non_english.py"/>
+      <codefragment><![CDATA[        lv.set_on_selection_changed(self._on_list)
+        collapse.add_child(lv)
+
+        # Add a tree view
+        tree = gui.TreeView()
+        tree.add_text_item(tree.get_root_item(), "Camera")
+        geo_id = tree.add_text_item(tree.get_root_item(), "Geometries")
+        mesh_id = tree.add_text_item(geo_id, "Mesh")
+        tree.add_text_item(mesh_id, "Triangles")
+        tree.add_text_item(mesh_id, "Albedo texture")
+        tree.add_text_item(mesh_id, "Normal map")
+        points_id = tree.add_text_item(geo_id, "Points")
+        tree.can_select_items_with_children = True
+        tree.set_on_selection_changed(self._on_tree)
+        # does not call on_selection_changed: user did not change selection
+        tree.selected_item = points_id
+        collapse.add_child(tree)
+
+        # Add two number editors, one for integers and one for floating point
+        # Number editor can clamp numbers to a range, although this is more
+        # useful for integers than for floating point.
+        intedit = gui.NumberEdit(gui.NumberEdit.INT)
+        intedit.int_value = 0
+        intedit.set_limits(1, 19)  # value coerced to 1
+        intedit.int_value = intedit.int_value + 2  # value should be 3
+        doubleedit = gui.NumberEdit(gui.NumberEdit.DOUBLE)
+        numlayout = gui.Horiz()
+        numlayout.add_child(gui.Label("int"))
+        numlayout.add_child(intedit)
+        numlayout.add_fixed(em)  # manual spacing (could set it in Horiz() ctor)
+        numlayout.add_child(gui.Label("double"))
+        numlayout.add_child(doubleedit)
+        collapse.add_child(numlayout)
+
+        # Create a progress bar. It ranges from 0.0 to 1.0.
+        self._progress = gui.ProgressBar()
+        self._progress.value = 0.25  # 25% complete
+        self._progress.value = self._progress.value + 0.08  # 0.25 + 0.08 = 33%
+        prog_layout = gui.Horiz(em)
+        prog_layout.add_child(gui.Label("Progress..."))
+        prog_layout.add_child(self._progress)
+        collapse.add_child(prog_layout)
+
+        # Create a slider. It acts very similar to NumberEdit except that the
+        # user moves a slider and cannot type the number.
+        slider = gui.Slider(gui.Slider.INT)
+        slider.set_limits(5, 13)
+        slider.set_on_value_changed(self._on_slider)
+        collapse.add_child(slider)
+
+        # Create a text editor. The placeholder text (if not empty) will be
+        # displayed when there is no text, as concise help, or visible tooltip.
+        tedit = gui.TextEdit()
+        tedit.placeholder_text = "Edit me some text here"
+
+        # on_text_changed fires whenever the user changes the text (but not if
+        # the text_value property is assigned to).
+        tedit.set_on_text_changed(self._on_text_changed)
+
+        # on_value_changed fires whenever the user signals that they are finished
+        # editing the text, either by pressing return or by clicking outside of
+        # the text editor, thus losing text focus.
+        tedit.set_on_value_changed(self._on_value_changed)
+        collapse.add_child(tedit)
+
+        # Create a widget for showing/editing a 3D vector
+        vedit = gui.VectorEdit()
+        vedit.vector_value = [1, 2, 3]
+        vedit.set_on_value_changed(self._on_vedit)
+        collapse.add_child(vedit)
+
+        # Create a VGrid layout. This layout specifies the number of columns
+        # (two, in this case), and will place the first child in the first
+        # column, the second in the second, the third in the first, the fourth
+        # in the second, etc.
+        # So:
+        #      2 cols             3 cols                  4 cols
+        #   |  1  |  2  |   |  1  |  2  |  3  |   |  1  |  2  |  3  |  4  |
+        #   |  3  |  4  |   |  4  |  5  |  6  |   |  5  |  6  |  7  |  8  |
+        #   |  5  |  6  |   |  7  |  8  |  9  |   |  9  | 10  | 11  | 12  |
+        #   |    ...    |   |       ...       |   |         ...           |
+        vgrid = gui.VGrid(2)
+        vgrid.add_child(gui.Label("Trees"))
+        vgrid.add_child(gui.Label("12 items"))
+        vgrid.add_child(gui.Label("People"))
+        vgrid.add_child(gui.Label("2 (93% certainty)"))
+        vgrid.add_child(gui.Label("Cars"))
+        vgrid.add_child(gui.Label("5 (87% certainty)"))
+        collapse.add_child(vgrid)
+
+        # Create a tab control. This is really a set of N layouts on top of each
+        # other, but with only one selected.
+        tabs = gui.TabControl()
+        tab1 = gui.Vert()
+        tab1.add_child(gui.Checkbox("Enable option 1"))
+        tab1.add_child(gui.Checkbox("Enable option 2"))
+        tab1.add_child(gui.Checkbox("Enable option 3"))
+        tabs.add_tab("Options", tab1)
+        tab2 = gui.Vert()
+        tab2.add_child(gui.Label("No plugins detected"))
+        tab2.add_stretch()
+        tabs.add_tab("Plugins", tab2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="115" tokens="446">
+      <file begintoken="60327"
+            column="44"
+            endcolumn="36"
+            endline="456"
+            endtoken="60772"
+            line="342"
+            path="Open3D/examples/python/visualization/all_widgets.py"/>
+      <file begintoken="70980"
+            column="69"
+            endcolumn="36"
+            endline="462"
+            endtoken="71425"
+            line="348"
+            path="Open3D/examples/python/visualization/non_english.py"/>
+      <codefragment><![CDATA[            print("Camera would now be off")
+
+    # This function is essentially the same as window.show_message_box(),
+    # so for something this simple just use that, but it illustrates making a
+    # dialog.
+    def show_message_dialog(self, title, message):
+        # A Dialog is just a widget, so you make its child a layout just like
+        # a Window.
+        dlg = gui.Dialog(title)
+
+        # Add the message text
+        em = self.window.theme.font_size
+        dlg_layout = gui.Vert(em, gui.Margins(em, em, em, em))
+        dlg_layout.add_child(gui.Label(message))
+
+        # Add the Ok button. We need to define a callback function to handle
+        # the click.
+        ok_button = gui.Button("Ok")
+        ok_button.set_on_clicked(self._on_dialog_ok)
+
+        # We want the Ok button to be an the right side, so we need to add
+        # a stretch item to the layout, otherwise the button will be the size
+        # of the entire row. A stretch item takes up as much space as it can,
+        # which forces the button to be its minimum size.
+        button_layout = gui.Horiz()
+        button_layout.add_stretch()
+        button_layout.add_child(ok_button)
+
+        # Add the button layout,
+        dlg_layout.add_child(button_layout)
+        # ... then add the layout as the child of the Dialog
+        dlg.add_child(dlg_layout)
+        # ... and now we can show the dialog
+        self.window.show_dialog(dlg)
+
+    def _on_dialog_ok(self):
+        self.window.close_dialog()
+
+    def _on_color(self, new_color):
+        self._label.text_color = new_color
+
+    def _on_combo(self, new_val, new_idx):
+        print(new_idx, new_val)
+
+    def _on_list(self, new_val, is_dbl_click):
+        print(new_val)
+
+    def _on_tree(self, new_item_id):
+        print(new_item_id)
+
+    def _on_slider(self, new_val):
+        self._progress.value = new_val / 20.0
+
+    def _on_text_changed(self, new_text):
+        print("edit:", new_text)
+
+    def _on_value_changed(self, new_text):
+        print("value:", new_text)
+
+    def _on_vedit(self, new_val):
+        print(new_val)
+
+    def _on_ok(self):
+        gui.Application.instance.quit()
+
+    def _on_menu_checkable(self):
+        gui.Application.instance.menubar.set_checked(
+            ExampleWindow.MENU_CHECKABLE,
+            not gui.Application.instance.menubar.is_checked(
+                ExampleWindow.MENU_CHECKABLE))
+
+    def _on_menu_quit(self):
+        gui.Application.instance.quit()
+
+
+# This class is essentially the same as window.show_message_box(),
+# so for something this simple just use that, but it illustrates making a
+# dialog.
+class MessageBox:
+
+    def __init__(self, title, message):
+        self._window = None
+
+        # A Dialog is just a widget, so you make its child a layout just like
+        # a Window.
+        dlg = gui.Dialog(title)
+
+        # Add the message text
+        em = self.window.theme.font_size
+        dlg_layout = gui.Vert(em, gui.Margins(em, em, em, em))
+        dlg_layout.add_child(gui.Label(message))
+
+        # Add the Ok button. We need to define a callback function to handle
+        # the click.
+        ok_button = gui.Button("Ok")
+        ok_button.set_on_clicked(self._on_ok)
+
+        # We want the Ok button to be an the right side, so we need to add
+        # a stretch item to the layout, otherwise the button will be the size
+        # of the entire row. A stretch item takes up as much space as it can,
+        # which forces the button to be its minimum size.
+        button_layout = gui.Horiz()
+        button_layout.add_stretch()
+        button_layout.add_child(ok_button)
+
+        # Add the button layout,
+        dlg_layout.add_child(button_layout)
+        # ... then add the layout as the child of the Dialog
+        dlg.add_child(dlg_layout)
+
+    def show(self, window):
+        self._window = window
+
+    def _on_ok(self):
+        self._window.close_dialog()
+]]></codefragment>
+   </duplication>
+   <duplication lines="71" tokens="380">
+      <file begintoken="89556"
+            column="5"
+            endcolumn="25"
+            endline="493"
+            endtoken="89935"
+            line="423"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <file begintoken="90346"
+            column="5"
+            endcolumn="25"
+            endline="709"
+            endtoken="90725"
+            line="639"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <codefragment><![CDATA[    def __init__(self,
+                 filters,
+                 kernel_size,
+                 activation=None,
+                 use_bias=True,
+                 kernel_initializer='uniform',
+                 bias_initializer='zeros',
+                 kernel_regularizer=None,
+                 bias_regularizer=None,
+                 normalize=False,
+                 offset=None,
+                 in_channels=None,
+                 **kwargs):
+
+        from tensorflow.keras import activations, initializers, regularizers
+        self.filters = filters
+        self.kernel_size = kernel_size
+        self.activation = activations.get(activation)
+        self.use_bias = use_bias
+        self.kernel_initializer = initializers.get(kernel_initializer)
+        self.bias_initializer = initializers.get(bias_initializer)
+        self.kernel_regularizer = regularizers.get(kernel_regularizer)
+        self.bias_regularizer = regularizers.get(bias_regularizer)
+        self.normalize = normalize
+
+        if not (np.asarray(kernel_size) == kernel_size[0]).all():
+            raise Exception("Only cubic kernel sizes are supported.")
+
+        if offset is None:
+            if kernel_size[0] % 2:
+                self.offset = tf.zeros(shape=(3,))
+            else:
+                self.offset = tf.fill([3], -0.5)
+        else:
+            self.offset = offset
+
+        self.fixed_radius_search = FixedRadiusSearch(metric='Linf',
+                                                     ignore_query_point=False,
+                                                     return_distances=False)
+
+        super().__init__(**kwargs)
+
+    def build(self, inp_features_shape):
+        self.in_channels = inp_features_shape[-1]
+
+        kernel_shape = tf.TensorShape(
+            (*self.kernel_size, self.in_channels, self.filters))
+        self.kernel = self.add_weight(
+            name="kernel",
+            shape=kernel_shape,
+            initializer=self.kernel_initializer,
+            regularizer=self.kernel_regularizer,
+            trainable=self.trainable,
+        )
+
+        if self.use_bias:
+            bias_shape = tf.TensorShape((self.filters,))
+            self.bias = self.add_weight(
+                name="bias",
+                shape=bias_shape,
+                initializer=self.bias_initializer,
+                regularizer=self.bias_regularizer,
+                trainable=self.trainable,
+            )
+        super().build(inp_features_shape)
+
+    def call(self,
+             inp_features,
+             inp_positions,
+             out_positions,
+             voxel_size,
+]]></codefragment>
+   </duplication>
+   <duplication lines="52" tokens="370">
+      <file begintoken="161517"
+            column="5"
+            endcolumn="66"
+            endline="712"
+            endtoken="161886"
+            line="661"
+            path="Open3D/python/test/ml_ops/cconv_python.py"/>
+      <file begintoken="162264"
+            column="5"
+            endcolumn="66"
+            endline="835"
+            endtoken="162633"
+            line="785"
+            path="Open3D/python/test/ml_ops/cconv_python.py"/>
+      <codefragment><![CDATA[    assert inp_neighbors_index.ndim == 1
+    assert inp_neighbors_importance.ndim == 1
+    assert (inp_neighbors_importance.shape[0] == 0 or
+            inp_neighbors_importance.shape[0] == inp_neighbors_index.shape[0])
+    assert inp_neighbors_row_splits.ndim == 1
+    assert inp_neighbors_row_splits.shape[0] == inp_positions.shape[0] + 1
+    assert neighbors_index.ndim == 1
+    assert neighbors_importance.ndim == 1
+    assert (neighbors_importance.shape[0] == 0 or
+            neighbors_importance.shape[0] == neighbors_index.shape[0])
+    assert neighbors_row_splits.ndim == 1
+    assert neighbors_row_splits.shape[0] == out_positions.shape[0] + 1
+    assert neighbors_index.shape[0] == inp_neighbors_index.shape[0]
+    coordinate_mapping = _convert_parameter_str_dict[
+        coordinate_mapping] if isinstance(coordinate_mapping,
+                                          str) else coordinate_mapping
+    interpolation = _convert_parameter_str_dict[interpolation] if isinstance(
+        interpolation, str) else interpolation
+
+    dtype = inp_features.dtype
+    num_out = out_positions.shape[0]
+    num_inp = inp_positions.shape[0]
+    in_channels = inp_features.shape[-1]
+    out_channels = filter.shape[
+        -1]  # filter shape is [depth,height,width, in_ch, out_ch]
+
+    inv_extent = 1 / np.broadcast_to(extent, inp_positions.shape)
+
+    if out_importance.shape[0] == 0:
+        out_importance = np.ones([num_out])
+
+    if neighbors_importance.shape[0] == 0:
+        neighbors_importance = np.ones(neighbors_index.shape)
+
+    if inp_neighbors_importance.shape[0] == 0:
+        inp_neighbors_importance = np.ones(inp_neighbors_index.shape)
+
+    if normalize:
+        inp_n_importance_sums = np.zeros_like(inp_neighbors_row_splits[:-1],
+                                              dtype=out_positions.dtype)
+        for inp_idx, inp_pos in enumerate(inp_positions):
+
+            inp_neighbors_start = inp_neighbors_row_splits[inp_idx]
+            inp_neighbors_end = inp_neighbors_row_splits[inp_idx + 1]
+
+            for out_idx, n_importance in zip(
+                    inp_neighbors_index[inp_neighbors_start:inp_neighbors_end],
+                    inp_neighbors_importance[
+                        inp_neighbors_start:inp_neighbors_end]):
+                inp_n_importance_sums[inp_idx] += n_importance
+
+    filter_xyz_size = np.array(list(reversed(filter.shape[0:3])))
+]]></codefragment>
+   </duplication>
+   <duplication lines="41" tokens="351">
+      <file begintoken="160200"
+            column="5"
+            endcolumn="66"
+            endline="434"
+            endtoken="160550"
+            line="394"
+            path="Open3D/python/test/ml_ops/cconv_python.py"/>
+      <file begintoken="160765"
+            column="5"
+            endcolumn="66"
+            endline="532"
+            endtoken="161115"
+            line="492"
+            path="Open3D/python/test/ml_ops/cconv_python.py"/>
+      <codefragment><![CDATA[    assert filter.ndim == 5
+    assert all(filter.shape)
+    assert filter.shape[3] == inp_features.shape[-1]
+    assert out_positions.ndim == 2
+    assert extent.ndim == 2
+    assert extent.shape[0] == 1 or extent.shape[0] == out_positions.shape[0]
+    assert extent.shape[1] in (1, 3)
+    assert offset.ndim == 1 and offset.shape[0] == 3
+    assert inp_positions.ndim == 2
+    assert inp_positions.shape[0] == inp_features.shape[0]
+    assert inp_features.ndim == 2
+    assert inp_importance.ndim == 1
+    assert (inp_importance.shape[0] == 0 or
+            inp_importance.shape[0] == inp_positions.shape[0])
+    assert neighbors_importance.ndim == 1
+    assert (neighbors_importance.shape[0] == 0 or
+            neighbors_importance.shape[0] == neighbors_index.shape[0])
+    assert neighbors_index.ndim == 1
+    assert neighbors_row_splits.ndim == 1
+    assert neighbors_row_splits.shape[0] == out_positions.shape[0] + 1
+    coordinate_mapping = _convert_parameter_str_dict[
+        coordinate_mapping] if isinstance(coordinate_mapping,
+                                          str) else coordinate_mapping
+    interpolation = _convert_parameter_str_dict[interpolation] if isinstance(
+        interpolation, str) else interpolation
+
+    dtype = inp_features.dtype
+    num_out = out_positions.shape[0]
+    num_inp = inp_positions.shape[0]
+    in_channels = inp_features.shape[-1]
+    out_channels = filter.shape[-1]
+
+    inv_extent = 1 / np.broadcast_to(extent, out_positions.shape)
+
+    if inp_importance.shape[0] == 0:
+        inp_importance = np.ones([num_inp])
+
+    if neighbors_importance.shape[0] == 0:
+        neighbors_importance = np.ones(neighbors_index.shape)
+
+    filter_xyz_size = np.array(list(reversed(filter.shape[0:3])))
+]]></codefragment>
+   </duplication>
+   <duplication lines="42" tokens="341">
+      <file begintoken="171184"
+            column="5"
+            endcolumn="52"
+            endline="213"
+            endtoken="171524"
+            line="172"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="171916"
+            column="5"
+            endcolumn="52"
+            endline="315"
+            endtoken="172256"
+            line="274"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <codefragment><![CDATA[    if mltest.is_gpu_device_name(ml.device) and not dtype in gpu_dtypes:
+        return
+
+    rng = np.random.RandomState(123)
+
+    # create array defining start and end of each batch
+    points_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    queries_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    for i in range(batch_size):
+        points_row_splits[i + 1] = rng.randint(15) + points_row_splits[i]
+        queries_row_splits[i + 1] = rng.randint(15) + queries_row_splits[i]
+
+    num_points = points_row_splits[-1]
+    num_queries = queries_row_splits[-1]
+
+    points = rng.random(size=(num_points, 3)).astype(dtype)
+    if ignore_query_point:
+        queries = points
+        queries_row_splits = points_row_splits
+    else:
+        queries = rng.random(size=(num_queries, 3)).astype(dtype)
+
+    # kd trees for computing the ground truth
+    p_norm = {'L1': 1, 'L2': 2, 'Linf': np.inf}[metric]
+    gt_neighbors_index = []
+    for i in range(batch_size):
+        points_i = points[points_row_splits[i]:points_row_splits[i + 1]]
+        queries_i = queries[queries_row_splits[i]:queries_row_splits[i + 1]]
+
+        tree = cKDTree(points_i, copy_data=True)
+        gt_neighbors_index.extend([
+            list(
+                tree.query_ball_point(q, radius, p=p_norm) +
+                points_row_splits[i]) for q in queries_i
+        ])
+
+    if ml.module.__name__ == 'tensorflow':
+        index_dtype_ = {'int32': tf.int32, 'int64': tf.int64}[index_dtype]
+    elif ml.module.__name__ == 'torch':
+        index_dtype_ = {'int32': torch.int32, 'int64': torch.int64}[index_dtype]
+    else:
+        raise Exception('Unsupported ml framework')
+]]></codefragment>
+   </duplication>
+   <duplication lines="52" tokens="313">
+      <file begintoken="96490"
+            column="5"
+            endcolumn="28"
+            endline="435"
+            endtoken="96802"
+            line="384"
+            path="Open3D/python/open3d/ml/torch/python/layers/convolutions.py"/>
+      <file begintoken="97214"
+            column="5"
+            endcolumn="28"
+            endline="630"
+            endtoken="97526"
+            line="579"
+            path="Open3D/python/open3d/ml/torch/python/layers/convolutions.py"/>
+      <codefragment><![CDATA[    def __init__(
+            self,
+            in_channels,
+            filters,
+            kernel_size,
+            activation=None,
+            use_bias=True,
+            kernel_initializer=lambda x: torch.nn.init.uniform_(x, -0.05, 0.05),
+            bias_initializer=torch.nn.init.zeros_,
+            normalize=False,
+            offset=None,
+            **kwargs):
+        super().__init__()
+
+        self.in_channels = in_channels
+        self.filters = filters
+        self.kernel_size = kernel_size
+        self.activation = activation
+        self.use_bias = use_bias
+        self.kernel_initializer = kernel_initializer
+        self.bias_initializer = bias_initializer
+        self.normalize = normalize
+
+        if not (np.asarray(kernel_size) == kernel_size[0]).all():
+            raise Exception("Only cubic kernel sizes are supported.")
+
+        if offset is None:
+            if kernel_size[0] % 2:
+                offset = torch.zeros(size=(3,), dtype=torch.float32)
+            else:
+                offset = torch.full((3,), -0.5, dtype=torch.float32)
+        self.register_buffer('offset', offset)
+
+        self.fixed_radius_search = FixedRadiusSearch(metric='Linf',
+                                                     ignore_query_point=False,
+                                                     return_distances=False)
+
+        kernel_shape = (*self.kernel_size, self.in_channels, self.filters)
+        self.kernel = torch.nn.Parameter(data=torch.Tensor(*kernel_shape),
+                                         requires_grad=True)
+        self.kernel_initializer(self.kernel)
+
+        if self.use_bias:
+            self.bias = torch.nn.Parameter(data=torch.Tensor(self.filters),
+                                           requires_grad=True)
+            self.bias_initializer(self.bias)
+
+    def forward(self,
+                inp_features,
+                inp_positions,
+                out_positions,
+                voxel_size,
+]]></codefragment>
+   </duplication>
+   <duplication lines="83" tokens="305">
+      <file begintoken="58725"
+            column="53"
+            endcolumn="65"
+            endline="93"
+            endtoken="59029"
+            line="11"
+            path="Open3D/examples/python/visualization/all_widgets.py"/>
+      <file begintoken="69744"
+            column="34"
+            endcolumn="65"
+            endline="168"
+            endtoken="70048"
+            line="86"
+            path="Open3D/examples/python/visualization/non_english.py"/>
+      <codefragment><![CDATA[basedir = os.path.dirname(os.path.realpath(__file__))
+
+
+class ExampleWindow:
+    MENU_CHECKABLE = 1
+    MENU_DISABLED = 2
+    MENU_QUIT = 3
+
+    def __init__(self):
+        self.window = gui.Application.instance.create_window("Test", 400, 768)
+        # self.window = gui.Application.instance.create_window("Test", 400, 768,
+        #                                                        x=50, y=100)
+        w = self.window  # for more concise code
+
+        # Rather than specifying sizes in pixels, which may vary in size based
+        # on the monitor, especially on macOS which has 220 dpi monitors, use
+        # the em-size. This way sizings will be proportional to the font size,
+        # which will create a more visually consistent size across platforms.
+        em = w.theme.font_size
+
+        # Widgets are laid out in layouts: gui.Horiz, gui.Vert,
+        # gui.CollapsableVert, and gui.VGrid. By nesting the layouts we can
+        # achieve complex designs. Usually we use a vertical layout as the
+        # topmost widget, since widgets tend to be organized from top to bottom.
+        # Within that, we usually have a series of horizontal layouts for each
+        # row.
+        layout = gui.Vert(0, gui.Margins(0.5 * em, 0.5 * em, 0.5 * em,
+                                         0.5 * em))
+
+        # Create the menu. The menu is global (because the macOS menu is global),
+        # so only create it once.
+        if gui.Application.instance.menubar is None:
+            menubar = gui.Menu()
+            test_menu = gui.Menu()
+            test_menu.add_item("An option", ExampleWindow.MENU_CHECKABLE)
+            test_menu.set_checked(ExampleWindow.MENU_CHECKABLE, True)
+            test_menu.add_item("Unavailable feature",
+                               ExampleWindow.MENU_DISABLED)
+            test_menu.set_enabled(ExampleWindow.MENU_DISABLED, False)
+            test_menu.add_separator()
+            test_menu.add_item("Quit", ExampleWindow.MENU_QUIT)
+            # On macOS the first menu item is the application menu item and will
+            # always be the name of the application (probably "Python"),
+            # regardless of what you pass in here. The application menu is
+            # typically where About..., Preferences..., and Quit go.
+            menubar.add_menu("Test", test_menu)
+            gui.Application.instance.menubar = menubar
+
+        # Each window needs to know what to do with the menu items, so we need
+        # to tell the window how to handle menu items.
+        w.set_on_menu_item_activated(ExampleWindow.MENU_CHECKABLE,
+                                     self._on_menu_checkable)
+        w.set_on_menu_item_activated(ExampleWindow.MENU_QUIT,
+                                     self._on_menu_quit)
+
+        # Create a file-chooser widget. One part will be a text edit widget for
+        # the filename and clicking on the button will let the user choose using
+        # the file dialog.
+        self._fileedit = gui.TextEdit()
+        filedlgbutton = gui.Button("...")
+        filedlgbutton.horizontal_padding_em = 0.5
+        filedlgbutton.vertical_padding_em = 0
+        filedlgbutton.set_on_clicked(self._on_filedlg_button)
+
+        # (Create the horizontal widget for the row. This will make sure the
+        # text editor takes up as much space as it can.)
+        fileedit_layout = gui.Horiz()
+        fileedit_layout.add_child(gui.Label("Model file"))
+        fileedit_layout.add_child(self._fileedit)
+        fileedit_layout.add_fixed(0.25 * em)
+        fileedit_layout.add_child(filedlgbutton)
+        # add to the top-level (vertical) layout
+        layout.add_child(fileedit_layout)
+
+        # Create a collapsible vertical widget, which takes up enough vertical
+        # space for all its children when open, but only enough for text when
+        # closed. This is useful for property pages, so the user can hide sets
+        # of properties they rarely use. All layouts take a spacing parameter,
+        # which is the spacinging between items in the widget, and a margins
+        # parameter, which specifies the spacing of the left, top, right,
+        # bottom margins. (This acts like the 'padding' property in CSS.)
+        collapse = gui.CollapsableVert("Widgets", 0.33 * em,
+                                       gui.Margins(em, 0, 0, 0))
+]]></codefragment>
+   </duplication>
+   <duplication lines="16" tokens="262">
+      <file begintoken="159400"
+            column="9"
+            endcolumn="39"
+            endline="301"
+            endtoken="159661"
+            line="286"
+            path="Open3D/python/test/ml_ops/cconv_python.py"/>
+      <file begintoken="159891"
+            column="9"
+            endcolumn="39"
+            endline="335"
+            endtoken="160152"
+            line="320"
+            path="Open3D/python/test/ml_ops/cconv_python.py"/>
+      <codefragment><![CDATA[        w = ((1-a)*(1-b)*(1-c),
+             (a)*(1-b)*(1-c),
+             (1-a)*(b)*(1-c),
+             (a)*(b)*(1-c),
+             (1-a)*(1-b)*(c),
+             (a)*(1-b)*(c),
+             (1-a)*(b)*(c),
+             (a)*(b)*(c))
+        idx=((pi0[2], pi0[1], pi0[0]),
+             (pi0[2], pi0[1], pi1[0]),
+             (pi0[2], pi1[1], pi0[0]),
+             (pi0[2], pi1[1], pi1[0]),
+             (pi1[2], pi0[1], pi0[0]),
+             (pi1[2], pi0[1], pi1[0]),
+             (pi1[2], pi1[1], pi0[0]),
+             (pi1[2], pi1[1], pi1[0]))
+]]></codefragment>
+   </duplication>
+   <duplication lines="32" tokens="191">
+      <file begintoken="182321"
+            column="68"
+            endcolumn="50"
+            endline="175"
+            endtoken="182511"
+            line="144"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <file begintoken="184010"
+            column="64"
+            endcolumn="50"
+            endline="426"
+            endtoken="184200"
+            line="395"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <codefragment><![CDATA[                                   in_channels, with_inp_importance,
+                                   with_normalization, batch_size):
+    """Compares to the 3D convolution in tensorflow"""
+    # the problem is specific to tensorflow
+    if ml.module.__name__ != 'tensorflow':
+        return
+
+    # This test requires tensorflow
+    try:
+        import tensorflow as tf
+    except ImportError:
+        return
+
+    np.random.seed(0)
+
+    filters = np.random.random(size=(*kernel_size, in_channels,
+                                     out_channels)).astype(dtype)
+    bias = np.random.random(size=(out_channels,)).astype(dtype)
+
+    max_grid_extent = 10
+
+    # create array defining start and end of each batch
+    inp_positions_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    out_positions_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    for i in range(batch_size - 1):
+        inp_positions_row_splits[
+            i + 1] = np.random.randint(15) + inp_positions_row_splits[i]
+        out_positions_row_splits[
+            i + 1] = np.random.randint(15) + out_positions_row_splits[i]
+
+    inp_positions = np.unique(np.random.randint(0, max_grid_extent,
+                                                (256, 3)).astype(dtype),
+]]></codefragment>
+   </duplication>
+   <duplication lines="41" tokens="188">
+      <file begintoken="60120"
+            column="37"
+            endcolumn="8"
+            endline="338"
+            endtoken="60307"
+            line="298"
+            path="Open3D/examples/python/visualization/all_widgets.py"/>
+      <file begintoken="70794"
+            column="37"
+            endcolumn="8"
+            endline="353"
+            endtoken="70981"
+            line="310"
+            path="Open3D/examples/python/visualization/non_english.py"/>
+      <codefragment><![CDATA[        tabs.add_tab("Traffic", tab4)
+        collapse.add_child(tabs)
+
+        # Quit button. (Typically this is a menu item)
+        button_layout = gui.Horiz()
+        ok_button = gui.Button("Ok")
+        ok_button.set_on_clicked(self._on_ok)
+        button_layout.add_stretch()
+        button_layout.add_child(ok_button)
+
+        layout.add_child(collapse)
+        layout.add_child(button_layout)
+
+        # We're done, set the window's layout
+        w.add_child(layout)
+
+    def _on_filedlg_button(self):
+        filedlg = gui.FileDialog(gui.FileDialog.OPEN, "Select file",
+                                 self.window.theme)
+        filedlg.add_filter(".obj .ply .stl", "Triangle mesh (.obj, .ply, .stl)")
+        filedlg.add_filter("", "All files")
+        filedlg.set_on_cancel(self._on_filedlg_cancel)
+        filedlg.set_on_done(self._on_filedlg_done)
+        self.window.show_dialog(filedlg)
+
+    def _on_filedlg_cancel(self):
+        self.window.close_dialog()
+
+    def _on_filedlg_done(self, path):
+        self._fileedit.text_value = path
+        self.window.close_dialog()
+
+    def _on_cb(self, is_checked):
+        if is_checked:
+            text = "Sorry, effects are unimplemented"
+        else:
+            text = "Good choice"
+
+        self.show_message_dialog("There might be a problem...", text)
+
+    def _on_switch(self, is_on):
+]]></codefragment>
+   </duplication>
+   <duplication lines="28" tokens="185">
+      <file begintoken="170586"
+            column="24"
+            endcolumn="80"
+            endline="105"
+            endtoken="170770"
+            line="78"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="172334"
+            column="31"
+            endcolumn="80"
+            endline="359"
+            endtoken="172518"
+            line="332"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <codefragment><![CDATA[        queries=queries,
+        radius=radius,
+        hash_table_size_factor=hash_table_size_factor,
+    )
+
+    index_dtype_np = {'int32': np.int32, 'int64': np.int64}[index_dtype]
+    assert ans.neighbors_index.dtype == index_dtype_np
+
+    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="11" tokens="183">
+      <file begintoken="212065"
+            column="42"
+            endcolumn="28"
+            endline="30"
+            endtoken="212247"
+            line="20"
+            path="Open3D/python/test/test_open3d_eigen.py"/>
+      <file begintoken="212450"
+            column="40"
+            endcolumn="28"
+            endline="67"
+            endtoken="212632"
+            line="57"
+            path="Open3D/python/test/test_open3d_eigen.py"/>
+      <codefragment><![CDATA[        (np.ones((2, 4), dtype=np.float64), True),
+        # Non-numpy array
+        ([[1, 2, 3], [4, 5, 6]], False),
+        ([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], False),
+        # Datatypes
+        (np.array([[1, 2, 3], [4, 5, 6]], dtype=np.float64), False),
+        (np.array([[1, 2, 3], [4, 5, 6]], dtype=np.int32), False),
+        (np.array([[1, 2, 3], [4, 5, 6]], dtype=np.int32), False),
+        # Slice non-contiguous memory
+        (np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],
+                  dtype=np.float64)[:, 0:6:2], False),
+]]></codefragment>
+   </duplication>
+   <duplication lines="30" tokens="182">
+      <file begintoken="170590"
+            column="22"
+            endcolumn="2"
+            endline="108"
+            endtoken="170771"
+            line="79"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="171582"
+            column="46"
+            endcolumn="2"
+            endline="257"
+            endtoken="171763"
+            line="228"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <codefragment><![CDATA[        radius=radius,
+        hash_table_size_factor=hash_table_size_factor,
+    )
+
+    index_dtype_np = {'int32': np.int32, 'int64': np.int64}[index_dtype]
+    assert ans.neighbors_index.dtype == index_dtype_np
+
+    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+
+
+@mltest.parametrize.ml
+]]></codefragment>
+   </duplication>
+   <duplication lines="21" tokens="181">
+      <file begintoken="119058"
+            column="25"
+            endcolumn="25"
+            endline="253"
+            endtoken="119238"
+            line="233"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="119270"
+            column="31"
+            endcolumn="25"
+            endline="275"
+            endtoken="119450"
+            line="254"
+            path="Open3D/python/test/core/test_core.py"/>
+      <codefragment><![CDATA[    dst_t = o3c.Tensor([3], dtype=o3c.Dtype.Int64).to(device)
+    assert dst_t.allclose(src_t.flatten())
+    assert dst_t.allclose(src_t.flatten(0))
+    assert dst_t.allclose(src_t.flatten(-1))
+
+    assert dst_t.allclose(src_t.flatten(0, 0))
+    assert dst_t.allclose(src_t.flatten(0, -1))
+    assert dst_t.allclose(src_t.flatten(-1, 0))
+    assert dst_t.allclose(src_t.flatten(-1, -1))
+
+    with pytest.raises(RuntimeError):
+        src_t.flatten(-2)
+    with pytest.raises(RuntimeError):
+        src_t.flatten(1)
+    with pytest.raises(RuntimeError):
+        src_t.flatten(0, -2)
+    with pytest.raises(RuntimeError):
+        src_t.flatten(0, 1)
+
+    # Flatten 1-D tensor
+    src_t = o3c.Tensor([1, 2, 3], dtype=o3c.Dtype.Int64).to(device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="27" tokens="181">
+      <file begintoken="171582"
+            column="46"
+            endcolumn="80"
+            endline="254"
+            endtoken="171762"
+            line="228"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="172338"
+            column="22"
+            endcolumn="80"
+            endline="359"
+            endtoken="172518"
+            line="333"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <codefragment><![CDATA[        queries_row_splits=queries_row_splits,
+        hash_table_size_factor=hash_table_size_factor,
+    )
+
+    index_dtype_np = {'int32': np.int32, 'int64': np.int64}[index_dtype]
+    assert ans.neighbors_index.dtype == index_dtype_np
+
+    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="32" tokens="181">
+      <file begintoken="215332"
+            column="24"
+            endcolumn="4"
+            endline="228"
+            endtoken="215512"
+            line="197"
+            path="Open3D/python/test/visualization/test_tensorboard_plugin.py"/>
+      <file begintoken="215993"
+            column="19"
+            endcolumn="4"
+            endline="326"
+            endtoken="216173"
+            line="294"
+            path="Open3D/python/test/visualization/test_tensorboard_plugin.py"/>
+      <codefragment><![CDATA[                summary.add_3d('bboxes', {'bboxes': bboxes[step]},
+                               step=step,
+                               logdir=logdir,
+                               max_outputs=max_outputs,
+                               label_to_names=label_to_names)
+
+    sleep(0.25)  # msgpack writing disk flush time
+    tags_ref = geometry_data['tags']
+    dirpath_ref = [
+        logdir,
+        os.path.join(logdir, 'plugins'),
+        os.path.join(logdir, 'plugins/Open3D')
+    ]
+    filenames_ref = geometry_data['filenames']
+
+    dirpath, filenames = [], []
+    for dp, unused_dn, fn in os.walk(logdir):
+        dirpath.append(dp)
+        filenames.append(fn)
+
+    assert dirpath == dirpath_ref
+    assert filenames[0][0].startswith(filenames_ref[0][0][:20])
+    assert sorted(x.split('.')[0] for x in filenames[2]) == tags_ref
+    assert all(fn.endswith('.msgpack') for fn in filenames[2])
+    # Note: The event file written during this test cannot be reliably verified
+    # in the same Python process, since it's usually buffered by GFile / Python
+    # / OS and written to disk in increments of the filesystem blocksize.
+    # Complete write is guaranteed after Python has exited.
+    shutil.rmtree(logdir)
+
+
+def test_pytorch_summary(geometry_data, tmp_path):
+]]></codefragment>
+   </duplication>
+   <duplication lines="32" tokens="178">
+      <file begintoken="75937"
+            column="32"
+            endcolumn="13"
+            endline="145"
+            endtoken="76114"
+            line="114"
+            path="Open3D/examples/python/visualization/tensorboard_pytorch.py"/>
+      <file begintoken="77187"
+            column="41"
+            endcolumn="13"
+            endline="158"
+            endtoken="77364"
+            line="127"
+            path="Open3D/examples/python/visualization/tensorboard_tensorflow.py"/>
+      <codefragment><![CDATA[                      step=step,
+                      max_outputs=batch_size)
+
+
+def with_material(model_path=MODEL_PATH):
+    """Read an obj model from a directory and write as a TensorBoard summary.
+    """
+    model_dir = dirname(model_path)
+    model_name = splitext(basename(model_path))[0]
+    logdir = join(BASE_LOGDIR, model_name)
+    model = o3d.t.io.read_triangle_mesh(model_path)
+    summary_3d = {
+        "vertex_positions": model.vertex.positions,
+        "vertex_normals": model.vertex.normals,
+        "triangle_texture_uvs": model.triangle["texture_uvs"],
+        "triangle_indices": model.triangle.indices,
+        "material_name": "defaultLit"
+    }
+    names_to_o3dprop = {"ao": "ambient_occlusion"}
+
+    for texture in ("albedo", "normal", "ao", "metallic", "roughness"):
+        texture_file = join(model_dir, texture + ".png")
+        if exists(texture_file):
+            texture = names_to_o3dprop.get(texture, texture)
+            summary_3d.update({
+                ("material_texture_map_" + texture):
+                    o3d.t.io.read_image(texture_file)
+            })
+            if texture == "metallic":
+                summary_3d.update(material_scalar_metallic=1.0)
+
+    writer = SummaryWriter(logdir)
+]]></codefragment>
+   </duplication>
+   <duplication lines="33" tokens="177">
+      <file begintoken="7225"
+            column="23"
+            endcolumn="4"
+            endline="144"
+            endtoken="7401"
+            line="112"
+            path="Open3D/examples/cpp/registration_example_util/download_kitti.py"/>
+      <file begintoken="24825"
+            column="46"
+            endcolumn="4"
+            endline="163"
+            endtoken="25001"
+            line="131"
+            path="Open3D/examples/python/open3d_example.py"/>
+      <codefragment><![CDATA[    f = open(file_name, "wb")
+    if pyver == 2:
+        meta = u.info()
+        file_size = int(meta.getheaders("Content-Length")[0])
+    elif pyver == 3:
+        file_size = int(u.getheader("Content-Length"))
+    print("Downloading: %s " % file_name)
+
+    file_size_dl = 0
+    block_sz = 8192
+    progress = 0
+    while True:
+        buffer = u.read(block_sz)
+        if not buffer:
+            break
+        file_size_dl += len(buffer)
+        f.write(buffer)
+        if progress + 10 <= (file_size_dl * 100. / file_size):
+            progress = progress + 10
+            print(" %.1f / %.1f MB (%.0f %%)" % \
+                    (file_size_dl/(1024*1024), file_size/(1024*1024), progress))
+    f.close()
+
+
+def unzip_data(path_zip, path_extract_to):
+    print("Unzipping %s" % path_zip)
+    zip_ref = zipfile.ZipFile(path_zip, 'r')
+    zip_ref.extractall(path_extract_to)
+    zip_ref.close()
+    print("Extracted to %s" % path_extract_to)
+
+
+def get_kitti_sample_dataset(dataset_path, dataset_name):
+]]></codefragment>
+   </duplication>
+   <duplication lines="28" tokens="174">
+      <file begintoken="14915"
+            column="1"
+            endcolumn="11"
+            endline="35"
+            endtoken="15088"
+            line="8"
+            path="Open3D/examples/python/geometry/point_cloud_outlier_removal_radius.py"/>
+      <file begintoken="15114"
+            column="1"
+            endcolumn="11"
+            endline="35"
+            endtoken="15287"
+            line="8"
+            path="Open3D/examples/python/geometry/point_cloud_outlier_removal_statistical.py"/>
+      <codefragment><![CDATA[import open3d as o3d
+import numpy as np
+
+
+def display_inlier_outlier(cloud, ind):
+    inlier_cloud = cloud.select_by_index(ind)
+    outlier_cloud = cloud.select_by_index(ind, invert=True)
+
+    print("Showing outliers (red) and inliers (gray): ")
+    outlier_cloud.paint_uniform_color([1, 0, 0])
+    inlier_cloud.paint_uniform_color([0.8, 0.8, 0.8])
+    o3d.visualization.draw([inlier_cloud, outlier_cloud])
+
+
+if __name__ == "__main__":
+    ptcloud_data = o3d.data.PLYPointCloud()
+
+    print("Load a ply point cloud, print it, and render it")
+    pcd = o3d.io.read_point_cloud(ptcloud_data.path)
+    R = pcd.get_rotation_matrix_from_xyz((np.pi, 0, 0))
+    pcd.rotate(R, center=(0, 0, 0))
+    o3d.visualization.draw([pcd])
+
+    print("Downsample the point cloud with a voxel of 0.02")
+    voxel_down_pcd = pcd.voxel_down_sample(voxel_size=0.02)
+    o3d.visualization.draw([voxel_down_pcd])
+
+    print("Radius oulier removal")
+]]></codefragment>
+   </duplication>
+   <duplication lines="25" tokens="169">
+      <file begintoken="177044"
+            column="5"
+            endcolumn="80"
+            endline="106"
+            endtoken="177212"
+            line="82"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <file begintoken="177929"
+            column="5"
+            endcolumn="80"
+            endline="239"
+            endtoken="178097"
+            line="215"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                    if normalize_distances:
+                        gt_dist /= radii[i]**2
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                    if normalize_distances:
+                        gt_dist /= radii[i]
+
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="25" tokens="167">
+      <file begintoken="175077"
+            column="5"
+            endcolumn="80"
+            endline="106"
+            endtoken="175243"
+            line="82"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <file begintoken="175958"
+            column="5"
+            endcolumn="80"
+            endline="244"
+            endtoken="176124"
+            line="220"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <codefragment><![CDATA[    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        if k == 1:
+            gt_set = set([gt_neighbors_index[i]])
+        else:
+            gt_set = set(gt_neighbors_index[i])
+
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="21" tokens="163">
+      <file begintoken="75741"
+            column="5"
+            endcolumn="58"
+            endline="107"
+            endtoken="75903"
+            line="87"
+            path="Open3D/examples/python/visualization/tensorboard_pytorch.py"/>
+      <file begintoken="76983"
+            column="9"
+            endcolumn="62"
+            endline="118"
+            endtoken="77145"
+            line="98"
+            path="Open3D/examples/python/visualization/tensorboard_tensorflow.py"/>
+      <codefragment><![CDATA[    for step in range(n_steps):
+        resolution = base_resolution * (step + 1)
+        cylinder_list = []
+        mobius_list = []
+        cylinder = o3d.geometry.TriangleMesh.create_cylinder(
+            radius=1.0, height=2.0, resolution=resolution, split=4)
+        cylinder.compute_vertex_normals()
+        mobius = o3d.geometry.TriangleMesh.create_mobius(
+            length_split=int(3.5 * resolution),
+            width_split=int(0.75 * resolution),
+            twists=1,
+            raidus=1,
+            flatness=1,
+            width=1,
+            scale=1)
+        mobius.compute_vertex_normals()
+        for b in range(batch_size):
+            cylinder_list.append(copy.deepcopy(cylinder))
+            cylinder_list[b].paint_uniform_color(colors[b])
+            mobius_list.append(copy.deepcopy(mobius))
+            mobius_list[b].paint_uniform_color(colors[b])
+]]></codefragment>
+   </duplication>
+   <duplication lines="19" tokens="161">
+      <file begintoken="175583"
+            column="22"
+            endcolumn="66"
+            endline="183"
+            endtoken="175743"
+            line="165"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <file begintoken="177577"
+            column="25"
+            endcolumn="66"
+            endline="184"
+            endtoken="177737"
+            line="166"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    return_distances = True
+    rng = np.random.RandomState(123)
+
+    # create array defining start and end of each batch
+    points_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    queries_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    for i in range(batch_size):
+        points_row_splits[i + 1] = rng.randint(15) + points_row_splits[i]
+        queries_row_splits[i + 1] = rng.randint(15) + queries_row_splits[i]
+
+    num_points = points_row_splits[-1]
+    num_queries = queries_row_splits[-1]
+
+    points = rng.random(size=(num_points, 3)).astype(dtype)
+    if ignore_query_point:
+        queries = points
+        queries_row_splits = points_row_splits
+    else:
+        queries = rng.random(size=(num_queries, 3)).astype(dtype)
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="159">
+      <file begintoken="145491"
+            column="33"
+            endcolumn="59"
+            endline="236"
+            endtoken="145649"
+            line="223"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <file begintoken="146261"
+            column="32"
+            endcolumn="59"
+            endline="330"
+            endtoken="146419"
+            line="316"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <codefragment><![CDATA[    values = o3c.Tensor([2, 3, 4], dtype=dtype, device=device)
+    output_t = o3c.append(self=self, values=values)
+    output_np = np.append(arr=self.cpu().numpy(), values=values.cpu().numpy())
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=0)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=0)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=-1)
+]]></codefragment>
+   </duplication>
+   <duplication lines="15" tokens="159">
+      <file begintoken="145807"
+            column="39"
+            endcolumn="58"
+            endline="276"
+            endtoken="145965"
+            line="262"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <file begintoken="146260"
+            column="31"
+            endcolumn="58"
+            endline="330"
+            endtoken="146418"
+            line="316"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <codefragment><![CDATA[    values = o3c.Tensor([[4, 5], [6, 7]], dtype=dtype, device=device)
+
+    output_t = o3c.append(self=self, values=values)
+    output_np = np.append(arr=self.cpu().numpy(), values=values.cpu().numpy())
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=0)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=0)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=1)
+]]></codefragment>
+   </duplication>
+   <duplication lines="18" tokens="159">
+      <file begintoken="171200"
+            column="5"
+            endcolumn="66"
+            endline="192"
+            endtoken="171358"
+            line="175"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="175585"
+            column="5"
+            endcolumn="66"
+            endline="183"
+            endtoken="175743"
+            line="166"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <file begintoken="177579"
+            column="5"
+            endcolumn="66"
+            endline="184"
+            endtoken="177737"
+            line="167"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    rng = np.random.RandomState(123)
+
+    # create array defining start and end of each batch
+    points_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    queries_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    for i in range(batch_size):
+        points_row_splits[i + 1] = rng.randint(15) + points_row_splits[i]
+        queries_row_splits[i + 1] = rng.randint(15) + queries_row_splits[i]
+
+    num_points = points_row_splits[-1]
+    num_queries = queries_row_splits[-1]
+
+    points = rng.random(size=(num_points, 3)).astype(dtype)
+    if ignore_query_point:
+        queries = points
+        queries_row_splits = points_row_splits
+    else:
+        queries = rng.random(size=(num_queries, 3)).astype(dtype)
+]]></codefragment>
+   </duplication>
+   <duplication lines="18" tokens="159">
+      <file begintoken="171932"
+            column="5"
+            endcolumn="66"
+            endline="294"
+            endtoken="172090"
+            line="277"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="175585"
+            column="5"
+            endcolumn="66"
+            endline="183"
+            endtoken="175743"
+            line="166"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <file begintoken="177579"
+            column="5"
+            endcolumn="66"
+            endline="184"
+            endtoken="177737"
+            line="167"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    rng = np.random.RandomState(123)
+
+    # create array defining start and end of each batch
+    points_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    queries_row_splits = np.zeros(shape=(batch_size + 1,), dtype=np.int64)
+    for i in range(batch_size):
+        points_row_splits[i + 1] = rng.randint(15) + points_row_splits[i]
+        queries_row_splits[i + 1] = rng.randint(15) + queries_row_splits[i]
+
+    num_points = points_row_splits[-1]
+    num_queries = queries_row_splits[-1]
+
+    points = rng.random(size=(num_points, 3)).astype(dtype)
+    if ignore_query_point:
+        queries = points
+        queries_row_splits = points_row_splits
+    else:
+        queries = rng.random(size=(num_queries, 3)).astype(dtype)
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="158">
+      <file begintoken="136618"
+            column="32"
+            endcolumn="40"
+            endline="75"
+            endtoken="136775"
+            line="62"
+            path="Open3D/python/test/core/test_linalg.py"/>
+      <file begintoken="137443"
+            column="38"
+            endcolumn="31"
+            endline="146"
+            endtoken="137600"
+            line="132"
+            path="Open3D/python/test/core/test_linalg.py"/>
+      <codefragment><![CDATA[        assert 'mismatch with' in str(excinfo.value)
+
+    for shapes in [((0, 0), (0, 0)), ((2, 0), (0, 3)), ((0, 2), (2, 0)),
+                   ((2, 0), (0, 0))]:
+        with pytest.raises(RuntimeError) as excinfo:
+            a_shape, b_shape = shapes
+            a = o3c.Tensor.zeros(a_shape, dtype=dtype, device=device)
+            b = o3c.Tensor.zeros(b_shape, dtype=dtype, device=device)
+            c = a @ b
+            assert 'dimensions with zero' in str(excinfo.value)
+
+
+@pytest.mark.parametrize("device", list_devices())
+@pytest.mark.parametrize("dtype", [o3c.float32, o3c.float64])
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="158">
+      <file begintoken="145491"
+            column="33"
+            endcolumn="58"
+            endline="236"
+            endtoken="145648"
+            line="223"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <file begintoken="145808"
+            column="40"
+            endcolumn="58"
+            endline="276"
+            endtoken="145965"
+            line="262"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <codefragment><![CDATA[    values = o3c.Tensor([2, 3, 4], dtype=dtype, device=device)
+    output_t = o3c.append(self=self, values=values)
+    output_np = np.append(arr=self.cpu().numpy(), values=values.cpu().numpy())
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=0)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=0)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=-1)
+]]></codefragment>
+   </duplication>
+   <duplication lines="32" tokens="157">
+      <file begintoken="88892"
+            column="25"
+            endcolumn="28"
+            endline="226"
+            endtoken="89048"
+            line="195"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <file begintoken="89777"
+            column="70"
+            endcolumn="28"
+            endline="492"
+            endtoken="89933"
+            line="461"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <file begintoken="90567"
+            column="70"
+            endcolumn="28"
+            endline="708"
+            endtoken="90723"
+            line="677"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <codefragment><![CDATA[                use_bias=False)
+
+        super().__init__(**kwargs)
+
+    def build(self, inp_features_shape):
+        self.in_channels = inp_features_shape[-1]
+
+        kernel_shape = tf.TensorShape(
+            (*self.kernel_size, self.in_channels, self.filters))
+        self.kernel = self.add_weight(
+            name="kernel",
+            shape=kernel_shape,
+            initializer=self.kernel_initializer,
+            regularizer=self.kernel_regularizer,
+            trainable=self.trainable,
+        )
+
+        if self.use_bias:
+            bias_shape = tf.TensorShape((self.filters,))
+            self.bias = self.add_weight(
+                name="bias",
+                shape=bias_shape,
+                initializer=self.bias_initializer,
+                regularizer=self.bias_regularizer,
+                trainable=self.trainable,
+            )
+        super().build(inp_features_shape)
+
+    def call(self,
+             inp_features,
+             inp_positions,
+             out_positions,
+]]></codefragment>
+   </duplication>
+   <duplication lines="16" tokens="144">
+      <file begintoken="76156"
+            column="59"
+            endcolumn="66"
+            endline="169"
+            endtoken="76299"
+            line="154"
+            path="Open3D/examples/python/visualization/tensorboard_pytorch.py"/>
+      <file begintoken="77428"
+            column="50"
+            endcolumn="66"
+            endline="184"
+            endtoken="77571"
+            line="169"
+            path="Open3D/examples/python/visualization/tensorboard_tensorflow.py"/>
+      <codefragment><![CDATA[    writer = SummaryWriter(join(BASE_LOGDIR, 'demo_scene'))
+    for geom_data in geoms:
+        geom = geom_data["geometry"]
+        summary_3d = {}
+        for key, tensor in geom.vertex.items():
+            summary_3d["vertex_" + key] = tensor
+        for key, tensor in geom.triangle.items():
+            summary_3d["triangle_" + key] = tensor
+        if geom.has_valid_material():
+            summary_3d["material_name"] = geom.material.material_name
+            for key, value in geom.material.scalar_properties.items():
+                summary_3d["material_scalar_" + key] = value
+            for key, value in geom.material.vector_properties.items():
+                summary_3d["material_vector_" + key] = value
+            for key, value in geom.material.texture_maps.items():
+                summary_3d["material_texture_map_" + key] = value
+]]></codefragment>
+   </duplication>
+   <duplication lines="15" tokens="144">
+      <file begintoken="178194"
+            column="64"
+            endcolumn="73"
+            endline="42"
+            endtoken="178337"
+            line="28"
+            path="Open3D/python/test/ml_ops/test_ragged_tensor.py"/>
+      <file begintoken="178642"
+            column="76"
+            endcolumn="73"
+            endline="86"
+            endtoken="178785"
+            line="71"
+            path="Open3D/python/test/ml_ops/test_ragged_tensor.py"/>
+      <codefragment><![CDATA[    values = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], dtype=dtype)
+    row_splits = np.array([0, 2, 4, 4, 5, 12, 13], dtype=np.int64)
+
+    # From numpy arrays
+    r_tensor = ml.classes.RaggedTensor.from_row_splits(values, row_splits)
+    for i, tensor in enumerate(r_tensor):
+        np.testing.assert_equal(mltest.to_numpy(tensor),
+                                values[row_splits[i]:row_splits[i + 1]])
+
+    # From List
+    r_tensor = ml.classes.RaggedTensor.from_row_splits(list(values),
+                                                       list(row_splits))
+    for i, tensor in enumerate(r_tensor):
+        np.testing.assert_equal(mltest.to_numpy(tensor),
+                                values[row_splits[i]:row_splits[i + 1]])
+]]></codefragment>
+   </duplication>
+   <duplication lines="11" tokens="142">
+      <file begintoken="203866"
+            column="33"
+            endcolumn="50"
+            endline="454"
+            endtoken="204007"
+            line="444"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="204728"
+            column="28"
+            endcolumn="50"
+            endline="544"
+            endtoken="204869"
+            line="534"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <codefragment><![CDATA[def test_select_faces_by_mask_32(device):
+    sphere_custom = o3d.t.geometry.TriangleMesh.create_sphere(
+        1, 3, o3c.float64, o3c.int32, device)
+
+    expected_verts = o3c.Tensor(
+        [[0.0, 0.0, 1.0], [0.866025, 0, 0.5], [0.433013, 0.75, 0.5],
+         [-0.866025, 0.0, 0.5], [-0.433013, -0.75, 0.5], [0.433013, -0.75, 0.5]
+        ], o3c.float64, device)
+
+    expected_tris = o3c.Tensor([[0, 1, 2], [0, 3, 4], [0, 4, 5], [0, 5, 1]],
+                               o3c.int32, device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="141">
+      <file begintoken="120624"
+            column="33"
+            endcolumn="42"
+            endline="406"
+            endtoken="120764"
+            line="393"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="121322"
+            column="32"
+            endcolumn="42"
+            endline="500"
+            endtoken="121462"
+            line="486"
+            path="Open3D/python/test/core/test_core.py"/>
+      <codefragment><![CDATA[    values = o3c.Tensor([2, 3, 4], dtype=dtype, device=device)
+    output_t = self.append(values)
+    output_np = np.append(arr=self.cpu().numpy(), values=values.cpu().numpy())
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = self.append(values, axis=0)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=0)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = self.append(values, axis=-1)
+]]></codefragment>
+   </duplication>
+   <duplication lines="15" tokens="141">
+      <file begintoken="120910"
+            column="39"
+            endcolumn="41"
+            endline="446"
+            endtoken="121050"
+            line="432"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="121321"
+            column="31"
+            endcolumn="41"
+            endline="500"
+            endtoken="121461"
+            line="486"
+            path="Open3D/python/test/core/test_core.py"/>
+      <codefragment><![CDATA[    values = o3c.Tensor([[4, 5], [6, 7]], dtype=dtype, device=device)
+
+    output_t = self.append(values)
+    output_np = np.append(arr=self.cpu().numpy(), values=values.cpu().numpy())
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = self.append(values, axis=0)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=0)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = self.append(values, axis=1)
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="140">
+      <file begintoken="120624"
+            column="33"
+            endcolumn="41"
+            endline="406"
+            endtoken="120763"
+            line="393"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="120911"
+            column="40"
+            endcolumn="41"
+            endline="446"
+            endtoken="121050"
+            line="432"
+            path="Open3D/python/test/core/test_core.py"/>
+      <codefragment><![CDATA[    values = o3c.Tensor([2, 3, 4], dtype=dtype, device=device)
+    output_t = self.append(values)
+    output_np = np.append(arr=self.cpu().numpy(), values=values.cpu().numpy())
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = self.append(values, axis=0)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=0)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = self.append(values, axis=-1)
+]]></codefragment>
+   </duplication>
+   <duplication lines="22" tokens="138">
+      <file begintoken="6734"
+            column="1"
+            endcolumn="4"
+            endline="48"
+            endtoken="6871"
+            line="27"
+            path="Open3D/examples/cpp/registration_example_util/download_kitti.py"/>
+      <file begintoken="25001"
+            column="1"
+            endcolumn="4"
+            endline="182"
+            endtoken="25138"
+            line="163"
+            path="Open3D/examples/python/open3d_example.py"/>
+      <codefragment><![CDATA[def sorted_alphanum(file_list_ordered):
+    convert = lambda text: int(text) if text.isdigit() else text
+    alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+    return sorted(file_list_ordered, key=alphanum_key)
+
+
+# get list of files inside a folder, matching the externsion, in sorted order.
+def get_file_list(path, extension=None):
+    if extension is None:
+        file_list = [path + f for f in listdir(path) if isfile(join(path, f))]
+    else:
+        file_list = [
+            path + f
+            for f in listdir(path)
+            if isfile(join(path, f)) and splitext(f)[1] == extension
+        ]
+    file_list = sorted_alphanum(file_list)
+    return file_list
+
+
+# converts kitti binary to pcd.
+def bin_to_pcd(binFileName):
+]]></codefragment>
+   </duplication>
+   <duplication lines="23" tokens="138">
+      <file begintoken="170594"
+            column="54"
+            endcolumn="57"
+            endline="102"
+            endtoken="170731"
+            line="80"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="177016"
+            column="20"
+            endcolumn="57"
+            endline="98"
+            endtoken="177153"
+            line="76"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[        hash_table_size_factor=hash_table_size_factor,
+    )
+
+    index_dtype_np = {'int32': np.int32, 'int64': np.int64}[index_dtype]
+    assert ans.neighbors_index.dtype == index_dtype_np
+
+    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="23" tokens="138">
+      <file begintoken="171586"
+            column="54"
+            endcolumn="57"
+            endline="251"
+            endtoken="171723"
+            line="229"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="177016"
+            column="20"
+            endcolumn="57"
+            endline="98"
+            endtoken="177153"
+            line="76"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[        hash_table_size_factor=hash_table_size_factor,
+    )
+
+    index_dtype_np = {'int32': np.int32, 'int64': np.int64}[index_dtype]
+    assert ans.neighbors_index.dtype == index_dtype_np
+
+    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="23" tokens="138">
+      <file begintoken="172342"
+            column="54"
+            endcolumn="57"
+            endline="356"
+            endtoken="172479"
+            line="334"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="177016"
+            column="20"
+            endcolumn="57"
+            endline="98"
+            endtoken="177153"
+            line="76"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[        hash_table_size_factor=hash_table_size_factor,
+    )
+
+    index_dtype_np = {'int32': np.int32, 'int64': np.int64}[index_dtype]
+    assert ans.neighbors_index.dtype == index_dtype_np
+
+    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="134">
+      <file begintoken="205153"
+            column="57"
+            endcolumn="32"
+            endline="592"
+            endtoken="205286"
+            line="576"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="205761"
+            column="56"
+            endcolumn="32"
+            endline="658"
+            endtoken="205894"
+            line="642"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <codefragment><![CDATA[    selected = sphere_custom.select_by_index(indices_u64)
+    assert selected.vertex.positions.allclose(expected_verts)
+    assert selected.triangle.indices.allclose(expected_tris)
+
+    # check that an index exceeding the max vertex index of the mesh is ignored
+    selected = sphere_custom.select_by_index([0, 2, 3, 5, 6, 99, 7])
+    assert selected.vertex.positions.allclose(expected_verts)
+    assert selected.triangle.indices.allclose(expected_tris)
+
+    # check that a negative index is ignored
+    selected = sphere_custom.select_by_index([0, 2, 3, 5, -10, 6, 7])
+    assert selected.vertex.positions.allclose(expected_verts)
+    assert selected.triangle.indices.allclose(expected_tris)
+
+    # check that the original mesh is unmodified
+    untouched_sphere = o3d.t.geometry.TriangleMesh.create_sphere(
+        1, 3, o3c.float64, o3c.int32, device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="16" tokens="132">
+      <file begintoken="12932"
+            column="1"
+            endcolumn="11"
+            endline="26"
+            endtoken="13063"
+            line="11"
+            path="Open3D/examples/python/geometry/octree_find_leaf.py"/>
+      <file begintoken="13570"
+            column="1"
+            endcolumn="11"
+            endline="56"
+            endtoken="13701"
+            line="41"
+            path="Open3D/examples/python/geometry/octree_traversal.py"/>
+      <codefragment><![CDATA[if __name__ == "__main__":
+    N = 2000
+    armadillo_data = o3d.data.ArmadilloMesh()
+    pcd = o3d.io.read_triangle_mesh(
+        armadillo_data.path).sample_points_poisson_disk(N)
+    # Fit to unit cube.
+    pcd.scale(1 / np.max(pcd.get_max_bound() - pcd.get_min_bound()),
+              center=pcd.get_center())
+    pcd.colors = o3d.utility.Vector3dVector(np.random.uniform(0, 1,
+                                                              size=(N, 3)))
+
+    octree = o3d.geometry.Octree(max_depth=4)
+    octree.convert_from_point_cloud(pcd, size_expand=0.01)
+    print('Displaying input octree ...')
+    o3d.visualization.draw([octree])
+    print('Finding leaf node containing the first point of pointcloud ...')
+]]></codefragment>
+   </duplication>
+   <duplication lines="35" tokens="132">
+      <file begintoken="117078"
+            column="1"
+            endcolumn="6"
+            endline="49"
+            endtoken="117209"
+            line="15"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="143856"
+            column="1"
+            endcolumn="6"
+            endline="48"
+            endtoken="143987"
+            line="14"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <codefragment><![CDATA[import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/..")
+from open3d_test import list_devices
+
+
+def list_dtypes():
+    return [
+        o3c.float32,
+        o3c.float64,
+        o3c.int8,
+        o3c.int16,
+        o3c.int32,
+        o3c.int64,
+        o3c.uint8,
+        o3c.uint16,
+        o3c.uint32,
+        o3c.uint64,
+        o3c.bool,
+    ]
+
+
+def list_non_bool_dtypes():
+    return [
+        o3c.float32,
+        o3c.float64,
+        o3c.int8,
+        o3c.int16,
+        o3c.int32,
+        o3c.int64,
+        o3c.uint8,
+        o3c.uint16,
+        o3c.uint32,
+        o3c.uint64,
+    ]
+]]></codefragment>
+   </duplication>
+   <duplication lines="16" tokens="132">
+      <file begintoken="192976"
+            column="27"
+            endcolumn="4"
+            endline="110"
+            endtoken="193107"
+            line="95"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="193109"
+            column="29"
+            endcolumn="4"
+            endline="127"
+            endtoken="193240"
+            line="110"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[def test_add_triangle_mesh():
+    cube = o3d.t.geometry.TriangleMesh.from_legacy(
+        o3d.geometry.TriangleMesh.create_box())
+
+    scene = o3d.t.geometry.RaycastingScene()
+    scene.add_triangles(cube)
+
+    rays = o3d.core.Tensor([[0.5, 0.5, -1, 0, 0, 1], [0.5, 0.5, 0.5, 0, 0, 1],
+                            [10, 10, 10, 1, 0, 0]],
+                           dtype=o3d.core.float32)
+    ans = scene.count_intersections(rays)
+
+    np.testing.assert_equal(ans.numpy(), [2, 1, 0])
+
+
+def test_count_intersections():
+]]></codefragment>
+   </duplication>
+   <duplication lines="25" tokens="131">
+      <file begintoken="7910"
+            column="1"
+            endcolumn="33"
+            endline="56"
+            endtoken="8040"
+            line="32"
+            path="Open3D/examples/python/benchmark/benchmark_fgr.py"/>
+      <file begintoken="9903"
+            column="1"
+            endcolumn="33"
+            endline="44"
+            endtoken="10033"
+            line="20"
+            path="Open3D/examples/python/benchmark/benchmark_pre.py"/>
+      <codefragment><![CDATA[def preprocess_point_cloud(pcd, voxel_size):
+    print(":: Downsample with a voxel size %.3f." % voxel_size)
+    pcd_down = pcd.voxel_down_sample(voxel_size)
+
+    radius_normal = voxel_size * 2
+    print(":: Estimate normal with search radius %.3f." % radius_normal)
+    pcd_down.estimate_normals(
+        o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
+
+    radius_feature = voxel_size * 5
+    print(":: Compute FPFH feature with search radius %.3f." % radius_feature)
+    pcd_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
+        pcd_down,
+        o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100))
+    return pcd_down, pcd_fpfh
+
+
+if __name__ == "__main__":
+    # data preparation
+    dataset = o3d.data.LivingRoomPointClouds()
+    n_ply_files = len(dataset.paths)
+    voxel_size = 0.05
+
+    alignment = []
+    for s in range(n_ply_files):
+]]></codefragment>
+   </duplication>
+   <duplication lines="12" tokens="131">
+      <file begintoken="180040"
+            column="5"
+            endcolumn="43"
+            endline="42"
+            endtoken="180170"
+            line="31"
+            path="Open3D/python/test/ml_ops/test_ragged_to_dense.py"/>
+      <file begintoken="180584"
+            column="5"
+            endcolumn="43"
+            endline="99"
+            endtoken="180714"
+            line="88"
+            path="Open3D/python/test/ml_ops/test_ragged_to_dense.py"/>
+      <codefragment><![CDATA[    default_value = np.array(-1, dtype=dtype)
+
+    ans = mltest.run_op(ml, ml.device, True, ml.ops.ragged_to_dense, values,
+                        row_splits, out_col_size, default_value)
+
+    expected = np.full((row_splits.shape[0] - 1, out_col_size), default_value)
+    for i in range(row_splits.shape[0] - 1):
+        for j, value_idx in enumerate(range(row_splits[i], row_splits[i + 1])):
+            if j < expected.shape[1]:
+                expected[i, j] = values[value_idx]
+
+    np.testing.assert_equal(ans, expected)
+]]></codefragment>
+   </duplication>
+   <duplication lines="22" tokens="130">
+      <file begintoken="181760"
+            column="37"
+            endcolumn="33"
+            endline="81"
+            endtoken="181889"
+            line="60"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <file begintoken="183431"
+            column="52"
+            endcolumn="33"
+            endline="326"
+            endtoken="183560"
+            line="305"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <codefragment><![CDATA[                              axis=0)
+    out_positions_int = out_positions.astype(np.int32)
+
+    voxel_size = 0.2
+
+    inp_features = np.random.uniform(size=inp_positions.shape[0:1] +
+                                     (in_channels,)).astype(dtype)
+
+    if ml.module.__name__ == 'tensorflow':
+        kernel_initializer = tf.constant_initializer(filters)
+        bias_initializer = tf.constant_initializer(bias)
+    elif ml.module.__name__ == 'torch':
+        torch = ml.module
+
+        def kernel_initializer(a):
+            a.data = torch.from_numpy(filters)
+
+        def bias_initializer(a):
+            a.data = torch.from_numpy(bias)
+    else:
+        raise Exception('Unsupported ml framework {}'.format(
+            ml.module.__name__))
+]]></codefragment>
+   </duplication>
+   <duplication lines="12" tokens="130">
+      <file begintoken="192503"
+            column="27"
+            endcolumn="15"
+            endline="48"
+            endtoken="192632"
+            line="37"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="192840"
+            column="33"
+            endcolumn="15"
+            endline="92"
+            endtoken="192969"
+            line="81"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[def test_cast_lots_of_rays():
+    vertices = o3d.core.Tensor([[0, 0, 0], [1, 0, 0], [1, 1, 0]],
+                               dtype=o3d.core.float32)
+    triangles = o3d.core.Tensor([[0, 1, 2]], dtype=o3d.core.uint32)
+
+    scene = o3d.t.geometry.RaycastingScene()
+    scene.add_triangles(vertices, triangles)
+
+    rs = np.random.RandomState(123)
+    rays = o3d.core.Tensor.from_numpy(rs.rand(7654321, 6).astype(np.float32))
+
+    _ = scene.cast_rays(rays)
+]]></codefragment>
+   </duplication>
+   <duplication lines="15" tokens="129">
+      <file begintoken="76469"
+            column="5"
+            endcolumn="51"
+            endline="37"
+            endtoken="76597"
+            line="23"
+            path="Open3D/examples/python/visualization/tensorboard_tensorflow.py"/>
+      <file begintoken="76658"
+            column="5"
+            endcolumn="51"
+            endline="67"
+            endtoken="76786"
+            line="53"
+            path="Open3D/examples/python/visualization/tensorboard_tensorflow.py"/>
+      <codefragment><![CDATA[    logdir = join(BASE_LOGDIR, run_name)
+    writer = tf.summary.create_file_writer(logdir)
+
+    cube = o3d.geometry.TriangleMesh.create_box(1, 2, 4, create_uv_map=True)
+    cube.compute_vertex_normals()
+    cylinder = o3d.geometry.TriangleMesh.create_cylinder(radius=1.0,
+                                                         height=2.0,
+                                                         resolution=20,
+                                                         split=4,
+                                                         create_uv_map=True)
+    cylinder.compute_vertex_normals()
+    colors = [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)]
+    with writer.as_default():
+        for step in range(3):
+            cube.paint_uniform_color(colors[step])
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="129">
+      <file begintoken="204005"
+            column="41"
+            endcolumn="66"
+            endline="467"
+            endtoken="204133"
+            line="454"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="204324"
+            column="37"
+            endcolumn="66"
+            endline="504"
+            endtoken="204452"
+            line="491"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <codefragment><![CDATA[                               o3c.int32, device)
+
+    # check indices shape mismatch
+    mask_2d = o3c.Tensor([[False, False], [False, False], [False, False]],
+                         o3c.bool, device)
+    with pytest.raises(RuntimeError):
+        selected = sphere_custom.select_faces_by_mask(mask_2d)
+
+    # check indices type mismatch
+    mask_float = o3c.Tensor([
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ], o3c.float32, device)
+    with pytest.raises(RuntimeError):
+        selected = sphere_custom.select_faces_by_mask(mask_float)
+]]></codefragment>
+   </duplication>
+   <duplication lines="28" tokens="128">
+      <file begintoken="90996"
+            column="32"
+            endcolumn="38"
+            endline="806"
+            endtoken="91123"
+            line="779"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <file begintoken="97811"
+            column="35"
+            endcolumn="38"
+            endline="732"
+            endtoken="97938"
+            line="705"
+            path="Open3D/python/open3d/ml/torch/python/layers/convolutions.py"/>
+      <codefragment><![CDATA[        extents_rank2 = tf.fill([1, 1], voxel_size * self.kernel_size[0])
+
+        self._conv_values = {
+            'filters': self.kernel,
+            'out_positions': out_positions,
+            'extents': extents_rank2,
+            'offset': offset,
+            'inp_positions': inp_positions,
+            'inp_features': inp_features,
+            'out_importance': out_importance,
+            'inp_neighbors_index': self.nns_inp.neighbors_index,
+            'inp_neighbors_importance_sum': empty_vec,
+            'inp_neighbors_row_splits': self.nns_inp.neighbors_row_splits,
+            'neighbors_index': neighbors_index,
+            'neighbors_importance': empty_vec,
+            'neighbors_row_splits': neighbors_row_splits,
+            'align_corners': False,
+            'coordinate_mapping': 'identity',
+            'interpolation': 'nearest_neighbor',
+            'normalize': self.normalize,
+        }
+
+        out_features = ops.continuous_conv_transpose(**self._conv_values)
+
+        self._conv_output = out_features
+
+        if self.use_bias:
+            out_features += self.bias
+]]></codefragment>
+   </duplication>
+   <duplication lines="11" tokens="126">
+      <file begintoken="182182"
+            column="119"
+            endcolumn="4"
+            endline="143"
+            endtoken="182307"
+            line="133"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <file begintoken="183871"
+            column="119"
+            endcolumn="4"
+            endline="393"
+            endtoken="183996"
+            line="383"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <codefragment><![CDATA[@pytest.mark.parametrize("kernel_size, out_channels, in_channels, with_inp_importance, with_normalization, batch_size",[
+                             ([1,1,1],            2,           7,                True,              False,          2),
+                             ([2,2,2],            1,           1,               False,              False,          3),
+                             ([3,3,3],            4,           2,                True,               True,          3),
+                             ([4,4,4],            3,           4,                True,               True,          8),
+                             ([5,5,5],            5,           3,               False,               True,          8),
+                        ])
+# yapf: enable
+@mltest.parametrize.ml
+@pytest.mark.parametrize('dtype', [np.float32])
+def test_compare_to_conv3d_batches(ml, dtype, kernel_size, out_channels,
+]]></codefragment>
+   </duplication>
+   <duplication lines="29" tokens="124">
+      <file begintoken="89388"
+            column="63"
+            endcolumn="38"
+            endline="364"
+            endtoken="89511"
+            line="336"
+            path="Open3D/python/open3d/ml/tf/python/layers/convolutions.py"/>
+      <file begintoken="96337"
+            column="63"
+            endcolumn="38"
+            endline="334"
+            endtoken="96460"
+            line="306"
+            path="Open3D/python/open3d/ml/torch/python/layers/convolutions.py"/>
+      <codefragment><![CDATA[            extents_rank2 = tf.expand_dims(extents_rank2, axis=-1)
+
+        self._conv_values = {
+            'filters': self.kernel,
+            'out_positions': out_positions,
+            'extents': extents_rank2,
+            'offset': offset,
+            'inp_positions': inp_positions,
+            'inp_features': inp_features,
+            'inp_importance': inp_importance,
+            'neighbors_index': neighbors_index,
+            'neighbors_row_splits': neighbors_row_splits,
+            'neighbors_importance': neighbors_importance,
+            'align_corners': self.align_corners,
+            'coordinate_mapping': self.coordinate_mapping,
+            'interpolation': self.interpolation,
+            'normalize': self.normalize,
+        }
+
+        out_features = ops.continuous_conv(**self._conv_values)
+
+        self._conv_output = out_features
+
+        if self.use_dense_layer_for_center:
+            self._dense_output = self.dense(inp_features)
+            out_features = out_features + self._dense_output
+
+        if self.use_bias:
+            out_features += self.bias
+]]></codefragment>
+   </duplication>
+   <duplication lines="5" tokens="124">
+      <file begintoken="178552"
+            column="28"
+            endcolumn="67"
+            endline="73"
+            endtoken="178675"
+            line="69"
+            path="Open3D/python/test/ml_ops/test_ragged_tensor.py"/>
+      <file begintoken="180181"
+            column="35"
+            endcolumn="67"
+            endline="53"
+            endtoken="180304"
+            line="48"
+            path="Open3D/python/test/ml_ops/test_ragged_to_dense.py"/>
+      <codefragment><![CDATA[def test_creation_more_dims(dtype, ml):
+    values = np.array([[0, 0], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6],
+                       [7, 7], [8, 8], [9, 9], [10, 10], [11, 11], [12, 12]],
+                      dtype=dtype)
+    row_splits = np.array([0, 2, 4, 4, 5, 12, 13], dtype=np.int64)
+]]></codefragment>
+   </duplication>
+   <duplication lines="24" tokens="123">
+      <file begintoken="38786"
+            column="1"
+            endcolumn="4"
+            endline="49"
+            endtoken="38908"
+            line="26"
+            path="Open3D/examples/python/reconstruction_system/refine_registration.py"/>
+      <file begintoken="40708"
+            column="1"
+            endcolumn="4"
+            endline="123"
+            endtoken="40830"
+            line="100"
+            path="Open3D/examples/python/reconstruction_system/register_fragments.py"/>
+      <codefragment><![CDATA[def update_posegraph_for_scene(s, t, transformation, information, odometry,
+                               pose_graph):
+    if t == s + 1:  # odometry case
+        odometry = np.dot(transformation, odometry)
+        odometry_inv = np.linalg.inv(odometry)
+        pose_graph.nodes.append(
+            o3d.pipelines.registration.PoseGraphNode(odometry_inv))
+        pose_graph.edges.append(
+            o3d.pipelines.registration.PoseGraphEdge(s,
+                                                     t,
+                                                     transformation,
+                                                     information,
+                                                     uncertain=False))
+    else:  # loop closure case
+        pose_graph.edges.append(
+            o3d.pipelines.registration.PoseGraphEdge(s,
+                                                     t,
+                                                     transformation,
+                                                     information,
+                                                     uncertain=True))
+    return (odometry, pose_graph)
+
+
+def multiscale_icp(source,
+]]></codefragment>
+   </duplication>
+   <duplication lines="13" tokens="123">
+      <file begintoken="171040"
+            column="47"
+            endcolumn="4"
+            endline="167"
+            endtoken="171162"
+            line="155"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="171762"
+            column="79"
+            endcolumn="4"
+            endline="266"
+            endtoken="171884"
+            line="254"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <codefragment><![CDATA[    assert ans.neighbors_distance.shape == (0,)
+
+
+@dtypes
+@mltest.parametrize.ml
+@pytest.mark.parametrize('batch_size', [2, 3, 8])
+@pytest.mark.parametrize('radius', [0.1, 0.3])
+@pytest.mark.parametrize('hash_table_size_factor', [1 / 8, 1 / 64])
+@pytest.mark.parametrize('metric', ['L1', 'L2', 'Linf'])
+@pytest.mark.parametrize('ignore_query_point', [False, True])
+@pytest.mark.parametrize('return_distances', [False, True])
+@pytest.mark.parametrize('index_dtype', ['int32', 'int64'])
+def test_fixed_radius_search_batches(dtype, ml, batch_size, radius,
+]]></codefragment>
+   </duplication>
+   <duplication lines="5" tokens="123">
+      <file begintoken="195000"
+            column="35"
+            endcolumn="48"
+            endline="345"
+            endtoken="195122"
+            line="341"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="195258"
+            column="35"
+            endcolumn="48"
+            endline="354"
+            endtoken="195380"
+            line="350"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[          [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+         [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0, 0.0, 0.0],
+          [0.0, 1.0, 1.0, 1.0, 1.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 0.0],
+          [0.0, 0.0, 1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+         [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 1.0, 1.0, 1.0, 1.0, 0.0],
+]]></codefragment>
+   </duplication>
+   <duplication lines="28" tokens="122">
+      <file begintoken="49054"
+            column="1"
+            endcolumn="33"
+            endline="97"
+            endtoken="49175"
+            line="70"
+            path="Open3D/examples/python/t_reconstruction_system/dense_slam.py"/>
+      <file begintoken="52199"
+            column="1"
+            endcolumn="33"
+            endline="465"
+            endtoken="52320"
+            line="438"
+            path="Open3D/examples/python/t_reconstruction_system/dense_slam_gui.py"/>
+      <codefragment><![CDATA[if __name__ == '__main__':
+    parser = ConfigParser()
+    parser.add(
+        '--config',
+        is_config_file=True,
+        help='YAML config file path. Please refer to default_config.yml as a '
+        'reference. It overrides the default config file, but will be '
+        'overridden by other command line inputs.')
+    parser.add('--default_dataset',
+               help='Default dataset is used when config file is not provided. '
+               'Default dataset may be selected from the following options: '
+               '[lounge, bedroom, jack_jack]',
+               default='lounge')
+    parser.add('--path_npz',
+               help='path to the npz file that stores voxel block grid.',
+               default='output.npz')
+    config = parser.get_config()
+
+    if config.path_dataset == '':
+        config = get_default_dataset(config)
+
+    # Extract RGB-D frames and intrinsic from bag file.
+    if config.path_dataset.endswith(".bag"):
+        assert os.path.isfile(
+            config.path_dataset), f"File {config.path_dataset} not found."
+        print("Extracting frames from RGBD video file")
+        config.path_dataset, config.path_intrinsic, config.depth_scale = extract_rgbd_frames(
+            config.path_dataset)
+]]></codefragment>
+   </duplication>
+   <duplication lines="8" tokens="121">
+      <file begintoken="134523"
+            column="14"
+            endcolumn="71"
+            endline="66"
+            endtoken="134643"
+            line="59"
+            path="Open3D/python/test/core/test_hashmap.py"/>
+      <file begintoken="134802"
+            column="15"
+            endcolumn="71"
+            endline="89"
+            endtoken="134922"
+            line="82"
+            path="Open3D/python/test/core/test_hashmap.py"/>
+      <codefragment><![CDATA[def test_find(device):
+    capacity = 10
+    hashmap = o3c.HashMap(capacity, o3c.int64, [1], o3c.int64, [1], device)
+    keys = o3c.Tensor([100, 300, 500, 700, 900], dtype=o3c.int64, device=device)
+    values = o3c.Tensor([1, 3, 5, 7, 9], dtype=o3c.int64, device=device)
+    hashmap.insert(keys, values)
+
+    keys = o3c.Tensor([100, 200, 500], dtype=o3c.int64, device=device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="10" tokens="119">
+      <file begintoken="12418"
+            column="64"
+            endcolumn="14"
+            endline="34"
+            endtoken="12536"
+            line="25"
+            path="Open3D/examples/python/geometry/kd_tree_feature_matching.py"/>
+      <file begintoken="12575"
+            column="64"
+            endcolumn="14"
+            endline="49"
+            endtoken="12693"
+            line="40"
+            path="Open3D/examples/python/geometry/kd_tree_feature_matching.py"/>
+      <codefragment><![CDATA[    feature1 = o3d.io.read_feature(demo_data.fpfh_feature_paths[1])
+
+    fpfh_tree = o3d.geometry.KDTreeFlann(feature1)
+    for i in range(len(pcd0.points)):
+        [_, idx, _] = fpfh_tree.search_knn_vector_xd(feature0.data[:, i], 1)
+        dis = np.linalg.norm(pcd0.points[i] - pcd1.points[idx[0]])
+        c = (0.2 - np.fmin(dis, 0.2)) / 0.2
+        pcd0.colors[i] = [c, c, c]
+    o3d.visualization.draw_geometries([pcd0])
+    print("")
+]]></codefragment>
+   </duplication>
+   <duplication lines="10" tokens="119">
+      <file begintoken="125603"
+            column="25"
+            endcolumn="4"
+            endline="874"
+            endtoken="125721"
+            line="865"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="125784"
+            column="25"
+            endcolumn="4"
+            endline="888"
+            endtoken="125902"
+            line="879"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="125976"
+            column="24"
+            endcolumn="4"
+            endline="904"
+            endtoken="126094"
+            line="895"
+            path="Open3D/python/test/core/test_core.py"/>
+      <codefragment><![CDATA[    o3_dst = o3_src.mean(dim=dim, keepdim=keepdim)
+    np.testing.assert_allclose(o3_dst.cpu().numpy(), np_dst)
+
+
+@pytest.mark.parametrize(
+    "dim",
+    [0, 1, 2, (), (0,), (1,), (2,), (0, 1), (0, 2), (1, 2), (0, 1, 2), None])
+@pytest.mark.parametrize("keepdim", [True, False])
+@pytest.mark.parametrize("device", list_devices())
+def test_reduction_prod(dim, keepdim, device):
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="118">
+      <file begintoken="75276"
+            column="5"
+            endcolumn="47"
+            endline="37"
+            endtoken="75393"
+            line="24"
+            path="Open3D/examples/python/visualization/tensorboard_pytorch.py"/>
+      <file begintoken="75446"
+            column="5"
+            endcolumn="47"
+            endline="60"
+            endtoken="75563"
+            line="47"
+            path="Open3D/examples/python/visualization/tensorboard_pytorch.py"/>
+      <codefragment><![CDATA[    logdir = join(BASE_LOGDIR, run_name)
+    writer = SummaryWriter(logdir)
+
+    cube = o3d.geometry.TriangleMesh.create_box(1, 2, 4, create_uv_map=True)
+    cube.compute_vertex_normals()
+    cylinder = o3d.geometry.TriangleMesh.create_cylinder(radius=1.0,
+                                                         height=2.0,
+                                                         resolution=20,
+                                                         split=4,
+                                                         create_uv_map=True)
+    cylinder.compute_vertex_normals()
+    colors = [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)]
+    for step in range(3):
+        cube.paint_uniform_color(colors[step])
+]]></codefragment>
+   </duplication>
+   <duplication lines="18" tokens="117">
+      <file begintoken="208915"
+            column="28"
+            endcolumn="49"
+            endline="147"
+            endtoken="209031"
+            line="130"
+            path="Open3D/python/test/t/registration/test_registration.py"/>
+      <file begintoken="209167"
+            column="28"
+            endcolumn="49"
+            endline="185"
+            endtoken="209283"
+            line="168"
+            path="Open3D/python/test/t/registration/test_registration.py"/>
+      <codefragment><![CDATA[def test_icp_point_to_point(device):
+
+    supported_dtypes = [o3c.float32, o3c.float64]
+    for dtype in supported_dtypes:
+        source_t, target_t = get_pcds(dtype, device)
+
+        source_legacy = source_t.to_legacy()
+        target_legacy = target_t.to_legacy()
+
+        max_correspondence_distance = 3.0
+
+        init_trans_legacy = np.array([[0.862, 0.011, -0.507, 0.5],
+                                      [-0.139, 0.967, -0.215, 0.7],
+                                      [0.487, 0.255, 0.835, -1.4],
+                                      [0.0, 0.0, 0.0, 1.0]])
+        init_trans_t = o3c.Tensor(init_trans_legacy,
+                                  dtype=o3c.float64,
+                                  device=device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="26" tokens="116">
+      <file begintoken="59039"
+            column="52"
+            endcolumn="34"
+            endline="119"
+            endtoken="59154"
+            line="94"
+            path="Open3D/examples/python/visualization/all_widgets.py"/>
+      <file begintoken="70090"
+            column="63"
+            endcolumn="34"
+            endline="199"
+            endtoken="70205"
+            line="174"
+            path="Open3D/examples/python/visualization/non_english.py"/>
+      <codefragment><![CDATA[        self._label = gui.Label("Lorem ipsum dolor")
+        self._label.text_color = gui.Color(1.0, 0.5, 0.0)
+        collapse.add_child(self._label)
+
+        # Create a checkbox. Checking or unchecking would usually be used to set
+        # a binary property, but in this case it will show a simple message box,
+        # which illustrates how to create simple dialogs.
+        cb = gui.Checkbox("Enable some really cool effect")
+        cb.set_on_checked(self._on_cb)  # set the callback function
+        collapse.add_child(cb)
+
+        # Create a color editor. We will change the color of the orange label
+        # above when the color changes.
+        color = gui.ColorEdit()
+        color.color_value = self._label.text_color
+        color.set_on_value_changed(self._on_color)
+        collapse.add_child(color)
+
+        # This is a combobox, nothing fancy here, just set a simple function to
+        # handle the user selecting an item.
+        combo = gui.Combobox()
+        combo.add_item("Show point labels")
+        combo.add_item("Show point velocity")
+        combo.add_item("Show bounding boxes")
+        combo.set_on_selection_changed(self._on_combo)
+        collapse.add_child(combo)
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="116">
+      <file begintoken="170660"
+            column="9"
+            endcolumn="21"
+            endline="108"
+            endtoken="170775"
+            line="92"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="175133"
+            column="13"
+            endcolumn="21"
+            endline="109"
+            endtoken="175248"
+            line="91"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <codefragment><![CDATA[        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+
+
+@mltest.parametrize.ml
+]]></codefragment>
+   </duplication>
+   <duplication lines="11" tokens="116">
+      <file begintoken="181430"
+            column="107"
+            endcolumn="4"
+            endline="31"
+            endtoken="181545"
+            line="21"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <file begintoken="183101"
+            column="107"
+            endcolumn="4"
+            endline="275"
+            endtoken="183216"
+            line="265"
+            path="Open3D/python/test/ml_ops/test_sparseconv.py"/>
+      <codefragment><![CDATA[@pytest.mark.parametrize("kernel_size, out_channels, in_channels, with_inp_importance, with_normalization",[
+                             ([1,1,1],            2,           7,                True,              False),
+                             ([2,2,2],            1,           1,               False,              False),
+                             ([3,3,3],            4,           2,                True,               True),
+                             ([4,4,4],            3,           4,                True,               True),
+                             ([5,5,5],            5,           3,               False,               True),
+                        ])
+# yapf: enable
+@mltest.parametrize.ml
+@pytest.mark.parametrize('dtype', [np.float32])
+def test_compare_to_conv3d(ml, dtype, kernel_size, out_channels, in_channels,
+]]></codefragment>
+   </duplication>
+   <duplication lines="15" tokens="115">
+      <file begintoken="204133"
+            column="65"
+            endcolumn="32"
+            endline="481"
+            endtoken="204247"
+            line="467"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="204564"
+            column="49"
+            endcolumn="32"
+            endline="526"
+            endtoken="204678"
+            line="512"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <codefragment><![CDATA[        selected = sphere_custom.select_faces_by_mask(mask_float)
+
+    # check the basic case
+    mask = o3c.Tensor([
+        True, False, False, False, False, False, True, False, True, False, True,
+        False, False, False, False, False, False, False, False, False, False,
+        False, False, False
+    ], o3c.bool, device)
+    selected = sphere_custom.select_faces_by_mask(mask)
+    assert selected.vertex.positions.allclose(expected_verts)
+    assert selected.triangle.indices.allclose(expected_tris)
+
+    # check that the original mesh is unmodified
+    untouched_sphere = o3d.t.geometry.TriangleMesh.create_sphere(
+        1, 3, o3c.float64, o3c.int32, device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="27" tokens="112">
+      <file begintoken="91444"
+            column="56"
+            endcolumn="20"
+            endline="155"
+            endtoken="91555"
+            line="129"
+            path="Open3D/python/open3d/ml/tf/python/layers/neighbor_search.py"/>
+      <file begintoken="98211"
+            column="72"
+            endcolumn="20"
+            endline="151"
+            endtoken="98322"
+            line="123"
+            path="Open3D/python/open3d/ml/torch/python/layers/neighbor_search.py"/>
+      <codefragment><![CDATA[                                         dtype=tf.int64)
+        if hash_table is None:
+            table = ops.build_spatial_hash_table(
+                max_hash_table_size=self.max_hash_table_size,
+                points=points,
+                radius=radius,
+                points_row_splits=points_row_splits,
+                hash_table_size_factor=hash_table_size_factor)
+        else:
+            table = hash_table
+        result = ops.fixed_radius_search(
+            ignore_query_point=self.ignore_query_point,
+            return_distances=self.return_distances,
+            metric=self.metric,
+            points=points,
+            queries=queries,
+            radius=radius,
+            points_row_splits=points_row_splits,
+            queries_row_splits=queries_row_splits,
+            hash_table_splits=table.hash_table_splits,
+            hash_table_index=table.hash_table_index,
+            hash_table_cell_splits=table.hash_table_cell_splits,
+            index_dtype=self.index_dtype)
+        return result
+
+
+class RadiusSearch(tf.keras.layers.Layer):
+]]></codefragment>
+   </duplication>
+   <duplication lines="21" tokens="112">
+      <file begintoken="170479"
+            column="73"
+            endcolumn="23"
+            endline="79"
+            endtoken="170590"
+            line="59"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="171463"
+            column="10"
+            endcolumn="23"
+            endline="226"
+            endtoken="171574"
+            line="206"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <codefragment><![CDATA[    gt_neighbors_index = tree.query_ball_point(queries, radius, p=p_norm)
+
+    if ml.module.__name__ == 'tensorflow':
+        index_dtype_ = {'int32': tf.int32, 'int64': tf.int64}[index_dtype]
+    elif ml.module.__name__ == 'torch':
+        index_dtype_ = {'int32': torch.int32, 'int64': torch.int64}[index_dtype]
+    else:
+        raise Exception('Unsupported ml framework')
+
+    layer = ml.layers.FixedRadiusSearch(metric=metric,
+                                        ignore_query_point=ignore_query_point,
+                                        return_distances=return_distances,
+                                        index_dtype=index_dtype_)
+    ans = mltest.run_op(
+        ml,
+        ml.device,
+        True,
+        layer,
+        points,
+        queries=queries,
+        radius=radius,
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="112">
+      <file begintoken="171652"
+            column="9"
+            endcolumn="2"
+            endline="257"
+            endtoken="171763"
+            line="241"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="175133"
+            column="13"
+            endcolumn="2"
+            endline="109"
+            endtoken="175244"
+            line="91"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <codefragment><![CDATA[        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+
+
+@dtypes
+]]></codefragment>
+   </duplication>
+   <duplication lines="18" tokens="111">
+      <file begintoken="8004"
+            column="1"
+            endcolumn="21"
+            endline="66"
+            endtoken="8114"
+            line="49"
+            path="Open3D/examples/python/benchmark/benchmark_fgr.py"/>
+      <file begintoken="10272"
+            column="1"
+            endcolumn="21"
+            endline="64"
+            endtoken="10382"
+            line="47"
+            path="Open3D/examples/python/benchmark/benchmark_ransac.py"/>
+      <codefragment><![CDATA[if __name__ == "__main__":
+    # data preparation
+    dataset = o3d.data.LivingRoomPointClouds()
+    n_ply_files = len(dataset.paths)
+    voxel_size = 0.05
+
+    alignment = []
+    for s in range(n_ply_files):
+        for t in range(s + 1, n_ply_files):
+            print("LivingRoomPointClouds:: matching %d-%d" % (s, t))
+            source = o3d.io.read_point_cloud(dataset.paths[s])
+            target = o3d.io.read_point_cloud(dataset.paths[t])
+            source_down, source_fpfh = preprocess_point_cloud(
+                source, voxel_size)
+            target_down, target_fpfh = preprocess_point_cloud(
+                target, voxel_size)
+
+            result = execute_fast_global_registration(source_down, target_down,
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="111">
+      <file begintoken="170660"
+            column="9"
+            endcolumn="80"
+            endline="105"
+            endtoken="170770"
+            line="92"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="176014"
+            column="13"
+            endcolumn="80"
+            endline="244"
+            endtoken="176124"
+            line="229"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <codefragment><![CDATA[        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="111">
+      <file begintoken="171652"
+            column="9"
+            endcolumn="80"
+            endline="254"
+            endtoken="171762"
+            line="241"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="176014"
+            column="13"
+            endcolumn="80"
+            endline="244"
+            endtoken="176124"
+            line="229"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <codefragment><![CDATA[        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="111">
+      <file begintoken="172408"
+            column="9"
+            endcolumn="80"
+            endline="359"
+            endtoken="172518"
+            line="346"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="175133"
+            column="13"
+            endcolumn="80"
+            endline="106"
+            endtoken="175243"
+            line="91"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <file begintoken="176014"
+            column="13"
+            endcolumn="80"
+            endline="244"
+            endtoken="176124"
+            line="229"
+            path="Open3D/python/test/ml_ops/test_knn_search.py"/>
+      <codefragment><![CDATA[        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+                else:
+                    gt_dist = np.linalg.norm(q - points[j], ord=p_norm)
+                np.testing.assert_allclose(dist, gt_dist, rtol=1e-7, atol=1e-8)
+]]></codefragment>
+   </duplication>
+   <duplication lines="10" tokens="111">
+      <file begintoken="192504"
+            column="28"
+            endcolumn="42"
+            endline="46"
+            endtoken="192614"
+            line="37"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="194302"
+            column="29"
+            endcolumn="12"
+            endline="261"
+            endtoken="194412"
+            line="251"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[def test_cast_lots_of_rays():
+    vertices = o3d.core.Tensor([[0, 0, 0], [1, 0, 0], [1, 1, 0]],
+                               dtype=o3d.core.float32)
+    triangles = o3d.core.Tensor([[0, 1, 2]], dtype=o3d.core.uint32)
+
+    scene = o3d.t.geometry.RaycastingScene()
+    scene.add_triangles(vertices, triangles)
+
+    rs = np.random.RandomState(123)
+    rays = o3d.core.Tensor.from_numpy(rs.rand(7654321, 6).astype(np.float32))
+]]></codefragment>
+   </duplication>
+   <duplication lines="10" tokens="111">
+      <file begintoken="192841"
+            column="34"
+            endcolumn="42"
+            endline="90"
+            endtoken="192951"
+            line="81"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="194302"
+            column="29"
+            endcolumn="12"
+            endline="261"
+            endtoken="194412"
+            line="251"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[def test_test_lots_of_occlusions():
+    vertices = o3d.core.Tensor([[0, 0, 0], [1, 0, 0], [1, 1, 0]],
+                               dtype=o3d.core.float32)
+    triangles = o3d.core.Tensor([[0, 1, 2]], dtype=o3d.core.uint32)
+
+    scene = o3d.t.geometry.RaycastingScene()
+    scene.add_triangles(vertices, triangles)
+
+    rs = np.random.RandomState(123)
+    rays = o3d.core.Tensor.from_numpy(rs.rand(7654321, 6).astype(np.float32))
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="110">
+      <file begintoken="170622"
+            column="5"
+            endcolumn="57"
+            endline="102"
+            endtoken="170731"
+            line="86"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="177929"
+            column="5"
+            endcolumn="57"
+            endline="231"
+            endtoken="178038"
+            line="215"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="110">
+      <file begintoken="171614"
+            column="5"
+            endcolumn="57"
+            endline="251"
+            endtoken="171723"
+            line="235"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="177929"
+            column="5"
+            endcolumn="57"
+            endline="231"
+            endtoken="178038"
+            line="215"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="110">
+      <file begintoken="172370"
+            column="5"
+            endcolumn="57"
+            endline="356"
+            endtoken="172479"
+            line="340"
+            path="Open3D/python/test/ml_ops/test_fixed_radius_search.py"/>
+      <file begintoken="177929"
+            column="5"
+            endcolumn="57"
+            endline="231"
+            endtoken="178038"
+            line="215"
+            path="Open3D/python/test/ml_ops/test_radius_search.py"/>
+      <codefragment><![CDATA[    for i, q in enumerate(queries):
+        # check neighbors
+        start = ans.neighbors_row_splits[i]
+        end = ans.neighbors_row_splits[i + 1]
+        q_neighbors_index = ans.neighbors_index[start:end]
+
+        gt_set = set(gt_neighbors_index[i])
+        if ignore_query_point:
+            gt_set.remove(i)
+        assert gt_set == set(q_neighbors_index)
+
+        # check distances
+        if return_distances:
+            q_neighbors_dist = ans.neighbors_distance[start:end]
+            for j, dist in zip(q_neighbors_index, q_neighbors_dist):
+                if metric == 'L2':
+                    gt_dist = np.sum((q - points[j])**2)
+]]></codefragment>
+   </duplication>
+   <duplication lines="9" tokens="109">
+      <file begintoken="203895"
+            column="45"
+            endcolumn="36"
+            endline="454"
+            endtoken="204003"
+            line="446"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="204452"
+            column="65"
+            endcolumn="36"
+            endline="512"
+            endtoken="204560"
+            line="504"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="204757"
+            column="45"
+            endcolumn="36"
+            endline="544"
+            endtoken="204865"
+            line="536"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="205447"
+            column="63"
+            endcolumn="36"
+            endline="620"
+            endtoken="205555"
+            line="612"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <codefragment><![CDATA[        1, 3, o3c.float64, o3c.int32, device)
+
+    expected_verts = o3c.Tensor(
+        [[0.0, 0.0, 1.0], [0.866025, 0, 0.5], [0.433013, 0.75, 0.5],
+         [-0.866025, 0.0, 0.5], [-0.433013, -0.75, 0.5], [0.433013, -0.75, 0.5]
+        ], o3c.float64, device)
+
+    expected_tris = o3c.Tensor([[0, 1, 2], [0, 3, 4], [0, 4, 5], [0, 5, 1]],
+                               o3c.int32, device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="8" tokens="108">
+      <file begintoken="141364"
+            column="5"
+            endcolumn="9"
+            endline="48"
+            endtoken="141471"
+            line="41"
+            path="Open3D/python/test/core/test_nn.py"/>
+      <file begintoken="141775"
+            column="5"
+            endcolumn="9"
+            endline="89"
+            endtoken="141882"
+            line="82"
+            path="Open3D/python/test/core/test_nn.py"/>
+      <codefragment><![CDATA[    dataset_points = o3c.Tensor(
+        [[0.0, 0.0, 0.0], [0.0, 0.0, 0.1], [0.0, 0.0, 0.2], [0.0, 0.1, 0.0],
+         [0.0, 0.1, 0.1], [0.0, 0.1, 0.2], [0.0, 0.2, 0.0], [0.0, 0.2, 0.1],
+         [0.0, 0.2, 0.2], [0.1, 0.0, 0.0]],
+        dtype=dtype,
+        device=device)
+    nns = o3c.nns.NearestNeighborSearch(dataset_points)
+    nns.knn_index()
+]]></codefragment>
+   </duplication>
+   <duplication lines="14" tokens="108">
+      <file begintoken="144489"
+            column="60"
+            endcolumn="19"
+            endline="122"
+            endtoken="144596"
+            line="109"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <file begintoken="144950"
+            column="69"
+            endcolumn="19"
+            endline="171"
+            endtoken="145057"
+            line="158"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <codefragment><![CDATA[        (a.cpu().numpy(), b.cpu().numpy(), c.cpu().numpy()))
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.concatenate((a, b, c), axis=-2)
+    output_np = np.concatenate(
+        (a.cpu().numpy(), b.cpu().numpy(), c.cpu().numpy()), axis=-2)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    # Above 2-D tensors cannot be appended to 2-D along axis = 1, -1.
+    with pytest.raises(
+            RuntimeError,
+            match=
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="107">
+      <file begintoken="151352"
+            column="5"
+            endcolumn="4"
+            endline="763"
+            endtoken="151458"
+            line="747"
+            path="Open3D/python/test/data/test_data.py"/>
+      <file begintoken="151523"
+            column="5"
+            endcolumn="4"
+            endline="791"
+            endtoken="151629"
+            line="775"
+            path="Open3D/python/test/data/test_data.py"/>
+      <file begintoken="151694"
+            column="5"
+            endcolumn="4"
+            endline="819"
+            endtoken="151800"
+            line="803"
+            path="Open3D/python/test/data/test_data.py"/>
+      <file begintoken="151865"
+            column="5"
+            endcolumn="4"
+            endline="847"
+            endtoken="151971"
+            line="831"
+            path="Open3D/python/test/data/test_data.py"/>
+      <file begintoken="152036"
+            column="5"
+            endcolumn="4"
+            endline="875"
+            endtoken="152142"
+            line="859"
+            path="Open3D/python/test/data/test_data.py"/>
+      <codefragment><![CDATA[    }
+
+    for file_name in data.path_map:
+        assert Path(data.path_map[file_name]) == gt_path_map[file_name]
+        assert Path(data.path_map[file_name]).is_file()
+
+    assert Path(data.albedo_texture_path) == gt_path_map["albedo"]
+    assert Path(data.normal_texture_path) == gt_path_map["normal"]
+    assert Path(data.roughness_texture_path) == gt_path_map["roughness"]
+
+    assert data.prefix == gt_prefix
+    assert Path(data.data_root) == gt_data_root
+    assert Path(data.download_dir) == gt_download_dir
+    assert Path(data.extract_dir) == gt_extract_dir
+
+
+def test_tiles_texture():
+]]></codefragment>
+   </duplication>
+   <duplication lines="11" tokens="107">
+      <file begintoken="192976"
+            column="27"
+            endcolumn="17"
+            endline="105"
+            endtoken="193082"
+            line="95"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="193330"
+            column="28"
+            endcolumn="17"
+            endline="150"
+            endtoken="193436"
+            line="140"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[def test_add_triangle_mesh():
+    cube = o3d.t.geometry.TriangleMesh.from_legacy(
+        o3d.geometry.TriangleMesh.create_box())
+
+    scene = o3d.t.geometry.RaycastingScene()
+    scene.add_triangles(cube)
+
+    rays = o3d.core.Tensor([[0.5, 0.5, -1, 0, 0, 1], [0.5, 0.5, 0.5, 0, 0, 1],
+                            [10, 10, 10, 1, 0, 0]],
+                           dtype=o3d.core.float32)
+    ans = scene.count_intersections(rays)
+]]></codefragment>
+   </duplication>
+   <duplication lines="7" tokens="106">
+      <file begintoken="85650"
+            column="23"
+            endcolumn="20"
+            endline="120"
+            endtoken="85755"
+            line="114"
+            path="Open3D/python/benchmarks/core/test_nns.py"/>
+      <file begintoken="85928"
+            column="23"
+            endcolumn="20"
+            endline="143"
+            endtoken="86033"
+            line="137"
+            path="Open3D/python/benchmarks/core/test_nns.py"/>
+      <codefragment><![CDATA[def test_radius_search(benchmark, size, dtype, device):
+    nns_opt = dict(knn=1, radius=0.01)
+    np_a = np.array(np.random.rand(size, 3), dtype=to_numpy_dtype(dtype))
+    np_b = np.array(np.random.rand(size, 3), dtype=to_numpy_dtype(dtype))
+    a = o3c.Tensor(np_a, dtype=dtype, device=device)
+    b = o3c.Tensor(np_b, dtype=dtype, device=device)
+    index = NNSOps.radius_setup(a, nns_opt)
+]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="106">
+      <file begintoken="167178"
+            column="5"
+            endcolumn="39"
+            endline="195"
+            endtoken="167283"
+            line="179"
+            path="Open3D/python/test/ml_ops/test_cconv.py"/>
+      <file begintoken="169205"
+            column="5"
+            endcolumn="39"
+            endline="145"
+            endtoken="169310"
+            line="129"
+            path="Open3D/python/test/ml_ops/test_cconv_python.py"/>
+      <codefragment><![CDATA[    np.random.seed(0)
+
+    conv_attrs = {
+        'align_corners': align_corners,
+        'coordinate_mapping': coordinate_mapping,
+        'normalize': with_normalization,
+        'interpolation': interpolation,
+    }
+
+    filters = np.random.random(size=(*filter_size, in_channels,
+                                     out_channels)).astype(dtype)
+
+    inp_positions = np.random.rand(128, 3).astype(dtype)
+    if (with_inp_importance):
+        inp_importance = np.random.rand(inp_positions.shape[0]).astype(dtype)
+    else:
+        inp_importance = np.empty((0,), dtype=dtype)
+]]></codefragment>
+   </duplication>
+   <duplication lines="9" tokens="105">
+      <file begintoken="125429"
+            column="28"
+            endcolumn="4"
+            endline="860"
+            endtoken="125533"
+            line="852"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="125617"
+            column="31"
+            endcolumn="4"
+            endline="874"
+            endtoken="125721"
+            line="866"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="125798"
+            column="31"
+            endcolumn="4"
+            endline="888"
+            endtoken="125902"
+            line="880"
+            path="Open3D/python/test/core/test_core.py"/>
+      <file begintoken="125990"
+            column="31"
+            endcolumn="4"
+            endline="904"
+            endtoken="126094"
+            line="896"
+            path="Open3D/python/test/core/test_core.py"/>
+      <codefragment><![CDATA[    np.testing.assert_equal(o3_dst.cpu().numpy(), np_dst)
+
+
+@pytest.mark.parametrize(
+    "dim",
+    [0, 1, 2, (), (0,), (1,), (2,), (0, 1), (0, 2), (1, 2), (0, 1, 2), None])
+@pytest.mark.parametrize("keepdim", [True, False])
+@pytest.mark.parametrize("device", list_devices())
+def test_reduction_mean(dim, keepdim, device):
+]]></codefragment>
+   </duplication>
+   <duplication lines="4" tokens="105">
+      <file begintoken="198294"
+            column="30"
+            endcolumn="13"
+            endline="50"
+            endtoken="198398"
+            line="47"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <file begintoken="198532"
+            column="29"
+            endcolumn="13"
+            endline="67"
+            endtoken="198636"
+            line="64"
+            path="Open3D/python/test/t/geometry/test_trianglemesh.py"/>
+      <codefragment><![CDATA[    triangle_indices_default = o3c.Tensor(
+        [[4, 7, 5], [4, 6, 7], [0, 2, 4], [2, 6, 4], [0, 1, 2], [1, 3, 2],
+         [1, 5, 7], [1, 7, 3], [2, 3, 7], [2, 7, 6], [0, 4, 1], [1, 4, 5]],
+        o3c.int64, device)
+]]></codefragment>
+   </duplication>
+   <duplication lines="22" tokens="104">
+      <file begintoken="43243"
+            column="73"
+            endcolumn="50"
+            endline="111"
+            endtoken="43346"
+            line="90"
+            path="Open3D/examples/python/reconstruction_system/sensors/azure_kinect_recorder.py"/>
+      <file begintoken="43628"
+            column="78"
+            endcolumn="50"
+            endline="73"
+            endtoken="43731"
+            line="52"
+            path="Open3D/examples/python/reconstruction_system/sensors/azure_kinect_viewer.py"/>
+      <codefragment><![CDATA[    parser.add_argument('--output', type=str, help='output mkv filename')
+    parser.add_argument('--list',
+                        action='store_true',
+                        help='list available azure kinect sensors')
+    parser.add_argument('--device',
+                        type=int,
+                        default=0,
+                        help='input kinect device id')
+    parser.add_argument('-a',
+                        '--align_depth_to_color',
+                        action='store_true',
+                        help='enable align depth image to color')
+    args = parser.parse_args()
+
+    if args.list:
+        o3d.io.AzureKinectSensor.list_devices()
+        exit()
+
+    if args.config is not None:
+        config = o3d.io.read_azure_kinect_sensor_config(args.config)
+    else:
+        config = o3d.io.AzureKinectSensorConfig()
+]]></codefragment>
+   </duplication>
+   <duplication lines="13" tokens="102">
+      <file begintoken="12924"
+            column="1"
+            endcolumn="76"
+            endline="20"
+            endtoken="13025"
+            line="8"
+            path="Open3D/examples/python/geometry/octree_find_leaf.py"/>
+      <file begintoken="13081"
+            column="1"
+            endcolumn="76"
+            endline="20"
+            endtoken="13182"
+            line="8"
+            path="Open3D/examples/python/geometry/octree_from_voxel_grid.py"/>
+      <file begintoken="13246"
+            column="1"
+            endcolumn="76"
+            endline="20"
+            endtoken="13347"
+            line="8"
+            path="Open3D/examples/python/geometry/octree_point_cloud.py"/>
+      <file begintoken="22855"
+            column="1"
+            endcolumn="76"
+            endline="21"
+            endtoken="22956"
+            line="8"
+            path="Open3D/examples/python/geometry/voxel_grid_from_point_cloud.py"/>
+      <codefragment><![CDATA[import open3d as o3d
+import numpy as np
+
+if __name__ == "__main__":
+    N = 2000
+    armadillo_data = o3d.data.ArmadilloMesh()
+    pcd = o3d.io.read_triangle_mesh(
+        armadillo_data.path).sample_points_poisson_disk(N)
+    # Fit to unit cube.
+    pcd.scale(1 / np.max(pcd.get_max_bound() - pcd.get_min_bound()),
+              center=pcd.get_center())
+    pcd.colors = o3d.utility.Vector3dVector(np.random.uniform(0, 1,
+                                                              size=(N, 3)))
+]]></codefragment>
+   </duplication>
+   <duplication lines="16" tokens="100">
+      <file begintoken="146073"
+            column="34"
+            endcolumn="19"
+            endline="301"
+            endtoken="146172"
+            line="286"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <file begintoken="146384"
+            column="33"
+            endcolumn="19"
+            endline="341"
+            endtoken="146483"
+            line="326"
+            path="Open3D/python/test/core/test_tensor_function.py"/>
+      <codefragment><![CDATA[                          axis=-1)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    output_t = o3c.append(self=self, values=values, axis=-2)
+    output_np = np.append(arr=self.cpu().numpy(),
+                          values=values.cpu().numpy(),
+                          axis=-2)
+
+    np.testing.assert_equal(output_np, output_t.cpu().numpy())
+
+    # axis must always be in range [-num_dims, num_dims).
+    # So, 2-D tensor cannot be appended along axis 2 or -3.
+    with pytest.raises(
+            RuntimeError,
+            match=
+]]></codefragment>
+   </duplication>
+   <duplication lines="9" tokens="100">
+      <file begintoken="192503"
+            column="27"
+            endcolumn="36"
+            endline="45"
+            endtoken="192602"
+            line="37"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <file begintoken="193775"
+            column="40"
+            endcolumn="36"
+            endline="203"
+            endtoken="193874"
+            line="195"
+            path="Open3D/python/test/t/geometry/test_raycasting_scene.py"/>
+      <codefragment><![CDATA[def test_cast_lots_of_rays():
+    vertices = o3d.core.Tensor([[0, 0, 0], [1, 0, 0], [1, 1, 0]],
+                               dtype=o3d.core.float32)
+    triangles = o3d.core.Tensor([[0, 1, 2]], dtype=o3d.core.uint32)
+
+    scene = o3d.t.geometry.RaycastingScene()
+    scene.add_triangles(vertices, triangles)
+
+    rs = np.random.RandomState(123)
+]]></codefragment>
+   </duplication>
+</pmd-cpd>
