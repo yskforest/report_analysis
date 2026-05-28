@@ -79,6 +79,8 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
         summary.to_csv(summary_csv, index=False)
 
         tree_html = out_plot / "UndCountLineCode(Area)-UndRatioCommentToFile(Color)_treemap.html"
+        essential_tree_html = out_plot / "CountLineCode(Area)-Essential(FileAverage)_treemap.html"
+        cyclomatic_tree_html = out_plot / "CountLineCode(Area)-Cyclomatic(FileAverage)_treemap.html"
         if not file_df.empty and "File" in file_df.columns:
             t = file_df.copy()
             t["CountLineCode"] = _safe_num(t.get("CountLineCode", pd.Series(dtype=float)))
@@ -92,6 +94,30 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
                 title="UndCountLineCode(Area)-UndRatioCommentToFile(Color)",
                 prefix_to_remove=inputs.remove_path_prefix,
             )
+
+            if "AvgEssential" in t.columns:
+                t["AvgEssential"] = _safe_num(t["AvgEssential"])
+                write_treemap_by_path(
+                    t,
+                    file_col="File",
+                    size_col="CountLineCode",
+                    color_col="AvgEssential",
+                    output_html=essential_tree_html,
+                    title="CountLineCode(Area)-Essential(FileAverage)",
+                    prefix_to_remove=inputs.remove_path_prefix,
+                )
+
+            if "AvgCyclomatic" in t.columns:
+                t["AvgCyclomatic"] = _safe_num(t["AvgCyclomatic"])
+                write_treemap_by_path(
+                    t,
+                    file_col="File",
+                    size_col="CountLineCode",
+                    color_col="AvgCyclomatic",
+                    output_html=cyclomatic_tree_html,
+                    title="CountLineCode(Area)-Cyclomatic(FileAverage)",
+                    prefix_to_remove=inputs.remove_path_prefix,
+                )
 
         return TaskResult(
             name="und",
