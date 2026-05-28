@@ -298,7 +298,15 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
                 und_df = und_df[und_df["Kind"].astype(str).str.contains("File", na=False)].copy()
             keep_cols = [
                 c
-                for c in ["File", "CountLineCode", "CountLine", "CountLineComment", "RatioCommentToCode"]
+                for c in [
+                    "File",
+                    "CountLineCode",
+                    "CountLine",
+                    "CountLineComment",
+                    "RatioCommentToCode",
+                    "AvgCyclomatic",
+                    "AvgEssential",
+                ]
                 if c in und_df.columns
             ]
             und_df = und_df[keep_cols].copy()

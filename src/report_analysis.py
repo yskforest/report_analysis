@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 from analyzers import run_cloc, run_pmd, run_understand, write_global_summary
+from advanced_visualizations import run_advanced_visualizations
 from io_models import resolve_inputs
 
 USAGE = (
@@ -36,6 +37,7 @@ def main(argv: list[str]) -> int:
         run_understand(inputs),
         run_cloc(inputs),
         run_pmd(inputs),
+        run_advanced_visualizations(inputs),
     ]
 
     summary_path = write_global_summary(inputs, results)
