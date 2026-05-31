@@ -70,7 +70,30 @@ run_report_analysis.sh
       -> analyzers.write_global_summary()
 ```
 
-## 5.1 コアデータモデル
+## 5.1 UML: コンポーネント図
+
+```mermaid
+flowchart LR
+    User[User/CI] --> SH[run_report_analysis.sh]
+    SH --> RA[report_analysis.py]
+
+    RA --> IO[io_models.py]
+    RA --> AN[analyzers.py]
+    RA --> AV[advanced_visualizations.py]
+    RA --> SUM[summary_report.csv]
+
+    IO --> IN1[(UND CSV)]
+    IO --> IN2[(CLOC CSV)]
+    IO --> IN3[(PMD XML xN)]
+
+    AN --> O1[(output_dir/und)]
+    AN --> O2[(output_dir/cloc)]
+    AN --> O3[(output_dir/pmd)]
+    AN --> O4[(output_dir/*.csv)]
+    AV --> O5[(output_dir/visualizations)]
+```
+
+## 5.2 コアデータモデル
 
 `io_models.py` で以下の dataclass を定義する。
 
@@ -89,6 +112,58 @@ run_report_analysis.sh
   - `outputs: list[Path]`
   - `message: str`
 
+## 5.3 UML: クラス図
+
+```mermaid
+classDiagram
+    class AnalysisInputs {
+      +Path|None und_csv
+      +Path|None cloc_csv
+      +list~Path~ pmd_xmls
+      +Path output_dir
+      +str remove_path_prefix
+      +list~str~ warnings
+    }
+
+    class TaskResult {
+      +str name
+      +bool executed
+      +bool success
+      +list~Path~ outputs
+      +list~dict~ summary_rows
+      +str message
+    }
+
+    class ReportAnalysis {
+      +main(argv) int
+    }
+
+    class IOModels {
+      +resolve_inputs(...)
+      +_resolve_optional_file(...)
+      +_resolve_pmd_files(...)
+    }
+
+    class Analyzers {
+      +run_understand(inputs) TaskResult
+      +run_cloc(inputs) TaskResult
+      +run_pmd(inputs) TaskResult
+      +run_file_metrics_excel(inputs) TaskResult
+      +write_global_summary(inputs, results) Path
+    }
+
+    class AdvancedVisualizations {
+      +run_advanced_visualizations(inputs) TaskResult
+    }
+
+    ReportAnalysis --> IOModels : uses
+    ReportAnalysis --> Analyzers : orchestrates
+    ReportAnalysis --> AdvancedVisualizations : orchestrates
+    IOModels --> AnalysisInputs : creates
+    Analyzers --> TaskResult : returns
+    AdvancedVisualizations --> TaskResult : returns
+```
+
 ## 6. 処理シーケンス設計
 
 ## 6.1 前処理
@@ -97,6 +172,42 @@ run_report_analysis.sh
 2. `OUTPUT_DIR` 作成
 3. UND/CLOC/PMD 入力解決
 4. 全入力未指定または未存在なら `exit 1`
+
+## 6.1.1 UML: メインシーケンス図
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant SH as run_report_analysis.sh
+    participant RA as report_analysis.py
+    participant IO as io_models.py
+    participant AN as analyzers.py
+    participant AV as advanced_visualizations.py
+
+    U->>SH: 実行(5引数)
+    SH->>RA: python report_analysis.py ...
+    RA->>IO: resolve_inputs(...)
+    IO-->>RA: AnalysisInputs(warnings含む)
+    RA->>RA: output_dir作成 / warning出力
+
+    alt 有効入力が0件
+      RA-->>SH: exit 1
+    else 有効入力あり
+      RA->>AN: run_understand(inputs)
+      AN-->>RA: TaskResult(und)
+      RA->>AN: run_cloc(inputs)
+      AN-->>RA: TaskResult(cloc)
+      RA->>AN: run_pmd(inputs)
+      AN-->>RA: TaskResult(pmd)
+      RA->>AN: run_file_metrics_excel(inputs)
+      AN-->>RA: TaskResult(file_metrics_excel)
+      RA->>AV: run_advanced_visualizations(inputs)
+      AV-->>RA: TaskResult(visualize)
+      RA->>AN: write_global_summary(inputs, results)
+      AN-->>RA: summary_report.csv
+      RA-->>SH: exit 0 or exit 1
+    end
+```
 
 ## 6.2 UND 解析（新規実装）
 
@@ -110,7 +221,7 @@ run_report_analysis.sh
   - treemap HTML 作成
 - 出力先:
   - `OUTPUT_DIR/und/`
-  - `OUTPUT_DIR/und_python_plot/`
+  - `OUTPUT_DIR/und/`
   - `OUTPUT_DIR/und_summary.csv`
 
 ## 6.3 CLOC 解析（新規実装）
@@ -143,6 +254,48 @@ run_report_analysis.sh
 ## 6.5 統合サマリ
 
 - タスク実行結果を `summary_report.csv` として `OUTPUT_DIR` 直下に保存する。
+
+## 6.6 UML: アクティビティ図（終了コード判定）
+
+```mermaid
+flowchart TD
+    A([Start]) --> B{引数数は5か}
+    B -- No --> X1[usage出力] --> Z1([Exit 1])
+    B -- Yes --> C[resolve_inputs]
+    C --> D{und/cloc/pmd すべて無効か}
+    D -- Yes --> X2[no valid inputs] --> Z2([Exit 1])
+    D -- No --> E[run_understand]
+    E --> F[run_cloc]
+    F --> G[run_pmd]
+    G --> H[run_file_metrics_excel]
+    H --> I[run_advanced_visualizations]
+    I --> J[write_global_summary]
+    J --> K{executedタスクが全失敗か}
+    K -- Yes --> Z3([Exit 1])
+    K -- No --> Z4([Exit 0])
+```
+
+## 6.7 UML: UND/CLOC/PMD 出力マッピング図
+
+```mermaid
+flowchart LR
+    U[run_understand] --> U1[output_dir/und/und_metrics.csv]
+    U --> U2[output_dir/und/und_file.csv]
+    U --> U3[output_dir/und/und_func.csv]
+    U --> U4[output_dir/und/und_class.csv]
+    U --> U5[output_dir/und/*.html]
+    U --> U6[output_dir/und_summary.csv]
+
+    C[run_cloc] --> C1[output_dir/cloc/cloc_filtered.csv]
+    C --> C2[output_dir/cloc/cloc_pie_chart.html]
+    C --> C3[output_dir/summary_cloc.csv]
+
+    P[run_pmd] --> P1[output_dir/pmd/pmd_clone_ratio.csv]
+    P --> P2[output_dir/pmd/pmd_clone_ratio_summary.csv]
+    P --> P3[output_dir/pmd/*.html]
+    P --> P4[output_dir/und_pmd_merge.csv]
+    P --> P5[output_dir/pmd_summary.csv]
+```
 
 ## 7. エラー/終了コード設計
 

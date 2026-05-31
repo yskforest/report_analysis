@@ -154,12 +154,126 @@ def run_file_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
         )
 
 
+def _split_path_levels(series: pd.Series, max_level: int = 15) -> pd.DataFrame:
+    clean = series.astype(str).str.replace("\\\\", "/", regex=False).str.strip("/")
+    parts = clean.str.split("/")
+    level_cols: dict[str, pd.Series] = {}
+    for i in range(max_level + 1):
+        level_cols[f"Level{i}"] = parts.map(lambda xs: xs[i] if isinstance(xs, list) and len(xs) > i else "")
+    return pd.DataFrame(level_cols, index=series.index)
+
+
+def _distribution(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    if col not in df.columns:
+        return pd.DataFrame(columns=[col, "Count"])
+    s = _safe_num(df[col]).round(0).astype(int)
+    out = s.value_counts(dropna=False).sort_index().reset_index()
+    out.columns = [col, "Count"]
+    return out
+
+
+def run_func_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
+    out_file = inputs.output_dir / "func_metrics.xlsx"
+    try:
+        und_func_csv = inputs.output_dir / "und" / "und_func.csv"
+        if not und_func_csv.exists():
+            return TaskResult(
+                name="func_metrics_excel",
+                executed=False,
+                success=True,
+                message="func metrics excel skipped (und_func.csv not found)",
+            )
+
+        f = pd.read_csv(und_func_csv, dtype=object, na_filter=False)
+        if f.empty or "File" not in f.columns:
+            return TaskResult(
+                name="func_metrics_excel",
+                executed=False,
+                success=True,
+                message="func metrics excel skipped (no usable function rows)",
+            )
+
+        f = _normalize_paths(f, ["File"], inputs.remove_path_prefix)
+        f = f[f["File"].astype(str) != ""].copy()
+        f = f[
+            ~f["File"].astype(str).str.split("/").map(
+                lambda parts: any(part.startswith(".") for part in parts if part)
+            )
+        ].copy()
+        if f.empty:
+            return TaskResult(
+                name="func_metrics_excel",
+                executed=False,
+                success=True,
+                message="func metrics excel skipped (all rows filtered)",
+            )
+
+        level_df = _split_path_levels(f["File"], max_level=15)
+        out_df = pd.concat([f.reset_index(drop=True), level_df.reset_index(drop=True)], axis=1)
+        for c in ["MaxNesting", "Cyclomatic", "Essential"]:
+            if c in out_df.columns:
+                out_df[c] = _safe_num(out_df[c])
+
+        agg_keys = [f"Level{i}" for i in range(16)]
+        agg_map: dict[str, tuple[str, str]] = {"FunctionCount": ("File", "size")}
+        if "MaxNesting" in out_df.columns:
+            agg_map["MaxNesting_Avg"] = ("MaxNesting", "mean")
+        if "Cyclomatic" in out_df.columns:
+            agg_map["Cyclomatic_Avg"] = ("Cyclomatic", "mean")
+        if "Essential" in out_df.columns:
+            agg_map["Essential_Avg"] = ("Essential", "mean")
+        agg_df = out_df.groupby(agg_keys, dropna=False).agg(**agg_map).reset_index()
+        for c in ["MaxNesting_Avg", "Cyclomatic_Avg", "Essential_Avg"]:
+            if c in agg_df.columns:
+                agg_df[c] = pd.to_numeric(agg_df[c], errors="coerce").round(3)
+
+        dist_maxnesting = _distribution(out_df, "MaxNesting")
+        dist_cyclomatic = _distribution(out_df, "Cyclomatic")
+        dist_essential = _distribution(out_df, "Essential")
+
+        summary_row = {
+            "Rows": int(len(out_df.index)),
+            "UniqueFiles": int(out_df["File"].nunique()),
+            "UniqueLevel0": int(out_df["Level0"].nunique()),
+        }
+        if "MaxNesting" in out_df.columns:
+            summary_row["MaxNestingMean"] = float(_safe_num(out_df["MaxNesting"]).mean())
+        if "Cyclomatic" in out_df.columns:
+            summary_row["CyclomaticMean"] = float(_safe_num(out_df["Cyclomatic"]).mean())
+        if "Essential" in out_df.columns:
+            summary_row["EssentialMean"] = float(_safe_num(out_df["Essential"]).mean())
+        summary_df = pd.DataFrame([summary_row])
+
+        with pd.ExcelWriter(out_file, engine="openpyxl") as writer:
+            summary_df.to_excel(writer, sheet_name="summary", index=False)
+            out_df.to_excel(writer, sheet_name="functions_with_levels", index=False)
+            agg_df.to_excel(writer, sheet_name="level_agg", index=False)
+            dist_maxnesting.to_excel(writer, sheet_name="dist_maxnesting", index=False)
+            dist_cyclomatic.to_excel(writer, sheet_name="dist_cyclomatic", index=False)
+            dist_essential.to_excel(writer, sheet_name="dist_essential", index=False)
+
+        return TaskResult(
+            name="func_metrics_excel",
+            executed=True,
+            success=True,
+            outputs=[out_file],
+            message=f"func metrics excel generated ({out_file.name})",
+        )
+    except Exception as exc:
+        return TaskResult(
+            name="func_metrics_excel",
+            executed=True,
+            success=False,
+            message=f"func metrics excel failed: {exc}",
+        )
+
+
 def run_understand(inputs: AnalysisInputs) -> TaskResult:
     if inputs.und_csv is None:
         return TaskResult(name="und", executed=False, success=True, message="UND skipped")
 
     out_und = inputs.output_dir / "und"
-    out_plot = inputs.output_dir / "und_python_plot"
+    out_plot = out_und
     out_und.mkdir(parents=True, exist_ok=True)
     out_plot.mkdir(parents=True, exist_ok=True)
 

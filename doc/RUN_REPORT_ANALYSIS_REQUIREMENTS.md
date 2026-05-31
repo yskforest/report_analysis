@@ -139,8 +139,8 @@ run_report_analysis \
 
 - `OUTPUT_DIR/und/und_metrics.csv`
 - `OUTPUT_DIR/und/` 配下の可視化成果物
-- `OUTPUT_DIR/und_python_plot/CountLineCode(Area)-Essential(FileAverage)_treemap.html`
-- `OUTPUT_DIR/und_python_plot/CountLineCode(Area)-Cyclomatic(FileAverage)_treemap.html`
+- `OUTPUT_DIR/und/CountLineCode(Area)-Essential(FileAverage)_treemap.html`
+- `OUTPUT_DIR/und/CountLineCode(Area)-Cyclomatic(FileAverage)_treemap.html`
 - `OUTPUT_DIR/cloc/cloc_pie_chart.html`
 - `OUTPUT_DIR/pmd/pmd_clone_ratio.csv`
 - `OUTPUT_DIR/pmd/pmd_clone_ratio_summary.csv`
