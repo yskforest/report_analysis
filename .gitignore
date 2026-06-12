@@ -1,4 +1,5 @@
 __pycache__
 venv
 
+/analysis_code
 /out
