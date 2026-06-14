@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 def write_pie_chart(
@@ -45,13 +46,26 @@ def write_treemap_by_path(
     vmin: float | None = None,
     vmax: float | None = None,
     max_depth: int | None = None,
+    empty_label: str | None = None,
+    aggregate: bool = False,
+    color_agg: str = "weighted_mean",
 ) -> None:
     data = df.copy()
     data[size_col] = pd.to_numeric(data[size_col], errors="coerce")
     data[color_col] = pd.to_numeric(data[color_col], errors="coerce")
     data = data[data[size_col] > 0].dropna(subset=[size_col, color_col])
     if data.empty:
-        return
+        if empty_label is None:
+            return
+        data = pd.DataFrame(
+            [
+                {
+                    file_col: empty_label,
+                    size_col: 1,
+                    color_col: 0,
+                }
+            ]
+        )
 
     paths = data[file_col].astype(str).str.replace("\\\\", "/", regex=False)
     if prefix_to_remove:
@@ -67,12 +81,47 @@ def write_treemap_by_path(
     for i in range(use_depth):
         data[f"level_{i}"] = path_parts.map(lambda x: x[i] if i < len(x) else np.nan)
 
+    level_cols = [f"level_{i}" for i in range(use_depth)]
+    if aggregate:
+        if color_agg not in {"weighted_mean", "sum", "mean", "max"}:
+            raise ValueError(f"unsupported color_agg: {color_agg}")
+        nodes = _aggregate_treemap_nodes(data, path_parts, size_col=size_col, color_col=color_col, color_agg=color_agg)
+        color_min = float(vmin) if vmin is not None else float(nodes[color_col].min())
+        color_max = float(vmax) if vmax is not None else float(nodes[color_col].max())
+        fig = go.Figure(
+            go.Treemap(
+                ids=nodes["id"],
+                labels=nodes["label"],
+                parents=nodes["parent"],
+                values=nodes[size_col],
+                branchvalues="total",
+                marker={
+                    "colors": nodes[color_col],
+                    "colorscale": "OrRd",
+                    "cmin": color_min,
+                    "cmax": color_max,
+                    "line": {"width": 1, "color": "black"},
+                    "colorbar": {"title": color_col},
+                },
+                customdata=np.stack([nodes[size_col], nodes[color_col]], axis=-1),
+                hovertemplate=(
+                    "%{label}<br>"
+                    f"{size_col}: " + "%{customdata[0]:,.0f}<br>"
+                    f"{color_col}: " + "%{customdata[1]:,.6g}"
+                    "<extra></extra>"
+                ),
+            )
+        )
+        fig.update_layout(title=title, margin=dict(t=50, l=25, r=25, b=25))
+        fig.write_html(output_html)
+        return
+
     color_min = float(vmin) if vmin is not None else float(data[color_col].min())
     color_max = float(vmax) if vmax is not None else float(data[color_col].max())
 
     fig = px.treemap(
         data,
-        path=[f"level_{i}" for i in range(use_depth)],
+        path=level_cols,
         values=size_col,
         color=color_col,
         color_continuous_scale="OrRd",
@@ -82,3 +131,69 @@ def write_treemap_by_path(
     fig.update_traces(marker=dict(line=dict(width=1, color="black")))
     fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
     fig.write_html(output_html)
+
+
+def _aggregate_treemap_nodes(
+    data: pd.DataFrame,
+    path_parts: pd.Series,
+    *,
+    size_col: str,
+    color_col: str,
+    color_agg: str,
+) -> pd.DataFrame:
+    nodes: dict[str, dict[str, object]] = {}
+
+    def ensure_node(node_id: str, label: str, parent: str) -> dict[str, object]:
+        if node_id not in nodes:
+            nodes[node_id] = {
+                "id": node_id,
+                "label": label,
+                "parent": parent,
+                size_col: 0.0,
+                color_col: 0.0,
+                "_weighted": 0.0,
+                "_count": 0,
+            }
+        return nodes[node_id]
+
+    ensure_node("__root__", "ALL_FILES", "")
+    for row, parts in zip(data.to_dict("records"), path_parts, strict=False):
+        clean_parts = [str(part) for part in parts if pd.notna(part) and str(part)]
+        if not clean_parts:
+            clean_parts = ["NO_DATA"]
+        size_value = float(row.get(size_col, 0) or 0)
+        color_value = float(row.get(color_col, 0) or 0)
+
+        parent = "__root__"
+        prefixes = [("__root__", "ALL_FILES", "")]
+        current_parts: list[str] = []
+        for part in clean_parts:
+            current_parts.append(part)
+            node_id = "path:" + "/".join(current_parts)
+            prefixes.append((node_id, part, parent))
+            parent = node_id
+
+        for node_id, label, node_parent in prefixes:
+            node = ensure_node(node_id, label, node_parent)
+            node[size_col] = float(node[size_col]) + size_value
+            if color_agg == "weighted_mean":
+                node["_weighted"] = float(node["_weighted"]) + color_value * size_value
+            elif color_agg == "sum":
+                node[color_col] = float(node[color_col]) + color_value
+            elif color_agg == "max":
+                node[color_col] = max(float(node[color_col]), color_value)
+            elif color_agg == "mean":
+                node[color_col] = float(node[color_col]) + color_value
+                node["_count"] = int(node["_count"]) + 1
+
+    for node in nodes.values():
+        if color_agg == "weighted_mean":
+            size_value = float(node[size_col])
+            node[color_col] = float(node["_weighted"]) / size_value if size_value else 0.0
+        elif color_agg == "mean":
+            count = int(node["_count"])
+            node[color_col] = float(node[color_col]) / count if count else 0.0
+
+    out = pd.DataFrame(nodes.values())
+    out = out.drop(columns=["_weighted", "_count"])
+    return out

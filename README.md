@@ -8,15 +8,57 @@
 bash src/run_report_analysis.sh sample_data/und_metrics.csv sample_data/cloc/cloc.csv "sample_data/pmd/*.xml" out analysis_code/
 ```
 
+## Git 差分 Treemap 可視化
+特定のタグまたはコミット ID から現在のコードまでの差分を集計し、コード総行数と変更行数を Treemap HTML と CSV で出力できます。
+
+```bash
+bash src/run_git_diff_treemap.sh {BASE_REF} out/git_diff
+```
+
+例:
+
+```bash
+# 指定コミットから HEAD までを集計
+bash src/run_git_diff_treemap.sh abc1234 out/git_diff
+
+# 指定タグから現在の作業ツリーまでを集計
+bash src/run_git_diff_treemap.sh v1.0.0 out/git_diff --worktree
+
+# analysis_code/Open3D のような別 Git ディレクトリを指定
+bash src/run_git_diff_treemap.sh v1.0.0 out/open3d_git_diff --git-dir analysis_code/Open3D
+
+# 対象 Git ディレクトリと拡張子を指定
+bash src/run_git_diff_treemap.sh v1.0.0 out/open3d_git_diff --git-dir analysis_code/Open3D --extensions py,cpp,h
+
+# 大規模リポジトリ向け: Treemap 階層を浅くして描画を軽量化
+bash src/run_git_diff_treemap.sh v1.0.0 out/open3d_git_diff --git-dir analysis_code/Open3D --treemap-max-depth 5
+```
+
+主な出力:
+
+- `git_diff_file_metrics.csv` – ファイル別の総行数、追加行数、削除行数、変更行数
+- `git_diff_summary.csv` – 全体サマリ
+- `code_total_lines_treemap.html` – コード総行数 Treemap（色: 変更率）
+- `changed_lines_count_treemap.html` – 変更行数カラーマップ Treemap（色: 変更行数）
+- `changed_lines_treemap.html` – 変更行数 Treemap（面積: 変更行数）
+- `index.html` – 出力 HTML へのリンク集
+
+大規模リポジトリでは進捗が標準エラーに表示されます。進捗表示間隔は `--progress-interval`、無効化は `--no-progress`、Treemap の描画負荷調整は `--treemap-max-depth` で指定できます。
+
+詳細仕様は `doc/GIT_DIFF_TREEMAP_REQUIREMENTS.md` を参照してください。
+
 ## ディレクトリ構成
 ```
 new_arch/
   run_report_analysis.sh          # CLI 入口（薄いスクリプト）
+  run_git_diff_treemap.sh         # Git 差分 Treemap 可視化 CLI
   report_analysis.py              # オーケストレーター本体
+  git_diff_treemap.py             # Git 差分集計・Treemap 生成
   analyzers.py                    # UND/CLOC/PMD の新規解析実装
   io_models.py                    # 入力解決・設定・結果モデル（dataclass）
   README.md                       # 実行方法・入出力説明
   RUN_REPORT_ANALYSIS_REQUIREMENTS.md   # 要求仕様書
+  GIT_DIFF_TREEMAP_REQUIREMENTS.md      # Git 差分 Treemap 要求仕様書
   RUN_REPORT_ANALYSIS_DESIGN.md         # 実行設計書
 ```
 
