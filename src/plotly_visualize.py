@@ -49,6 +49,7 @@ def write_treemap_by_path(
     empty_label: str | None = None,
     aggregate: bool = False,
     color_agg: str = "weighted_mean",
+    color_continuous_scale="OrRd",
 ) -> None:
     data = df.copy()
     data[size_col] = pd.to_numeric(data[size_col], errors="coerce")
@@ -97,7 +98,7 @@ def write_treemap_by_path(
                 branchvalues="total",
                 marker={
                     "colors": nodes[color_col],
-                    "colorscale": "OrRd",
+                    "colorscale": color_continuous_scale,
                     "cmin": color_min,
                     "cmax": color_max,
                     "line": {"width": 1, "color": "black"},
@@ -124,7 +125,7 @@ def write_treemap_by_path(
         path=level_cols,
         values=size_col,
         color=color_col,
-        color_continuous_scale="OrRd",
+        color_continuous_scale=color_continuous_scale,
         range_color=[color_min, color_max],
         title=title,
     )

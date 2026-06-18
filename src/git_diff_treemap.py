@@ -462,8 +462,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument("base_ref", help="比較元のタグ名またはコミットID")
     parser.add_argument("output_dir", help="成果物の出力ディレクトリ")
-    parser.add_argument("--repo", default=".", help="Git リポジトリパス (default: .)")
-    parser.add_argument("--git-dir", help="集計対象の Git ディレクトリパス。--repo と同義")
+    parser.add_argument("--git-dir", default=".", help="集計対象の Git ディレクトリパス")
     parser.add_argument("--target-ref", default="HEAD", help="比較先のタグ/コミット/ブランチ (default: HEAD)")
     parser.add_argument("--worktree", action="store_true", help="比較先を現在の作業ツリーにする")
     parser.add_argument(
@@ -497,8 +496,7 @@ def main(argv: list[str]) -> int:
     args = parse_args(argv)
     try:
         progress = ProgressReporter(enabled=not args.no_progress, interval_seconds=args.progress_interval)
-        raw_repo = args.git_dir or args.repo
-        repo = resolve_repo(raw_repo)
+        repo = resolve_repo(args.git_dir)
         verify_ref(repo, args.base_ref)
         if not args.worktree:
             verify_ref(repo, args.target_ref)
@@ -530,12 +528,14 @@ def main(argv: list[str]) -> int:
             size_col="TotalLines",
             color_col="ChangeRatio",
             output_html=output_dir / "code_total_lines_treemap.html",
-            title="コード総行数 Treemap",
+            title="Count Line(Area) - Diff ratio(Color) Treemap",
             vmin=0,
+            vmax=1,
             max_depth=treemap_max_depth,
             empty_label="NO_DATA",
             aggregate=True,
             color_agg="weighted_mean",
+            color_continuous_scale="Blues",
         )
         progress.log(f"writing changed lines count treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
@@ -544,12 +544,14 @@ def main(argv: list[str]) -> int:
             size_col="TotalLines",
             color_col="ChangedLines",
             output_html=output_dir / "changed_lines_count_treemap.html",
-            title="変更行数カラーマップ Treemap",
+            title="Count Line(Area) - Changed Line(Color) Treemap",
             vmin=0,
+            vmax=100,
             max_depth=treemap_max_depth,
             empty_label="NO_CHANGED_LINES",
             aggregate=True,
             color_agg="sum",
+            color_continuous_scale="Blues",
         )
         progress.log(f"writing changed lines treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
@@ -558,17 +560,19 @@ def main(argv: list[str]) -> int:
             size_col="ChangedLines",
             color_col="ChangeRatio",
             output_html=output_dir / "changed_lines_treemap.html",
-            title="変更行数 Treemap",
+            title="Changed Line(Area) Treemap",
             vmin=0,
+            vmax=1,
             max_depth=treemap_max_depth,
             empty_label="NO_CHANGED_LINES",
             aggregate=True,
             color_agg="weighted_mean",
+            color_continuous_scale="Blu",
         )
         write_index(output_dir / "index.html", args.base_ref, target_label)
 
         print(f"[INFO] repo={repo}")
-        print(f"[INFO] git_dir={raw_repo}")
+        print(f"[INFO] git_dir={args.git_dir}")
         print(f"[INFO] base={args.base_ref} target={target_label}")
         print(f"[INFO] files={files_csv}")
         print(f"[INFO] summary={summary_csv}")
