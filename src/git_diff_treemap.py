@@ -225,7 +225,12 @@ def list_target_file_blobs(repo: Path, target_ref: str | None, use_worktree: boo
     return files
 
 
-def count_file_lines(path: Path) -> int:
+def get_file_metrics(path: Path) -> tuple[int, int]:
+    try:
+        size = path.stat().st_size
+    except FileNotFoundError:
+        return 0, 0
+
     total_lines = 0
     has_data = False
     last_byte = b""
@@ -236,15 +241,15 @@ def count_file_lines(path: Path) -> int:
                 if not chunk:
                     break
                 if b"\0" in chunk:
-                    return 0
+                    return 0, size
                 has_data = True
                 total_lines += chunk.count(b"\n")
                 last_byte = chunk[-1:]
     except FileNotFoundError:
-        return 0
+        return 0, 0
     if not has_data:
-        return 0
-    return total_lines + (0 if last_byte == b"\n" else 1)
+        return 0, size
+    return total_lines + (0 if last_byte == b"\n" else 1), size
 
 
 def count_blob_lines_from_stdout(stdout, size: int) -> int:
@@ -269,24 +274,24 @@ def count_blob_lines_from_stdout(stdout, size: int) -> int:
     return total_lines + (0 if last_byte == b"\n" else 1)
 
 
-def count_worktree_lines(repo: Path, paths: list[str], progress: ProgressReporter) -> dict[str, int]:
-    totals: dict[str, int] = {}
+def get_worktree_metrics(repo: Path, paths: list[str], progress: ProgressReporter) -> dict[str, tuple[int, int]]:
+    totals: dict[str, tuple[int, int]] = {}
     total = len(paths)
     if total == 0:
-        progress.update("counting worktree lines", 0, 0, force=True)
+        progress.update("counting worktree metrics", 0, 0, force=True)
         return totals
     for index, file_path in enumerate(paths, start=1):
-        totals[file_path] = count_file_lines(repo / file_path)
-        progress.update("counting worktree lines", index, total)
+        totals[file_path] = get_file_metrics(repo / file_path)
+        progress.update("counting worktree metrics", index, total)
     return totals
 
 
-def count_git_blob_lines(repo: Path, blob_by_path: dict[str, str], progress: ProgressReporter) -> dict[str, int]:
-    totals: dict[str, int] = {}
+def get_git_blob_metrics(repo: Path, blob_by_path: dict[str, str], progress: ProgressReporter) -> dict[str, tuple[int, int]]:
+    totals: dict[str, tuple[int, int]] = {}
     paths = list(blob_by_path.keys())
     total = len(paths)
     if total == 0:
-        progress.update("counting git blob lines", 0, 0, force=True)
+        progress.update("counting git blob metrics", 0, 0, force=True)
         return totals
     proc = subprocess.Popen(
         ["git", "-C", str(repo), "cat-file", "--batch"],
@@ -304,12 +309,12 @@ def count_git_blob_lines(repo: Path, blob_by_path: dict[str, str], progress: Pro
         header = proc.stdout.readline()
         parts = header.strip().split()
         if len(parts) < 3 or parts[1] != b"blob":
-            totals[file_path] = 0
+            totals[file_path] = (0, 0)
         else:
             size = int(parts[2])
-            totals[file_path] = count_blob_lines_from_stdout(proc.stdout, size)
+            totals[file_path] = (count_blob_lines_from_stdout(proc.stdout, size), size)
             proc.stdout.read(1)
-        progress.update("counting git blob lines", index, total)
+        progress.update("counting git blob metrics", index, total)
 
     proc.stdin.close()
     stderr = proc.stderr.read().decode("utf-8", errors="replace").strip() if proc.stderr is not None else ""
@@ -319,18 +324,18 @@ def count_git_blob_lines(repo: Path, blob_by_path: dict[str, str], progress: Pro
     return totals
 
 
-def count_target_lines(
+def get_target_metrics(
     repo: Path,
     file_blobs: dict[str, str | None],
     target_paths: list[str],
     use_worktree: bool,
     progress: ProgressReporter,
-) -> dict[str, int]:
+) -> dict[str, tuple[int, int]]:
     existing_paths = [path for path in target_paths if path in file_blobs]
     if use_worktree:
-        return count_worktree_lines(repo, existing_paths, progress)
+        return get_worktree_metrics(repo, existing_paths, progress)
     blob_by_path = {path: object_id for path in existing_paths if (object_id := file_blobs.get(path)) is not None}
-    return count_git_blob_lines(repo, blob_by_path, progress)
+    return get_git_blob_metrics(repo, blob_by_path, progress)
 
 
 def read_diff_changes(
@@ -389,7 +394,7 @@ def collect_rows(
         and is_code_file(file_path.replace("\\", "/").lstrip("/"), extensions)
     ]
     progress.log(f"matched files after filters: {len(filtered_paths)}")
-    total_lines_by_path = count_target_lines(repo, file_blobs, filtered_paths, use_worktree, progress)
+    total_metrics_by_path = get_target_metrics(repo, file_blobs, filtered_paths, use_worktree, progress)
     rows: list[dict[str, object]] = []
     total = len(filtered_paths)
     if total == 0:
@@ -397,11 +402,12 @@ def collect_rows(
         return pd.DataFrame(rows)
     for index, clean_path in enumerate(filtered_paths, start=1):
         change = changes.get(clean_path, GitFileChange(clean_path, 0, 0))
-        total_lines = total_lines_by_path.get(clean_path, 0)
+        total_lines, file_size = total_metrics_by_path.get(clean_path, (0, 0))
         rows.append(
             {
                 "File": clean_path,
                 "TotalLines": int(total_lines),
+                "FileSize": int(file_size),
                 "AddedLines": int(change.added_lines),
                 "DeletedLines": int(change.deleted_lines),
                 "ChangedLines": int(change.changed_lines),
@@ -422,6 +428,7 @@ def write_summary(df: pd.DataFrame, output_path: Path, base_ref: str, target_lab
                 "Files": int(len(df.index)),
                 "ChangedFiles": int(len(changed.index)),
                 "TotalLines": int(df["TotalLines"].sum()) if not df.empty else 0,
+                "TotalSize": int(df["FileSize"].sum()) if not df.empty else 0,
                 "AddedLines": int(df["AddedLines"].sum()) if not df.empty else 0,
                 "DeletedLines": int(df["DeletedLines"].sum()) if not df.empty else 0,
                 "ChangedLines": int(df["ChangedLines"].sum()) if not df.empty else 0,
@@ -443,6 +450,7 @@ def write_index(output_path: Path, base_ref: str, target_label: str) -> None:
                 f"<p>Base: <code>{base_ref}</code> / Target: <code>{target_label}</code></p>",
                 "<ul>",
                 '<li><a href="code_total_lines_treemap.html">コード総行数 Treemap（色: 変更率）</a></li>',
+                '<li><a href="file_size_treemap.html">ファイルサイズ Treemap（面積: サイズ、色: 変更率）</a></li>',
                 '<li><a href="changed_lines_count_treemap.html">変更行数カラーマップ Treemap（色: 変更行数）</a></li>',
                 '<li><a href="changed_lines_treemap.html">変更行数 Treemap（面積: 変更行数）</a></li>',
                 '<li><a href="git_diff_file_metrics.csv">ファイル別 CSV</a></li>',
@@ -510,10 +518,10 @@ def main(argv: list[str]) -> int:
         if df.empty:
             print("[WARN] no files matched filters")
             df = pd.DataFrame(
-                columns=["File", "TotalLines", "AddedLines", "DeletedLines", "ChangedLines", "ChangeRatio"]
+                columns=["File", "TotalLines", "FileSize", "AddedLines", "DeletedLines", "ChangedLines", "ChangeRatio"]
             )
         else:
-            df = df.sort_values(by=["ChangedLines", "TotalLines", "File"], ascending=[False, False, True])
+            df = df.sort_values(by=["ChangedLines", "TotalLines", "FileSize", "File"], ascending=[False, False, False, True])
 
         files_csv = output_dir / "git_diff_file_metrics.csv"
         summary_csv = output_dir / "git_diff_summary.csv"
@@ -537,6 +545,22 @@ def main(argv: list[str]) -> int:
             color_agg="weighted_mean",
             color_continuous_scale="Blues",
         )
+        progress.log(f"writing file size treemap (max_depth={treemap_max_depth})")
+        write_treemap_by_path(
+            df,
+            file_col="File",
+            size_col="FileSize",
+            color_col=None,
+            output_html=output_dir / "file_size_treemap.html",
+            title="File Size(Area) Treemap",
+            vmin=0,
+            vmax=1,
+            max_depth=treemap_max_depth,
+            empty_label="NO_DATA",
+            aggregate=True,
+            color_agg="sum",
+            color_continuous_scale="Blues",
+        )
         progress.log(f"writing changed lines count treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
             df,
@@ -558,7 +582,7 @@ def main(argv: list[str]) -> int:
             df,
             file_col="File",
             size_col="ChangedLines",
-            color_col="ChangeRatio",
+            color_col=None,
             output_html=output_dir / "changed_lines_treemap.html",
             title="Changed Line(Area) Treemap",
             vmin=0,
@@ -566,8 +590,8 @@ def main(argv: list[str]) -> int:
             max_depth=treemap_max_depth,
             empty_label="NO_CHANGED_LINES",
             aggregate=True,
-            color_agg="weighted_mean",
-            color_continuous_scale="Blu",
+            color_agg="sum",
+            color_continuous_scale="Blues",
         )
         write_index(output_dir / "index.html", args.base_ref, target_label)
 
