@@ -383,6 +383,7 @@ def collect_rows(
     progress: ProgressReporter,
     algo: str = "add+delete",
 ) -> pd.DataFrame:
+    progress.log(f"using modification aggregation algorithm: {algo}")
     progress.log("listing target files")
     file_blobs = list_target_file_blobs(repo, target_ref, use_worktree)
     progress.log(f"target files listed: {len(file_blobs)}")
@@ -428,13 +429,16 @@ def collect_rows(
     return pd.DataFrame(rows)
 
 
-def write_summary(df: pd.DataFrame, output_path: Path, base_ref: str, target_label: str) -> None:
+def write_summary(
+    df: pd.DataFrame, output_path: Path, base_ref: str, target_label: str, algo: str = "add+delete"
+) -> None:
     changed = df[df["ChangedLines"] > 0]
     summary = pd.DataFrame(
         [
             {
                 "BaseRef": base_ref,
                 "Target": target_label,
+                "Algo": algo,
                 "Files": int(len(df.index)),
                 "ChangedFiles": int(len(changed.index)),
                 "TotalLines": int(df["TotalLines"].sum()) if not df.empty else 0,
@@ -554,7 +558,7 @@ def main(argv: list[str]) -> int:
         summary_csv = output_dir / "git_diff_summary.csv"
         progress.log("writing csv outputs")
         df.to_csv(files_csv, index=False, quoting=csv.QUOTE_MINIMAL)
-        write_summary(df, summary_csv, args.base_ref, target_label)
+        write_summary(df, summary_csv, args.base_ref, target_label, algo=args.algo)
         treemap_max_depth = max(1, args.treemap_max_depth)
         progress.log(f"writing code total lines treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
@@ -562,8 +566,8 @@ def main(argv: list[str]) -> int:
             file_col="File",
             size_col="TotalLines",
             color_col="ChangeRatio",
-            output_html=output_dir / "code_total_lines_treemap.html",
-            title="Count Line(Area) - Diff ratio(Color) Treemap",
+            output_html=output_dir / "total_lines_change_ratio_treemap.html",
+            title="Count Line(Area) - Change Ratio(Color) Treemap",
             vmin=0,
             vmax=1,
             max_depth=treemap_max_depth,
@@ -594,7 +598,7 @@ def main(argv: list[str]) -> int:
             file_col="File",
             size_col="TotalLines",
             color_col="ChangedLines",
-            output_html=output_dir / "changed_lines_count_treemap.html",
+            output_html=output_dir / "count_lines_changed_lines_treemap.html",
             title="Count Line(Area) - Changed Line(Color) Treemap",
             vmin=0,
             vmax=100,
@@ -625,6 +629,7 @@ def main(argv: list[str]) -> int:
         print(f"[INFO] repo={repo}")
         print(f"[INFO] git_dir={args.git_dir}")
         print(f"[INFO] base={args.base_ref} target={target_label}")
+        print(f"[INFO] algo={args.algo}")
         print(f"[INFO] files={files_csv}")
         print(f"[INFO] summary={summary_csv}")
         print(f"[INFO] treemap={output_dir / 'index.html'}")
