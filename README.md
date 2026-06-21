@@ -6,6 +6,10 @@
 ## Quic Reference
 ```bash
 bash src/run_report_analysis.sh sample_data/und_metrics.csv sample_data/cloc/cloc.csv "sample_data/pmd/*.xml" out analysis_code/
+
+bash src/run_git_diff_treemap.sh HEAD~1 out/ --git-dir analysis_code/Open3D --cloc-csv sample_data/cloc/cloc.csv --und-csv sample_data/und_metrics.csv --algo add --extensions "cpp,c,cs,h,hpp" 
+
+cloc --by-file --csv -out=${OUT_DIR}/cloc.csv ${SRC_DIR}
 ```
 
 ## Git 差分 Treemap 可視化
