@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - USER=developer
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    network_mode: "host"
+    tty: true
+    stdin_open: true
