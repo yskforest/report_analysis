@@ -12,8 +12,6 @@ from pathlib import Path
 
 import pandas as pd
 
-from plotly_visualize import write_treemap_by_path
-
 DEFAULT_CODE_EXTENSIONS = {
     ".asm",
     ".bat",
@@ -407,6 +405,7 @@ def collect_rows(
     for index, clean_path in enumerate(filtered_paths, start=1):
         change = changes.get(clean_path, GitFileChange(clean_path, 0, 0))
         total_lines, file_size = total_metrics_by_path.get(clean_path, (0, 0))
+
         if algo == "add":
             changed_lines = change.added_lines
         elif algo == "delete":
@@ -452,36 +451,8 @@ def write_summary(
     summary.to_csv(output_path, index=False)
 
 
-def write_index(output_path: Path, base_ref: str, target_label: str) -> None:
-    output_path.write_text(
-        "\n".join(
-            [
-                "<!doctype html>",
-                '<html lang="ja">',
-                '<head><meta charset="utf-8"><title>Git Diff Treemap</title></head>',
-                "<body>",
-                "<h1>Git Diff Treemap</h1>",
-                f"<p>Base: <code>{base_ref}</code> / Target: <code>{target_label}</code></p>",
-                "<ul>",
-                '<li><a href="code_total_lines_treemap.html">コード総行数 Treemap（色: 変更率）</a></li>',
-                '<li><a href="file_size_treemap.html">ファイルサイズ Treemap（面積: サイズ、色: 変更率）</a></li>',
-                '<li><a href="changed_lines_count_treemap.html">変更行数カラーマップ Treemap（色: 変更行数）</a></li>',
-                '<li><a href="changed_lines_treemap.html">変更行数 Treemap（面積: 変更行数）</a></li>',
-                '<li><a href="git_diff_file_metrics.csv">ファイル別 CSV</a></li>',
-                '<li><a href="git_diff_summary.csv">サマリ CSV</a></li>',
-                "</ul>",
-                "</body></html>",
-                "",
-            ]
-        ),
-        encoding="utf-8",
-    )
-
-
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Aggregate Git diff lines from a base ref to HEAD or the working tree and render treemaps."
-    )
+    parser = argparse.ArgumentParser(description="Extract Git diff metrics and write to CSV.")
     parser.add_argument("base_ref", help="比較元のタグ名またはコミットID")
     parser.add_argument("output_dir", help="成果物の出力ディレクトリ")
     parser.add_argument("--git-dir", default=".", help="集計対象の Git ディレクトリパス")
@@ -499,10 +470,10 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         help="除外 glob。複数指定可。既定除外に追加される",
     )
     parser.add_argument(
-        "--treemap-max-depth",
-        type=int,
-        default=8,
-        help="Treemap の最大階層深さ。大規模リポジトリでは小さいほど高速・軽量 (default: 8)",
+        "--algo",
+        choices=["add", "delete", "add+delete"],
+        default="add+delete",
+        help="修正量の集計アルゴリズム (choices: add, delete, add+delete) (default: add+delete)",
     )
     parser.add_argument("--no-progress", action="store_true", help="進捗表示を無効化する")
     parser.add_argument(
@@ -510,12 +481,6 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         type=float,
         default=2.0,
         help="進捗表示間隔秒 (default: 2.0)",
-    )
-    parser.add_argument(
-        "--algo",
-        choices=["add", "delete", "add+delete"],
-        default="add+delete",
-        help="修正量の集計アルゴリズム (choices: add, delete, add+delete) (default: add+delete)",
     )
     return parser.parse_args(argv)
 
@@ -544,6 +509,7 @@ def main(argv: list[str]) -> int:
             progress,
             algo=args.algo,
         )
+
         if df.empty:
             print("[WARN] no files matched filters")
             df = pd.DataFrame(
@@ -556,75 +522,9 @@ def main(argv: list[str]) -> int:
 
         files_csv = output_dir / "git_diff_file_metrics.csv"
         summary_csv = output_dir / "git_diff_summary.csv"
-        progress.log("writing csv outputs")
+        progress.log("writing CSV outputs")
         df.to_csv(files_csv, index=False, quoting=csv.QUOTE_MINIMAL)
         write_summary(df, summary_csv, args.base_ref, target_label, algo=args.algo)
-        treemap_max_depth = max(1, args.treemap_max_depth)
-        progress.log(f"writing code total lines treemap (max_depth={treemap_max_depth})")
-        write_treemap_by_path(
-            df,
-            file_col="File",
-            size_col="TotalLines",
-            color_col="ChangeRatio",
-            output_html=output_dir / "total_lines_change_ratio_treemap.html",
-            title="Count Line(Area) - Change Ratio(Color) Treemap",
-            vmin=0,
-            vmax=1,
-            max_depth=treemap_max_depth,
-            empty_label="NO_DATA",
-            aggregate=True,
-            color_agg="weighted_mean",
-            color_continuous_scale="Blues",
-        )
-        progress.log(f"writing file size treemap (max_depth={treemap_max_depth})")
-        write_treemap_by_path(
-            df,
-            file_col="File",
-            size_col="FileSize",
-            color_col=None,
-            output_html=output_dir / "file_size_treemap.html",
-            title="File Size(Area) Treemap",
-            vmin=0,
-            vmax=1,
-            max_depth=treemap_max_depth,
-            empty_label="NO_DATA",
-            aggregate=True,
-            color_agg="sum",
-            color_continuous_scale="Blues",
-        )
-        progress.log(f"writing changed lines count treemap (max_depth={treemap_max_depth})")
-        write_treemap_by_path(
-            df,
-            file_col="File",
-            size_col="TotalLines",
-            color_col="ChangedLines",
-            output_html=output_dir / "count_lines_changed_lines_treemap.html",
-            title="Count Line(Area) - Changed Line(Color) Treemap",
-            vmin=0,
-            vmax=100,
-            max_depth=treemap_max_depth,
-            empty_label="NO_CHANGED_LINES",
-            aggregate=True,
-            color_agg="sum",
-            color_continuous_scale="Blues",
-        )
-        progress.log(f"writing changed lines treemap (max_depth={treemap_max_depth})")
-        write_treemap_by_path(
-            df,
-            file_col="File",
-            size_col="ChangedLines",
-            color_col=None,
-            output_html=output_dir / "changed_lines_treemap.html",
-            title="Changed Line(Area) Treemap",
-            vmin=0,
-            vmax=1,
-            max_depth=treemap_max_depth,
-            empty_label="NO_CHANGED_LINES",
-            aggregate=True,
-            color_agg="sum",
-            color_continuous_scale="Blues",
-        )
-        write_index(output_dir / "index.html", args.base_ref, target_label)
 
         print(f"[INFO] repo={repo}")
         print(f"[INFO] git_dir={args.git_dir}")
@@ -632,9 +532,11 @@ def main(argv: list[str]) -> int:
         print(f"[INFO] algo={args.algo}")
         print(f"[INFO] files={files_csv}")
         print(f"[INFO] summary={summary_csv}")
-        print(f"[INFO] treemap={output_dir / 'index.html'}")
         return 0
     except Exception as exc:
+        import traceback
+
+        traceback.print_exc()
         print(f"[ERROR] {exc}", file=sys.stderr)
         return 1
 
