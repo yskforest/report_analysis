@@ -106,9 +106,10 @@ def run_file_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
         metrics = metrics[metrics["File"].astype(str) != ""].copy()
         # Exclude hidden files such as Open3D/.codacy.yml
         metrics = metrics[
-            ~metrics["File"].astype(str).str.split("/").map(
-                lambda parts: any(part.startswith(".") for part in parts if part)
-            )
+            ~metrics["File"]
+            .astype(str)
+            .str.split("/")
+            .map(lambda parts: any(part.startswith(".") for part in parts if part))
         ].copy()
         metrics["SourceLines"] = _safe_num(metrics["SourceLines"])
         metrics["CommentLines"] = _safe_num(metrics["CommentLines"])
@@ -196,9 +197,7 @@ def run_func_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
         f = _normalize_paths(f, ["File"], inputs.remove_path_prefix)
         f = f[f["File"].astype(str) != ""].copy()
         f = f[
-            ~f["File"].astype(str).str.split("/").map(
-                lambda parts: any(part.startswith(".") for part in parts if part)
-            )
+            ~f["File"].astype(str).str.split("/").map(lambda parts: any(part.startswith(".") for part in parts if part))
         ].copy()
         if f.empty:
             return TaskResult(

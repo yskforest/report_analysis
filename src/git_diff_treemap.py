@@ -103,17 +103,11 @@ class ProgressReporter:
         if self.enabled:
             print(f"[INFO] {message}", file=sys.stderr, flush=True)
 
-    def update(
-        self, label: str, current: int, total: int, *, force: bool = False
-    ) -> None:
+    def update(self, label: str, current: int, total: int, *, force: bool = False) -> None:
         if not self.enabled:
             return
         now = time.monotonic()
-        if (
-            not force
-            and current != total
-            and now - self.last_report_at < self.interval_seconds
-        ):
+        if not force and current != total and now - self.last_report_at < self.interval_seconds:
             return
         self.last_report_at = now
         elapsed = now - self.started_at
@@ -125,11 +119,7 @@ class ProgressReporter:
                 flush=True,
             )
         else:
-            print(
-                f"[INFO] {label}: {current} elapsed={elapsed:.1f}s",
-                file=sys.stderr,
-                flush=True,
-            )
+            print(f"[INFO] {label}: {current} elapsed={elapsed:.1f}s", file=sys.stderr, flush=True)
 
 
 def run_git(repo: Path, args: list[str]) -> str:
@@ -141,9 +131,7 @@ def run_git(repo: Path, args: list[str]) -> str:
         stderr=subprocess.PIPE,
     )
     if proc.returncode != 0:
-        raise RuntimeError(
-            proc.stderr.strip() or f"git command failed: {' '.join(args)}"
-        )
+        raise RuntimeError(proc.stderr.strip() or f"git command failed: {' '.join(args)}")
     return proc.stdout
 
 
@@ -218,16 +206,10 @@ def normalize_rename_path(path: str) -> str:
     return path.strip()
 
 
-def list_target_file_blobs(
-    repo: Path, target_ref: str | None, use_worktree: bool
-) -> dict[str, str | None]:
+def list_target_file_blobs(repo: Path, target_ref: str | None, use_worktree: bool) -> dict[str, str | None]:
     if use_worktree:
         output = run_git_bytes(repo, ["ls-files", "-z"])
-        return {
-            raw.decode("utf-8", errors="replace").replace("\\", "/"): None
-            for raw in output.split(b"\0")
-            if raw
-        }
+        return {raw.decode("utf-8", errors="replace").replace("\\", "/"): None for raw in output.split(b"\0") if raw}
 
     output = run_git_bytes(repo, ["ls-tree", "-r", "-z", target_ref or "HEAD"])
     files: dict[str, str | None] = {}
@@ -292,9 +274,7 @@ def count_blob_lines_from_stdout(stdout, size: int) -> int:
     return total_lines + (0 if last_byte == b"\n" else 1)
 
 
-def get_worktree_metrics(
-    repo: Path, paths: list[str], progress: ProgressReporter
-) -> dict[str, tuple[int, int]]:
+def get_worktree_metrics(repo: Path, paths: list[str], progress: ProgressReporter) -> dict[str, tuple[int, int]]:
     totals: dict[str, tuple[int, int]] = {}
     total = len(paths)
     if total == 0:
@@ -339,11 +319,7 @@ def get_git_blob_metrics(
         progress.update("counting git blob metrics", index, total)
 
     proc.stdin.close()
-    stderr = (
-        proc.stderr.read().decode("utf-8", errors="replace").strip()
-        if proc.stderr is not None
-        else ""
-    )
+    stderr = proc.stderr.read().decode("utf-8", errors="replace").strip() if proc.stderr is not None else ""
     return_code = proc.wait()
     if return_code != 0:
         raise RuntimeError(stderr or "git cat-file --batch failed")
@@ -360,11 +336,7 @@ def get_target_metrics(
     existing_paths = [path for path in target_paths if path in file_blobs]
     if use_worktree:
         return get_worktree_metrics(repo, existing_paths, progress)
-    blob_by_path = {
-        path: object_id
-        for path in existing_paths
-        if (object_id := file_blobs.get(path)) is not None
-    }
+    blob_by_path = {path: object_id for path in existing_paths if (object_id := file_blobs.get(path)) is not None}
     return get_git_blob_metrics(repo, blob_by_path, progress)
 
 
@@ -425,9 +397,7 @@ def collect_rows(
         and is_code_file(file_path.replace("\\", "/").lstrip("/"), extensions)
     ]
     progress.log(f"matched files after filters: {len(filtered_paths)}")
-    total_metrics_by_path = get_target_metrics(
-        repo, file_blobs, filtered_paths, use_worktree, progress
-    )
+    total_metrics_by_path = get_target_metrics(repo, file_blobs, filtered_paths, use_worktree, progress)
     rows: list[dict[str, object]] = []
     total = len(filtered_paths)
     if total == 0:
@@ -451,18 +421,14 @@ def collect_rows(
                 "AddedLines": int(change.added_lines),
                 "DeletedLines": int(change.deleted_lines),
                 "ChangedLines": int(changed_lines),
-                "ChangeRatio": (
-                    round(changed_lines / total_lines, 6) if total_lines else 0.0
-                ),
+                "ChangeRatio": round(changed_lines / total_lines, 6) if total_lines else 0.0,
             }
         )
         progress.update("building file metrics rows", index, total)
     return pd.DataFrame(rows)
 
 
-def write_summary(
-    df: pd.DataFrame, output_path: Path, base_ref: str, target_label: str
-) -> None:
+def write_summary(df: pd.DataFrame, output_path: Path, base_ref: str, target_label: str) -> None:
     changed = df[df["ChangedLines"] > 0]
     summary = pd.DataFrame(
         [
@@ -514,17 +480,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument("base_ref", help="比較元のタグ名またはコミットID")
     parser.add_argument("output_dir", help="成果物の出力ディレクトリ")
-    parser.add_argument(
-        "--git-dir", default=".", help="集計対象の Git ディレクトリパス"
-    )
-    parser.add_argument(
-        "--target-ref",
-        default="HEAD",
-        help="比較先のタグ/コミット/ブランチ (default: HEAD)",
-    )
-    parser.add_argument(
-        "--worktree", action="store_true", help="比較先を現在の作業ツリーにする"
-    )
+    parser.add_argument("--git-dir", default=".", help="集計対象の Git ディレクトリパス")
+    parser.add_argument("--target-ref", default="HEAD", help="比較先のタグ/コミット/ブランチ (default: HEAD)")
+    parser.add_argument("--worktree", action="store_true", help="比較先を現在の作業ツリーにする")
     parser.add_argument(
         "--extensions",
         default="default",
@@ -542,9 +500,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         default=8,
         help="Treemap の最大階層深さ。大規模リポジトリでは小さいほど高速・軽量 (default: 8)",
     )
-    parser.add_argument(
-        "--no-progress", action="store_true", help="進捗表示を無効化する"
-    )
+    parser.add_argument("--no-progress", action="store_true", help="進捗表示を無効化する")
     parser.add_argument(
         "--progress-interval",
         type=float,
@@ -563,9 +519,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
     try:
-        progress = ProgressReporter(
-            enabled=not args.no_progress, interval_seconds=args.progress_interval
-        )
+        progress = ProgressReporter(enabled=not args.no_progress, interval_seconds=args.progress_interval)
         repo = resolve_repo(args.git_dir)
         verify_ref(repo, args.base_ref)
         if not args.worktree:
@@ -589,20 +543,11 @@ def main(argv: list[str]) -> int:
         if df.empty:
             print("[WARN] no files matched filters")
             df = pd.DataFrame(
-                columns=[
-                    "File",
-                    "TotalLines",
-                    "FileSize",
-                    "AddedLines",
-                    "DeletedLines",
-                    "ChangedLines",
-                    "ChangeRatio",
-                ]
+                columns=["File", "TotalLines", "FileSize", "AddedLines", "DeletedLines", "ChangedLines", "ChangeRatio"]
             )
         else:
             df = df.sort_values(
-                by=["ChangedLines", "TotalLines", "FileSize", "File"],
-                ascending=[False, False, False, True],
+                by=["ChangedLines", "TotalLines", "FileSize", "File"], ascending=[False, False, False, True]
             )
 
         files_csv = output_dir / "git_diff_file_metrics.csv"
@@ -611,9 +556,7 @@ def main(argv: list[str]) -> int:
         df.to_csv(files_csv, index=False, quoting=csv.QUOTE_MINIMAL)
         write_summary(df, summary_csv, args.base_ref, target_label)
         treemap_max_depth = max(1, args.treemap_max_depth)
-        progress.log(
-            f"writing code total lines treemap (max_depth={treemap_max_depth})"
-        )
+        progress.log(f"writing code total lines treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
             df,
             file_col="File",
@@ -645,9 +588,7 @@ def main(argv: list[str]) -> int:
             color_agg="sum",
             color_continuous_scale="Blues",
         )
-        progress.log(
-            f"writing changed lines count treemap (max_depth={treemap_max_depth})"
-        )
+        progress.log(f"writing changed lines count treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
             df,
             file_col="File",

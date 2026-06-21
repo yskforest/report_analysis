@@ -58,7 +58,7 @@ def write_treemap_by_path(
         data = data[data[size_col] > 0].dropna(subset=[size_col, color_col])
     else:
         data = data[data[size_col] > 0].dropna(subset=[size_col])
-        
+
     if data.empty:
         if empty_label is None:
             return
@@ -86,18 +86,20 @@ def write_treemap_by_path(
         if color_col is not None and color_agg not in {"weighted_mean", "sum", "mean", "max"}:
             raise ValueError(f"unsupported color_agg: {color_agg}")
         nodes = _aggregate_treemap_nodes(data, path_parts, size_col=size_col, color_col=color_col, color_agg=color_agg)
-        
+
         marker_opts = {"line": {"width": 1, "color": "black"}}
         if color_col is not None:
             color_min = float(vmin) if vmin is not None else float(nodes[color_col].min())
             color_max = float(vmax) if vmax is not None else float(nodes[color_col].max())
-            marker_opts.update({
-                "colors": nodes[color_col],
-                "colorscale": color_continuous_scale,
-                "cmin": color_min,
-                "cmax": color_max,
-                "colorbar": {"title": color_col},
-            })
+            marker_opts.update(
+                {
+                    "colors": nodes[color_col],
+                    "colorscale": color_continuous_scale,
+                    "cmin": color_min,
+                    "cmax": color_max,
+                    "colorbar": {"title": color_col},
+                }
+            )
             customdata = np.stack([nodes[size_col], nodes[color_col]], axis=-1)
             hovertemplate = (
                 "%{label}<br>"
@@ -107,11 +109,7 @@ def write_treemap_by_path(
             )
         else:
             customdata = np.stack([nodes[size_col]], axis=-1)
-            hovertemplate = (
-                "%{label}<br>"
-                f"{size_col}: " + "%{customdata[0]:,.0f}<br>"
-                "<extra></extra>"
-            )
+            hovertemplate = "%{label}<br>" f"{size_col}: " + "%{customdata[0]:,.0f}<br>" "<extra></extra>"
 
         fig = go.Figure(
             go.Treemap(
@@ -149,7 +147,7 @@ def write_treemap_by_path(
             values=size_col,
             title=title,
         )
-        
+
     fig.update_traces(marker=dict(line=dict(width=1, color="black")))
     fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
     fig.write_html(output_html)
