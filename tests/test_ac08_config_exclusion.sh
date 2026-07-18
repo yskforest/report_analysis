@@ -15,7 +15,7 @@ cat <<EOF > "${CONFIG_FILE}"
 visualizations:
   - type: pie_chart
     metric: cloc_language
-    output_file: "custom_pie.html"
+    output_file: "vis/pie.html"
 EOF
 
 # 実行
@@ -27,12 +27,11 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${OUT}" "/"
 
 # 検証: 指定された Pie Chart は生成されている
-assert_file_exists "${OUT}/custom_pie.html" "custom_pie.html"
+assert_file_exists "${OUT}/vis/pie.html" "pie.html"
 
 # 検証: 指定していない可視化ファイルは生成されていない
-assert_file_not_exists "${OUT}/custom_treemap.html" "custom_treemap.html"
-assert_file_not_exists "${OUT}/visualizations/16_treemap_loc_vs_cyclomatic.html" "Default treemap 1"
-assert_file_not_exists "${OUT}/visualizations/17_treemap_loc_vs_clone_ratio.html" "Default treemap 2"
+assert_file_not_exists "${OUT}/vis/treemap.html" "treemap.html"
+assert_file_not_exists "${OUT}/visualizations" "Default visualizations directory"
 
 cleanup_output_dir "ac08"
 print_summary

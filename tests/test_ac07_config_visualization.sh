@@ -16,10 +16,10 @@ visualizations:
   - type: treemap
     metric_area: cloc_code
     metric_color: git_ChangedLines
-    output_file: "custom_treemap.html"
+    output_file: "vis/treemap.html"
   - type: pie_chart
     metric: cloc_language
-    output_file: "custom_pie.html"
+    output_file: "vis/pie.html"
 EOF
 
 # 実行
@@ -32,8 +32,8 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${OUT}" "/"
 
 # 検証: 指定されたファイルが生成されている
-assert_file_exists "${OUT}/custom_treemap.html" "custom_treemap.html"
-assert_file_exists "${OUT}/custom_pie.html" "custom_pie.html"
+assert_file_exists "${OUT}/vis/treemap.html" "treemap.html"
+assert_file_exists "${OUT}/vis/pie.html" "pie.html"
 
 cleanup_output_dir "ac07"
 print_summary

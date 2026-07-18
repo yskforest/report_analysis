@@ -305,78 +305,6 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
         summary_csv = inputs.output_dir / "und_summary.csv"
         summary.to_csv(summary_csv, index=False)
 
-        tree_html = out_plot / "UndCountLineCode(Area)-UndRatioCommentToFile(Color)_treemap.html"
-        essential_tree_html = out_plot / "CountLineCode(Area)-Essential(FileAverage)_treemap.html"
-        cyclomatic_tree_html = out_plot / "CountLineCode(Area)-Cyclomatic(FileAverage)_treemap.html"
-        countline_comment_ratio_tree_html = out_plot / "CountLine(Area)-RatioCommentToCountLine(Color)_treemap.html"
-        code_comment_ratio_tree_html = out_plot / "CountLineCode(Area)-RatioCommentToCode(Color)_treemap.html"
-        if not file_df.empty and "File" in file_df.columns:
-            t = file_df.copy()
-            t["CountLineCode"] = _safe_num(t.get("CountLineCode", pd.Series(dtype=float)))
-            t["CountLine"] = _safe_num(t.get("CountLine", pd.Series(dtype=float)))
-            t["CountLineComment"] = _safe_num(t.get("CountLineComment", pd.Series(dtype=float)))
-            t["RatioCommentToCode"] = _safe_num(t.get("RatioCommentToCode", pd.Series(dtype=float)))
-            if "RatioCommentToCountLine" in t.columns:
-                t["RatioCommentToCountLine"] = _safe_num(t["RatioCommentToCountLine"])
-            else:
-                t["RatioCommentToCountLine"] = t.apply(
-                    lambda r: (r["CountLineComment"] / r["CountLine"] * 100) if r["CountLine"] else 0,
-                    axis=1,
-                )
-            write_treemap_by_path(
-                t,
-                file_col="File",
-                size_col="CountLineCode",
-                color_col="RatioCommentToCode",
-                output_html=tree_html,
-                title="UndCountLineCode(Area)-UndRatioCommentToFile(Color)",
-                prefix_to_remove=inputs.remove_path_prefix,
-            )
-
-            if "AvgEssential" in t.columns:
-                t["AvgEssential"] = _safe_num(t["AvgEssential"])
-                write_treemap_by_path(
-                    t,
-                    file_col="File",
-                    size_col="CountLineCode",
-                    color_col="AvgEssential",
-                    output_html=essential_tree_html,
-                    title="CountLineCode(Area)-Essential(FileAverage)",
-                    prefix_to_remove=inputs.remove_path_prefix,
-                )
-
-            if "AvgCyclomatic" in t.columns:
-                t["AvgCyclomatic"] = _safe_num(t["AvgCyclomatic"])
-                write_treemap_by_path(
-                    t,
-                    file_col="File",
-                    size_col="CountLineCode",
-                    color_col="AvgCyclomatic",
-                    output_html=cyclomatic_tree_html,
-                    title="CountLineCode(Area)-Cyclomatic(FileAverage)",
-                    prefix_to_remove=inputs.remove_path_prefix,
-                )
-
-            write_treemap_by_path(
-                t,
-                file_col="File",
-                size_col="CountLine",
-                color_col="RatioCommentToCountLine",
-                output_html=countline_comment_ratio_tree_html,
-                title="CountLine(Area)-RatioCommentToCountLine(Color)",
-                prefix_to_remove=inputs.remove_path_prefix,
-            )
-
-            write_treemap_by_path(
-                t,
-                file_col="File",
-                size_col="CountLineCode",
-                color_col="RatioCommentToCode",
-                output_html=code_comment_ratio_tree_html,
-                title="CountLineCode(Area)-RatioCommentToCode(Color)",
-                prefix_to_remove=inputs.remove_path_prefix,
-            )
-
         return TaskResult(
             name="und",
             executed=True,
@@ -408,19 +336,6 @@ def run_cloc(inputs: AnalysisInputs) -> TaskResult:
         filtered_csv = out_cloc / "cloc_filtered.csv"
         f[required].to_csv(filtered_csv, index=False)
 
-        pie_html = out_cloc / "cloc_pie_chart.html"
-        p = f.copy()
-        p["code"] = _safe_num(p["code"])
-        by_lang = p.groupby("language", dropna=False)["code"].sum().reset_index()
-        write_pie_chart(
-            by_lang,
-            value_column="code",
-            label_column="language",
-            title="Cloc Count Line Code Pie Chart",
-            output_html=pie_html,
-            exclude_label=None,
-        )
-
         summary_csv = inputs.output_dir / "summary_cloc.csv"
         pd.DataFrame(
             [
@@ -437,7 +352,7 @@ def run_cloc(inputs: AnalysisInputs) -> TaskResult:
             name="cloc",
             executed=True,
             success=True,
-            outputs=[filtered_csv, pie_html, summary_csv],
+            outputs=[filtered_csv, summary_csv],
             message="CLOC completed",
         )
     except Exception as exc:
@@ -530,18 +445,6 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
             ]
         ).to_csv(summary_csv, index=False)
 
-        tree_html = out_pmd / "PmdCloneTokens(Area)-PmdCloneRatio(Color)_treemap.html"
-        t = df[df["PmdTotalTokens"] > 0].copy()
-        write_treemap_by_path(
-            t,
-            file_col="File",
-            size_col="PmdTotalTokens",
-            color_col="PmdCloneRatio",
-            output_html=tree_html,
-            title="PmdCloneTokens(Area)-PmdCloneRatio(Color)",
-            prefix_to_remove=inputs.remove_path_prefix,
-        )
-
         merge_out = None
         pmd_summary_out = None
         if inputs.und_csv is not None:
@@ -583,7 +486,7 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
                 ]
             ).to_csv(pmd_summary_out, index=False)
 
-        outputs = [ratio_csv, summary_csv, tree_html]
+        outputs = [ratio_csv, summary_csv]
         if pmd_summary_out and pmd_summary_out.exists():
             outputs.append(pmd_summary_out)
         return TaskResult(name="pmd", executed=True, success=True, outputs=outputs, message="PMD completed")
