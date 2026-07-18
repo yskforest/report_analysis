@@ -2,7 +2,7 @@
 
 ## 1. 目的
 
-本設計書は、[RUN_REPORT_ANALYSIS_REQUIREMENTS.md](file:///home/korver/code/hc_new_arch/docs/RUN_REPORT_ANALYSIS_REQUIREMENTS.md) を実現するための実行設計を定義する。  
+本設計書は、[requirements.md](file:///home/korver/code/hc_new_arch/docs/requirements.md) を実現するための実行設計を定義する。  
 本設計では **既存 `scripts/*` のコードを利用しない** ことを前提とし、`new_arch` 配下のみで完結する新規実装とする。
 
 優先順位は以下とする。
@@ -25,8 +25,8 @@ src/
   analyzers.py                    # UND/CLOC/PMD の新規解析実装
   io_models.py                    # 入力解決・設定・結果モデル（dataclass）
 docs/
-  RUN_REPORT_ANALYSIS_REQUIREMENTS.md
-  RUN_REPORT_ANALYSIS_DESIGN.md
+  requirements.md
+  design.md
 README.md                         # 実行方法・入出力説明 (プロジェクトルート)
 ```
 
@@ -39,6 +39,7 @@ python3 src/report_analysis.py \
   {UND_CSV|none} \
   {CLOC_CSV|none} \
   {PMD_XML_GLOB_OR_LIST|none} \
+  {GIT_NUMSTAT|none} \
   {OUTPUT_DIR} \
   {REMOVE_PATH_PREFIX}
 ```
@@ -48,8 +49,9 @@ python3 src/report_analysis.py \
 1. `UND_CSV|none`
 2. `CLOC_CSV|none`
 3. `PMD_XML_GLOB_OR_LIST|none`
-4. `OUTPUT_DIR`
-5. `REMOVE_PATH_PREFIX`
+4. `GIT_NUMSTAT|none`
+5. `OUTPUT_DIR`
+6. `REMOVE_PATH_PREFIX`
 
 - `none` / `false` / `-` は未指定扱い。
 - `PMD_XML_GLOB_OR_LIST` は以下を許容:
@@ -62,9 +64,11 @@ python3 src/report_analysis.py \
 ```text
 report_analysis.py
   -> io_models.resolve_inputs()
-  -> analyzers.run_understand()   [if UND exists]
-  -> analyzers.run_cloc()         [if CLOC exists]
-  -> analyzers.run_pmd()          [if PMD list non-empty]
+  -> analyzers.run_understand()          [if UND exists]
+  -> analyzers.run_cloc()                [if CLOC exists]
+  -> analyzers.run_pmd()                 [if PMD list non-empty]
+  -> analyzers.run_git_numstat()         [if GIT_NUMSTAT exists]
+  -> analyzers.run_comprehensive_merge() [if files resolved]
   -> analyzers.write_global_summary()
 ```
 
@@ -82,12 +86,14 @@ flowchart LR
     IO --> IN1[(UND CSV)]
     IO --> IN2[(CLOC CSV)]
     IO --> IN3[(PMD XML xN)]
+    IO --> IN4[(Git Numstat TSV)]
 
     AN --> O1[(output_dir/und)]
     AN --> O2[(output_dir/cloc)]
     AN --> O3[(output_dir/pmd)]
-    AN --> O4[(output_dir/*.csv)]
-    AV --> O5[(output_dir/visualizations)]
+    AN --> O4[(output_dir/git)]
+    AN --> O5[(output_dir/metrics_merge.csv)]
+    AV --> O6[(output_dir/visualizations)]
 ```
 
 ## 5.2 コアデータモデル
@@ -98,12 +104,13 @@ flowchart LR
   - `und_csv: Optional[Path]`
   - `cloc_csv: Optional[Path]`
   - `pmd_xmls: list[Path]`
+  - `git_numstat: Optional[Path]`
   - `output_dir: Path`
   - `remove_path_prefix: str`
   - `warnings: list[str]`（未存在入力など）
 
 - `TaskResult`
-  - `name: str`（`und` / `cloc` / `pmd`）
+  - `name: str`（`und` / `cloc` / `pmd` / `git`）
   - `executed: bool`
   - `success: bool`
   - `outputs: list[Path]`
@@ -167,7 +174,7 @@ classDiagram
 
 1. 引数数チェック
 2. `OUTPUT_DIR` 作成
-3. UND/CLOC/PMD 入力解決
+3. UND/CLOC/PMD/Git Numstat 入力解決
 4. 全入力未指定または未存在なら `exit 1`
 
 ## 6.1.1 UML: メインシーケンス図
@@ -194,8 +201,12 @@ sequenceDiagram
       AN-->>RA: TaskResult(cloc)
       RA->>AN: run_pmd(inputs)
       AN-->>RA: TaskResult(pmd)
+      RA->>AN: run_git_numstat(inputs)
+      AN-->>RA: TaskResult(git)
       RA->>AN: run_file_metrics_excel(inputs)
       AN-->>RA: TaskResult(file_metrics_excel)
+      RA->>AN: run_comprehensive_merge(inputs)
+      AN-->>RA: TaskResult(comprehensive_merge)
       RA->>AV: run_advanced_visualizations(inputs)
       AV-->>RA: TaskResult(visualize)
       RA->>AN: write_global_summary(inputs, results)
@@ -246,31 +257,58 @@ sequenceDiagram
   - `OUTPUT_DIR/und_pmd_merge.csv`（条件付き）
   - `OUTPUT_DIR/pmd_summary.csv`（条件付き）
 
-## 6.5 統合サマリ
+## 6.5 Git Numstat 解析（新規実装）
+
+- 入力: Raw `git diff --numstat` テキスト/TSV（1ファイル）
+- 処理:
+  - テキストファイルを行単位でパース（スペース/タブ区切り）
+  - 各行から `AddedLines`, `DeletedLines`, `File` を抽出（バイナリファイルなどの `-` は `0` とみなす）
+  - パスを `clean_path` で正規化
+  - 同一ファイル名の重複があれば行数を合算（groupby & sum）
+  - `ChangedLines` = `AddedLines` + `DeletedLines` を算出
+  - 変更行数別CSV / summary CSV生成
+- 出力先:
+  - `OUTPUT_DIR/git/git_diff_file_metrics.csv`
+  - `OUTPUT_DIR/git/git_diff_summary.csv`
+
+## 6.6 総合マージ（新規実装）
+
+- 入力: 存在する全ての中間成果物（und/cloc/pmd/git）
+- 処理:
+  - 各CSVのジョイン列を `File` に統一（CLOC は `filename` からリネーム）
+  - 各CSVのカラム名（`File` 以外）にツール別のプレフィックス（`und_`, `cloc_`, `pmd_`, `git_`）を付与
+  - `File` 列に対して外部結合（Outer Join）を施し、単一の結合表を生成
+- 出力先:
+  - `OUTPUT_DIR/metrics_merge.csv`
+
+## 6.7 統合サマリ
 
 - タスク実行結果を `summary_report.csv` として `OUTPUT_DIR` 直下に保存する。
 
-## 6.6 UML: アクティビティ図（終了コード判定）
+## 6.8 UML: アクティビティ図（終了コード判定）
 
 ```mermaid
 flowchart TD
-    A([Start]) --> B{引数数は5か}
+    A([Start]) --> B{引数数は6か}
     B -- No --> X1[usage出力] --> Z1([Exit 1])
     B -- Yes --> C[resolve_inputs]
-    C --> D{und/cloc/pmd すべて無効か}
+    C --> D{und/cloc/pmd/git すべて無効か}
     D -- Yes --> X2[no valid inputs] --> Z2([Exit 1])
     D -- No --> E[run_understand]
     E --> F[run_cloc]
     F --> G[run_pmd]
-    G --> H[run_file_metrics_excel]
-    H --> I[run_advanced_visualizations]
-    I --> J[write_global_summary]
-    J --> K{executedタスクが全失敗か}
-    K -- Yes --> Z3([Exit 1])
-    K -- No --> Z4([Exit 0])
+    G --> H[run_git_numstat]
+    H --> I[run_file_metrics_excel]
+    I --> J[run_func_metrics_excel]
+    J --> K[run_comprehensive_merge]
+    K --> L[run_advanced_visualizations]
+    L --> M[write_global_summary]
+    M --> N{executedタスクが全失敗か}
+    N -- Yes --> Z3([Exit 1])
+    N -- No --> Z4([Exit 0])
 ```
 
-## 6.7 UML: UND/CLOC/PMD 出力マッピング図
+## 6.9 UML: 出力マッピング図
 
 ```mermaid
 flowchart LR
@@ -290,6 +328,11 @@ flowchart LR
     P --> P3[output_dir/pmd/*.html]
     P --> P4[output_dir/und_pmd_merge.csv]
     P --> P5[output_dir/pmd_summary.csv]
+
+    G[run_git_numstat] --> G1[output_dir/git/git_diff_file_metrics.csv]
+    G --> G2[output_dir/git/git_diff_summary.csv]
+
+    M[run_comprehensive_merge] --> M1[output_dir/metrics_merge.csv]
 ```
 
 ## 7. エラー/終了コード設計

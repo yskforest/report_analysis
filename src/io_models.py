@@ -40,6 +40,7 @@ class AnalysisInputs:
     und_csv: Path | None
     cloc_csv: Path | None
     pmd_xmls: list[Path]
+    git_numstat: Path | None
     output_dir: Path
     remove_path_prefix: str
     warnings: list[str] = field(default_factory=list)
@@ -109,6 +110,7 @@ def resolve_inputs(
     und_csv_raw: str,
     cloc_csv_raw: str,
     pmd_xml_raw: str,
+    git_numstat_raw: str,
     output_dir_raw: str,
     remove_path_prefix: str,
 ) -> AnalysisInputs:
@@ -118,11 +120,13 @@ def resolve_inputs(
     und_csv = _resolve_optional_file(und_csv_raw, "Understand", warnings)
     cloc_csv = _resolve_optional_file(cloc_csv_raw, "CLOC", warnings)
     pmd_xmls = _resolve_pmd_files(pmd_xml_raw, warnings)
+    git_numstat = _resolve_optional_file(git_numstat_raw, "GitNumstat", warnings)
 
     return AnalysisInputs(
         und_csv=und_csv,
         cloc_csv=cloc_csv,
         pmd_xmls=pmd_xmls,
+        git_numstat=git_numstat,
         output_dir=output_dir,
         remove_path_prefix=remove_path_prefix,
         warnings=warnings,

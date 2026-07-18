@@ -11,29 +11,36 @@ from analyzers import (
     run_pmd,
     run_understand,
     write_global_summary,
+    run_git_numstat,
+    run_comprehensive_merge,
 )
 from advanced_visualizations import run_advanced_visualizations
 from io_models import resolve_inputs
 
 USAGE = (
     "usage: report_analysis.py "
-    "{UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}"
+    "{UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} {GIT_NUMSTAT|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}"
 )
 
 
 def main(argv: list[str]) -> int:
-    if len(argv) != 5:
+    if len(argv) != 6:
         print(USAGE, file=sys.stderr)
         return 1
 
-    und_raw, cloc_raw, pmd_raw, output_dir_raw, remove_prefix = argv
-    inputs = resolve_inputs(und_raw, cloc_raw, pmd_raw, output_dir_raw, remove_prefix)
+    und_raw, cloc_raw, pmd_raw, git_raw, output_dir_raw, remove_prefix = argv
+    inputs = resolve_inputs(und_raw, cloc_raw, pmd_raw, git_raw, output_dir_raw, remove_prefix)
     inputs.output_dir.mkdir(parents=True, exist_ok=True)
 
     for w in inputs.warnings:
         print(f"[WARN] {w}")
 
-    if inputs.und_csv is None and inputs.cloc_csv is None and not inputs.pmd_xmls:
+    if (
+        inputs.und_csv is None
+        and inputs.cloc_csv is None
+        and not inputs.pmd_xmls
+        and inputs.git_numstat is None
+    ):
         print("[ERROR] no valid inputs found", file=sys.stderr)
         return 1
 
@@ -44,8 +51,10 @@ def main(argv: list[str]) -> int:
         run_understand(inputs),
         run_cloc(inputs),
         run_pmd(inputs),
+        run_git_numstat(inputs),
         run_file_metrics_excel(inputs),
         run_func_metrics_excel(inputs),
+        run_comprehensive_merge(inputs),
         run_advanced_visualizations(inputs),
     ]
 

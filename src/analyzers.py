@@ -4,6 +4,7 @@ import csv
 import os
 import xml.etree.ElementTree as ET
 from pathlib import Path
+import shutil
 
 import pandas as pd
 
@@ -594,6 +595,137 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
         return TaskResult(name="pmd", executed=True, success=True, outputs=outputs, message="PMD completed")
     except Exception as exc:
         return TaskResult(name="pmd", executed=True, success=False, message=f"PMD failed: {exc}")
+
+
+def run_git_numstat(inputs: AnalysisInputs) -> TaskResult:
+    if inputs.git_numstat is None:
+        return TaskResult(name="git", executed=False, success=True, message="Git diff skipped")
+
+    out_git = inputs.output_dir / "git"
+    out_git.mkdir(parents=True, exist_ok=True)
+
+    try:
+        rows = []
+        with open(inputs.git_numstat, "r", encoding="utf-8", errors="replace") as fp:
+            for line in fp:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split(None, 2)
+                if len(parts) < 3:
+                    continue
+                added_raw, deleted_raw, file_raw = parts
+                
+                added = 0 if added_raw == "-" else int(added_raw)
+                deleted = 0 if deleted_raw == "-" else int(deleted_raw)
+                
+                rows.append({
+                    "File": clean_path(file_raw, inputs.remove_path_prefix),
+                    "AddedLines": added,
+                    "DeletedLines": deleted,
+                })
+        
+        df = pd.DataFrame(rows)
+        if df.empty:
+            df = pd.DataFrame(columns=["File", "AddedLines", "DeletedLines", "ChangedLines"])
+        else:
+            df = df.groupby("File", dropna=False)[["AddedLines", "DeletedLines"]].sum().reset_index()
+            df["ChangedLines"] = df["AddedLines"] + df["DeletedLines"]
+            df = df.sort_values(by="ChangedLines", ascending=False)
+            
+        metrics_csv = out_git / "git_diff_file_metrics.csv"
+        df.to_csv(metrics_csv, index=False)
+        
+        summary_csv = out_git / "git_diff_summary.csv"
+        summary_df = pd.DataFrame([{
+            "CountFilesChanged": int(len(df.index)),
+            "TotalAddedLines": int(df["AddedLines"].sum()) if not df.empty else 0,
+            "TotalDeletedLines": int(df["DeletedLines"].sum()) if not df.empty else 0,
+            "TotalChangedLines": int(df["ChangedLines"].sum()) if not df.empty else 0,
+        }])
+        summary_df.to_csv(summary_csv, index=False)
+        
+        return TaskResult(
+            name="git",
+            executed=True,
+            success=True,
+            outputs=[metrics_csv, summary_csv],
+            message="Git diff integration completed",
+        )
+    except Exception as exc:
+        return TaskResult(name="git", executed=True, success=False, message=f"Git diff integration failed: {exc}")
+
+
+def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
+    out_file = inputs.output_dir / "metrics_merge.csv"
+    try:
+        merged_df = None
+        
+        # 1. Understand
+        und_csv = inputs.output_dir / "und" / "und_file.csv"
+        if und_csv.exists():
+            df = pd.read_csv(und_csv, dtype=object, na_filter=False)
+            if not df.empty and "File" in df.columns:
+                df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
+                merged_df = df
+                
+        # 2. CLOC
+        cloc_csv = inputs.output_dir / "cloc" / "cloc_filtered.csv"
+        if cloc_csv.exists():
+            df = pd.read_csv(cloc_csv, dtype=object, na_filter=False)
+            if not df.empty and "filename" in df.columns:
+                df.rename(columns={"filename": "File"}, inplace=True)
+                df.rename(columns={c: f"cloc_{c}" for c in df.columns if c != "File"}, inplace=True)
+                if merged_df is None:
+                    merged_df = df
+                else:
+                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
+                    
+        # 3. PMD
+        pmd_csv = inputs.output_dir / "pmd" / "pmd_clone_ratio.csv"
+        if pmd_csv.exists():
+            df = pd.read_csv(pmd_csv, dtype=object, na_filter=False)
+            if not df.empty and "File" in df.columns:
+                df.rename(columns={c: f"pmd_{c}" for c in df.columns if c != "File"}, inplace=True)
+                if merged_df is None:
+                    merged_df = df
+                else:
+                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
+                    
+        # 4. Git Diff
+        git_csv = inputs.output_dir / "git" / "git_diff_file_metrics.csv"
+        if git_csv.exists():
+            df = pd.read_csv(git_csv, dtype=object, na_filter=False)
+            if not df.empty and "File" in df.columns:
+                df.rename(columns={c: f"git_{c}" for c in df.columns if c != "File"}, inplace=True)
+                if merged_df is None:
+                    merged_df = df
+                else:
+                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
+                    
+        if merged_df is None or merged_df.empty:
+            return TaskResult(
+                name="comprehensive_merge",
+                executed=False,
+                success=True,
+                message="comprehensive merge skipped (no source files found)",
+            )
+            
+        merged_df.to_csv(out_file, index=False)
+        return TaskResult(
+            name="comprehensive_merge",
+            executed=True,
+            success=True,
+            outputs=[out_file],
+            message=f"comprehensive merge generated ({out_file.name})",
+        )
+    except Exception as exc:
+        return TaskResult(
+            name="comprehensive_merge",
+            executed=True,
+            success=False,
+            message=f"comprehensive merge failed: {exc}",
+        )
 
 
 def write_global_summary(inputs: AnalysisInputs, results: list[TaskResult]) -> Path:
