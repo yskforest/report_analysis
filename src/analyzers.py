@@ -272,9 +272,7 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
     try:
         df = pd.read_csv(inputs.und_csv, dtype=object, na_filter=False)
         df = _normalize_paths(df, ["File", "LongName"], inputs.remove_path_prefix)
-
-        metrics_csv = out_und / "und_metrics.csv"
-        df.to_csv(metrics_csv, index=False)
+        inputs.shared_dfs["und"] = df
 
         kind_col = df["Kind"].astype(str) if "Kind" in df.columns else pd.Series([""] * len(df))
         file_df = df[kind_col.str.contains("File", na=False)].copy()
@@ -383,7 +381,7 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
             name="und",
             executed=True,
             success=True,
-            outputs=[metrics_csv, file_csv, func_csv, class_csv, summary_csv],
+            outputs=[file_csv, func_csv, class_csv, summary_csv],
             message="UND completed",
         )
     except Exception as exc:
@@ -567,8 +565,6 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
             und_df = und_df[keep_cols].copy()
 
             merged = und_df.merge(df, how="outer", on="File")
-            merge_out = inputs.output_dir / "und_pmd_merge.csv"
-            merged.to_csv(merge_out, index=False)
 
             pmd_summary_out = inputs.output_dir / "pmd_summary.csv"
             pd.DataFrame(
@@ -588,8 +584,6 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
             ).to_csv(pmd_summary_out, index=False)
 
         outputs = [ratio_csv, summary_csv, tree_html]
-        if merge_out and merge_out.exists():
-            outputs.append(merge_out)
         if pmd_summary_out and pmd_summary_out.exists():
             outputs.append(pmd_summary_out)
         return TaskResult(name="pmd", executed=True, success=True, outputs=outputs, message="PMD completed")
@@ -633,8 +627,7 @@ def run_git_numstat(inputs: AnalysisInputs) -> TaskResult:
             df["ChangedLines"] = df["AddedLines"] + df["DeletedLines"]
             df = df.sort_values(by="ChangedLines", ascending=False)
             
-        metrics_csv = out_git / "git_diff_file_metrics.csv"
-        df.to_csv(metrics_csv, index=False)
+        inputs.shared_dfs["git"] = df
         
         summary_csv = out_git / "git_diff_summary.csv"
         summary_df = pd.DataFrame([{
@@ -649,7 +642,7 @@ def run_git_numstat(inputs: AnalysisInputs) -> TaskResult:
             name="git",
             executed=True,
             success=True,
-            outputs=[metrics_csv, summary_csv],
+            outputs=[summary_csv],
             message="Git diff integration completed",
         )
     except Exception as exc:
@@ -693,15 +686,25 @@ def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
                     merged_df = pd.merge(merged_df, df, on="File", how="outer")
                     
         # 4. Git Diff
-        git_csv = inputs.output_dir / "git" / "git_diff_file_metrics.csv"
-        if git_csv.exists():
-            df = pd.read_csv(git_csv, dtype=object, na_filter=False)
+        df_git = inputs.shared_dfs.get("git")
+        if df_git is not None:
+            df = df_git.copy()
             if not df.empty and "File" in df.columns:
                 df.rename(columns={c: f"git_{c}" for c in df.columns if c != "File"}, inplace=True)
                 if merged_df is None:
                     merged_df = df
                 else:
                     merged_df = pd.merge(merged_df, df, on="File", how="outer")
+        else:
+            git_csv = inputs.output_dir / "git" / "git_diff_file_metrics.csv"
+            if git_csv.exists():
+                df = pd.read_csv(git_csv, dtype=object, na_filter=False)
+                if not df.empty and "File" in df.columns:
+                    df.rename(columns={c: f"git_{c}" for c in df.columns if c != "File"}, inplace=True)
+                    if merged_df is None:
+                        merged_df = df
+                    else:
+                        merged_df = pd.merge(merged_df, df, on="File", how="outer")
                     
         if merged_df is None or merged_df.empty:
             return TaskResult(

@@ -1,0 +1,29 @@
+# Report Analysis default configuration file
+
+# このYAMLファイルで、report_analysis.pyが出力するカスタム可視化（TreemapやPie chart等）を設定できます。
+# プレフィックス（cloc_, und_, pmd_, git_）付きのカラム名は、出力先の metrics_merge.csv のヘッダーに対応します。
+
+visualizations:
+  # 1. コード行数 (cloc_code) を面積、PMD重複率 (pmd_PmdCloneRatio) を色にしたTreemap
+  - type: treemap
+    metric_area: cloc_code
+    metric_color: pmd_PmdCloneRatio
+    output_file: "custom_cloc_pmd_treemap.html"
+
+  # 2. Understandのコード行数 (und_CountLineCode) を面積、複雑度平均 (und_AvgCyclomatic) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_AvgCyclomatic
+    output_file: "custom_und_complexity_treemap.html"
+
+  # 3. Gitの合計変更行数 (git_ChangedLines) を面積、追加行数 (git_AddedLines) を色にしたTreemap
+  - type: treemap
+    metric_area: git_ChangedLines
+    metric_color: git_AddedLines
+    output_file: "custom_git_diff_treemap.html"
+
+  # 4. CLOCの言語別コード行数の比率を示す円グラフ
+  - type: pie_chart
+    metric: cloc_language
+    value_metric: cloc_code
+    output_file: "custom_cloc_language_pie.html"

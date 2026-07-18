@@ -262,7 +262,6 @@ sequenceDiagram
   - UND入力がある場合は UND/PMD マージCSVと summary作成
 - 出力先:
   - `OUTPUT_DIR/pmd/`
-  - `OUTPUT_DIR/und_pmd_merge.csv`（条件付き）
   - `OUTPUT_DIR/pmd_summary.csv`（条件付き）
 
 ## 6.5 Git Numstat 解析（新規実装）
@@ -334,7 +333,6 @@ flowchart LR
     P[run_pmd] --> P1[output_dir/pmd/pmd_clone_ratio.csv]
     P --> P2[output_dir/pmd/pmd_clone_ratio_summary.csv]
     P --> P3[output_dir/pmd/*.html]
-    P --> P4[output_dir/und_pmd_merge.csv]
     P --> P5[output_dir/pmd_summary.csv]
 
     G[run_git_numstat] --> G1[output_dir/git/git_diff_file_metrics.csv]

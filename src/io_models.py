@@ -48,6 +48,7 @@ class AnalysisInputs:
     config_path: Path | None = None
     visualizations: list[dict] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    shared_dfs: dict[str, object] = field(default_factory=dict)
 
 
 @dataclass

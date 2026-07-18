@@ -147,12 +147,22 @@ def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
     und_file = inputs.output_dir / "und" / "und_file.csv"
     cloc_file = inputs.output_dir / "cloc" / "cloc_filtered.csv"
     pmd_file = inputs.output_dir / "pmd" / "pmd_clone_ratio.csv"
-    merge_file = inputs.output_dir / "und_pmd_merge.csv"
+    merge_file = inputs.output_dir / "metrics_merge.csv"
 
     und = pd.read_csv(und_file, dtype=object, na_filter=False) if und_file.exists() else pd.DataFrame()
     cloc = pd.read_csv(cloc_file) if cloc_file.exists() else pd.DataFrame()
     pmd = pd.read_csv(pmd_file) if pmd_file.exists() else pd.DataFrame()
-    merged = pd.read_csv(merge_file, dtype=object, na_filter=False) if merge_file.exists() else pd.DataFrame()
+    
+    merged = pd.DataFrame()
+    if merge_file.exists():
+        merged = pd.read_csv(merge_file, dtype=object, na_filter=False)
+        # Rename columns to strip prefixes (und_, pmd_, cloc_, git_) for fallback visualization code compatibility
+        rename_dict = {}
+        for col in merged.columns:
+            for prefix in ["und_", "pmd_", "cloc_", "git_"]:
+                if col.startswith(prefix):
+                    rename_dict[col] = col[len(prefix):]
+        merged.rename(columns=rename_dict, inplace=True)
 
     try:
         if not und.empty and "CountLineCode" in und.columns and "AvgCyclomatic" in und.columns:

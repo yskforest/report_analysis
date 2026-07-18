@@ -16,7 +16,7 @@ assert_exit_code 0 "AC-04: UND のみで exit 0" \
   none none none "${OUT}" "/"
 
 # UND 成果物が存在する
-assert_file_exists "${OUT}/und/und_metrics.csv" "und_metrics.csv"
+assert_file_exists "${OUT}/und/und_file.csv" "und_file.csv"
 
 # CLOC / PMD / Git のディレクトリは空または未作成
 assert_dir_empty_or_missing "${OUT}/cloc" "cloc/"

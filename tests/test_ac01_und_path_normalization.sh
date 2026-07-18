@@ -20,18 +20,12 @@ OUT=$(setup_output_dir "ac01")
 python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${fixture_csv}" none none none "${OUT}" "/"
 
-# 検証: und_metrics.csv が存在する
-assert_file_exists "${OUT}/und/und_metrics.csv"
+# 検証: und_file.csv が存在する
+assert_file_exists "${OUT}/und/und_file.csv"
 
 # 検証: File 列にバックスラッシュが含まれない
-assert_csv_no_backslash "${OUT}/und/und_metrics.csv" "File" \
-  "AC-01: und_metrics.csv の File 列にバックスラッシュがない"
-
-# und_file.csv も検証
-if [ -f "${OUT}/und/und_file.csv" ]; then
-  assert_csv_no_backslash "${OUT}/und/und_file.csv" "File" \
-    "AC-01: und_file.csv の File 列にバックスラッシュがない"
-fi
+assert_csv_no_backslash "${OUT}/und/und_file.csv" "File" \
+  "AC-01: und_file.csv の File 列にバックスラッシュがない"
 
 cleanup_output_dir "ac01"
 print_summary
