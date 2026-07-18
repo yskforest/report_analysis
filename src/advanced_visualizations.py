@@ -24,10 +24,125 @@ def _top_n(df: pd.DataFrame, col: str, n: int = 30) -> pd.DataFrame:
 
 
 def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
-    out_dir = inputs.output_dir / "visualizations"
-    out_dir.mkdir(parents=True, exist_ok=True)
     outputs: list[Path] = []
     notes: list[str] = []
+
+    # Case 1: Config file specified -> execute only the specified custom visualizations
+    if inputs.config_path is not None:
+        try:
+            merge_file = inputs.output_dir / "metrics_merge.csv"
+            if not merge_file.exists():
+                if inputs.visualizations:
+                    raise FileNotFoundError(
+                        f"Merged metrics file '{merge_file}' not found, but visualizations are requested in config."
+                    )
+                return TaskResult(
+                    name="visualize",
+                    executed=True,
+                    success=True,
+                    message="No visualizations executed (merge file not found and config visualizations list empty)",
+                )
+
+            df = pd.read_csv(merge_file)
+
+            def check_col(col_name: str, vis_type: str):
+                if col_name not in df.columns:
+                    raise KeyError(
+                        f"Column '{col_name}' specified in '{vis_type}' visualization not found in metrics_merge.csv"
+                    )
+
+            for i, vis in enumerate(inputs.visualizations):
+                vis_type = vis.get("type")
+                out_rel = vis.get("output_file")
+                if not vis_type or not out_rel:
+                    raise ValueError(f"Visualization spec at index {i} must contain 'type' and 'output_file'")
+
+                out_path = inputs.output_dir / out_rel
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+
+                if vis_type == "treemap":
+                    area_col = vis.get("metric_area")
+                    color_col = vis.get("metric_color")
+                    if not area_col:
+                        raise ValueError("Treemap visualization must specify 'metric_area'")
+
+                    check_col(area_col, "treemap")
+                    if color_col:
+                        check_col(color_col, "treemap")
+
+                    # Lazy import to avoid circular dependency or import order issues
+                    from plotly_visualize import write_treemap_by_path
+
+                    write_treemap_by_path(
+                        df,
+                        file_col="File",
+                        size_col=area_col,
+                        color_col=color_col,
+                        output_html=out_path,
+                        title=f"Treemap: Size={area_col}" + (f", Color={color_col}" if color_col else ""),
+                        prefix_to_remove=inputs.remove_path_prefix,
+                    )
+                    outputs.append(out_path)
+
+                elif vis_type == "pie_chart":
+                    label_col = vis.get("metric")
+                    val_col = vis.get("value_metric")
+                    if not label_col:
+                        raise ValueError("Pie chart visualization must specify 'metric' (label column)")
+
+                    check_col(label_col, "pie_chart")
+
+                    df_copy = df.copy()
+                    if val_col:
+                        check_col(val_col, "pie_chart")
+                        df_copy[val_col] = pd.to_numeric(df_copy[val_col], errors="coerce").fillna(0)
+                        by_group = df_copy.groupby(label_col, dropna=False)[val_col].sum().reset_index()
+                        value_column = val_col
+                    else:
+                        # Auto-fallback to cloc_code if label is cloc_language
+                        if label_col == "cloc_language" and "cloc_code" in df.columns:
+                            val_col = "cloc_code"
+                            df_copy[val_col] = pd.to_numeric(df_copy[val_col], errors="coerce").fillna(0)
+                            by_group = df_copy.groupby(label_col, dropna=False)[val_col].sum().reset_index()
+                            value_column = val_col
+                        else:
+                            df_copy["_count"] = 1
+                            by_group = df_copy.groupby(label_col, dropna=False)["_count"].sum().reset_index()
+                            value_column = "_count"
+
+                    from plotly_visualize import write_pie_chart
+
+                    write_pie_chart(
+                        by_group,
+                        value_column=value_column,
+                        label_column=label_col,
+                        title=f"Pie Chart: {label_col} by {value_column}",
+                        output_html=out_path,
+                        exclude_label=None,
+                    )
+                    outputs.append(out_path)
+                else:
+                    raise ValueError(f"Unsupported visualization type: {vis_type}")
+
+            return TaskResult(
+                name="visualize",
+                executed=True,
+                success=True,
+                outputs=outputs,
+                message=f"Custom visualizations generated ({len(outputs)} files)",
+            )
+        except Exception as exc:
+            return TaskResult(
+                name="visualize",
+                executed=True,
+                success=False,
+                outputs=outputs,
+                message=f"Visualization failed: {exc}",
+            )
+
+    # Case 2: Config file not specified -> Fallback to default visualizations
+    out_dir = inputs.output_dir / "visualizations"
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     und_file = inputs.output_dir / "und" / "und_file.csv"
     cloc_file = inputs.output_dir / "cloc" / "cloc_filtered.csv"
@@ -162,91 +277,52 @@ def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
                     "AvgEssential",
                     "RatioCommentToCode",
                     "PmdCloneRatio",
-                    "PmdCloneTokensSum",
                 ]
                 if c in m.columns
             ]
-            if metric_cols:
-                corr = m[metric_cols].corr(numeric_only=True).fillna(0)
-                _save(px.imshow(corr, text_auto=True, aspect="auto"), out_dir / "05_correlation_heatmap.html", outputs)
+            by_dir = m.copy()
+            by_dir["dir1"] = by_dir["File"].str.split("/").str[0].replace("", "root")
+            by_dir = by_dir.groupby("dir1", dropna=False)[metric_cols].mean().reset_index()
 
+            # Treemap using fallbacks for path depth or simple structure
             if "CountLineCode" in m.columns:
-                _save(
-                    px.bar(_top_n(m, "CountLineCode", 30), x="File", y="CountLineCode"),
-                    out_dir / "12_pareto_loc_top30.html",
-                    outputs,
-                )
-            if "AvgCyclomatic" in m.columns:
-                _save(
-                    px.bar(_top_n(m, "AvgCyclomatic", 30), x="File", y="AvgCyclomatic"),
-                    out_dir / "16_bar_top_cyclomatic.html",
-                    outputs,
-                )
-            if "AvgEssential" in m.columns:
-                _save(
-                    px.bar(_top_n(m, "AvgEssential", 30), x="File", y="AvgEssential"),
-                    out_dir / "17_bar_top_essential.html",
-                    outputs,
-                )
+                # treemaps of code size vs cyclomatic
+                from plotly_visualize import write_treemap_by_path
 
-            # directory-based charts
-            m["dir1"] = m["File"].str.split("/").str[0].replace("", "root")
-            agg_map = {}
-            for col, fn in [
-                ("CountLineCode", "sum"),
-                ("AvgCyclomatic", "mean"),
-                ("AvgEssential", "mean"),
-                ("RatioCommentToCode", "mean"),
-                ("PmdCloneRatio", "mean"),
-                ("PmdCloneTokensSum", "sum"),
-            ]:
-                if col in m.columns:
-                    agg_map[col] = (col, fn)
-            by_dir = m.groupby("dir1", dropna=False).agg(**agg_map).reset_index()
-            if len(by_dir.columns) > 1:
-                _save(
-                    px.imshow(by_dir.set_index("dir1").T, aspect="auto"),
-                    out_dir / "04_heatmap_dir_metrics.html",
-                    outputs,
+                write_treemap_by_path(
+                    m,
+                    file_col="File",
+                    size_col="CountLineCode",
+                    color_col="AvgCyclomatic" if "AvgCyclomatic" in m.columns else None,
+                    output_html=out_dir / "16_treemap_loc_vs_cyclomatic.html",
+                    title="Understand Code Line Code vs Cyclomatic Treemap",
+                    prefix_to_remove=inputs.remove_path_prefix,
                 )
+                outputs.append(out_dir / "16_treemap_loc_vs_cyclomatic.html")
 
-            if "CountLineCode" in m.columns and "PmdCloneRatio" in m.columns:
-                _save(
-                    px.treemap(m, path=["dir1", "File"], values="CountLineCode", color="PmdCloneRatio"),
-                    out_dir / "21_treemap_loc_clone_ratio.html",
-                    outputs,
-                )
-            if "CountLineCode" in m.columns and "RatioCommentToCode" in m.columns:
-                _save(
-                    px.treemap(m, path=["dir1", "File"], values="CountLineCode", color="RatioCommentToCode"),
-                    out_dir / "22_treemap_loc_comment_ratio.html",
-                    outputs,
-                )
-            if "CountLineCode" in m.columns:
-                _save(
-                    px.sunburst(m, path=["dir1", "File"], values="CountLineCode"),
-                    out_dir / "20_sunburst_loc.html",
-                    outputs,
-                )
+                if "PmdCloneRatio" in m.columns:
+                    write_treemap_by_path(
+                        m,
+                        file_col="File",
+                        size_col="CountLineCode",
+                        color_col="PmdCloneRatio",
+                        output_html=out_dir / "17_treemap_loc_vs_clone_ratio.html",
+                        title="Understand Code Line Code vs PMD Clone Ratio Treemap",
+                        prefix_to_remove=inputs.remove_path_prefix,
+                    )
+                    outputs.append(out_dir / "17_treemap_loc_vs_clone_ratio.html")
 
+            # risk score calculations
             q = m.copy()
-            q["risk_score"] = (
-                q.get("AvgCyclomatic", 0) * 0.4 + q.get("AvgEssential", 0) * 0.3 + q.get("PmdCloneRatio", 0) * 0.3
-            )
-            q["quadrant"] = q.apply(
-                lambda r: (
-                    "High-High"
-                    if r.get("CountLineCode", 0) >= q["CountLineCode"].median()
-                    and r.get("risk_score", 0) >= q["risk_score"].median()
-                    else "Other"
-                ),
-                axis=1,
-            )
-            _save(
-                px.scatter(q, x="CountLineCode", y="risk_score", color="quadrant", hover_name="File"),
-                out_dir / "27_quadrant_priority.html",
-                outputs,
-            )
+            q["risk_score"] = 0.0
+            if "CountLineCode" in q.columns:
+                q["risk_score"] += _safe_num(q["CountLineCode"]) * 0.1
+            if "AvgCyclomatic" in q.columns:
+                q["risk_score"] += _safe_num(q["AvgCyclomatic"]) * 2.0
+            if "PmdCloneRatio" in q.columns:
+                q["risk_score"] += _safe_num(q["PmdCloneRatio"]) * 100.0
+
+            q = q.sort_values(by="risk_score", ascending=False)
             _save(
                 px.bar(_top_n(q, "risk_score", 40), x="File", y="risk_score"),
                 out_dir / "24_rank_table_like_risk_score.html",

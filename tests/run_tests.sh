@@ -25,9 +25,9 @@ ALL_TESTS=(
   "ac04:test_ac04_partial_input.sh:部分入力での正常終了"
   "ac05:test_ac05_all_none.sh:全入力なしでの異常終了"
   "ac06:test_ac06_merge_prefix.sh:metrics_merge プレフィックス"
-  "ac07:test_ac07_git_treemap.sh:Git diff treemap 生成"
-  "ac08:test_ac08_git_worktree.sh:--worktree 差分検出"
-  "ac09:test_ac09_invalid_ref.sh:不正 Base Ref エラー"
+  "ac07:test_ac07_config_visualization.sh:カスタム可視化生成"
+  "ac08:test_ac08_config_exclusion.sh:指定外の可視化除外"
+  "ac09:test_ac09_config_invalid.sh:設定異常系エラーハンドリング"
 )
 
 # ── ヘルプ / リスト表示 ──

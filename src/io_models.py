@@ -35,6 +35,8 @@ def clean_path(path_str: object, remove_prefix: str | list[str] | None) -> str:
 
 
 
+import yaml
+
 @dataclass
 class AnalysisInputs:
     und_csv: Path | None
@@ -43,6 +45,8 @@ class AnalysisInputs:
     git_numstat: Path | None
     output_dir: Path
     remove_path_prefix: str
+    config_path: Path | None = None
+    visualizations: list[dict] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
 
@@ -113,6 +117,7 @@ def resolve_inputs(
     git_numstat_raw: str,
     output_dir_raw: str,
     remove_path_prefix: str,
+    config_path_raw: str | None = None,
 ) -> AnalysisInputs:
     warnings: list[str] = []
     output_dir = Path(output_dir_raw).expanduser().resolve()
@@ -122,6 +127,27 @@ def resolve_inputs(
     pmd_xmls = _resolve_pmd_files(pmd_xml_raw, warnings)
     git_numstat = _resolve_optional_file(git_numstat_raw, "GitNumstat", warnings)
 
+    config_path: Path | None = None
+    visualizations: list[dict] = []
+
+    if config_path_raw:
+        config_path = Path(config_path_raw).expanduser().resolve()
+        if not config_path.is_file():
+            raise FileNotFoundError(f"Config file not found: {config_path}")
+        try:
+            with open(config_path, "r", encoding="utf-8") as f:
+                config_data = yaml.safe_load(f)
+        except Exception as e:
+            raise ValueError(f"Failed to parse config YAML: {e}")
+
+        if config_data is not None:
+            if not isinstance(config_data, dict):
+                raise ValueError("Config YAML root must be a dictionary")
+            visualizations_raw = config_data.get("visualizations", [])
+            if not isinstance(visualizations_raw, list):
+                raise ValueError("Config YAML 'visualizations' section must be a list")
+            visualizations = visualizations_raw
+
     return AnalysisInputs(
         und_csv=und_csv,
         cloc_csv=cloc_csv,
@@ -129,5 +155,8 @@ def resolve_inputs(
         git_numstat=git_numstat,
         output_dir=output_dir,
         remove_path_prefix=remove_path_prefix,
+        config_path=config_path,
+        visualizations=visualizations,
         warnings=warnings,
     )
+

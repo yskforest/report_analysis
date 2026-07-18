@@ -24,6 +24,7 @@ src/
   report_analysis.py              # オーケストレーター本体
   analyzers.py                    # UND/CLOC/PMD の新規解析実装
   io_models.py                    # 入力解決・設定・結果モデル（dataclass）
+  advanced_visualizations.py      # 可視化ロジック
 docs/
   requirements.md
   design.md
@@ -36,6 +37,7 @@ README.md                         # 実行方法・入出力説明 (プロジェ
 
 ```bash
 python3 src/report_analysis.py \
+  [--config config.yaml] \
   {UND_CSV|none} \
   {CLOC_CSV|none} \
   {PMD_XML_GLOB_OR_LIST|none} \
@@ -46,29 +48,32 @@ python3 src/report_analysis.py \
 
 ## 4.2 引数解釈
 
-1. `UND_CSV|none`
-2. `CLOC_CSV|none`
-3. `PMD_XML_GLOB_OR_LIST|none`
-4. `GIT_NUMSTAT|none`
-5. `OUTPUT_DIR`
-6. `REMOVE_PATH_PREFIX`
+1. `config.yaml`（オプション）
+2. `UND_CSV|none`
+3. `CLOC_CSV|none`
+4. `PMD_XML_GLOB_OR_LIST|none`
+5. `GIT_NUMSTAT|none`
+6. `OUTPUT_DIR`
+7. `REMOVE_PATH_PREFIX`
 
 - `none` / `false` / `-` は未指定扱い。
 - `PMD_XML_GLOB_OR_LIST` は以下を許容:
   - glob 文字列（例: `sample_data/pmd/*.xml`）
   - 区切りリスト（`,` or `:`）
 - パス解決後に実在ファイルのみ有効入力として扱う。
+- `--config` が指定されている場合、`config.yaml` の構文チェックを行い、`visualizations` のリストを読み込む。
 
 ## 5. 論理アーキテクチャ
 
 ```text
 report_analysis.py
-  -> io_models.resolve_inputs()
+  -> io_models.resolve_inputs()          [--config 指定時は config.yaml もパース]
   -> analyzers.run_understand()          [if UND exists]
   -> analyzers.run_cloc()                [if CLOC exists]
   -> analyzers.run_pmd()                 [if PMD list non-empty]
   -> analyzers.run_git_numstat()         [if GIT_NUMSTAT exists]
   -> analyzers.run_comprehensive_merge() [if files resolved]
+  -> advanced_visualizations.run_advanced_visualizations() [config またはデフォルト可視化の実行]
   -> analyzers.write_global_summary()
 ```
 
@@ -87,13 +92,14 @@ flowchart LR
     IO --> IN2[(CLOC CSV)]
     IO --> IN3[(PMD XML xN)]
     IO --> IN4[(Git Numstat TSV)]
+    IO --> CONF[(config.yaml)]
 
     AN --> O1[(output_dir/und)]
     AN --> O2[(output_dir/cloc)]
     AN --> O3[(output_dir/pmd)]
     AN --> O4[(output_dir/git)]
     AN --> O5[(output_dir/metrics_merge.csv)]
-    AV --> O6[(output_dir/visualizations)]
+    AV --> O6[(output_dir/visualizations またはカスタム出力先)]
 ```
 
 ## 5.2 コアデータモデル
@@ -107,10 +113,12 @@ flowchart LR
   - `git_numstat: Optional[Path]`
   - `output_dir: Path`
   - `remove_path_prefix: str`
+  - `config_path: Optional[Path]`
+  - `visualizations: list[dict]`
   - `warnings: list[str]`（未存在入力など）
 
 - `TaskResult`
-  - `name: str`（`und` / `cloc` / `pmd` / `git`）
+  - `name: str`（`und` / `cloc` / `pmd` / `git` / `visualize` など）
   - `executed: bool`
   - `success: bool`
   - `outputs: list[Path]`

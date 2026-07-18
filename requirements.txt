@@ -8,3 +8,5 @@ openpyxl
 chardet
 jupyterlab
 xmltodict
+PyYAML
+
