@@ -10,39 +10,36 @@
 
 ### 1.2 システム構成
 
-本リポジトリは以下の2つのエントリポイントを持つ。
+本リポジトリは以下の1つのエントリポイントを持つ。
 
-| エントリポイント | 役割 |
-|---|---|
-| `report_analysis.py` | 各ツールの出力（CSV/XML）を入力として受け取り、解析・可視化・統合レポートを生成する |
-| `run_git_diff_treemap.sh` | Git リポジトリに対して直接差分を収集し、コード量と変更量の Treemap を生成する |
+| エントリポイント     | 役割                                                                                                                                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `report_analysis.py` | 各ツールの出力（CSV/XML/TSV）を入力として受け取り、解析・可視化・統合レポートを生成する。出力する可視化（Treemap等）やレポートは外部設定ファイル（YAML等）から制御可能。 |
 
 ### 1.3 スコープ
 
 **対象:**
-- UND / CLOC / PMD / Git 差分の解析と可視化
+- UND / CLOC / PMD / Git Numstat TSV の解析と可視化
 - 部分実行（存在する入力のみで処理を継続）
 - 統合レポート（全ツール結果のマージ）
-- Git リポジトリの差分 Treemap 可視化
+- 外部設定ファイル（YAML等）による出力メトリクス・レポート・可視化設定（Treemapの面積/色に使用するメトリクスの指定等）の制御
 
 **非対象:**
 - 解析アルゴリズムそのものの精度改善
-- 既存 `scripts/` ロジックの全面書き換え
+- Git リポジトリ（`.git`）への直接アクセスおよび Git コマンドの実行（Git Numstat TSV ファイルの入力のみを受け取る）
 - Git 未追跡ファイルの差分集計
 - バイナリファイルの行数集計
 
 ### 1.4 用語定義
 
-| 用語 | 定義 |
-|---|---|
-| UND | SciTools Understand の CSV エクスポート |
-| CLOC | `cloc --csv` の出力 CSV |
-| PMD | PMD CPD の XML レポート（複数可） |
-| Git Numstat | `git diff --numstat` 形式のテキスト入力 |
-| OUTPUT_DIR | 全成果物の出力ルート |
-| REMOVE_PATH_PREFIX | パス正規化用プレフィックス |
-| Base Ref | Git 比較元（タグ名 / ブランチ名 / コミット ID） |
-| Target Ref | Git 比較先（既定: `HEAD`） |
+| 用語               | 定義                                            |
+| ------------------ | ----------------------------------------------- |
+| UND                | SciTools Understand の CSV エクスポート         |
+| CLOC               | `cloc --csv` の出力 CSV                         |
+| PMD                | PMD CPD の XML レポート（複数可）               |
+| Git Numstat        | `git diff --numstat` 形式のテキスト入力（TSV）  |
+| OUTPUT_DIR         | 全成果物の出力ルート                            |
+| REMOVE_PATH_PREFIX | パス正規化用プレフィックス                      |
 
 ---
 
@@ -72,66 +69,48 @@
   - すべての入力が未存在 → stderr にエラー出力し、終了コード `1`
 - **事後条件:** 存在した入力に対応する成果物のみが配置される
 
-### UC-03: Git 差分 Treemap 生成
+### UC-03: 汎用可視化の生成 (Treemap等)
 
 - **アクター:** 開発者 / CI
-- **事前条件:** 対象が Git リポジトリであり、Base Ref が解決可能
+- **事前条件:** 外部設定ファイル `config.yaml` が用意され、可視化対象のデータ（UND, CLOC, PMD, Git Numstat など）が存在する。
 - **正常フロー:**
-  1. Base Ref と OUTPUT_DIR を指定して `run_git_diff_treemap.sh` を実行
-  2. Git diff から追加行数・削除行数を収集
-  3. 比較先のファイルごとにコード総行数をカウント
-  4. ファイル別 CSV、サマリ CSV、Treemap HTML を出力
-  5. `index.html` から各成果物へ遷移可能にする
-- **代替フロー:**
-  - `--worktree` 指定時 → 比較先を作業ツリーに切り替え
-  - `--target-ref` 指定時 → 比較先を指定 ref に変更
-  - `--repo` / `--git-dir` 指定時 → 対象リポジトリを変更
+  1. 出力ディレクトリ、入力ファイル群、`--config config.yaml` を指定して `report_analysis.py` を実行。
+  2. 設定ファイルの内容（可視化の種類、面積/色の割り当てメトリクス、出力ファイル名）を読み取る。
+  3. 各入力データからマージされたデータセットをベースに、指定されたレイアウト（Treemap、Pie等）とカラムデータを用いたHTML可視化ファイルを生成する。
+  4. 指定した出力場所に保存する。
 - **例外フロー:**
-  - Git リポジトリでない → 終了コード `1`
-  - Base Ref / Target Ref が解決不可 → 終了コード `1`
-- **事後条件:** `OUTPUT_DIR` に CSV と Treemap HTML が配置される
+  - `config.yaml` に定義された可視化に使用するメトリクス（列）がマージ結果に存在しない場合 → 警告を出力して可視化の生成をスキップする。
+- **事後条件:** 指定された出力先にインタラクティブなHTML可視化ファイルが配置される。
 
-### UC-04: 変更規模の大きいファイルの特定
+### UC-04: 可視化による品質・規模把握
 
 - **アクター:** 開発者
-- **事前条件:** UC-01 または UC-03 が完了済み
+- **事前条件:** UC-03 が完了済み。
 - **正常フロー:**
-  1. 出力された CSV（`git_diff_file_metrics.csv` や `metrics_merge.csv`）を開く
-  2. 変更行数や複雑度でソートし、注目すべきファイルを特定する
-  3. Treemap HTML でディレクトリ階層ごとの全体像を俯瞰する
+  1. 生成された可視化HTML（例: コード総行数を面積、PMD重複率を色にしたTreemap）をブラウザで開く。
+  2. ディレクトリ階層ごとのデータ規模と品質指標を直感的に俯瞰し、リファクタリング対象のファイルを特定する。
 
 ---
 
 ## 3. 機能要求
 
-### 3.1 CLI
+## 3.1 CLI
 
 #### report_analysis.py
 
 - **[FR-CLI-01]** 以下の形式で実行できること。
   ```bash
   python3 src/report_analysis.py \
+    --config config.yaml \
     {UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} \
     {GIT_NUMSTAT|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}
   ```
+  ※ 外部設定ファイル（`config.yaml`）で出力メトリクス、実行タスク、および可視化構成を制御できること。
 - **[FR-CLI-02]** `none` / `false` / `-` を未指定として扱うこと。
 - **[FR-CLI-03]** PMD 引数は glob（例: `data/pmd/*.xml`）および区切りリスト（`,` or `:`）に対応すること。
 - **[FR-CLI-04]** 引数数不正時は usage を表示して終了コード `1` で終了すること。
 - **[FR-CLI-05]** すべての入力が未指定または未存在の場合は終了コード `1` で終了すること。
-
-#### run_git_diff_treemap.sh
-
-- **[FR-CLI-06]** 以下の形式で実行できること。
-  ```bash
-  bash src/run_git_diff_treemap.sh {BASE_REF} {OUTPUT_DIR} [OPTIONS]
-  ```
-- **[FR-CLI-07]** 比較先は既定で `HEAD` とし、`--target-ref` で変更できること。
-- **[FR-CLI-08]** `--worktree` で比較先を作業ツリーに切り替えられること。
-- **[FR-CLI-09]** `--repo` / `--git-dir` で対象リポジトリを指定できること。
-- **[FR-CLI-10]** `--extensions` で集計対象拡張子を制御できること。`all` 指定時は拡張子フィルタを無効化すること。
-- **[FR-CLI-11]** `--exclude` で除外 glob を追加指定できること。
-- **[FR-CLI-12]** `--treemap-max-depth` で Treemap の最大階層深さを指定できること。
-- **[FR-CLI-13]** `--no-progress` で進捗表示を無効化できること。`--progress-interval` で進捗表示間隔を指定できること。
+- **[FR-CLI-06]** `config.yaml` にて、可視化設定（種類：Treemap/Pie_chart等、面積に使用するカラム名、色に使用するカラム名、出力ファイル名）を指定できること。
 
 ### 3.2 Understand 解析
 
@@ -160,19 +139,12 @@
 
 ### 3.5 Git 差分解析
 
-#### report_analysis 経由（Numstat 入力）
-
-- **[FR-GIT-01]** `git diff --numstat` 形式のテキストをパースし、ファイルごとの追加行数・削除行数・変更行数を CSV 出力すること。
-- **[FR-GIT-02]** バイナリファイル（`-` 表記）は行数 `0` として扱うこと。
-- **[FR-GIT-03]** `REMOVE_PATH_PREFIX` を適用してパスを正規化すること。同一ファイルの重複行は合算すること。
-
-#### run_git_diff_treemap 経由（直接収集）
-
-- **[FR-GIT-04]** Git diff の `numstat` 情報から追加行数・削除行数を取得すること。変更行数は `追加 + 削除` で算出。
-- **[FR-GIT-05]** リネームされたファイルは比較先パスを代表パスとして扱うこと。
-- **[FR-GIT-06]** 比較先が Git ref の場合、Git blob を一括読み出しして行数集計すること（ファイルごとのプロセス起動を避ける）。
-- **[FR-GIT-07]** NUL バイトを含むファイルはバイナリとみなし総行数を `0` とすること。
-- **[FR-GIT-08]** 処理段階（ファイル一覧取得 → 差分取得 → 行数カウント → 出力）をログ表示すること。行数カウント中は処理済み/総数/経過秒を表示すること。
+- **[FR-GIT-01]** Git diff の `numstat` 情報から追加行数・削除行数を取得すること。変更行数は `追加 + 削除` で算出。
+- **[FR-GIT-02]** リネームされたファイルは比較先パスを代表パスとして扱うこと。
+- **[FR-GIT-03]** 比較先が Git ref の場合、Git blob を一括読み出しして行数集計すること（ファイルごとのプロセス起動を避ける）。
+- **[FR-GIT-04]** NUL バイトを含むファイルはバイナリとみなし総行数を `0` として扱うこと。
+- **[FR-GIT-05]** `REMOVE_PATH_PREFIX` を適用してパスを正規化し、ファイルごとの追加行数・削除行数・変更行数を CSV 出力すること。
+- **[FR-GIT-06]** 処理段階（ファイル一覧取得 → 差分取得 → 行数カウント → 出力）をログ表示すること。
 
 ### 3.6 可視化（Git Treemap）
 
@@ -200,31 +172,23 @@
 
 ### 4.1 入力
 
-| 入力 | 形式 | 必須列 / フォーマット |
-|---|---|---|
-| UND CSV | CSV（1ファイル） | `Kind`, `File`, `CountLineCode` 等 |
-| CLOC CSV | CSV（1ファイル） | `language`, `filename`, `blank`, `comment`, `code` |
-| PMD XML | XML（1件以上） | `<duplication>` 要素を含む PMD CPD 出力 |
-| Git Numstat | TSV（1ファイル） | `<added>\t<deleted>\t<file_path>` |
-| Git リポジトリ | ディレクトリ | `.git` を持つ有効なリポジトリ |
+| 入力           | 形式             | 必須列 / フォーマット                              |
+| -------------- | ---------------- | -------------------------------------------------- |
+| UND CSV        | CSV（1ファイル） | `Kind`, `File`, `CountLineCode` 等                 |
+| CLOC CSV       | CSV（1ファイル） | `language`, `filename`, `blank`, `comment`, `code` |
+| PMD XML        | XML（1件以上）   | `<duplication>` 要素を含む PMD CPD 出力            |
+| Git Numstat    | TSV（1ファイル） | `<added>\t<deleted>\t<file_path>`                  |
+| Git リポジトリ | ディレクトリ     | `.git` を持つ有効なリポジトリ                      |
 
-### 4.2 出力（report_analysis）
+### 4.2 出力
 
-| 出力先 | 主要成果物 |
-|---|---|
-| `OUTPUT_DIR/und/` | `und_metrics.csv`, `und_file.csv`, `und_func.csv`, `und_class.csv`, `*_treemap.html` |
-| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`, `cloc_pie_chart.html` |
-| `OUTPUT_DIR/pmd/` | `pmd_clone_ratio.csv`, `pmd_clone_ratio_summary.csv`, `*_treemap.html` |
-| `OUTPUT_DIR/git/` | `git_diff_file_metrics.csv`, `git_diff_summary.csv` |
-| `OUTPUT_DIR/` | `summary_report.csv`, `metrics_merge.csv` |
-
-### 4.3 出力（git_diff_treemap）
-
-| 出力先 | 主要成果物 |
-|---|---|
-| `OUTPUT_DIR/` | `git_diff_file_metrics.csv`（列: `File`, `TotalLines`, `AddedLines`, `DeletedLines`, `ChangedLines`, `ChangeRatio`） |
-| `OUTPUT_DIR/` | `git_diff_summary.csv`（比較元/先, ファイル数, 変更ファイル数, 各行数合計） |
-| `OUTPUT_DIR/` | `code_total_lines_treemap.html`, `changed_lines_count_treemap.html`, `changed_lines_treemap.html`, `index.html` |
+| 出力先             | 主要成果物                                                                                                                                                           |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OUTPUT_DIR/und/`  | `und_metrics.csv`, `und_file.csv`, `und_func.csv`, `und_class.csv`, `*_treemap.html`                                                                                 |
+| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`, `cloc_pie_chart.html`                                                                                                                           |
+| `OUTPUT_DIR/pmd/`  | `pmd_clone_ratio.csv`, `pmd_clone_ratio_summary.csv`, `*_treemap.html`                                                                                               |
+| `OUTPUT_DIR/git/`  | `git_diff_file_metrics.csv`, `git_diff_summary.csv`, `code_total_lines_treemap.html`, `changed_lines_count_treemap.html`, `changed_lines_treemap.html`, `index.html` |
+| `OUTPUT_DIR/`      | `summary_report.csv`, `metrics_merge.csv`                                                                                                                            |
 
 ---
 
@@ -232,10 +196,10 @@
 
 ### 5.1 終了コード
 
-| コード | 条件 |
-|---|---|
-| `0` | 1つ以上の解析が実行され、全実行タスクが失敗でない |
-| `1` | 引数不正 / 全入力が無効 / 全タスク失敗 / Git ref 解決不可 |
+| コード | 条件                                                      |
+| ------ | --------------------------------------------------------- |
+| `0`    | 1つ以上の解析が実行され、全実行タスクが失敗でない         |
+| `1`    | 引数不正 / 全入力が無効 / 全タスク失敗 / Git ref 解決不可 |
 
 ### 5.2 ログ
 
@@ -256,17 +220,17 @@
 
 ## 7. 受け入れ基準
 
-| ID | 基準 | 検証方法 |
-|---|---|---|
-| AC-01 | Windows 形式パス（`\`）の UND CSV を入力すると、出力 CSV のパスが `/` 区切りに統一されている | 出力 CSV に `\` が含まれないことを確認 |
-| AC-02 | CLOC CSV を入力すると `OUTPUT_DIR/cloc/` に pie chart HTML と CSV が生成される | ファイル存在確認 |
-| AC-03 | 複数 PMD XML を入力すると、統合された clone ratio CSV が生成される | 出力行数が全 XML の合計を反映 |
-| AC-04 | 一部入力が未存在でも、存在する入力のみで終了コード `0` で完了する | UND のみ指定で実行し正常終了を確認 |
-| AC-05 | 全入力が未存在の場合、終了コード `1` を返す | 全引数に `none` を指定 |
-| AC-06 | `metrics_merge.csv` が存在するツール結果を `File` 列で結合している | 列名にプレフィックスが付与されていることを確認 |
-| AC-07 | `run_git_diff_treemap.sh` にタグを指定して正常終了し、CSV と Treemap HTML が出力される | ファイル存在確認 |
-| AC-08 | `--worktree` 指定時に作業ツリーを比較先として差分を集計する | unstaged 変更が結果に反映されることを確認 |
-| AC-09 | Base Ref が不正な場合、終了コード `1` でエラー理由を出力する | 存在しないタグを指定 |
+| ID    | 基準                                                                                         | 検証方法                                       |
+| ----- | -------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| AC-01 | Windows 形式パス（`\`）の UND CSV を入力すると、出力 CSV のパスが `/` 区切りに統一されている | 出力 CSV に `\` が含まれないことを確認         |
+| AC-02 | CLOC CSV を入力すると `OUTPUT_DIR/cloc/` に pie chart HTML と CSV が生成される               | ファイル存在確認                               |
+| AC-03 | 複数 PMD XML を入力すると、統合された clone ratio CSV が生成される                           | 出力行数が全 XML の合計を反映                  |
+| AC-04 | 一部入力が未存在でも、存在する入力のみで終了コード `0` で完了する                            | UND のみ指定で実行し正常終了を確認             |
+| AC-05 | 全入力が未存在の場合、終了コード `1` を返す                                                  | 全引数に `none` を指定                         |
+| AC-06 | `metrics_merge.csv` が存在するツール結果を `File` 列で結合している                           | 列名にプレフィックスが付与されていることを確認 |
+| AC-07 | `report_analysis.py` に `config.yaml` で指定した可視化構成を渡すと、指定された面積/色マッピングのHTMLが生成される | ファイル存在確認およびマッピング内容の妥当性 |
+| AC-08 | `config.yaml` の `visualizations` セクションで指定されていない可視化ファイルは生成されない | ファイルが生成されていないことを確認 |
+| AC-09 | `config.yaml` の構文エラーや、存在しない列を指定した場合は終了コード `1` で異常終了する | エラー出力と終了コードの確認 |
 
 ---
 
