@@ -7,24 +7,16 @@ from pathlib import Path
 
 import pandas as pd
 
-from io_models import AnalysisInputs, TaskResult
+from io_models import AnalysisInputs, TaskResult, clean_path
 from plotly_visualize import write_pie_chart, write_treemap_by_path
 
 
 def _normalize_paths(df: pd.DataFrame, columns: list[str], remove_prefix: str) -> pd.DataFrame:
-    prefix = (remove_prefix or "").replace("\\", "/")
-
-    def _strip_prefix(value: str) -> str:
-        if not prefix or prefix in {"/", "\\"}:
-            return value
-        return value[len(prefix) :] if value.startswith(prefix) else value
-
     out = df.copy()
     for col in columns:
         if col not in out.columns:
             continue
-        out[col] = out[col].astype(str).str.replace("\\\\", "/", regex=False)
-        out[col] = out[col].map(_strip_prefix)
+        out[col] = out[col].map(lambda val: clean_path(val, remove_prefix))
     return out
 
 
@@ -412,12 +404,7 @@ def run_cloc(inputs: AnalysisInputs) -> TaskResult:
             raise ValueError(f"missing columns: {missing}")
 
         f = df[df["language"].astype(str) != "SUM"].copy()
-        f["filename"] = f["filename"].astype(str).str.replace("\\\\", "/", regex=False)
-        if inputs.remove_path_prefix and inputs.remove_path_prefix not in {"/", "\\"}:
-            normalized_prefix = inputs.remove_path_prefix.replace("\\", "/")
-            f["filename"] = f["filename"].map(
-                lambda p: (p[len(normalized_prefix) :] if p.startswith(normalized_prefix) else p)
-            )
+        f["filename"] = f["filename"].map(lambda p: clean_path(p, inputs.remove_path_prefix))
 
         filtered_csv = out_cloc / "cloc_filtered.csv"
         f[required].to_csv(filtered_csv, index=False)

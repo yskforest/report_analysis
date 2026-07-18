@@ -2,7 +2,7 @@
 
 ## 1. 目的
 
-本設計書は、[RUN_REPORT_ANALYSIS_REQUIREMENTS.md](/workspace/new_arch/RUN_REPORT_ANALYSIS_REQUIREMENTS.md) を実現するための実行設計を定義する。  
+本設計書は、[RUN_REPORT_ANALYSIS_REQUIREMENTS.md](file:///home/korver/code/hc_new_arch/docs/RUN_REPORT_ANALYSIS_REQUIREMENTS.md) を実現するための実行設計を定義する。  
 本設計では **既存 `scripts/*` のコードを利用しない** ことを前提とし、`new_arch` 配下のみで完結する新規実装とする。
 
 優先順位は以下とする。
@@ -13,7 +13,6 @@
 
 ## 2. 設計方針
 
-- Shell は薄い入口として維持し、処理本体は Python に集約する。
 - UND/CLOC/PMD は同一オーケストレーターから呼び出し、部分実行を標準動作にする。
 - 既存スクリプトの呼び出し・import は行わない。
 - 分割粒度は「理解コスト削減」と「将来追加容易性」のバランスで決める。
@@ -21,14 +20,14 @@
 ## 3. ディレクトリ/ファイル構成
 
 ```text
-new_arch/
-  run_report_analysis.sh          # CLI入口（薄い）
+src/
   report_analysis.py              # オーケストレーター本体
   analyzers.py                    # UND/CLOC/PMD の新規解析実装
   io_models.py                    # 入力解決・設定・結果モデル（dataclass）
-  README.md                       # 実行方法・入出力説明
+docs/
   RUN_REPORT_ANALYSIS_REQUIREMENTS.md
   RUN_REPORT_ANALYSIS_DESIGN.md
+README.md                         # 実行方法・入出力説明 (プロジェクトルート)
 ```
 
 ## 4. CLI インターフェース設計
@@ -36,7 +35,7 @@ new_arch/
 ## 4.1 実行形式
 
 ```bash
-bash new_arch/run_report_analysis.sh \
+python3 src/report_analysis.py \
   {UND_CSV|none} \
   {CLOC_CSV|none} \
   {PMD_XML_GLOB_OR_LIST|none} \
@@ -61,21 +60,19 @@ bash new_arch/run_report_analysis.sh \
 ## 5. 論理アーキテクチャ
 
 ```text
-run_report_analysis.sh
-  -> report_analysis.py
-      -> io_models.resolve_inputs()
-      -> analyzers.run_understand()   [if UND exists]
-      -> analyzers.run_cloc()         [if CLOC exists]
-      -> analyzers.run_pmd()          [if PMD list non-empty]
-      -> analyzers.write_global_summary()
+report_analysis.py
+  -> io_models.resolve_inputs()
+  -> analyzers.run_understand()   [if UND exists]
+  -> analyzers.run_cloc()         [if CLOC exists]
+  -> analyzers.run_pmd()          [if PMD list non-empty]
+  -> analyzers.write_global_summary()
 ```
 
 ## 5.1 UML: コンポーネント図
 
 ```mermaid
 flowchart LR
-    User[User/CI] --> SH[run_report_analysis.sh]
-    SH --> RA[report_analysis.py]
+    User[User/CI] --> RA[report_analysis.py]
 
     RA --> IO[io_models.py]
     RA --> AN[analyzers.py]
@@ -178,20 +175,18 @@ classDiagram
 ```mermaid
 sequenceDiagram
     participant U as User
-    participant SH as run_report_analysis.sh
     participant RA as report_analysis.py
     participant IO as io_models.py
     participant AN as analyzers.py
     participant AV as advanced_visualizations.py
 
-    U->>SH: 実行(5引数)
-    SH->>RA: python report_analysis.py ...
+    U->>RA: python report_analysis.py ...
     RA->>IO: resolve_inputs(...)
     IO-->>RA: AnalysisInputs(warnings含む)
     RA->>RA: output_dir作成 / warning出力
 
     alt 有効入力が0件
-      RA-->>SH: exit 1
+      RA-->>U: exit 1
     else 有効入力あり
       RA->>AN: run_understand(inputs)
       AN-->>RA: TaskResult(und)
@@ -205,7 +200,7 @@ sequenceDiagram
       AV-->>RA: TaskResult(visualize)
       RA->>AN: write_global_summary(inputs, results)
       AN-->>RA: summary_report.csv
-      RA-->>SH: exit 0 or exit 1
+      RA-->>U: exit 0 or exit 1
     end
 ```
 

@@ -4,7 +4,35 @@ from dataclasses import dataclass, field
 from pathlib import Path
 import glob
 
-SKIP_VALUES = {"false", "none", "-", ""}
+
+def clean_path(path_str: object, remove_prefix: str | list[str] | None) -> str:
+    if path_str is None or (isinstance(path_str, float) and path_str != path_str):
+        return ""
+    val = str(path_str).strip()
+    if val.lower() in {"nan", "none", ""}:
+        return ""
+    val = val.replace("\\", "/").strip("/")
+    
+    prefixes: list[str] = []
+    if isinstance(remove_prefix, str):
+        if remove_prefix:
+            prefixes.append(remove_prefix)
+    elif isinstance(remove_prefix, list):
+        prefixes = remove_prefix
+        
+    for prefix in prefixes:
+        norm_prefix = prefix.replace("\\", "/").strip("/")
+        if not norm_prefix:
+            continue
+        if val.startswith(norm_prefix + "/"):
+            val = val[len(norm_prefix) + 1 :]
+        elif val.startswith(norm_prefix):
+            val = val[len(norm_prefix) :]
+            
+    if val.startswith("./"):
+        val = val[2:]
+    return val
+
 
 
 @dataclass
@@ -25,6 +53,9 @@ class TaskResult:
     outputs: list[Path] = field(default_factory=list)
     summary_rows: list[dict] = field(default_factory=list)
     message: str = ""
+
+
+SKIP_VALUES = {"false", "none", "-", ""}
 
 
 def _is_skip(value: str) -> bool:

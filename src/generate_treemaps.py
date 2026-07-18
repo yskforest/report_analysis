@@ -33,9 +33,9 @@ def write_index(output_path: Path, base_ref: str, target_label: str) -> None:
                 "<h1>Git Diff Treemap</h1>",
                 f"<p>Base: <code>{base_ref}</code> / Target: <code>{target_label}</code></p>",
                 "<ul>",
-                '<li><a href="total_lines_change_ratio_treemap.html">コード総行数 Treemap（色: 変更率）</a></li>',
+                '<li><a href="code_total_lines_treemap.html">コード総行数 Treemap（色: 変更率）</a></li>',
                 '<li><a href="file_size_treemap.html">ファイルサイズ Treemap（面積: サイズ、色: 変更率）</a></li>',
-                '<li><a href="count_lines_changed_lines_treemap.html">変更行数カラーマップ Treemap（色: 変更行数）</a></li>',
+                '<li><a href="changed_lines_count_treemap.html">変更行数カラーマップ Treemap（色: 変更行数）</a></li>',
                 '<li><a href="changed_lines_treemap.html">変更行数 Treemap（面積: 変更行数）</a></li>',
                 '<li><a href="git_diff_file_metrics.csv">ファイル別 CSV (merged)</a></li>',
                 '<li><a href="git_diff_summary.csv">サマリ CSV</a></li>',
@@ -109,14 +109,14 @@ def main(argv: list[str]) -> int:
 
         treemap_max_depth = max(1, args.treemap_max_depth)
 
-        # Write total_lines_change_ratio_treemap.html
+        # Write code_total_lines_treemap.html
         progress.log(f"writing total lines change ratio treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
             df,
             file_col="File",
             size_col="TotalLines",
             color_col="ChangeRatio",
-            output_html=output_dir / "total_lines_change_ratio_treemap.html",
+            output_html=output_dir / "code_total_lines_treemap.html",
             title="Count Line(Area) - Change Ratio(Color) Treemap",
             vmin=0,
             vmax=1,
@@ -145,14 +145,14 @@ def main(argv: list[str]) -> int:
             color_continuous_scale="Blues",
         )
 
-        # Write count_lines_changed_lines_treemap.html
+        # Write changed_lines_count_treemap.html
         progress.log(f"writing count lines changed lines treemap (max_depth={treemap_max_depth})")
         write_treemap_by_path(
             df,
             file_col="File",
             size_col="TotalLines",
             color_col="ChangedLines",
-            output_html=output_dir / "count_lines_changed_lines_treemap.html",
+            output_html=output_dir / "changed_lines_count_treemap.html",
             title="Count Line(Area) - Changed Line(Color) Treemap",
             vmin=0,
             vmax=100,

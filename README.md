@@ -12,7 +12,7 @@
 ### 1. 統合静的解析レポートの生成
 ```bash
 # 統合静的解析レポートの生成
-bash src/run_report_analysis.sh sample_data/und_metrics.csv sample_data/cloc/cloc.csv "sample_data/pmd/*.xml" out/report /home/korver/code/hc_new_arch
+python3 src/report_analysis.py sample_data/und_metrics.csv sample_data/cloc/cloc.csv "sample_data/pmd/*.xml" out/report /home/korver/code/hc_new_arch
 
 # Git 差分 & メトリクス統合ツリーマップの生成
 bash src/run_git_diff_treemap.sh HEAD~1 out/treemap --git-dir analysis_code/Open3D --cloc-csv sample_data/cloc/cloc.csv --und-csv sample_data/und_metrics.csv --algo add --extensions "cpp,c,cs,h,hpp"
@@ -31,17 +31,17 @@ Python 3.12 以上が推奨されます。必要なライブラリは `requireme
 pip install -r requirements.txt
 ```
 
-### 1. 統合静的解析レポート生成 (`run_report_analysis.sh`)
+### 1. 統合静的解析レポート生成 (`report_analysis.py`)
 指定された各種解析ツールのファイル（省略時は `none` を指定可能）から、統合された解析結果を `OUTPUT_DIR` に出力します。
 
 #### コマンド書式
 ```bash
-bash src/run_report_analysis.sh \
+python3 src/report_analysis.py \
   {UND_CSV|none} \
   {CLOC_CSV|none} \
   {PMD_XML_GLOB_OR_LIST|none} \
   {OUTPUT_DIR} \
-  [REMOVE_PATH_PREFIX]
+  {REMOVE_PATH_PREFIX}
 ```
 
 - **`UND_CSV`** – Understand から出力したメトリクス CSV ファイル。
@@ -97,7 +97,6 @@ bash src/run_git_diff_treemap.sh {BASE_REF} {OUTPUT_DIR} [options]
 hc_new_arch/
 ├── README.md                      # 本ドキュメント
 ├── requirements.txt               # 必要な依存ライブラリ
-├── run_report_analysis.sh         # 静的解析レポート CLI エントリ
 ├── docker-compose.yml             # コンテナ実行用構成
 ├── Dockerfile                     # コンテナイメージビルド用
 ├── sample_data/                   # テスト・サンプルデータ群
@@ -116,7 +115,7 @@ hc_new_arch/
 
 ### アーキテクチャ設計
 
-#### 1. 統合静的解析レポート (`run_report_analysis.sh`)
+#### 1. 統合静的解析レポート (`report_analysis.py`)
 `report_analysis.py` がオーケストレータとなり、`io_models.py` で入力パスを解決・前処理した上で、`analyzers.py` の各種解析モジュールを逐次実行します。各モジュールは独立しており、新規ツールの追加や設定の変更が容易な拡張性の高い設計です。
 
 #### 2. Git差分ツリーマップ (`run_git_diff_treemap.sh`)

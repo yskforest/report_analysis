@@ -1,8 +1,8 @@
-# 新アーキテクチャ要求仕様書: run_report_analysis 相当処理
+# 新アーキテクチャ要求仕様書: report_analysis 相当処理
 
 ## 1. 目的
 
-本仕様書は、`new_arch` 配下に実装する「`scripts/run_report_analysis.sh` と README 相当の処理仕様」を定義する。  
+本仕様書は、`src` および `docs` 配下に実装する「`src/report_analysis.py` と README 相当の処理仕様」を定義する。  
 対象は `understand` / `cloc` / `pmd` の解析処理であり、指定された入力のうち存在するものだけで実行し、成果物を規定ディレクトリへ出力することを要求する。
 
 ## 2. スコープ
@@ -46,7 +46,7 @@
 - 実行形式は以下を満たすこと。
 
 ```bash
-run_report_analysis \
+python3 src/report_analysis.py \
   {UND_CSV|none} \
   {CLOC_CSV|none} \
   {PMD_XML_GLOB_OR_LIST|none} \

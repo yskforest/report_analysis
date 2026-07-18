@@ -7,21 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 
-
-def clean_path(path_str: object, prefixes: list[str]) -> str:
-    if pd.isna(path_str) or path_str is None:
-        return ""
-    path_str = str(path_str).replace("\\", "/").strip("/")
-    for prefix in prefixes:
-        norm_prefix = prefix.replace("\\", "/").strip("/")
-        if not norm_prefix:
-            continue
-        # Remove prefix + "/" or prefix exactly
-        if path_str.startswith(norm_prefix + "/"):
-            path_str = path_str[len(norm_prefix) + 1 :]
-        elif path_str.startswith(norm_prefix):
-            path_str = path_str[len(norm_prefix) :]
-    return path_str
+from io_models import clean_path
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
