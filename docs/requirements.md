@@ -23,6 +23,7 @@
 - 部分実行（存在する入力のみで処理を継続）
 - 統合レポート（全ツール結果のマージ）
 - 外部設定ファイル（YAML等）による出力メトリクス・レポート・可視化設定（Treemapの面積/色に使用するメトリクスの指定等）の制御
+- Understand 関数メトリクスの基準値超過関数の集計・レポート
 
 **非対象:**
 - 解析アルゴリズムそのものの精度改善
@@ -90,6 +91,22 @@
   1. 生成された可視化HTML（例: コード総行数を面積、PMD重複率を色にしたTreemap）をブラウザで開く。
   2. ディレクトリ階層ごとのデータ規模と品質指標を直感的に俯瞰し、リファクタリング対象のファイルを特定する。
 
+### UC-05: 基準値超過関数の集計
+
+- **アクター:** 開発者 / CI
+- **事前条件:** UND CSV が存在し、関数（Function / Method）行を含む。外部設定ファイル `config.yaml` に基準値（`thresholds`）が定義されている。
+- **正常フロー:**
+  1. `report_analysis.py` を `--config config.yaml` 付きで実行。
+  2. UND CSV から関数（Kind が `Function` または `Method` を含む行）を抽出。
+  3. `config.yaml` の `thresholds` セクションに定義された各メトリクス（`MaxNesting`, `Essential`, `Cyclomatic`, `CountLine`, `CountLineCode`）について、基準値を超過する関数を集計する。
+  4. ファイルごとの超過関数数と超過関数一覧を CSV として出力する。
+  5. 全体の超過関数数サマリを CSV として出力する。
+- **例外フロー:**
+  - UND CSV が未指定 → 基準値集計をスキップ。
+  - `config.yaml` に `thresholds` が未定義 → 基準値集計をスキップ。
+  - 指定されたメトリクス列が UND CSV に存在しない → 警告を出力し、当該メトリクスの集計をスキップ。
+- **事後条件:** `OUTPUT_DIR/und/` 配下に基準値超過関数の集計 CSV が配置される。
+
 ---
 
 ## 3. 機能要求
@@ -111,6 +128,7 @@
 - **[FR-CLI-04]** 引数数不正時は usage を表示して終了コード `1` で終了すること。
 - **[FR-CLI-05]** すべての入力が未指定または未存在の場合は終了コード `1` で終了すること。
 - **[FR-CLI-06]** `config.yaml` にて、可視化設定（種類：Treemap/Pie_chart等、面積に使用するカラム名、色に使用するカラム名、出力ファイル名）を指定できること。
+- **[FR-CLI-07]** `config.yaml` にて、基準値超過関数の集計設定（`thresholds` セクション）を指定できること。
 
 ### 3.2 Understand 解析
 
@@ -122,6 +140,27 @@
 - **[FR-UND-06]** 以下の Treemap 可視化を HTML で出力すること。
   - `CountLineCode(Area)-Essential(FileAverage)_treemap.html`
   - `CountLineCode(Area)-Cyclomatic(FileAverage)_treemap.html`
+
+### 3.9 基準値超過関数の集計
+
+- **[FR-THRESH-01]** `config.yaml` の `thresholds` セクションで、Understand 関数メトリクスの基準値を定義できること。対象メトリクスは `MaxNesting`, `Essential`, `Cyclomatic`, `CountLine`, `CountLineCode` とする。
+  ```yaml
+  thresholds:
+    MaxNesting: 5
+    Essential: 4
+    Cyclomatic: 15
+    CountLine: 200
+    CountLineCode: 150
+  ```
+- **[FR-THRESH-02]** UND CSV が存在し、`thresholds` が定義されている場合、Kind が `Function` または `Method` を含む行を対象とし、各メトリクスの値が基準値を**超過**（`> threshold`）する関数を抽出すること。
+- **[FR-THRESH-03]** ファイルごとに各メトリクスの超過関数数を集計した CSV `threshold_exceeded_summary.csv` を `OUTPUT_DIR/und/` に出力すること。
+  - 列構成: `File`, `total_functions` (ファイル内の全関数・メソッド数), `{metric}_exceeded_count`（メトリクスごと）, `total_exceeded_count`（いずれかの基準値を超過した重複なし関数数）, `exceeded_ratio` (`total_exceeded_count / total_functions` で算出される超過率)
+- **[FR-THRESH-04]** 基準値を超過した関数の一覧を CSV `threshold_exceeded_functions.csv` として `OUTPUT_DIR/und/` に出力すること。
+  - 列構成: `File`, `Name`, `Kind`, 各対象メトリクスの値, `exceeded_metrics`（超過したメトリクス名のカンマ区切り）
+- **[FR-THRESH-05]** ディレクトリ階層ごとに基準値超過関数を集計した CSV `threshold_exceeded_dir_summary.csv` を `OUTPUT_DIR/und/` に出力すること。
+  - ディレクトリはファイルのパス階層に基づき再帰的に集計し、最上位に `ALL_FILES` 行を設けること。
+  - 列構成: `Dir`, `total_functions`, `{metric}_exceeded_count`（メトリクスごと）, `total_exceeded_count`, `exceeded_ratio`
+- **[FR-THRESH-06]** `config.yaml` に `thresholds` が未定義、または UND CSV が未指定の場合は、基準値集計をスキップしてログに記録すること。
 
 ### 3.3 CLOC 解析
 
@@ -184,11 +223,12 @@
 
 | 出力先             | 主要成果物                                                                                                                                                           |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `OUTPUT_DIR/und/`  | `und_metrics.csv`, `und_file.csv`, `und_func.csv`, `und_class.csv`, `*_treemap.html`                                                                                 |
-| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`, `cloc_pie_chart.html`                                                                                                                           |
-| `OUTPUT_DIR/pmd/`  | `pmd_clone_ratio.csv`, `pmd_clone_ratio_summary.csv`, `*_treemap.html`                                                                                               |
-| `OUTPUT_DIR/git/`  | `git_diff_file_metrics.csv`, `git_diff_summary.csv`, `code_total_lines_treemap.html`, `changed_lines_count_treemap.html`, `changed_lines_treemap.html`, `index.html` |
+| `OUTPUT_DIR/und/`  | `und_file.csv`, `und_func.csv`, `und_class.csv`, `threshold_exceeded_summary.csv`, `threshold_exceeded_functions.csv`, `threshold_exceeded_dir_summary.csv`         |
+| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`, `summary_cloc.csv`                                                                                                                              |
+| `OUTPUT_DIR/pmd/`  | `pmd_clone_ratio.csv`, `pmd_clone_ratio_summary.csv`                                                                                                                 |
+| `OUTPUT_DIR/git/`  | `git_diff_file_metrics.csv`                                                                                                                                           |
 | `OUTPUT_DIR/`      | `summary_report.csv`, `metrics_merge.csv`                                                                                                                            |
+| `OUTPUT_DIR/{sub}/`| YAML `visualizations` で指定した可視化 HTML（サブディレクトリはYAMLの `output_file` で自由に指定可）                                                                  |
 
 ---
 
@@ -231,6 +271,7 @@
 | AC-07 | `report_analysis.py` に `config.yaml` で指定した可視化構成を渡すと、指定された面積/色マッピングのHTMLが生成される | ファイル存在確認およびマッピング内容の妥当性 |
 | AC-08 | `config.yaml` の `visualizations` セクションで指定されていない可視化ファイルは生成されない | ファイルが生成されていないことを確認 |
 | AC-09 | `config.yaml` の構文エラーや、存在しない列を指定した場合は終了コード `1` で異常終了する | エラー出力と終了コードの確認 |
+| AC-10 | `config.yaml` に `thresholds` を定義して UND CSV を入力すると、`threshold_exceeded_summary.csv` と `threshold_exceeded_functions.csv` が `OUTPUT_DIR/und/` に生成され、基準値を超過した関数が正しく集計されている | ファイル存在確認および集計値の検証 |
 
 ---
 

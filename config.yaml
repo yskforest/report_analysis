@@ -101,3 +101,18 @@ visualizations:
     metric_x: File
     metric_y: cloc_code
     output_file: "cloc/file_loc_line.html"
+
+  # 17. Understandのコード行数を面積、基準値超過関数率 (und_exceeded_ratio) を色にしたTreemap (und に配置)
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_exceeded_ratio
+    output_file: "und/exceeded_ratio_treemap.html"
+
+# thresholds: Understandの関数・メソッドに関するメトリクスの基準値設定
+# ここで定義された値を超過（> threshold）する関数・メソッドが抽出・集計されます。
+thresholds:
+  MaxNesting: 5
+  Essential: 4
+  Cyclomatic: 15
+  CountLine: 200
+  CountLineCode: 150

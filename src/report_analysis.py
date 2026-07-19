@@ -12,6 +12,7 @@ from analyzers import (
     write_global_summary,
     run_git_numstat,
     run_comprehensive_merge,
+    run_threshold_check,
 )
 from advanced_visualizations import run_advanced_visualizations
 from io_models import resolve_inputs
@@ -62,6 +63,7 @@ def main(argv: list[str]) -> int:
 
     results = [
         run_understand(inputs),
+        run_threshold_check(inputs),
         run_cloc(inputs),
         run_pmd(inputs),
         run_git_numstat(inputs),

@@ -28,6 +28,7 @@ ALL_TESTS=(
   "ac07:test_ac07_config_visualization.sh:カスタム可視化生成"
   "ac08:test_ac08_config_exclusion.sh:指定外の可視化除外"
   "ac09:test_ac09_config_invalid.sh:設定異常系エラーハンドリング"
+  "ac10:test_ac10_thresholds.sh:基準値超過関数の集計検証"
 )
 
 # ── ヘルプ / リスト表示 ──

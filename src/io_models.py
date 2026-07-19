@@ -47,6 +47,7 @@ class AnalysisInputs:
     remove_path_prefix: str
     config_path: Path | None = None
     visualizations: list[dict] = field(default_factory=list)
+    thresholds: dict[str, float] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
     shared_dfs: dict[str, object] = field(default_factory=dict)
 
@@ -130,6 +131,7 @@ def resolve_inputs(
 
     config_path: Path | None = None
     visualizations: list[dict] = []
+    thresholds: dict[str, float] = {}
 
     if config_path_raw:
         config_path = Path(config_path_raw).expanduser().resolve()
@@ -149,6 +151,15 @@ def resolve_inputs(
                 raise ValueError("Config YAML 'visualizations' section must be a list")
             visualizations = visualizations_raw
 
+            thresholds_raw = config_data.get("thresholds", {})
+            if not isinstance(thresholds_raw, dict):
+                raise ValueError("Config YAML 'thresholds' section must be a dictionary")
+            for k, v in thresholds_raw.items():
+                try:
+                    thresholds[str(k)] = float(v)
+                except (ValueError, TypeError):
+                    raise ValueError(f"Threshold value for '{k}' must be a number, got '{v}'")
+
     return AnalysisInputs(
         und_csv=und_csv,
         cloc_csv=cloc_csv,
@@ -158,6 +169,7 @@ def resolve_inputs(
         remove_path_prefix=remove_path_prefix,
         config_path=config_path,
         visualizations=visualizations,
+        thresholds=thresholds,
         warnings=warnings,
     )
 

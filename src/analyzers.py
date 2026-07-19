@@ -564,6 +564,27 @@ def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
             if not df.empty and "File" in df.columns:
                 df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
                 merged_df = df
+
+        # Merge threshold check summary if exists
+        df_thresh = inputs.shared_dfs.get("threshold_summary")
+        if df_thresh is not None:
+            df = df_thresh.copy()
+            if not df.empty and "File" in df.columns:
+                df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
+                if merged_df is None:
+                    merged_df = df
+                else:
+                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
+        else:
+            thresh_csv = inputs.output_dir / "und" / "threshold_exceeded_summary.csv"
+            if thresh_csv.exists():
+                df = pd.read_csv(thresh_csv, dtype=object, na_filter=False)
+                if not df.empty and "File" in df.columns:
+                    df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
+                    if merged_df is None:
+                        merged_df = df
+                    else:
+                        merged_df = pd.merge(merged_df, df, on="File", how="outer")
                 
         # 2. CLOC
         cloc_csv = inputs.output_dir / "cloc" / "cloc_filtered.csv"
@@ -631,6 +652,182 @@ def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
             executed=True,
             success=False,
             message=f"comprehensive merge failed: {exc}",
+        )
+
+
+
+def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
+    if inputs.und_csv is None or not inputs.thresholds:
+        return TaskResult(
+            name="threshold_check",
+            executed=False,
+            success=True,
+            message="Threshold check skipped (no und_csv or thresholds configured)",
+        )
+
+    out_und = inputs.output_dir / "und"
+    out_und.mkdir(parents=True, exist_ok=True)
+
+    try:
+        # Load und CSV using shared_dfs if cached, or read from disk
+        if "und" in inputs.shared_dfs:
+            df = inputs.shared_dfs["und"]
+        else:
+            df = pd.read_csv(inputs.und_csv, dtype=object, na_filter=False)
+            df = _normalize_paths(df, ["File", "LongName"], inputs.remove_path_prefix)
+            inputs.shared_dfs["und"] = df
+
+        kind_col = df["Kind"].astype(str) if "Kind" in df.columns else pd.Series([""] * len(df))
+        func_df = df[kind_col.str.contains("Function|Method", na=False)].copy()
+
+        # Target thresholds to evaluate
+        valid_metrics = []
+        for metric, threshold_val in inputs.thresholds.items():
+            if metric not in func_df.columns:
+                print(f"[WARN] Metric '{metric}' specified in thresholds not found in Understand output, skipping.")
+                continue
+            valid_metrics.append(metric)
+
+        # Output files paths
+        functions_csv = out_und / "threshold_exceeded_functions.csv"
+        summary_csv = out_und / "threshold_exceeded_summary.csv"
+        dir_summary_csv = out_und / "threshold_exceeded_dir_summary.csv"
+
+        # If no valid metrics are found or no functions/methods exist
+        if not valid_metrics or func_df.empty:
+            empty_summary = pd.DataFrame(columns=["File", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"])
+            empty_functions = pd.DataFrame(columns=["File", "Name", "Kind"] + list(inputs.thresholds.keys()) + ["exceeded_metrics"])
+            empty_dir = pd.DataFrame(columns=["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"])
+            empty_summary.to_csv(summary_csv, index=False)
+            empty_functions.to_csv(functions_csv, index=False)
+            empty_dir.to_csv(dir_summary_csv, index=False)
+            return TaskResult(
+                name="threshold_check",
+                executed=True,
+                success=True,
+                outputs=[summary_csv, functions_csv, dir_summary_csv],
+                message="Threshold check completed (no functions or valid metrics found)",
+            )
+
+        # Convert valid metric columns to numeric
+        for metric in valid_metrics:
+            func_df[metric] = _safe_num(func_df[metric])
+
+        # Evaluate threshold exceeding for each function
+        exceeded_mask = pd.Series(False, index=func_df.index)
+        exceeded_lists = []
+        for idx, row in func_df.iterrows():
+            exceeded_metrics = []
+            for metric in valid_metrics:
+                val = row[metric]
+                thresh = inputs.thresholds[metric]
+                if val > thresh:
+                    exceeded_metrics.append(metric)
+                    exceeded_mask.loc[idx] = True
+            exceeded_lists.append(",".join(exceeded_metrics))
+        func_df["exceeded_metrics"] = exceeded_lists
+
+        # Detailed list of exceeded functions
+        exceeded_funcs_df = func_df[exceeded_mask].copy()
+        cols_to_keep = ["File", "Name", "Kind"] + valid_metrics + ["exceeded_metrics"]
+        exceeded_funcs_df = exceeded_funcs_df[cols_to_keep]
+        exceeded_funcs_df.to_csv(functions_csv, index=False)
+
+        # File-level summary
+        func_df["File"] = func_df["File"].astype(str)
+        file_total_funcs = func_df.groupby("File").size().reset_index(name="total_functions")
+
+        file_metrics_counts = []
+        for metric in valid_metrics:
+            thresh = inputs.thresholds[metric]
+            exceeded_col = func_df[metric] > thresh
+            counts = func_df[exceeded_col].groupby("File").size().reset_index(name=f"{metric}_exceeded_count")
+            file_metrics_counts.append(counts)
+
+        file_total_exceeded = func_df[exceeded_mask].groupby("File").size().reset_index(name="total_exceeded_count")
+
+        summary_df = file_total_funcs
+        for count_df in file_metrics_counts:
+            summary_df = summary_df.merge(count_df, on="File", how="left")
+        summary_df = summary_df.merge(file_total_exceeded, on="File", how="left")
+
+        for col in summary_df.columns:
+            if col != "File":
+                summary_df[col] = summary_df[col].fillna(0).astype(int)
+
+        summary_df["exceeded_ratio"] = summary_df.apply(
+            lambda r: r["total_exceeded_count"] / r["total_functions"] if r["total_functions"] > 0 else 0.0, axis=1
+        )
+        summary_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        summary_df = summary_df[summary_cols]
+        summary_df.to_csv(summary_csv, index=False)
+
+        # Directory-level recursive aggregation
+        dir_rows = []
+        
+        total_row = {
+            "Dir": "ALL_FILES",
+            "total_functions": int(summary_df["total_functions"].sum()),
+            "total_exceeded_count": int(summary_df["total_exceeded_count"].sum()),
+        }
+        for metric in valid_metrics:
+            total_row[f"{metric}_exceeded_count"] = int(summary_df[f"{metric}_exceeded_count"].sum())
+        total_row["exceeded_ratio"] = total_row["total_exceeded_count"] / total_row["total_functions"] if total_row["total_functions"] > 0 else 0.0
+        dir_rows.append(total_row)
+
+        paths = summary_df["File"].astype(str).str.replace("\\\\", "/", regex=False).str.strip("/")
+        parts = paths.str.split("/")
+        depth = int(parts.map(len).max()) if len(summary_df.index) else 0
+
+        dir_data = {}
+        for idx, row in summary_df.iterrows():
+            file_path = row["File"]
+            file_parts = file_path.replace("\\", "/").strip("/").split("/")
+            for i in range(1, len(file_parts)):
+                ancestor_dir = "/".join(file_parts[:i])
+                if ancestor_dir not in dir_data:
+                    dir_data[ancestor_dir] = {
+                        "total_functions": 0,
+                        "total_exceeded_count": 0,
+                    }
+                    for metric in valid_metrics:
+                        dir_data[ancestor_dir][f"{metric}_exceeded_count"] = 0
+                
+                dir_data[ancestor_dir]["total_functions"] += row["total_functions"]
+                dir_data[ancestor_dir]["total_exceeded_count"] += row["total_exceeded_count"]
+                for metric in valid_metrics:
+                    dir_data[ancestor_dir][f"{metric}_exceeded_count"] += row[f"{metric}_exceeded_count"]
+
+        for ancestor_dir, metrics_dict in sorted(dir_data.items()):
+            row_data = {"Dir": ancestor_dir}
+            row_data["total_functions"] = int(metrics_dict["total_functions"])
+            for metric in valid_metrics:
+                row_data[f"{metric}_exceeded_count"] = int(metrics_dict[f"{metric}_exceeded_count"])
+            row_data["total_exceeded_count"] = int(metrics_dict["total_exceeded_count"])
+            row_data["exceeded_ratio"] = row_data["total_exceeded_count"] / row_data["total_functions"] if row_data["total_functions"] > 0 else 0.0
+            dir_rows.append(row_data)
+
+        dir_summary_df = pd.DataFrame(dir_rows)
+        dir_cols = ["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        dir_summary_df = dir_summary_df[dir_cols]
+        dir_summary_df.to_csv(dir_summary_csv, index=False)
+
+        # Store in shared_dfs for comprehensive merge
+        inputs.shared_dfs["threshold_summary"] = summary_df.copy()
+
+        return TaskResult(
+            name="threshold_check",
+            executed=True,
+            success=True,
+            outputs=[summary_csv, functions_csv, dir_summary_csv],
+            message=f"threshold check completed: found {len(exceeded_funcs_df)} functions exceeding thresholds",
+        )
+    except Exception as exc:
+        return TaskResult(
+            name="threshold_check",
+            executed=True,
+            success=False,
+            message=f"threshold check failed: {exc}",
         )
 
 
