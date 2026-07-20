@@ -291,25 +291,20 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
         comment_sum = int(_safe_num(df.get("CountLineComment", pd.Series(dtype=float))).sum())
         file_count = int(len(file_df.index))
 
-        summary = pd.DataFrame(
-            [
-                {
-                    "FileCount": file_count,
-                    "CountLineCode": code_sum,
-                    "CountLine": line_sum,
-                    "CountLineComment": comment_sum,
-                    "RatioCommentToCode": (comment_sum / code_sum * 100) if code_sum else 0,
-                }
-            ]
-        )
-        summary_csv = inputs.output_dir / "und_summary.csv"
-        summary.to_csv(summary_csv, index=False)
+        summary_metrics = {
+            "und_FileCount": file_count,
+            "und_CountLineCode": code_sum,
+            "und_CountLine": line_sum,
+            "und_CountLineComment": comment_sum,
+            "und_RatioCommentToCode": (comment_sum / code_sum * 100) if code_sum else 0,
+        }
 
         return TaskResult(
             name="und",
             executed=True,
             success=True,
-            outputs=[file_csv, func_csv, class_csv, summary_csv],
+            outputs=[file_csv, func_csv, class_csv],
+            summary_metrics=summary_metrics,
             message="UND completed",
         )
     except Exception as exc:
@@ -336,23 +331,19 @@ def run_cloc(inputs: AnalysisInputs) -> TaskResult:
         filtered_csv = out_cloc / "cloc_filtered.csv"
         f[required].to_csv(filtered_csv, index=False)
 
-        summary_csv = inputs.output_dir / "summary_cloc.csv"
-        pd.DataFrame(
-            [
-                {
-                    "CountLineCode": int(_safe_num(f["code"]).sum()),
-                    "CountLineComment": int(_safe_num(f["comment"]).sum()),
-                    "CountLineBlank": int(_safe_num(f["blank"]).sum()),
-                    "Files": int(len(f.index)),
-                }
-            ]
-        ).to_csv(summary_csv, index=False)
+        summary_metrics = {
+            "cloc_CountLineCode": int(_safe_num(f["code"]).sum()),
+            "cloc_CountLineComment": int(_safe_num(f["comment"]).sum()),
+            "cloc_CountLineBlank": int(_safe_num(f["blank"]).sum()),
+            "cloc_Files": int(len(f.index)),
+        }
 
         return TaskResult(
             name="cloc",
             executed=True,
             success=True,
-            outputs=[filtered_csv, summary_csv],
+            outputs=[filtered_csv],
+            summary_metrics=summary_metrics,
             message="CLOC completed",
         )
     except Exception as exc:
@@ -434,62 +425,20 @@ def run_pmd(inputs: AnalysisInputs) -> TaskResult:
         clone_tokens = int(_safe_num(df["PmdCloneTokensSum"]).sum())
         clone_ratio = (clone_tokens / total_tokens * 100) if total_tokens else 0
 
-        summary_csv = out_pmd / "pmd_clone_ratio_summary.csv"
-        pd.DataFrame(
-            [
-                {
-                    "TotalFileTokens": total_tokens,
-                    "CloneUniqueTokens": clone_tokens,
-                    "CloneRatio": clone_ratio,
-                }
-            ]
-        ).to_csv(summary_csv, index=False)
+        summary_metrics = {
+            "pmd_TotalFileTokens": total_tokens,
+            "pmd_CloneUniqueTokens": clone_tokens,
+            "pmd_CloneRatio": clone_ratio,
+        }
 
-        merge_out = None
-        pmd_summary_out = None
-        if inputs.und_csv is not None:
-            und_df = pd.read_csv(inputs.und_csv, dtype=object, na_filter=False)
-            und_df = _normalize_paths(und_df, ["File"], inputs.remove_path_prefix)
-            if "Kind" in und_df.columns:
-                und_df = und_df[und_df["Kind"].astype(str).str.contains("File", na=False)].copy()
-            keep_cols = [
-                c
-                for c in [
-                    "File",
-                    "CountLineCode",
-                    "CountLine",
-                    "CountLineComment",
-                    "RatioCommentToCode",
-                    "AvgCyclomatic",
-                    "AvgEssential",
-                ]
-                if c in und_df.columns
-            ]
-            und_df = und_df[keep_cols].copy()
-
-            merged = und_df.merge(df, how="outer", on="File")
-
-            pmd_summary_out = inputs.output_dir / "pmd_summary.csv"
-            pd.DataFrame(
-                [
-                    {
-                        "CountLineCode": int(_safe_num(merged.get("CountLineCode", pd.Series(dtype=float))).sum()),
-                        "CountLine": int(_safe_num(merged.get("CountLine", pd.Series(dtype=float))).sum()),
-                        "CountLineComment": int(
-                            _safe_num(merged.get("CountLineComment", pd.Series(dtype=float))).sum()
-                        ),
-                        "PmdTotalTokens": int(_safe_num(merged.get("PmdTotalTokens", pd.Series(dtype=float))).sum()),
-                        "PmdCloneTokensSum": int(
-                            _safe_num(merged.get("PmdCloneTokensSum", pd.Series(dtype=float))).sum()
-                        ),
-                    }
-                ]
-            ).to_csv(pmd_summary_out, index=False)
-
-        outputs = [ratio_csv, summary_csv]
-        if pmd_summary_out and pmd_summary_out.exists():
-            outputs.append(pmd_summary_out)
-        return TaskResult(name="pmd", executed=True, success=True, outputs=outputs, message="PMD completed")
+        return TaskResult(
+            name="pmd",
+            executed=True,
+            success=True,
+            outputs=[ratio_csv],
+            summary_metrics=summary_metrics,
+            message="PMD completed",
+        )
     except Exception as exc:
         return TaskResult(name="pmd", executed=True, success=False, message=f"PMD failed: {exc}")
 
@@ -532,20 +481,19 @@ def run_git_numstat(inputs: AnalysisInputs) -> TaskResult:
             
         inputs.shared_dfs["git"] = df
         
-        summary_csv = out_git / "git_diff_summary.csv"
-        summary_df = pd.DataFrame([{
-            "CountFilesChanged": int(len(df.index)),
-            "TotalAddedLines": int(df["AddedLines"].sum()) if not df.empty else 0,
-            "TotalDeletedLines": int(df["DeletedLines"].sum()) if not df.empty else 0,
-            "TotalChangedLines": int(df["ChangedLines"].sum()) if not df.empty else 0,
-        }])
-        summary_df.to_csv(summary_csv, index=False)
+        summary_metrics = {
+            "git_AddedLines": int(df["AddedLines"].sum()) if not df.empty else 0,
+            "git_DeletedLines": int(df["DeletedLines"].sum()) if not df.empty else 0,
+            "git_ChangedLines": int(df["ChangedLines"].sum()) if not df.empty else 0,
+            "git_Files": int(len(df.index)),
+        }
         
         return TaskResult(
             name="git",
             executed=True,
             success=True,
-            outputs=[summary_csv],
+            outputs=[],
+            summary_metrics=summary_metrics,
             message="Git diff integration completed",
         )
     except Exception as exc:
@@ -832,19 +780,32 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
 
 
 def write_global_summary(inputs: AnalysisInputs, results: list[TaskResult]) -> Path:
-    out = inputs.output_dir / "summary_report.csv"
-    rows = [
-        {
+    out = inputs.output_dir / "summary.csv"
+    
+    # Consolidate all metrics keys from all tasks
+    all_metric_keys = []
+    for r in results:
+        for k in r.summary_metrics.keys():
+            if k not in all_metric_keys:
+                all_metric_keys.append(k)
+                
+    fieldnames = ["Task", "Executed", "Success", "Outputs", "Message"] + all_metric_keys
+    
+    rows = []
+    for r in results:
+        row = {
             "Task": r.name,
             "Executed": r.executed,
             "Success": r.success,
             "Outputs": len(r.outputs),
             "Message": r.message,
         }
-        for r in results
-    ]
+        for k in all_metric_keys:
+            row[k] = r.summary_metrics.get(k, "")
+        rows.append(row)
+        
     with out.open("w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=["Task", "Executed", "Success", "Outputs", "Message"])
+        writer = csv.DictWriter(fp, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
     return out

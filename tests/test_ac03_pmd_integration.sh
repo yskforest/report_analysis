@@ -15,7 +15,8 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
 
 # 検証: ファイル存在
 assert_file_exists "${OUT}/pmd/pmd_clone_ratio.csv" "pmd_clone_ratio.csv"
-assert_file_exists "${OUT}/pmd/pmd_clone_ratio_summary.csv" "pmd_clone_ratio_summary.csv"
+assert_file_exists "${OUT}/summary.csv" "summary.csv"
+assert_csv_has_column "${OUT}/summary.csv" "pmd_TotalFileTokens"
 
 # 検証: 行数が1以上（複数XMLの統合結果が反映されている）
 assert_csv_min_rows "${OUT}/pmd/pmd_clone_ratio.csv" 1 \

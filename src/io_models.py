@@ -59,6 +59,7 @@ class TaskResult:
     success: bool
     outputs: list[Path] = field(default_factory=list)
     summary_rows: list[dict] = field(default_factory=list)
+    summary_metrics: dict[str, object] = field(default_factory=dict)
     message: str = ""
 
 

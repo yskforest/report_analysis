@@ -15,7 +15,8 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
 
 # 検証
 assert_file_exists "${OUT}/cloc/cloc_filtered.csv" "cloc_filtered.csv"
-assert_file_exists "${OUT}/summary_cloc.csv" "summary_cloc.csv"
+assert_file_exists "${OUT}/summary.csv" "summary.csv"
+assert_csv_has_column "${OUT}/summary.csv" "cloc_CountLineCode"
 
 cleanup_output_dir "ac02"
 print_summary
