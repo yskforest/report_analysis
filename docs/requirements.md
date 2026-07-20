@@ -224,10 +224,10 @@
 | 出力先             | 主要成果物                                                                                                                                                           |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `OUTPUT_DIR/und/`  | `und_file.csv`, `und_func.csv`, `und_class.csv`, `threshold_exceeded_summary.csv`, `threshold_exceeded_functions.csv`, `threshold_exceeded_dir_summary.csv`         |
-| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`, `summary_cloc.csv`                                                                                                                              |
-| `OUTPUT_DIR/pmd/`  | `pmd_clone_ratio.csv`, `pmd_clone_ratio_summary.csv`                                                                                                                 |
+| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`                                                                                                                                                  |
+| `OUTPUT_DIR/pmd/`  | `pmd_clone_ratio.csv`                                                                                                                                                |
 | `OUTPUT_DIR/git/`  | `git_diff_file_metrics.csv`                                                                                                                                           |
-| `OUTPUT_DIR/`      | `summary_report.csv`, `metrics_merge.csv`                                                                                                                            |
+| `OUTPUT_DIR/`      | `summary.csv`, `metrics_merge.csv`                                                                                                                                   |
 | `OUTPUT_DIR/{sub}/`| YAML `visualizations` で指定した可視化 HTML（サブディレクトリはYAMLの `output_file` で自由に指定可）                                                                  |
 
 ---
