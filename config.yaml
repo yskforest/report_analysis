@@ -108,6 +108,47 @@ visualizations:
     metric_color: und_exceeded_ratio
     output_file: "und/exceeded_ratio_treemap.html"
 
+  # 18. ファイル中の関数数 (und_total_functions) を面積、基準値超過関数率 (und_exceeded_ratio) を色にしたTreemap (und に配置)
+  - type: treemap
+    metric_area: und_total_functions
+    metric_color: und_exceeded_ratio
+    output_file: "und/func_count_exceeded_ratio_treemap.html"
+
+  # 18-1. ファイル中の関数数 (und_total_functions) を面積、MaxNesting超過率 (und_MaxNesting_exceeded_ratio) を色にしたTreemap
+  - type: treemap
+    metric_area: und_total_functions
+    metric_color: und_MaxNesting_exceeded_ratio
+    output_file: "und/max_nesting_exceeded_ratio_treemap.html"
+
+  # 18-2. ファイル中の関数数 (und_total_functions) を面積、Essential超過率 (und_Essential_exceeded_ratio) を色にしたTreemap
+  - type: treemap
+    metric_area: und_total_functions
+    metric_color: und_Essential_exceeded_ratio
+    output_file: "und/essential_exceeded_ratio_treemap.html"
+
+  # 18-3. ファイル中の関数数 (und_total_functions) を面積、Cyclomatic超過率 (und_Cyclomatic_exceeded_ratio) を色にしたTreemap
+  - type: treemap
+    metric_area: und_total_functions
+    metric_color: und_Cyclomatic_exceeded_ratio
+    output_file: "und/cyclomatic_exceeded_ratio_treemap.html"
+
+  # 18-4. ファイル中の関数数 (und_total_functions) を面積、CountLine超過率 (und_CountLine_exceeded_ratio) を色にしたTreemap
+  - type: treemap
+    metric_area: und_total_functions
+    metric_color: und_CountLine_exceeded_ratio
+    output_file: "und/count_line_exceeded_ratio_treemap.html"
+
+  # 18-5. ファイル中の関数数 (und_total_functions) を面積、CountLineCode超過率 (und_CountLineCode_exceeded_ratio) を色にしたTreemap
+  - type: treemap
+    metric_area: und_total_functions
+    metric_color: und_CountLineCode_exceeded_ratio
+    output_file: "und/count_line_code_exceeded_ratio_treemap.html"
+
+  - type: treemap
+    metric_area: fm_file_size_bytes
+    metric_color: fm_is_binary
+    output_file: vis/file_size_treemap.html
+
 # thresholds: Understandの関数・メソッドに関するメトリクスの基準値設定
 # ここで定義された値を超過（> threshold）する関数・メソッドが抽出・集計されます。
 thresholds:

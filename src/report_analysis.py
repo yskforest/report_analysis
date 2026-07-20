@@ -11,6 +11,7 @@ from analyzers import (
     run_git_numstat,
     run_comprehensive_merge,
     run_threshold_check,
+    run_file_metrics,
 )
 from excel_reports import run_excel_report
 from advanced_visualizations import run_advanced_visualizations
@@ -18,7 +19,8 @@ from io_models import resolve_inputs
 
 USAGE = (
     "usage: report_analysis.py [--config CONFIG_YAML] "
-    "{UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} {GIT_NUMSTAT|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}"
+    "{UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} "
+    "{GIT_NUMSTAT|none} {FILE_METRICS_CSV|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}"
 )
 
 
@@ -28,15 +30,15 @@ def main(argv: list[str]) -> int:
     parser.add_argument("positionals", nargs="*")
 
     args = parser.parse_args(argv)
-    if len(args.positionals) != 6:
+    if len(args.positionals) != 7:
         print(USAGE, file=sys.stderr)
         return 1
 
-    und_raw, cloc_raw, pmd_raw, git_raw, output_dir_raw, remove_prefix = args.positionals
+    und_raw, cloc_raw, pmd_raw, git_raw, file_metrics_raw, output_dir_raw, remove_prefix = args.positionals
 
     try:
         inputs = resolve_inputs(
-            und_raw, cloc_raw, pmd_raw, git_raw, output_dir_raw, remove_prefix,
+            und_raw, cloc_raw, pmd_raw, git_raw, file_metrics_raw, output_dir_raw, remove_prefix,
             config_path_raw=args.config
         )
     except Exception as e:
@@ -53,6 +55,7 @@ def main(argv: list[str]) -> int:
         and inputs.cloc_csv is None
         and not inputs.pmd_xmls
         and inputs.git_numstat is None
+        and inputs.file_metrics_csv is None
     ):
         print("[ERROR] no valid inputs found", file=sys.stderr)
         return 1
@@ -66,6 +69,7 @@ def main(argv: list[str]) -> int:
         run_cloc(inputs),
         run_pmd(inputs),
         run_git_numstat(inputs),
+        run_file_metrics(inputs),
         run_excel_report(inputs),
         run_comprehensive_merge(inputs),
         run_advanced_visualizations(inputs),

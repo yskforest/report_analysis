@@ -10,16 +10,19 @@
 
 ### 1.2 システム構成
 
-本リポジトリは以下の1つのエントリポイントを持つ。
+本リポジトリは以下の2つのエントリポイントを持つ。
 
 | エントリポイント     | 役割                                                                                                                                                                                                          |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `report_analysis.py` | 各ツールの出力（CSV/XML/TSV）を入力として受け取り、解析・可視化・統合レポートを生成する。出力する可視化（Treemap等）やレポートは外部設定ファイル（YAML等）から制御可能。 |
+| `file_metrics.py`    | 指定ディレクトリを再帰的に走査し、各ファイルのメトリクス（バイナリ判定・エンコーディング・改行コード・サイズ等）を収集して CSV に出力する。`report_analysis.py` の入力として利用する。 |
 
 ### 1.3 スコープ
 
 **対象:**
 - UND / CLOC / PMD / Git Numstat TSV の解析と可視化
+- ファイルメトリクス収集（バイナリ/テキスト判定・エンコーディング・改行コード・ファイルサイズ等）と CSV 出力
+- ファイルサイズ Treemap 可視化
 - 部分実行（存在する入力のみで処理を継続）
 - 統合レポート（全ツール結果のマージ）
 - 外部設定ファイル（YAML等）による出力メトリクス・レポート・可視化設定（Treemapの面積/色に使用するメトリクスの指定等）の制御
@@ -120,7 +123,7 @@
   python3 src/report_analysis.py \
     --config config.yaml \
     {UND_CSV|none} {CLOC_CSV|none} {PMD_XML_GLOB_OR_LIST|none} \
-    {GIT_NUMSTAT|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}
+    {GIT_NUMSTAT|none} {FILE_METRICS_CSV|none} {OUTPUT_DIR} {REMOVE_PATH_PREFIX}
   ```
   ※ 外部設定ファイル（`config.yaml`）で出力メトリクス、実行タスク、および可視化構成を制御できること。
 - **[FR-CLI-02]** `none` / `false` / `-` を未指定として扱うこと。
@@ -219,7 +222,45 @@
     - **Git Numstat**: `git_diff` シート（ファイルごとの追加・削除・変更行数）
     - **総合マージ**: `metrics_merge` シート（全ツールの外部結合テーブル）
 
+### 3.11 ファイルメトリクス解析
 
+- **[FR-FM-01]** `file_metrics.py` を以下の形式で実行できること。
+  ```bash
+  python3 src/file_metrics.py \
+    {SCAN_DIR} {OUTPUT_CSV} \
+    [--remove-prefix PREFIX] \
+    [--exclude GLOB ...]
+  ```
+  - `SCAN_DIR`: 再帰的に走査するルートディレクトリ
+  - `OUTPUT_CSV`: メトリクスを書き出す CSV ファイルパス
+  - `--remove-prefix PREFIX`: ファイルパスから除去するプレフィックス（`report_analysis.py` の `REMOVE_PATH_PREFIX` と合わせること）
+  - `--exclude GLOB`: 除外するパターン（複数指定可能、デフォルト除外: `.git/`, `__pycache__/`, `*.pyc`, `node_modules/`）
+
+- **[FR-FM-02]** 収集するメトリクスは以下の通りとする。
+
+  | 列名 | 型 | 内容 |
+  | --- | --- | --- |
+  | `file` | str | ファイルパス（`--remove-prefix` 適用済み、`/` 区切り） |
+  | `file_size_bytes` | int | ファイルサイズ（バイト） |
+  | `is_binary` | bool | バイナリファイルかどうか |
+  | `encoding` | str | テキストの場合の文字コード（例: `UTF-8`）。バイナリは空文字 |
+  | `encoding_confidence` | float | エンコーディング推定の信頼度（0.0〜1.0）。バイナリは 0.0 |
+  | `line_ending` | str | 改行コード（`CRLF` / `LF` / `CR` / `mixed` / `N/A`）。バイナリは `N/A` |
+  | `line_count` | int | 総行数。バイナリは 0 |
+  | `extension` | str | 拡張子（例: `.py`, `.cpp`）。なければ空文字 |
+  | `mime_type` | str | MIME タイプ推定（例: `text/x-python`）。不明は空文字 |
+  | `has_bom` | bool | BOM の有無（UTF-8 BOM / UTF-16 BOM 等） |
+  | `last_modified` | str | ファイル最終更新日時（ISO 8601 形式） |
+
+- **[FR-FM-03]** バイナリ判定: ファイル先頭の最大 8192 バイトに NUL バイト（`\x00`）が含まれる場合、バイナリとみなすこと。
+
+- **[FR-FM-04]** エンコーディング検出: `chardet` ライブラリを使用してテキストファイルのエンコーディングと信頼度を推定すること。`chardet` が検出できない場合は `unknown` とすること。
+
+- **[FR-FM-05]** 改行コード検出: ファイルをバイナリ読み込みして `\r\n`（CRLF）・`\r`（CR）・`\n`（LF）を判定すること。両方が混在する場合は `mixed` とすること。
+
+- **[FR-FM-06]** BOM 検出: ファイル先頭バイト列を確認し、UTF-8 BOM（`EF BB BF`）・UTF-16 BE BOM（`FE FF`）・UTF-16 LE BOM（`FF FE`）等が含まれる場合は `has_bom=True` とすること。
+
+- **[FR-FM-07]** `report_analysis.py` との連携: `FILE_METRICS_CSV` が指定された場合、CSV を読み込んで `shared_dfs["file_metrics"]` に格納し、`metrics_merge.csv` の結合対象（`fm_` プレフィックス付き）に含めること。また、`config.yaml` の `visualizations` で `fm_file_size_bytes` 等の列名を指定することでファイルサイズ Treemap を生成できること。
 
 ---
 
@@ -227,24 +268,26 @@
 
 ### 4.1 入力
 
-| 入力           | 形式             | 必須列 / フォーマット                              |
-| -------------- | ---------------- | -------------------------------------------------- |
-| UND CSV        | CSV（1ファイル） | `Kind`, `File`, `CountLineCode` 等                 |
-| CLOC CSV       | CSV（1ファイル） | `language`, `filename`, `blank`, `comment`, `code` |
-| PMD XML        | XML（1件以上）   | `<duplication>` 要素を含む PMD CPD 出力            |
-| Git Numstat    | TSV（1ファイル） | `<added>\t<deleted>\t<file_path>`                  |
-| Git リポジトリ | ディレクトリ     | `.git` を持つ有効なリポジトリ                      |
+| 入力                | 形式             | 必須列 / フォーマット                              |
+| ------------------- | ---------------- | -------------------------------------------------- |
+| UND CSV             | CSV（1ファイル） | `Kind`, `File`, `CountLineCode` 等                 |
+| CLOC CSV            | CSV（1ファイル） | `language`, `filename`, `blank`, `comment`, `code` |
+| PMD XML             | XML（1件以上）   | `<duplication>` 要素を含む PMD CPD 出力            |
+| Git Numstat         | TSV（1ファイル） | `<added>\t<deleted>\t<file_path>`                  |
+| File Metrics CSV    | CSV（1ファイル） | `file_metrics.py` の出力 CSV（FR-FM-02 参照）      |
+| Git リポジトリ      | ディレクトリ     | `.git` を持つ有効なリポジトリ                      |
 
 ### 4.2 出力
 
-| 出力先             | 主要成果物                                                                                                                                                           |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `OUTPUT_DIR/und/`  | `und_file.csv`, `und_func.csv`, `und_class.csv`, `threshold_exceeded_summary.csv`, `threshold_exceeded_functions.csv`, `threshold_exceeded_dir_summary.csv`         |
-| `OUTPUT_DIR/cloc/` | `cloc_filtered.csv`                                                                                                                                                  |
-| `OUTPUT_DIR/pmd/`  | `pmd_clone_ratio.csv`                                                                                                                                                |
-| `OUTPUT_DIR/git/`  | `git_diff_file_metrics.csv`                                                                                                                                           |
-| `OUTPUT_DIR/`      | `summary.csv`, `metrics_merge.csv`                                                                                                                                   |
-| `OUTPUT_DIR/{sub}/`| YAML `visualizations` で指定した可視化 HTML（サブディレクトリはYAMLの `output_file` で自由に指定可）                                                                  |
+| 出力先              | 主要成果物                                                                                                                                                           |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OUTPUT_DIR/und/`   | `und_file.csv`, `und_func.csv`, `und_class.csv`, `threshold_exceeded_summary.csv`, `threshold_exceeded_functions.csv`, `threshold_exceeded_dir_summary.csv`         |
+| `OUTPUT_DIR/cloc/`  | `cloc_filtered.csv`                                                                                                                                                  |
+| `OUTPUT_DIR/pmd/`   | `pmd_clone_ratio.csv`                                                                                                                                                |
+| `OUTPUT_DIR/git/`   | `git_diff_file_metrics.csv`                                                                                                                                          |
+| `OUTPUT_DIR/file/`  | `file_metrics.csv`（`report_analysis.py` 実行時にコピー）                                                                                                            |
+| `OUTPUT_DIR/`       | `summary.csv`, `metrics_merge.csv`                                                                                                                                   |
+| `OUTPUT_DIR/{sub}/` | YAML `visualizations` で指定した可視化 HTML（サブディレクトリはYAMLの `output_file` で自由に指定可）                                                                  |
 
 ---
 
@@ -290,6 +333,11 @@
 | AC-10 | `config.yaml` に `thresholds` を定義して UND CSV を入力すると、`threshold_exceeded_summary.csv` と `threshold_exceeded_functions.csv` が `OUTPUT_DIR/und/` に生成され、基準値を超過した関数が正しく集計されている | ファイル存在確認および集計値の検証 |
 | AC-11 | UND等の有効なCSVを入力すると `OUTPUT_DIR/metrics_report.xlsx` が生成され、期待されるシートとヘッダー・列幅等の基本フォーマットが適用されていること | ファイル存在確認および Excel シート構造・基本フォーマットの検証 |
 | AC-12 | 一部入力のみの部分実行時、`OUTPUT_DIR/metrics_report.xlsx` が生成され、存在しない入力のシートがスキップされている | 部分実行で生成し、存在するシートのみであることを検証 |
+| AC-13 | `file_metrics.py` を実行すると指定 CSV が生成され、全列（`file`, `file_size_bytes`, `is_binary`, `encoding`, `encoding_confidence`, `line_ending`, `line_count`, `extension`, `mime_type`, `has_bom`, `last_modified`）が含まれる | CSV 列名の確認 |
+| AC-14 | バイナリファイル（例: `.png`）行の `is_binary=True`、`encoding` 空文字、`line_ending=N/A` が正しく設定される | 出力行の値検証 |
+| AC-15 | CRLF ファイルの `line_ending=CRLF`、LF ファイルの `line_ending=LF` が正しく検出される | テストファイルを作成して確認 |
+| AC-16 | `report_analysis.py` に `FILE_METRICS_CSV` を指定すると、`OUTPUT_DIR/file/file_metrics.csv` が生成され、`metrics_merge.csv` に `fm_` プレフィックス付きの列が含まれる | ファイル存在確認および列名確認 |
+| AC-17 | `FILE_METRICS_CSV` に `none` を指定した場合、ファイルメトリクス処理はスキップされ終了コード `0` で完了する | 実行結果確認 |
 
 ---
 

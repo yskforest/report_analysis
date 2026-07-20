@@ -245,6 +245,63 @@ def run_git_numstat(inputs: AnalysisInputs) -> TaskResult:
         return TaskResult(name="git", executed=True, success=False, message=f"Git diff integration failed: {exc}")
 
 
+def run_file_metrics(inputs: AnalysisInputs) -> TaskResult:
+    """ファイルメトリクス CSV を読み込んで shared_dfs に格納し、出力ディレクトリにコピーする。"""
+    if inputs.file_metrics_csv is None:
+        return TaskResult(
+            name="file_metrics",
+            executed=False,
+            success=True,
+            message="FileMetrics skipped (not specified)",
+        )
+
+    out_file_dir = inputs.output_dir / "file"
+    out_file_dir.mkdir(parents=True, exist_ok=True)
+    out_csv = out_file_dir / "file_metrics.csv"
+
+    try:
+        import shutil
+        df = pd.read_csv(inputs.file_metrics_csv, dtype=object, na_filter=False)
+
+        # ファイルパス列の正規化
+        if "file" in df.columns:
+            df["file"] = df["file"].map(
+                lambda p: clean_path(p, inputs.remove_path_prefix)
+            )
+
+        # 出力ディレクトリにコピー（入力と同じパスの場合はスキップ）
+        if inputs.file_metrics_csv.resolve() != out_csv.resolve():
+            shutil.copy2(inputs.file_metrics_csv, out_csv)
+
+        inputs.shared_dfs["file_metrics"] = df
+
+        total_files = len(df)
+        binary_files = int((df.get("is_binary", pd.Series()) == "True").sum())
+        total_size = int(pd.to_numeric(df.get("file_size_bytes", pd.Series()), errors="coerce").fillna(0).sum())
+
+        summary_metrics = {
+            "fm_TotalFiles": total_files,
+            "fm_BinaryFiles": binary_files,
+            "fm_TotalSizeBytes": total_size,
+        }
+
+        return TaskResult(
+            name="file_metrics",
+            executed=True,
+            success=True,
+            outputs=[out_csv],
+            summary_metrics=summary_metrics,
+            message=f"FileMetrics completed ({total_files} files, {total_size} bytes total)",
+        )
+    except Exception as exc:
+        return TaskResult(
+            name="file_metrics",
+            executed=True,
+            success=False,
+            message=f"FileMetrics failed: {exc}",
+        )
+
+
 def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
     out_file = inputs.output_dir / "metrics_merge.csv"
     try:
@@ -283,6 +340,15 @@ def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
             git_csv = inputs.output_dir / "git" / "git_diff_file_metrics.csv"
             if git_csv.exists():
                 dfs_to_merge.append((pd.read_csv(git_csv, dtype=object, na_filter=False), "git", "File"))
+
+        # 6. File Metrics
+        df_fm = inputs.shared_dfs.get("file_metrics")
+        if df_fm is not None:
+            dfs_to_merge.append((df_fm.copy(), "fm", "file"))
+        else:
+            fm_csv = inputs.output_dir / "file" / "file_metrics.csv"
+            if fm_csv.exists():
+                dfs_to_merge.append((pd.read_csv(fm_csv, dtype=object, na_filter=False), "fm", "file"))
                 
         for df, prefix, key_col in dfs_to_merge:
             if df.empty or key_col not in df.columns:
@@ -350,10 +416,23 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
         dir_summary_csv = out_und / "threshold_exceeded_dir_summary.csv"
 
         if not valid_metrics or func_df.empty:
-            empty_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"]
+            empty_cols = (
+                ["File", "total_functions"]
+                + [f"{m}_exceeded_count" for m in inputs.thresholds]
+                + [f"{m}_exceeded_ratio" for m in inputs.thresholds]
+                + ["total_exceeded_count", "exceeded_ratio"]
+            )
             pd.DataFrame(columns=empty_cols).to_csv(summary_csv, index=False)
-            pd.DataFrame(columns=["File", "Name", "Kind"] + list(inputs.thresholds.keys()) + ["exceeded_metrics"]).to_csv(functions_csv, index=False)
-            pd.DataFrame(columns=["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"]).to_csv(dir_summary_csv, index=False)
+            pd.DataFrame(
+                columns=["File", "Name", "Kind"] + list(inputs.thresholds.keys()) + ["exceeded_metrics"]
+            ).to_csv(functions_csv, index=False)
+            empty_dir_cols = (
+                ["Dir", "total_functions"]
+                + [f"{m}_exceeded_count" for m in inputs.thresholds]
+                + [f"{m}_exceeded_ratio" for m in inputs.thresholds]
+                + ["total_exceeded_count", "exceeded_ratio"]
+            )
+            pd.DataFrame(columns=empty_dir_cols).to_csv(dir_summary_csv, index=False)
             return TaskResult(
                 name="threshold_check",
                 executed=True,
@@ -422,12 +501,24 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
         dir_summary_df = pd.DataFrame(dir_rows)
         for df in [summary_df, dir_summary_df]:
             df["exceeded_ratio"] = (df["total_exceeded_count"] / df["total_functions"]).fillna(0.0)
+            for m in valid_metrics:
+                df[f"{m}_exceeded_ratio"] = (df[f"{m}_exceeded_count"] / df["total_functions"]).fillna(0.0)
 
         # Re-save with ratio included
-        summary_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        summary_cols = (
+            ["File", "total_functions"]
+            + [f"{m}_exceeded_count" for m in valid_metrics]
+            + [f"{m}_exceeded_ratio" for m in valid_metrics]
+            + ["total_exceeded_count", "exceeded_ratio"]
+        )
         summary_df[summary_cols].to_csv(summary_csv, index=False)
 
-        dir_cols = ["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        dir_cols = (
+            ["Dir", "total_functions"]
+            + [f"{m}_exceeded_count" for m in valid_metrics]
+            + [f"{m}_exceeded_ratio" for m in valid_metrics]
+            + ["total_exceeded_count", "exceeded_ratio"]
+        )
         dir_summary_df[dir_cols].to_csv(dir_summary_csv, index=False)
 
         inputs.shared_dfs["threshold_summary"] = summary_df.copy()

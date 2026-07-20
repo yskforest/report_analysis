@@ -52,6 +52,10 @@ def write_treemap_by_path(
     color_continuous_scale="OrRd",
 ) -> None:
     data = df.copy()
+    data = data.dropna(subset=[file_col])
+    # 欠損値や空文字を排除
+    data = data[data[file_col].astype(str).str.strip() != ""]
+    
     data[size_col] = pd.to_numeric(data[size_col], errors="coerce")
     if color_col is not None:
         data[color_col] = pd.to_numeric(data[color_col], errors="coerce")

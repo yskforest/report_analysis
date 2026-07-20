@@ -1,164 +1,211 @@
 # Report Analysis & Visualizer
 
-本リポジトリは、複数の解析・品質測定ツール（Understand, cloc, PMD, Git diff）の出力を統合し、プロジェクト全体のサマリとインタラクティブな各種可視化（Treemap, Pie chart等）を設定ファイル駆動で生成するPythonツールを提供します。
+複数の静的解析・品質計測ツール（Understand / cloc / PMD / Git diff）の出力と、ファイルメトリクス収集結果を **1 つの統合 CSV にマージ** し、設定ファイル駆動で **インタラクティブな HTML 可視化**（Treemap・散布図・円グラフ等）を生成する Python ツールです。
 
 ---
 
-## Quick Reference
+## Quick Start
 
 ```bash
-# 統合静的解析レポートの生成（デフォルト可視化を実行する場合）
-python3 src/report_analysis.py \
-  sample_data/und_metrics.csv \
-  sample_data/cloc/cloc.csv \
-  "sample_data/pmd/*.xml" \
-  sample_data/git_numstat.tsv \
-  out/report "/"
-
-# 統合静的解析レポートの生成（config.yamlでカスタム可視化を指定する場合）
-python3 src/report_analysis.py \
-  --config config.yaml \
-  sample_data/und_metrics.csv \
-  sample_data/cloc/cloc.csv \
-  "sample_data/pmd/*.xml" \
-  sample_data/git_numstat.tsv \
-  out/report "/"
-
-# テスト実行
-bash tests/run_tests.sh
-
-# cloc の実行（入力データ準備用）
-cloc --by-file --csv -out=${OUT_DIR}/cloc.csv ${SRC_DIR}
-```
-
----
-
-## 環境準備
-
-Python 3.9 以上が必要です（3.12 推奨）。
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
+# 1. 環境構築（Python 3.9+、推奨 3.12）
+python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
+
+# 2. ファイルメトリクスを収集（任意）
+python3 src/file_metrics.py {SCAN_DIR} sample_data/file_metrics.csv \
+  --remove-prefix {PREFIX}
+
+# 3. 統合レポート生成
+python3 src/report_analysis.py --config config.yaml \
+  sample_data/und_metrics.csv \
+  sample_data/cloc/cloc.csv \
+  "sample_data/pmd/*.xml" \
+  sample_data/git_numstat.tsv \
+  sample_data/file_metrics.csv \
+  out/report "/"
 ```
 
 ---
 
-## 使用方法
+## ツール構成
 
-### 1. 統合静的解析レポート生成 (`report_analysis.py`)
+本リポジトリは **2 つのスクリプト** で構成されます。
 
-指定された各種解析ツールの出力ファイル（省略時は `none` を指定）をパース・マージし、統合レポートと可視化を `OUTPUT_DIR` に出力します。  
-各入力は省略可能で、存在する入力のみで処理を実行します（部分実行）。
+| スクリプト | 役割 |
+|---|---|
+| `src/report_analysis.py` | 各種ツール出力を統合・可視化するメインオーケストレーター |
+| `src/file_metrics.py` | ディレクトリを走査してファイル属性（サイズ・エンコーディング・改行コード等）を CSV 出力 |
 
-#### コマンド書式
+---
+
+## 1. report_analysis.py — 統合レポート生成
+
+### コマンド書式
 
 ```bash
-python3 src/report_analysis.py \
-  [--config CONFIG_YAML] \
-  {UND_CSV|none} \
-  {CLOC_CSV|none} \
-  {PMD_XML_GLOB_OR_LIST|none} \
-  {GIT_NUMSTAT|none} \
-  {OUTPUT_DIR} \
-  {REMOVE_PATH_PREFIX}
+python3 src/report_analysis.py [--config CONFIG_YAML] \
+  {UND_CSV|none} {CLOC_CSV|none} {PMD_XML|none} \
+  {GIT_NUMSTAT|none} {FILE_METRICS_CSV|none} \
+  {OUTPUT_DIR} {REMOVE_PATH_PREFIX}
 ```
 
-#### 引数
+各入力は **`none` で省略可能**（存在する入力のみで処理を実行）。
+
+### 引数一覧
 
 | 引数 | 説明 |
 |---|---|
-| `--config` | 可視化構成をカスタマイズする YAML ファイル（オプション）。指定しない場合はデフォルト可視化が出力されます。 |
-| `UND_CSV` | Understand から出力したメトリクス CSV。`none` で省略。 |
-| `CLOC_CSV` | cloc から出力した CSV。`none` で省略。 |
-| `PMD_XML_GLOB_OR_LIST` | PMD CPD の XML ファイル。glob（`*.xml`）や区切りリスト（`,` / `:`）で複数指定可。`none` で省略。 |
-| `GIT_NUMSTAT` | `git diff --numstat` 形式のテキストファイル。`none` で省略。 |
-| `OUTPUT_DIR` | 出力先ディレクトリ（未存在時は自動作成）。 |
-| `REMOVE_PATH_PREFIX` | パス正規化時に除去するプレフィックス。 |
+| `--config` | カスタム可視化・閾値を定義する YAML（省略時はデフォルト出力のみ） |
+| `UND_CSV` | Understand メトリクス CSV |
+| `CLOC_CSV` | cloc 出力 CSV |
+| `PMD_XML` | PMD CPD の XML（glob `*.xml` やカンマ/コロン区切りで複数指定可） |
+| `GIT_NUMSTAT` | `git diff --numstat` 形式テキスト |
+| `FILE_METRICS_CSV` | `file_metrics.py` で生成した CSV |
+| `OUTPUT_DIR` | 出力先ディレクトリ（自動作成） |
+| `REMOVE_PATH_PREFIX` | パス正規化で除去するプレフィックス |
+
+### 出力物
+
+| パス | 内容 |
+|---|---|
+| `metrics_merge.csv` | 全ツール結果を `File` 列で外部結合した統合 CSV |
+| `summary.csv` | タスク実行サマリ |
+| `metrics_report.xlsx` | 統合 Excel レポート |
+| `und/` | Understand 解析結果・閾値超過レポート・Treemap |
+| `cloc/` | CLOC 解析結果・言語比率グラフ |
+| `pmd/` | PMD 解析結果・clone ratio CSV・Treemap |
+| `git/` | Git diff ファイル別・サマリ CSV |
+| `file/` | ファイルメトリクス CSV（`fm_` プレフィックスでマージ結合） |
+| `vis/` | 複合・カスタム可視化 HTML |
+
+### 終了コード
+
+- **`0`** — 正常終了（1 つ以上のタスクが成功）
+- **`1`** — 異常終了（引数不正・全入力無効・config エラー等）
 
 ---
 
-### 2. 設定ファイル (`config.yaml`) によるカスタム可視化
+## 2. file_metrics.py — ファイルメトリクス収集
 
-`--config` オプションで渡す YAML ファイルで、面積や色に割り当てるメトリクス（プレフィックス付き列名）を自由に指定して HTML の可視化ファイルを生成できます。
+### コマンド書式
 
-#### `config.yaml` の記述例
-
-```yaml
-# 出力したい可視化の定義リスト
-visualizations:
-  - type: treemap
-    metric_area: cloc_code          # 面積: CLOCコード行数
-    metric_color: pmd_clone_ratio   # 色: PMDの重複率
-    output_file: "custom_cloc_pmd_treemap.html" # OUTPUT_DIRからの相対パス
-  - type: treemap
-    metric_area: git_ChangedLines   # 面積: Gitの合計変更行数
-    metric_color: git_AddedLines    # 色: Gitの追加行数
-    output_file: "custom_git_diff_treemap.html"
-  - type: pie_chart
-    metric: cloc_language           # 言語ごとの円グラフ
-    output_file: "custom_cloc_pie.html"
+```bash
+python3 src/file_metrics.py {SCAN_DIR} {OUTPUT_CSV} \
+  [--remove-prefix PREFIX] [--exclude GLOB ...]
 ```
 
-#### 主要な出力物
+### 引数一覧
 
-| 出力先 | 内容 |
+| 引数 | 説明 |
 |---|---|
-| `OUTPUT_DIR/summary_report.csv` | 全体タスクサマリ |
-| `OUTPUT_DIR/metrics_merge.csv` | 全ツール結果の統合マージ（`File` 列で外部結合） |
-| `OUTPUT_DIR/und/` | Understand 解析結果（CSV、Treemap HTML） |
-| `OUTPUT_DIR/cloc/` | CLOC 解析結果（言語比率円グラフ等） |
-| `OUTPUT_DIR/pmd/` | PMD 解析結果（clone ratio CSV、Treemap HTML） |
-| `OUTPUT_DIR/git/` | Git diff 解析結果（ファイル別 CSV、サマリ CSV） |
+| `SCAN_DIR` | 再帰走査するルートディレクトリ |
+| `OUTPUT_CSV` | 出力 CSV パス |
+| `--remove-prefix` | ファイルパスから除去するプレフィックス |
+| `--exclude` | 追加の除外パターン（fnmatch 形式）。デフォルトで `.git`・`node_modules` 等を除外 |
 
-#### 終了コード
+### 収集メトリクス
 
-- `0`: 正常終了（タスクのうち1つ以上が成功）
-- `1`: 異常終了（引数不正、全入力が無効、または config.yaml の構文・カラム指定にエラーがある等）
+| 列名 | 内容 |
+|---|---|
+| `file` | 正規化済みファイルパス |
+| `file_size_bytes` | ファイルサイズ（バイト） |
+| `is_binary` | バイナリ判定 |
+| `encoding` | 文字コード推定（バイナリは空） |
+| `encoding_confidence` | エンコーディング信頼度（0.0〜1.0） |
+| `line_ending` | 改行コード（`LF` / `CRLF` / `CR` / `mixed` / `N/A`） |
+| `line_count` | 総行数（バイナリは 0） |
+| `extension` | 拡張子 |
+| `mime_type` | MIME タイプ推定 |
+| `has_bom` | BOM 有無 |
+| `last_modified` | 最終更新日時（ISO 8601） |
+
+> `metrics_merge.csv` に結合時は `fm_` プレフィックスが付与されます（例: `fm_file_size_bytes`）。
+
+---
+
+## 3. config.yaml — カスタム可視化と閾値設定
+
+`--config` で渡す YAML ファイルで **可視化の種類・使用カラム・出力先** を自由に定義できます。
+
+### 可視化タイプ一覧
+
+| type | 説明 | 主要パラメータ |
+|---|---|---|
+| `treemap` | ツリーマップ | `metric_area`, `metric_color` |
+| `pie_chart` | 円グラフ | `metric`, `value_metric` |
+| `scatter` | 散布図 | `metric_x`, `metric_y`, `metric_size` |
+| `bar` | 棒グラフ | `metric_x`, `metric_y`, `top_n` |
+| `box` | 箱ひげ図 | `metric_x`, `metric_y` |
+| `violin` | バイオリン図 | `metric_x`, `metric_y` |
+| `histogram` | ヒストグラム | `metric_x`, `nbins` |
+| `density_heatmap` | 密度ヒートマップ | `metric_x`, `metric_y` |
+| `ecdf` | 累積分布関数 | `metric_x` |
+| `sunburst` | サンバースト図 | `path`, `metric_values` |
+| `line` | 折れ線グラフ | `metric_x`, `metric_y` |
+
+### config.yaml 記述例
+
+```yaml
+visualizations:
+  - type: treemap
+    metric_area: cloc_code            # 面積: コード行数
+    metric_color: pmd_PmdCloneRatio   # 色: 重複率
+    output_file: "vis/cloc_pmd_treemap.html"
+
+  - type: treemap
+    metric_area: und_total_functions  # 面積: ファイル中の関数数
+    metric_color: und_exceeded_ratio  # 色: 基準値超過率
+    output_file: "und/func_count_exceeded_ratio_treemap.html"
+
+  - type: pie_chart
+    metric: cloc_language
+    value_metric: cloc_code
+    output_file: "cloc/language_pie.html"
+
+# メトリクス基準値（Understand 関数単位）
+thresholds:
+  MaxNesting: 5
+  Essential: 4
+  Cyclomatic: 15
+  CountLine: 200
+  CountLineCode: 150
+```
+
+### メトリクスカラムのプレフィックス規則
+
+`metrics_merge.csv` では各ツール出力のカラムにプレフィックスが付与されます。`config.yaml` ではこのプレフィックス付きカラム名を指定します。
+
+| プレフィックス | 元ツール | 例 |
+|---|---|---|
+| `und_` | Understand | `und_CountLineCode`, `und_AvgCyclomatic`, `und_exceeded_ratio` |
+| `cloc_` | cloc | `cloc_code`, `cloc_language` |
+| `pmd_` | PMD | `pmd_PmdCloneRatio`, `pmd_PmdTotalTokens` |
+| `git_` | Git diff | `git_AddedLines`, `git_ChangedLines` |
+| `fm_` | file_metrics.py | `fm_file_size_bytes`, `fm_is_binary` |
 
 ---
 
 ## テスト
 
-受け入れ基準（AC-01〜AC-09）を自動検証するテストスイートを提供しています。  
-テスト仕様の詳細は [docs/requirements.md](docs/requirements.md) の「7. 受け入れ基準」を参照してください。
-
-### テスト実行
-
 ```bash
-# 全テスト実行
-bash tests/run_tests.sh
-
-# 個別テスト指定（スペース区切りで複数可）
-bash tests/run_tests.sh ac01 ac05
-
-# テスト一覧の表示
-bash tests/run_tests.sh --list
+bash tests/run_tests.sh           # 全テスト
+bash tests/run_tests.sh ac01 ac05 # 個別指定
+bash tests/run_tests.sh --list    # 一覧表示
 ```
 
-### テスト一覧
-
-| ID | テストファイル | 検証内容 |
-|---|---|---|
-| ac01 | `test_ac01_und_path_normalization.sh` | UND CSV の Windows 形式パスが `/` に正規化される |
-| ac02 | `test_ac02_cloc_output.sh` | CLOC 入力で pie chart HTML と CSV が生成される |
-| ac03 | `test_ac03_pmd_integration.sh` | 複数 PMD XML が統合解析される |
-| ac04 | `test_ac04_partial_input.sh` | 一部入力のみで正常終了する（部分実行） |
-| ac05 | `test_ac05_all_none.sh` | 全入力なしで終了コード 1 を返す |
-| ac06 | `test_ac06_merge_prefix.sh` | `metrics_merge.csv` にツール別プレフィックスが付与される |
-| ac07 | `test_ac07_config_visualization.sh` | `config.yaml` で指定したカスタム可視化 HTML が正常に生成される |
-| ac08 | `test_ac08_config_exclusion.sh` | `config.yaml` に指定のない可視化は生成されない |
-| ac09 | `test_ac09_config_invalid.sh` | YAMLの構文エラーや存在しない列の指定で終了コード 1 を返す |
-
----
-
-## ドキュメント
-
-| ファイル | 内容 |
+| ID | 検証内容 |
 |---|---|
-| [docs/requirements.md](docs/requirements.md) | 要求仕様書（機能要求・非機能要求・受け入れ基準） |
-| [docs/design.md](docs/design.md) | 実行設計書（アーキテクチャ・データモデル・処理シーケンス） |
+| ac01 | UND CSV パス正規化（`\` → `/`） |
+| ac02 | CLOC 入力で pie chart・CSV 生成 |
+| ac03 | 複数 PMD XML の統合解析 |
+| ac04 | 部分入力での正常終了 |
+| ac05 | 全入力なしで終了コード 1 |
+| ac06 | マージ CSV にツール別プレフィックス付与 |
+| ac07 | config 指定のカスタム可視化 HTML 生成 |
+| ac08 | config 未指定の可視化は非生成 |
+| ac09 | YAML 構文エラー・不正カラムで終了コード 1 |
+
+詳細な受け入れ基準（AC-13〜AC-17 含む）は [docs/requirements.md](docs/requirements.md) を参照。
 
 ---
 
@@ -166,34 +213,50 @@ bash tests/run_tests.sh --list
 
 ```text
 hc_new_arch/
-├── README.md                          # 本ドキュメント
-├── requirements.txt                   # 依存ライブラリ
-├── docker-compose.yml                 # コンテナ実行用構成
-├── Dockerfile                         # コンテナイメージビルド用
+├── config.yaml                    # 可視化・閾値設定サンプル
+├── requirements.txt               # Python 依存ライブラリ
+├── Dockerfile / docker-compose.yml
 ├── docs/
-│   ├── requirements.md                # 要求仕様書
-│   └── design.md                      # 実行設計書
+│   ├── requirements.md            # 要求仕様書
+│   └── design.md                  # 実行設計書
 ├── tests/
-│   ├── run_tests.sh                   # テストランナー
-│   ├── test_helpers.sh                # テスト共通ヘルパー関数
-│   └── test_ac{01-09}_*.sh            # 受け入れ基準別テスト
-├── sample_data/                       # テスト・サンプルデータ群
+│   ├── run_tests.sh               # テストランナー
+│   └── test_ac{01-09}_*.sh        # 受け入れ基準別テスト
+├── sample_data/                   # サンプル入力データ
+│   ├── und_metrics.csv
 │   ├── cloc/cloc.csv
 │   ├── pmd/*.xml
-│   ├── und_metrics.csv
-│   └── git_numstat.tsv
+│   ├── git_numstat.tsv
+│   └── file_metrics.csv
 └── src/
-    ├── report_analysis.py             # 統合レポートオーケストレーター
-    ├── analyzers.py                   # UND/CLOC/PMD/Git の解析ロジック
-    ├── io_models.py                   # I/O モデルと入力解決処理
-    ├── advanced_visualizations.py     # 高度・カスタム可視化処理
-    └── plotly_visualize.py            # Plotly 汎用可視化ユーティリティ
+    ├── report_analysis.py         # メインオーケストレーター
+    ├── file_metrics.py            # ファイルメトリクス収集
+    ├── analyzers.py               # 各ツール解析ロジック
+    ├── io_models.py               # I/O モデル・入力解決
+    ├── advanced_visualizations.py # カスタム可視化エンジン
+    ├── excel_reports.py           # Excel レポート生成
+    └── plotly_visualize.py        # Plotly 汎用ユーティリティ
 ```
 
 ---
 
 ## アーキテクチャ
 
-`report_analysis.py` がオーケストレーターとなり、入力ファイルを `io_models.py` で検証・解決したうえで、`analyzers.py` で個別のツール出力を解析し `metrics_merge.csv` にマージします。
-
-最後に `advanced_visualizations.py` を呼び出し、`--config` で指定された `visualizations` の定義（またはデフォルト定義）に沿って `metrics_merge.csv` 内のカラムから汎用的かつ動的に HTML 可視化（Treemap 等）を生成します。
+```text
+入力ファイル群 ──→ io_models.py（検証・解決）
+                        │
+                        ▼
+               report_analysis.py（オーケストレーター）
+                 ┌──────┼──────────────┐
+                 ▼      ▼              ▼
+           analyzers.py            excel_reports.py
+          (UND/CLOC/PMD/           (Excel 出力)
+           Git/FileMetrics)
+                 │
+                 ▼
+          metrics_merge.csv
+                 │
+                 ▼
+       advanced_visualizations.py
+       (config.yaml に基づき HTML 可視化を生成)
+```

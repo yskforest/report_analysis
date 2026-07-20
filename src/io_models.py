@@ -57,6 +57,7 @@ class AnalysisInputs:
     cloc_csv: Path | None
     pmd_xmls: list[Path]
     git_numstat: Path | None
+    file_metrics_csv: Path | None
     output_dir: Path
     remove_path_prefix: str
     config_path: Path | None = None
@@ -131,6 +132,7 @@ def resolve_inputs(
     cloc_csv_raw: str,
     pmd_xml_raw: str,
     git_numstat_raw: str,
+    file_metrics_csv_raw: str,
     output_dir_raw: str,
     remove_path_prefix: str,
     config_path_raw: str | None = None,
@@ -142,6 +144,7 @@ def resolve_inputs(
     cloc_csv = _resolve_optional_file(cloc_csv_raw, "CLOC", warnings)
     pmd_xmls = _resolve_pmd_files(pmd_xml_raw, warnings)
     git_numstat = _resolve_optional_file(git_numstat_raw, "GitNumstat", warnings)
+    file_metrics_csv = _resolve_optional_file(file_metrics_csv_raw, "FileMetrics", warnings)
 
     config_path: Path | None = None
     visualizations: list[dict] = []
@@ -179,6 +182,7 @@ def resolve_inputs(
         cloc_csv=cloc_csv,
         pmd_xmls=pmd_xmls,
         git_numstat=git_numstat,
+        file_metrics_csv=file_metrics_csv,
         output_dir=output_dir,
         remove_path_prefix=remove_path_prefix,
         config_path=config_path,
