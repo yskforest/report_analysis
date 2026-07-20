@@ -29,6 +29,8 @@ ALL_TESTS=(
   "ac08:test_ac08_config_exclusion.sh:指定外の可視化除外"
   "ac09:test_ac09_config_invalid.sh:設定異常系エラーハンドリング"
   "ac10:test_ac10_thresholds.sh:基準値超過関数の集計検証"
+  "ac11:test_ac11_file_excel.sh:ファイル階層 Excel レポート検証"
+  "ac12:test_ac12_func_excel.sh:関数メトリクス Excel レポート検証"
 )
 
 # ── ヘルプ / リスト表示 ──

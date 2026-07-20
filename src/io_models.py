@@ -3,6 +3,20 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 import glob
+import pandas as pd
+
+
+def _safe_num(series: pd.Series) -> pd.Series:
+    return pd.to_numeric(series, errors="coerce").fillna(0)
+
+
+def _normalize_paths(df: pd.DataFrame, columns: list[str], remove_prefix: str) -> pd.DataFrame:
+    out = df.copy()
+    for col in columns:
+        if col not in out.columns:
+            continue
+        out[col] = out[col].map(lambda val: clean_path(val, remove_prefix))
+    return out
 
 
 def clean_path(path_str: object, remove_prefix: str | list[str] | None) -> str:
@@ -58,7 +72,6 @@ class TaskResult:
     executed: bool
     success: bool
     outputs: list[Path] = field(default_factory=list)
-    summary_rows: list[dict] = field(default_factory=list)
     summary_metrics: dict[str, object] = field(default_factory=dict)
     message: str = ""
 

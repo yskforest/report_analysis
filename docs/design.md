@@ -160,7 +160,7 @@ classDiagram
       +run_understand(inputs) TaskResult
       +run_cloc(inputs) TaskResult
       +run_pmd(inputs) TaskResult
-      +run_file_metrics_excel(inputs) TaskResult
+      +run_excel_report(inputs) TaskResult
       +write_global_summary(inputs, results) Path
     }
 
@@ -211,8 +211,8 @@ sequenceDiagram
       AN-->>RA: TaskResult(pmd)
       RA->>AN: run_git_numstat(inputs)
       AN-->>RA: TaskResult(git)
-      RA->>AN: run_file_metrics_excel(inputs)
-      AN-->>RA: TaskResult(file_metrics_excel)
+      RA->>AN: run_excel_report(inputs)
+      AN-->>RA: TaskResult(excel_report)
       RA->>AN: run_comprehensive_merge(inputs)
       AN-->>RA: TaskResult(comprehensive_merge)
       RA->>AV: run_advanced_visualizations(inputs)
@@ -305,9 +305,8 @@ flowchart TD
     E --> F[run_cloc]
     F --> G[run_pmd]
     G --> H[run_git_numstat]
-    H --> I[run_file_metrics_excel]
-    I --> J[run_func_metrics_excel]
-    J --> K[run_comprehensive_merge]
+    H --> I[run_excel_report]
+    I --> K[run_comprehensive_merge]
     K --> L[run_advanced_visualizations]
     L --> M[write_global_summary]
     M --> N{executedタスクが全失敗か}

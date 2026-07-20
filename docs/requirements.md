@@ -205,6 +205,22 @@
 - **[FR-PART-02]** 未存在入力は警告ログとして記録し、他処理は継続すること。
 - **[FR-PART-03]** すべての入力が未存在の場合のみ異常終了とすること。
 
+### 3.10 Excel レポート出力
+
+- **[FR-EXCEL-01]** 解析タスクの実行結果を単一のExcelファイル `OUTPUT_DIR/metrics_report.xlsx` に統合して出力すること。
+  - 入力データ（UND, CLOC, PMD, Git Numstat）の有無に応じて、存在するデータに対応するシートのみを動的に追加・出力すること（部分実行対応）。
+  - Excel ファイルの左端に、プロジェクト全体の主要な数値を一覧にした `summary` シートを含めること。
+  - 共通のデザインルール（ヘッダー背景色ディープネイビー、白太字、オートフィルター適用、ウィンドウ枠固定、列幅自動調整）を各シートに適用すること。
+  - 各入力が存在する場合に以下のシートを追加すること：
+    - **UND (ファイル)**: `file_hierarchy` シート（ディレクトリ階層別のLoC・ファイル数集計、親子インデント表現）
+    - **UND (関数)**: `func_detail`（各関数の詳細リスト）、`func_level_agg`（階層別平均値）、`func_dist_nesting` / `func_dist_cyclomatic` / `func_dist_essential`（度数分布）
+    - **CLOC**: `cloc_summary` シート（言語別のコード・コメント・ファイル数集計）
+    - **PMD**: `pmd_clone_ratio` シート（ファイルごとの重複コード率）
+    - **Git Numstat**: `git_diff` シート（ファイルごとの追加・削除・変更行数）
+    - **総合マージ**: `metrics_merge` シート（全ツールの外部結合テーブル）
+
+
+
 ---
 
 ## 4. 入出力仕様
@@ -272,6 +288,8 @@
 | AC-08 | `config.yaml` の `visualizations` セクションで指定されていない可視化ファイルは生成されない | ファイルが生成されていないことを確認 |
 | AC-09 | `config.yaml` の構文エラーや、存在しない列を指定した場合は終了コード `1` で異常終了する | エラー出力と終了コードの確認 |
 | AC-10 | `config.yaml` に `thresholds` を定義して UND CSV を入力すると、`threshold_exceeded_summary.csv` と `threshold_exceeded_functions.csv` が `OUTPUT_DIR/und/` に生成され、基準値を超過した関数が正しく集計されている | ファイル存在確認および集計値の検証 |
+| AC-11 | UND等の有効なCSVを入力すると `OUTPUT_DIR/metrics_report.xlsx` が生成され、期待されるシートとヘッダー・列幅等の基本フォーマットが適用されていること | ファイル存在確認および Excel シート構造・基本フォーマットの検証 |
+| AC-12 | 一部入力のみの部分実行時、`OUTPUT_DIR/metrics_report.xlsx` が生成され、存在しない入力のシートがスキップされている | 部分実行で生成し、存在するシートのみであることを検証 |
 
 ---
 

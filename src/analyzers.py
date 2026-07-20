@@ -1,263 +1,10 @@
 from __future__ import annotations
 
-import csv
-import os
 import xml.etree.ElementTree as ET
 from pathlib import Path
-import shutil
-
 import pandas as pd
 
-from io_models import AnalysisInputs, TaskResult, clean_path
-from plotly_visualize import write_pie_chart, write_treemap_by_path
-
-
-def _normalize_paths(df: pd.DataFrame, columns: list[str], remove_prefix: str) -> pd.DataFrame:
-    out = df.copy()
-    for col in columns:
-        if col not in out.columns:
-            continue
-        out[col] = out[col].map(lambda val: clean_path(val, remove_prefix))
-    return out
-
-
-def _safe_num(series: pd.Series) -> pd.Series:
-    return pd.to_numeric(series, errors="coerce").fillna(0)
-
-
-def _build_hierarchy_agg(df: pd.DataFrame, path_col: str, max_level: int | None = None) -> pd.DataFrame:
-    work = df.copy()
-    work[path_col] = work[path_col].astype(str).str.replace("\\\\", "/", regex=False).str.strip("/")
-    parts = work[path_col].str.split("/")
-    depth = int(parts.map(len).max()) if len(work.index) else 0
-    use_depth = min(depth, max_level) if max_level is not None else depth
-
-    rows: list[pd.DataFrame] = []
-    total_row = pd.DataFrame(
-        [
-            {
-                "Level": 0,
-                "Path": "ALL_FILES",
-                "SourceLines": int(_safe_num(work["SourceLines"]).sum()),
-                "TotalLines": int(_safe_num(work["TotalLines"]).sum()),
-                "CommentLines": int(_safe_num(work["CommentLines"]).sum()),
-                "FileCount": int(len(work.index)),
-            }
-        ]
-    )
-    rows.append(total_row)
-
-    for i in range(1, use_depth + 1):
-        key = parts.map(lambda x: "/".join(x[:i]) if len(x) >= i else "")
-        tmp = work.copy()
-        tmp["Path"] = key.replace("", "root")
-        agg = (
-            tmp.groupby("Path", dropna=False)[["SourceLines", "TotalLines", "CommentLines"]]
-            .sum(numeric_only=True)
-            .reset_index()
-        )
-        file_count = tmp.groupby("Path", dropna=False).size().reset_index(name="FileCount")
-        agg = agg.merge(file_count, on="Path", how="left")
-        agg.insert(0, "Level", i)
-        agg = agg.sort_values(by=["SourceLines", "TotalLines"], ascending=False)
-        rows.append(agg)
-    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
-
-
-def run_file_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
-    out_file = inputs.output_dir / "file_metrics_hierarchy.xlsx"
-    try:
-        max_level = int(os.getenv("FILE_METRICS_MAX_LEVEL", "8"))
-        if max_level < 0:
-            max_level = 8
-
-        metrics = pd.DataFrame()
-        und_csv = inputs.output_dir / "und" / "und_file.csv"
-        source_name = "understand"
-
-        if und_csv.exists():
-            u = pd.read_csv(und_csv, dtype=object, na_filter=False)
-            if {"File", "CountLineCode", "CountLineComment", "CountLine"}.issubset(u.columns):
-                metrics = pd.DataFrame(
-                    {
-                        "File": u["File"].astype(str),
-                        "SourceLines": _safe_num(u["CountLineCode"]),
-                        "CommentLines": _safe_num(u["CountLineComment"]),
-                        "TotalLines": _safe_num(u["CountLine"]),
-                    }
-                )
-
-        if metrics.empty:
-            return TaskResult(
-                name="file_metrics_excel",
-                executed=False,
-                success=True,
-                message="file metrics excel skipped (no usable understand file metrics)",
-            )
-
-        metrics = _normalize_paths(metrics, ["File"], inputs.remove_path_prefix)
-        metrics = metrics[metrics["File"].astype(str) != ""].copy()
-        # Exclude hidden files such as Open3D/.codacy.yml
-        metrics = metrics[
-            ~metrics["File"]
-            .astype(str)
-            .str.split("/")
-            .map(lambda parts: any(part.startswith(".") for part in parts if part))
-        ].copy()
-        metrics["SourceLines"] = _safe_num(metrics["SourceLines"])
-        metrics["CommentLines"] = _safe_num(metrics["CommentLines"])
-        metrics["TotalLines"] = _safe_num(metrics["TotalLines"])
-        metrics = metrics.sort_values(by=["SourceLines", "TotalLines"], ascending=False)
-
-        # Aggregate by directory hierarchy only (exclude per-file rows)
-        metrics["Dir"] = metrics["File"].astype(str).map(lambda p: str(Path(p).parent).replace("\\", "/"))
-        metrics["Dir"] = metrics["Dir"].replace(".", "").str.strip("/")
-        metrics = metrics[metrics["Dir"] != ""].copy()
-
-        hierarchy = _build_hierarchy_agg(metrics, "Dir", max_level=max_level)
-        summary = pd.DataFrame(
-            [
-                {
-                    "Source": source_name,
-                    "MaxLevel": max_level,
-                    "Rows": int(len(metrics.index)),
-                    "TotalSourceLines": int(metrics["SourceLines"].sum()),
-                    "TotalLines": int(metrics["TotalLines"].sum()),
-                    "TotalCommentLines": int(metrics["CommentLines"].sum()),
-                }
-            ]
-        )
-
-        with pd.ExcelWriter(out_file, engine="openpyxl") as writer:
-            summary.to_excel(writer, sheet_name="summary", index=False)
-            hierarchy.to_excel(writer, sheet_name="hierarchy", index=False)
-
-        return TaskResult(
-            name="file_metrics_excel",
-            executed=True,
-            success=True,
-            outputs=[out_file],
-            message=f"file metrics excel generated ({out_file.name})",
-        )
-    except Exception as exc:
-        return TaskResult(
-            name="file_metrics_excel",
-            executed=True,
-            success=False,
-            message=f"file metrics excel failed: {exc}",
-        )
-
-
-def _split_path_levels(series: pd.Series, max_level: int = 15) -> pd.DataFrame:
-    clean = series.astype(str).str.replace("\\\\", "/", regex=False).str.strip("/")
-    parts = clean.str.split("/")
-    level_cols: dict[str, pd.Series] = {}
-    for i in range(max_level + 1):
-        level_cols[f"Level{i}"] = parts.map(lambda xs: xs[i] if isinstance(xs, list) and len(xs) > i else "")
-    return pd.DataFrame(level_cols, index=series.index)
-
-
-def _distribution(df: pd.DataFrame, col: str) -> pd.DataFrame:
-    if col not in df.columns:
-        return pd.DataFrame(columns=[col, "Count"])
-    s = _safe_num(df[col]).round(0).astype(int)
-    out = s.value_counts(dropna=False).sort_index().reset_index()
-    out.columns = [col, "Count"]
-    return out
-
-
-def run_func_metrics_excel(inputs: AnalysisInputs) -> TaskResult:
-    out_file = inputs.output_dir / "func_metrics.xlsx"
-    try:
-        und_func_csv = inputs.output_dir / "und" / "und_func.csv"
-        if not und_func_csv.exists():
-            return TaskResult(
-                name="func_metrics_excel",
-                executed=False,
-                success=True,
-                message="func metrics excel skipped (und_func.csv not found)",
-            )
-
-        f = pd.read_csv(und_func_csv, dtype=object, na_filter=False)
-        if f.empty or "File" not in f.columns:
-            return TaskResult(
-                name="func_metrics_excel",
-                executed=False,
-                success=True,
-                message="func metrics excel skipped (no usable function rows)",
-            )
-
-        f = _normalize_paths(f, ["File"], inputs.remove_path_prefix)
-        f = f[f["File"].astype(str) != ""].copy()
-        f = f[
-            ~f["File"].astype(str).str.split("/").map(lambda parts: any(part.startswith(".") for part in parts if part))
-        ].copy()
-        if f.empty:
-            return TaskResult(
-                name="func_metrics_excel",
-                executed=False,
-                success=True,
-                message="func metrics excel skipped (all rows filtered)",
-            )
-
-        level_df = _split_path_levels(f["File"], max_level=15)
-        out_df = pd.concat([f.reset_index(drop=True), level_df.reset_index(drop=True)], axis=1)
-        for c in ["MaxNesting", "Cyclomatic", "Essential"]:
-            if c in out_df.columns:
-                out_df[c] = _safe_num(out_df[c])
-
-        agg_keys = [f"Level{i}" for i in range(16)]
-        agg_map: dict[str, tuple[str, str]] = {"FunctionCount": ("File", "size")}
-        if "MaxNesting" in out_df.columns:
-            agg_map["MaxNesting_Avg"] = ("MaxNesting", "mean")
-        if "Cyclomatic" in out_df.columns:
-            agg_map["Cyclomatic_Avg"] = ("Cyclomatic", "mean")
-        if "Essential" in out_df.columns:
-            agg_map["Essential_Avg"] = ("Essential", "mean")
-        agg_df = out_df.groupby(agg_keys, dropna=False).agg(**agg_map).reset_index()
-        for c in ["MaxNesting_Avg", "Cyclomatic_Avg", "Essential_Avg"]:
-            if c in agg_df.columns:
-                agg_df[c] = pd.to_numeric(agg_df[c], errors="coerce").round(3)
-
-        dist_maxnesting = _distribution(out_df, "MaxNesting")
-        dist_cyclomatic = _distribution(out_df, "Cyclomatic")
-        dist_essential = _distribution(out_df, "Essential")
-
-        summary_row = {
-            "Rows": int(len(out_df.index)),
-            "UniqueFiles": int(out_df["File"].nunique()),
-            "UniqueLevel0": int(out_df["Level0"].nunique()),
-        }
-        if "MaxNesting" in out_df.columns:
-            summary_row["MaxNestingMean"] = float(_safe_num(out_df["MaxNesting"]).mean())
-        if "Cyclomatic" in out_df.columns:
-            summary_row["CyclomaticMean"] = float(_safe_num(out_df["Cyclomatic"]).mean())
-        if "Essential" in out_df.columns:
-            summary_row["EssentialMean"] = float(_safe_num(out_df["Essential"]).mean())
-        summary_df = pd.DataFrame([summary_row])
-
-        with pd.ExcelWriter(out_file, engine="openpyxl") as writer:
-            summary_df.to_excel(writer, sheet_name="summary", index=False)
-            out_df.to_excel(writer, sheet_name="functions_with_levels", index=False)
-            agg_df.to_excel(writer, sheet_name="level_agg", index=False)
-            dist_maxnesting.to_excel(writer, sheet_name="dist_maxnesting", index=False)
-            dist_cyclomatic.to_excel(writer, sheet_name="dist_cyclomatic", index=False)
-            dist_essential.to_excel(writer, sheet_name="dist_essential", index=False)
-
-        return TaskResult(
-            name="func_metrics_excel",
-            executed=True,
-            success=True,
-            outputs=[out_file],
-            message=f"func metrics excel generated ({out_file.name})",
-        )
-    except Exception as exc:
-        return TaskResult(
-            name="func_metrics_excel",
-            executed=True,
-            success=False,
-            message=f"func metrics excel failed: {exc}",
-        )
+from io_models import AnalysisInputs, TaskResult, clean_path, _safe_num, _normalize_paths
 
 
 def run_understand(inputs: AnalysisInputs) -> TaskResult:
@@ -265,9 +12,7 @@ def run_understand(inputs: AnalysisInputs) -> TaskResult:
         return TaskResult(name="und", executed=False, success=True, message="UND skipped")
 
     out_und = inputs.output_dir / "und"
-    out_plot = out_und
     out_und.mkdir(parents=True, exist_ok=True)
-    out_plot.mkdir(parents=True, exist_ok=True)
 
     try:
         df = pd.read_csv(inputs.und_csv, dtype=object, na_filter=False)
@@ -504,80 +249,52 @@ def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
     out_file = inputs.output_dir / "metrics_merge.csv"
     try:
         merged_df = None
+        dfs_to_merge = []
         
         # 1. Understand
         und_csv = inputs.output_dir / "und" / "und_file.csv"
         if und_csv.exists():
-            df = pd.read_csv(und_csv, dtype=object, na_filter=False)
-            if not df.empty and "File" in df.columns:
-                df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
-                merged_df = df
-
-        # Merge threshold check summary if exists
+            dfs_to_merge.append((pd.read_csv(und_csv, dtype=object, na_filter=False), "und", "File"))
+            
+        # 2. Threshold Check
         df_thresh = inputs.shared_dfs.get("threshold_summary")
         if df_thresh is not None:
-            df = df_thresh.copy()
-            if not df.empty and "File" in df.columns:
-                df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
-                if merged_df is None:
-                    merged_df = df
-                else:
-                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
+            dfs_to_merge.append((df_thresh.copy(), "und", "File"))
         else:
             thresh_csv = inputs.output_dir / "und" / "threshold_exceeded_summary.csv"
             if thresh_csv.exists():
-                df = pd.read_csv(thresh_csv, dtype=object, na_filter=False)
-                if not df.empty and "File" in df.columns:
-                    df.rename(columns={c: f"und_{c}" for c in df.columns if c != "File"}, inplace=True)
-                    if merged_df is None:
-                        merged_df = df
-                    else:
-                        merged_df = pd.merge(merged_df, df, on="File", how="outer")
+                dfs_to_merge.append((pd.read_csv(thresh_csv, dtype=object, na_filter=False), "und", "File"))
                 
-        # 2. CLOC
+        # 3. CLOC
         cloc_csv = inputs.output_dir / "cloc" / "cloc_filtered.csv"
         if cloc_csv.exists():
-            df = pd.read_csv(cloc_csv, dtype=object, na_filter=False)
-            if not df.empty and "filename" in df.columns:
-                df.rename(columns={"filename": "File"}, inplace=True)
-                df.rename(columns={c: f"cloc_{c}" for c in df.columns if c != "File"}, inplace=True)
-                if merged_df is None:
-                    merged_df = df
-                else:
-                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
-                    
-        # 3. PMD
+            dfs_to_merge.append((pd.read_csv(cloc_csv, dtype=object, na_filter=False), "cloc", "filename"))
+            
+        # 4. PMD
         pmd_csv = inputs.output_dir / "pmd" / "pmd_clone_ratio.csv"
         if pmd_csv.exists():
-            df = pd.read_csv(pmd_csv, dtype=object, na_filter=False)
-            if not df.empty and "File" in df.columns:
-                df.rename(columns={c: f"pmd_{c}" for c in df.columns if c != "File"}, inplace=True)
-                if merged_df is None:
-                    merged_df = df
-                else:
-                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
-                    
-        # 4. Git Diff
+            dfs_to_merge.append((pd.read_csv(pmd_csv, dtype=object, na_filter=False), "pmd", "File"))
+            
+        # 5. Git
         df_git = inputs.shared_dfs.get("git")
         if df_git is not None:
-            df = df_git.copy()
-            if not df.empty and "File" in df.columns:
-                df.rename(columns={c: f"git_{c}" for c in df.columns if c != "File"}, inplace=True)
-                if merged_df is None:
-                    merged_df = df
-                else:
-                    merged_df = pd.merge(merged_df, df, on="File", how="outer")
+            dfs_to_merge.append((df_git.copy(), "git", "File"))
         else:
             git_csv = inputs.output_dir / "git" / "git_diff_file_metrics.csv"
             if git_csv.exists():
-                df = pd.read_csv(git_csv, dtype=object, na_filter=False)
-                if not df.empty and "File" in df.columns:
-                    df.rename(columns={c: f"git_{c}" for c in df.columns if c != "File"}, inplace=True)
-                    if merged_df is None:
-                        merged_df = df
-                    else:
-                        merged_df = pd.merge(merged_df, df, on="File", how="outer")
-                    
+                dfs_to_merge.append((pd.read_csv(git_csv, dtype=object, na_filter=False), "git", "File"))
+                
+        for df, prefix, key_col in dfs_to_merge:
+            if df.empty or key_col not in df.columns:
+                continue
+            if key_col != "File":
+                df = df.rename(columns={key_col: "File"})
+            df = df.rename(columns={c: f"{prefix}_{c}" for c in df.columns if c != "File"})
+            if merged_df is None:
+                merged_df = df
+            else:
+                merged_df = pd.merge(merged_df, df, on="File", how="outer")
+                
         if merged_df is None or merged_df.empty:
             return TaskResult(
                 name="comprehensive_merge",
@@ -603,7 +320,6 @@ def run_comprehensive_merge(inputs: AnalysisInputs) -> TaskResult:
         )
 
 
-
 def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
     if inputs.und_csv is None or not inputs.thresholds:
         return TaskResult(
@@ -617,7 +333,6 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
     out_und.mkdir(parents=True, exist_ok=True)
 
     try:
-        # Load und CSV using shared_dfs if cached, or read from disk
         if "und" in inputs.shared_dfs:
             df = inputs.shared_dfs["und"]
         else:
@@ -628,27 +343,17 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
         kind_col = df["Kind"].astype(str) if "Kind" in df.columns else pd.Series([""] * len(df))
         func_df = df[kind_col.str.contains("Function|Method", na=False)].copy()
 
-        # Target thresholds to evaluate
-        valid_metrics = []
-        for metric, threshold_val in inputs.thresholds.items():
-            if metric not in func_df.columns:
-                print(f"[WARN] Metric '{metric}' specified in thresholds not found in Understand output, skipping.")
-                continue
-            valid_metrics.append(metric)
+        valid_metrics = [m for m in inputs.thresholds if m in func_df.columns]
 
-        # Output files paths
         functions_csv = out_und / "threshold_exceeded_functions.csv"
         summary_csv = out_und / "threshold_exceeded_summary.csv"
         dir_summary_csv = out_und / "threshold_exceeded_dir_summary.csv"
 
-        # If no valid metrics are found or no functions/methods exist
         if not valid_metrics or func_df.empty:
-            empty_summary = pd.DataFrame(columns=["File", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"])
-            empty_functions = pd.DataFrame(columns=["File", "Name", "Kind"] + list(inputs.thresholds.keys()) + ["exceeded_metrics"])
-            empty_dir = pd.DataFrame(columns=["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"])
-            empty_summary.to_csv(summary_csv, index=False)
-            empty_functions.to_csv(functions_csv, index=False)
-            empty_dir.to_csv(dir_summary_csv, index=False)
+            empty_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"]
+            pd.DataFrame(columns=empty_cols).to_csv(summary_csv, index=False)
+            pd.DataFrame(columns=["File", "Name", "Kind"] + list(inputs.thresholds.keys()) + ["exceeded_metrics"]).to_csv(functions_csv, index=False)
+            pd.DataFrame(columns=["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in inputs.thresholds] + ["total_exceeded_count", "exceeded_ratio"]).to_csv(dir_summary_csv, index=False)
             return TaskResult(
                 name="threshold_check",
                 executed=True,
@@ -657,110 +362,74 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
                 message="Threshold check completed (no functions or valid metrics found)",
             )
 
-        # Convert valid metric columns to numeric
         for metric in valid_metrics:
             func_df[metric] = _safe_num(func_df[metric])
 
-        # Evaluate threshold exceeding for each function
-        exceeded_mask = pd.Series(False, index=func_df.index)
-        exceeded_lists = []
-        for idx, row in func_df.iterrows():
-            exceeded_metrics = []
-            for metric in valid_metrics:
-                val = row[metric]
-                thresh = inputs.thresholds[metric]
-                if val > thresh:
-                    exceeded_metrics.append(metric)
-                    exceeded_mask.loc[idx] = True
-            exceeded_lists.append(",".join(exceeded_metrics))
-        func_df["exceeded_metrics"] = exceeded_lists
+        exceeded_df = pd.DataFrame(index=func_df.index)
+        for metric in valid_metrics:
+            exceeded_df[metric] = func_df[metric] > inputs.thresholds[metric]
 
-        # Detailed list of exceeded functions
-        exceeded_funcs_df = func_df[exceeded_mask].copy()
-        cols_to_keep = ["File", "Name", "Kind"] + valid_metrics + ["exceeded_metrics"]
-        exceeded_funcs_df = exceeded_funcs_df[cols_to_keep]
+        exceeded_mask = exceeded_df.any(axis=1)
+        func_df["exceeded_metrics"] = exceeded_df.apply(lambda r: ",".join([m for m in valid_metrics if r[m]]), axis=1)
+
+        exceeded_funcs_df = func_df[exceeded_mask][["File", "Name", "Kind"] + valid_metrics + ["exceeded_metrics"]].copy()
         exceeded_funcs_df.to_csv(functions_csv, index=False)
 
-        # File-level summary
         func_df["File"] = func_df["File"].astype(str)
         file_total_funcs = func_df.groupby("File").size().reset_index(name="total_functions")
 
-        file_metrics_counts = []
+        summary_df = file_total_funcs
         for metric in valid_metrics:
-            thresh = inputs.thresholds[metric]
-            exceeded_col = func_df[metric] > thresh
-            counts = func_df[exceeded_col].groupby("File").size().reset_index(name=f"{metric}_exceeded_count")
-            file_metrics_counts.append(counts)
+            counts = func_df[exceeded_df[metric]].groupby("File").size().reset_index(name=f"{metric}_exceeded_count")
+            summary_df = summary_df.merge(counts, on="File", how="left")
 
         file_total_exceeded = func_df[exceeded_mask].groupby("File").size().reset_index(name="total_exceeded_count")
-
-        summary_df = file_total_funcs
-        for count_df in file_metrics_counts:
-            summary_df = summary_df.merge(count_df, on="File", how="left")
         summary_df = summary_df.merge(file_total_exceeded, on="File", how="left")
 
         for col in summary_df.columns:
             if col != "File":
                 summary_df[col] = summary_df[col].fillna(0).astype(int)
 
-        summary_df["exceeded_ratio"] = summary_df.apply(
-            lambda r: r["total_exceeded_count"] / r["total_functions"] if r["total_functions"] > 0 else 0.0, axis=1
-        )
-        summary_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        summary_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count"]
         summary_df = summary_df[summary_cols]
         summary_df.to_csv(summary_csv, index=False)
 
-        # Directory-level recursive aggregation
-        dir_rows = []
-        
-        total_row = {
-            "Dir": "ALL_FILES",
-            "total_functions": int(summary_df["total_functions"].sum()),
-            "total_exceeded_count": int(summary_df["total_exceeded_count"].sum()),
-        }
-        for metric in valid_metrics:
-            total_row[f"{metric}_exceeded_count"] = int(summary_df[f"{metric}_exceeded_count"].sum())
-        total_row["exceeded_ratio"] = total_row["total_exceeded_count"] / total_row["total_functions"] if total_row["total_functions"] > 0 else 0.0
-        dir_rows.append(total_row)
-
-        paths = summary_df["File"].astype(str).str.replace("\\\\", "/", regex=False).str.strip("/")
-        parts = paths.str.split("/")
-        depth = int(parts.map(len).max()) if len(summary_df.index) else 0
-
         dir_data = {}
-        for idx, row in summary_df.iterrows():
-            file_path = row["File"]
-            file_parts = file_path.replace("\\", "/").strip("/").split("/")
+        for _, row in summary_df.iterrows():
+            file_parts = row["File"].replace("\\", "/").strip("/").split("/")
             for i in range(1, len(file_parts)):
-                ancestor_dir = "/".join(file_parts[:i])
-                if ancestor_dir not in dir_data:
-                    dir_data[ancestor_dir] = {
-                        "total_functions": 0,
-                        "total_exceeded_count": 0,
-                    }
-                    for metric in valid_metrics:
-                        dir_data[ancestor_dir][f"{metric}_exceeded_count"] = 0
-                
-                dir_data[ancestor_dir]["total_functions"] += row["total_functions"]
-                dir_data[ancestor_dir]["total_exceeded_count"] += row["total_exceeded_count"]
-                for metric in valid_metrics:
-                    dir_data[ancestor_dir][f"{metric}_exceeded_count"] += row[f"{metric}_exceeded_count"]
+                ancestor = "/".join(file_parts[:i])
+                d = dir_data.setdefault(ancestor, {"total_functions": 0, "total_exceeded_count": 0})
+                d["total_functions"] += row["total_functions"]
+                d["total_exceeded_count"] += row["total_exceeded_count"]
+                for m in valid_metrics:
+                    col = f"{m}_exceeded_count"
+                    d[col] = d.get(col, 0) + row[col]
 
-        for ancestor_dir, metrics_dict in sorted(dir_data.items()):
-            row_data = {"Dir": ancestor_dir}
-            row_data["total_functions"] = int(metrics_dict["total_functions"])
-            for metric in valid_metrics:
-                row_data[f"{metric}_exceeded_count"] = int(metrics_dict[f"{metric}_exceeded_count"])
-            row_data["total_exceeded_count"] = int(metrics_dict["total_exceeded_count"])
-            row_data["exceeded_ratio"] = row_data["total_exceeded_count"] / row_data["total_functions"] if row_data["total_functions"] > 0 else 0.0
-            dir_rows.append(row_data)
+        dir_rows = []
+        all_row = {"Dir": "ALL_FILES", "total_functions": int(summary_df["total_functions"].sum()), "total_exceeded_count": int(summary_df["total_exceeded_count"].sum())}
+        for m in valid_metrics:
+            all_row[f"{m}_exceeded_count"] = int(summary_df[f"{m}_exceeded_count"].sum())
+        dir_rows.append(all_row)
+
+        for ancestor, metrics in sorted(dir_data.items()):
+            row = {"Dir": ancestor, "total_functions": metrics["total_functions"], "total_exceeded_count": metrics["total_exceeded_count"]}
+            for m in valid_metrics:
+                col = f"{m}_exceeded_count"
+                row[col] = metrics[col]
+            dir_rows.append(row)
 
         dir_summary_df = pd.DataFrame(dir_rows)
-        dir_cols = ["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
-        dir_summary_df = dir_summary_df[dir_cols]
-        dir_summary_df.to_csv(dir_summary_csv, index=False)
+        for df in [summary_df, dir_summary_df]:
+            df["exceeded_ratio"] = (df["total_exceeded_count"] / df["total_functions"]).fillna(0.0)
 
-        # Store in shared_dfs for comprehensive merge
+        # Re-save with ratio included
+        summary_cols = ["File", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        summary_df[summary_cols].to_csv(summary_csv, index=False)
+
+        dir_cols = ["Dir", "total_functions"] + [f"{m}_exceeded_count" for m in valid_metrics] + ["total_exceeded_count", "exceeded_ratio"]
+        dir_summary_df[dir_cols].to_csv(dir_summary_csv, index=False)
+
         inputs.shared_dfs["threshold_summary"] = summary_df.copy()
 
         return TaskResult(
@@ -781,31 +450,10 @@ def run_threshold_check(inputs: AnalysisInputs) -> TaskResult:
 
 def write_global_summary(inputs: AnalysisInputs, results: list[TaskResult]) -> Path:
     out = inputs.output_dir / "summary.csv"
-    
-    # Consolidate all metrics keys from all tasks
-    all_metric_keys = []
-    for r in results:
-        for k in r.summary_metrics.keys():
-            if k not in all_metric_keys:
-                all_metric_keys.append(k)
-                
-    fieldnames = ["Task", "Executed", "Success", "Outputs", "Message"] + all_metric_keys
-    
     rows = []
     for r in results:
-        row = {
-            "Task": r.name,
-            "Executed": r.executed,
-            "Success": r.success,
-            "Outputs": len(r.outputs),
-            "Message": r.message,
-        }
-        for k in all_metric_keys:
-            row[k] = r.summary_metrics.get(k, "")
+        row = {"Task": r.name, "Executed": r.executed, "Success": r.success, "Outputs": len(r.outputs), "Message": r.message}
+        row.update(r.summary_metrics)
         rows.append(row)
-        
-    with out.open("w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
+    pd.DataFrame(rows).fillna("").to_csv(out, index=False)
     return out
