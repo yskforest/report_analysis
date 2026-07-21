@@ -106,11 +106,45 @@ def _detect_bom(head: bytes) -> bool:
     return False
 
 
-def _detect_encoding(data: bytes) -> tuple[str, float]:
+def _detect_encoding_fast(data: bytes, head: bytes) -> tuple[str, float] | None:
+    """
+    BOMや高速デコード試行を用いて、chardetを使用せずにエンコーディングを決定する。
+    判定できない場合は None を返す。
+    """
+    if not data:
+        return "unknown", 0.0
+
+    # 1. BOM判定からの確定
+    if head.startswith(b"\xef\xbb\xbf"):
+        return "utf-8", 1.0
+    if head.startswith(b"\xff\xfe\x00\x00"):
+        return "utf-32", 1.0
+    if head.startswith(b"\x00\x00\xfe\xff"):
+        return "utf-32", 1.0
+    if head.startswith(b"\xff\xfe"):
+        return "utf-16", 1.0
+    if head.startswith(b"\xfe\xff"):
+        return "utf-16", 1.0
+
+    # 2. ASCII デコード試行
+    try:
+        data.decode("ascii")
+        return "ascii", 1.0
+    except UnicodeDecodeError:
+        pass
+
+    return None
+
+
+def _detect_encoding(data: bytes, head: bytes = b"") -> tuple[str, float]:
     """
     chardet でエンコーディングと信頼度を推定する。
     chardet が利用不可の場合は ('unknown', 0.0) を返す。
     """
+    fast_res = _detect_encoding_fast(data, head)
+    if fast_res is not None:
+        return fast_res
+
     if not _CHARDET_AVAILABLE or not data:
         return ("unknown", 0.0)
     result = chardet.detect(data)
@@ -174,10 +208,10 @@ def collect_metrics(path: Path, remove_prefix: str | None) -> dict:
     mime_type = _detect_mime(path)
     file_path = _clean_path(str(path), remove_prefix)
 
-    # 先頭バイトを読み込む（バイナリ判定・BOM 検出）
+    # 先頭バイトを読み込む（バイナリ判定・BOM 検出・エンコーディング/改行用データ収集を1回で実施）
     try:
         with open(path, "rb") as fp:
-            head = fp.read(_BINARY_CHECK_BYTES)
+            full_data = fp.read(_ENCODING_DETECT_BYTES)
     except (OSError, PermissionError) as e:
         return {
             "file": file_path,
@@ -193,6 +227,7 @@ def collect_metrics(path: Path, remove_prefix: str | None) -> dict:
             "last_modified": last_modified,
         }
 
+    head = full_data[:_BINARY_CHECK_BYTES]
     is_binary = _detect_binary(head)
     has_bom = _detect_bom(head)
 
@@ -211,14 +246,7 @@ def collect_metrics(path: Path, remove_prefix: str | None) -> dict:
             "last_modified": last_modified,
         }
 
-    # テキストファイル: 全体（先頭 _ENCODING_DETECT_BYTES バイト）を読んでエンコーディング・改行コードを解析
-    try:
-        with open(path, "rb") as fp:
-            full_data = fp.read(_ENCODING_DETECT_BYTES)
-    except (OSError, PermissionError):
-        full_data = head
-
-    encoding, enc_conf = _detect_encoding(full_data)
+    encoding, enc_conf = _detect_encoding(full_data, head)
     line_ending, line_count = _detect_line_ending(full_data)
 
     return {
@@ -234,6 +262,15 @@ def collect_metrics(path: Path, remove_prefix: str | None) -> dict:
         "has_bom": has_bom,
         "last_modified": last_modified,
     }
+
+
+def _collect_metrics_worker(args: tuple[Path, str | None]) -> tuple[Path, dict | Exception]:
+    """ProcessPoolExecutorで実行する並列処理ワーカー"""
+    path, remove_prefix = args
+    try:
+        return path, collect_metrics(path, remove_prefix)
+    except Exception as e:
+        return path, e
 
 
 _COLUMNS = [
@@ -265,30 +302,39 @@ def scan_directory(
     exclude_patterns = _DEFAULT_EXCLUDES + (extra_excludes or [])
     output_csv.parent.mkdir(parents=True, exist_ok=True)
 
+    files_to_process = []
+    for root, dirs, files in os.walk(scan_dir, followlinks=False):
+        root_path = Path(root)
+
+        # 除外ディレクトリをフィルタ（in-place 変更で os.walk の枝刈り）
+        dirs[:] = sorted([
+            d for d in dirs
+            if not _is_excluded(root_path / d, exclude_patterns)
+        ])
+
+        for filename in sorted(files):
+            file_path = root_path / filename
+            if _is_excluded(file_path, exclude_patterns):
+                continue
+            files_to_process.append(file_path)
+
     processed = 0
+    import concurrent.futures
+    tasks = [(f, remove_prefix) for f in files_to_process]
+
     with open(output_csv, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=_COLUMNS, extrasaction="ignore")
         writer.writeheader()
 
-        for root, dirs, files in os.walk(scan_dir, followlinks=False):
-            root_path = Path(root)
-
-            # 除外ディレクトリをフィルタ（in-place 変更で os.walk の枝刈り）
-            dirs[:] = sorted([
-                d for d in dirs
-                if not _is_excluded(root_path / d, exclude_patterns)
-            ])
-
-            for filename in sorted(files):
-                file_path = root_path / filename
-                if _is_excluded(file_path, exclude_patterns):
-                    continue
-                try:
-                    metrics = collect_metrics(file_path, remove_prefix)
-                    writer.writerow(metrics)
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            # Map retains the original sorting order
+            results = executor.map(_collect_metrics_worker, tasks)
+            for path, res in results:
+                if isinstance(res, Exception):
+                    print(f"[WARN] skipped {path}: {res}", file=sys.stderr)
+                else:
+                    writer.writerow(res)
                     processed += 1
-                except Exception as e:
-                    print(f"[WARN] skipped {file_path}: {e}", file=sys.stderr)
 
     return processed
 
