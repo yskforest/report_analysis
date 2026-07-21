@@ -144,6 +144,36 @@ visualizations:
     metric_color: und_CountLineCode_exceeded_ratio
     output_file: "und/count_line_code_exceeded_ratio_treemap.html"
 
+  # 18-6. コード行数 (und_CountLineCode) を面積、MaxNesting超過件数 (und_MaxNesting_exceeded_count) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_MaxNesting_exceeded_count
+    output_file: "und/max_nesting_exceeded_count_treemap.html"
+
+  # 18-7. コード行数 (und_CountLineCode) を面積、Essential超過件数 (und_Essential_exceeded_count) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_Essential_exceeded_count
+    output_file: "und/essential_exceeded_count_treemap.html"
+
+  # 18-8. コード行数 (und_CountLineCode) を面積、Cyclomatic超過件数 (und_Cyclomatic_exceeded_count) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_Cyclomatic_exceeded_count
+    output_file: "und/cyclomatic_exceeded_count_treemap.html"
+
+  # 18-9. コード行数 (und_CountLineCode) を面積、CountLine超過件数 (und_CountLine_exceeded_count) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_CountLine_exceeded_count
+    output_file: "und/count_line_exceeded_count_treemap.html"
+
+  # 18-10. コード行数 (und_CountLineCode) を面積、CountLineCode超過件数 (und_CountLineCode_exceeded_count) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLineCode
+    metric_color: und_CountLineCode_exceeded_count
+    output_file: "und/count_line_code_exceeded_count_treemap.html"
+
   - type: treemap
     metric_area: fm_file_size_bytes
     metric_color: fm_is_binary

@@ -82,6 +82,19 @@ assert_csv_has_column "${MERGE_CSV}" "fm_file_size_bytes"
 assert_csv_has_column "${MERGE_CSV}" "fm_is_binary"
 assert_csv_has_column "${MERGE_CSV}" "fm_encoding"
 
+# 3. metrics_report.xlsx に file_metrics シートが存在するか
+XLSX_FILE="${OUT_REPORT}/metrics_report.xlsx"
+assert_file_exists "${XLSX_FILE}" "metrics_report.xlsx"
+python3 -c "
+import openpyxl
+wb = openpyxl.load_workbook('${XLSX_FILE}', read_only=True)
+assert 'file_metrics' in wb.sheetnames, 'Missing file_metrics sheet in Excel'
+ws = wb['file_metrics']
+headers = [cell.value for cell in next(ws.iter_rows(max_row=1))]
+assert 'File' in headers, 'file_metrics sheet missing File header'
+assert 'is_binary' in headers, 'file_metrics sheet missing is_binary header'
+" || fail "Excel file_metrics validation failed"
+
 # 実行 3: FILE_METRICS_CSV に none を指定した場合のスキップ検証 (AC-17)
 OUT_SKIP="${OUT}/report_skip"
 assert_exit_code 0 "AC-17: FILE_METRICS_CSV=none で exit 0" \
