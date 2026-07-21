@@ -15,6 +15,7 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${PROJECT_DIR}/sample_data/cloc/cloc.csv" \
   "${PROJECT_DIR}/sample_data/pmd/*.xml" \
   "${PROJECT_DIR}/sample_data/git_numstat.tsv" \
+  none \
   "${OUT}" "/"
 
 MERGE_CSV="${OUT}/metrics_merge.csv"

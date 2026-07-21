@@ -149,6 +149,12 @@ visualizations:
     metric_color: fm_is_binary
     output_file: vis/file_size_treemap.html
 
+  # 19. Understandの総行数 (und_CountLine) を面積、Gitの追加行数 (git_AddedLines) を色にしたTreemap
+  - type: treemap
+    metric_area: und_CountLine
+    metric_color: git_AddedLines
+    output_file: vis/und_line_git_add_treemap.html
+
 # thresholds: Understandの関数・メソッドに関するメトリクスの基準値設定
 # ここで定義された値を超過（> threshold）する関数・メソッドが抽出・集計されます。
 thresholds:

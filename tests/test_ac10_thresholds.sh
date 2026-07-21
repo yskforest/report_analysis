@@ -27,6 +27,7 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
   --config "${CONFIG_FILE}" \
   "${PROJECT_DIR}/sample_data/und_metrics.csv" \
   none none none \
+  none \
   "${OUT}" "/"
 
 # 1. threshold_exceeded_functions.csv の検証

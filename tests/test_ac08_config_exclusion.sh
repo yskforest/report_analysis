@@ -24,6 +24,7 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
   none \
   "${PROJECT_DIR}/sample_data/cloc/cloc.csv" \
   none none \
+  none \
   "${OUT}" "/"
 
 # 検証: 指定された Pie Chart は生成されている

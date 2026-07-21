@@ -13,6 +13,7 @@ OUT=$(setup_output_dir "ac12")
 python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${PROJECT_DIR}/sample_data/und_metrics.csv" \
   none none none \
+  none \
   "${OUT}" "/"
 
 # 検証

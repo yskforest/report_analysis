@@ -31,6 +31,7 @@ ALL_TESTS=(
   "ac10:test_ac10_thresholds.sh:基準値超過関数の集計検証"
   "ac11:test_ac11_file_excel.sh:ファイル階層 Excel レポート検証"
   "ac12:test_ac12_func_excel.sh:関数メトリクス Excel レポート検証"
+  "ac13:test_ac13_file_metrics.sh:ファイルメトリクス収集・連携検証"
 )
 
 # ── ヘルプ / リスト表示 ──

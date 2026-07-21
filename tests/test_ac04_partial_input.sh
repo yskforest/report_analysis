@@ -13,7 +13,7 @@ OUT=$(setup_output_dir "ac04")
 assert_exit_code 0 "AC-04: UND のみで exit 0" \
   python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${PROJECT_DIR}/sample_data/und_metrics.csv" \
-  none none none "${OUT}" "/"
+  none none none none "${OUT}" "/"
 
 # UND 成果物が存在する
 assert_file_exists "${OUT}/und/und_file.csv" "und_file.csv"

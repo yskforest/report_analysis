@@ -18,7 +18,7 @@ fi
 # 実行
 OUT=$(setup_output_dir "ac01")
 python3 "${PROJECT_DIR}/src/report_analysis.py" \
-  "${fixture_csv}" none none none "${OUT}" "/"
+  "${fixture_csv}" none none none none "${OUT}" "/"
 
 # 検証: und_file.csv が存在する
 assert_file_exists "${OUT}/und/und_file.csv"

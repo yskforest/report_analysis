@@ -11,7 +11,7 @@ OUT=$(setup_output_dir "ac02")
 python3 "${PROJECT_DIR}/src/report_analysis.py" \
   none \
   "${PROJECT_DIR}/sample_data/cloc/cloc.csv" \
-  none none "${OUT}" "/"
+  none none none "${OUT}" "/"
 
 # 検証
 assert_file_exists "${OUT}/cloc/cloc_filtered.csv" "cloc_filtered.csv"

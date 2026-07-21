@@ -12,12 +12,12 @@ OUT=$(setup_output_dir "ac05")
 # 全引数に none を指定
 assert_exit_code 1 "AC-05: 全 none で exit 1" \
   python3 "${PROJECT_DIR}/src/report_analysis.py" \
-  none none none none "${OUT}" "/"
+  none none none none none "${OUT}" "/"
 
 # stderr にエラーメッセージが出力されること
 set +e
 stderr_output=$(python3 "${PROJECT_DIR}/src/report_analysis.py" \
-  none none none none "${OUT}" "/" 2>&1 1>/dev/null)
+  none none none none none "${OUT}" "/" 2>&1 1>/dev/null)
 set -e
 
 if echo "${stderr_output}" | grep -qi "error\|no valid"; then

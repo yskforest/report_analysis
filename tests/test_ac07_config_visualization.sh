@@ -29,6 +29,7 @@ python3 "${PROJECT_DIR}/src/report_analysis.py" \
   "${PROJECT_DIR}/sample_data/cloc/cloc.csv" \
   none \
   "${PROJECT_DIR}/sample_data/git_numstat.tsv" \
+  none \
   "${OUT}" "/"
 
 # 検証: 指定されたファイルが生成されている

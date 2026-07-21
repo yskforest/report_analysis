@@ -11,7 +11,7 @@ OUT=$(setup_output_dir "ac03")
 python3 "${PROJECT_DIR}/src/report_analysis.py" \
   none none \
   "${PROJECT_DIR}/sample_data/pmd/*.xml" \
-  none "${OUT}" "/"
+  none none "${OUT}" "/"
 
 # 検証: ファイル存在
 assert_file_exists "${OUT}/pmd/pmd_clone_ratio.csv" "pmd_clone_ratio.csv"

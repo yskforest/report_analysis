@@ -47,7 +47,7 @@ def write_treemap_by_path(
     vmax: float | None = None,
     max_depth: int | None = None,
     empty_label: str | None = None,
-    aggregate: bool = False,
+    aggregate: bool = True,
     color_agg: str = "weighted_mean",
     color_continuous_scale="OrRd",
 ) -> None:
@@ -58,10 +58,9 @@ def write_treemap_by_path(
     
     data[size_col] = pd.to_numeric(data[size_col], errors="coerce")
     if color_col is not None:
-        data[color_col] = pd.to_numeric(data[color_col], errors="coerce")
-        data = data[data[size_col] > 0].dropna(subset=[size_col, color_col])
-    else:
-        data = data[data[size_col] > 0].dropna(subset=[size_col])
+        data[color_col] = pd.to_numeric(data[color_col], errors="coerce").fillna(0.0)
+    
+    data = data[data[size_col] > 0].dropna(subset=[size_col])
 
     if data.empty:
         if empty_label is None:

@@ -23,6 +23,7 @@ assert_exit_code 1 "AC-09: YAML 構文エラーで終了コード 1" \
   none \
   "${PROJECT_DIR}/sample_data/cloc/cloc.csv" \
   none none \
+  none \
   "${OUT}" "/"
 
 # 2. 存在しない列（カラム）を指定した YAML のテスト
@@ -40,6 +41,7 @@ assert_exit_code 1 "AC-09: 存在しない列の指定で終了コード 1" \
   none \
   "${PROJECT_DIR}/sample_data/cloc/cloc.csv" \
   none none \
+  none \
   "${OUT}" "/"
 
 cleanup_output_dir "ac09"
