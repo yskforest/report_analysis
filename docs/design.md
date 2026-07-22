@@ -42,6 +42,7 @@ python3 src/report_analysis.py \
   {CLOC_CSV|none} \
   {PMD_XML_GLOB_OR_LIST|none} \
   {GIT_NUMSTAT|none} \
+  {FILE_METRICS_CSV|none} \
   {OUTPUT_DIR} \
   {REMOVE_PATH_PREFIX}
 ```
@@ -53,8 +54,9 @@ python3 src/report_analysis.py \
 3. `CLOC_CSV|none`
 4. `PMD_XML_GLOB_OR_LIST|none`
 5. `GIT_NUMSTAT|none`
-6. `OUTPUT_DIR`
-7. `REMOVE_PATH_PREFIX`
+6. `FILE_METRICS_CSV|none`
+7. `OUTPUT_DIR`
+8. `REMOVE_PATH_PREFIX`
 
 - `none` / `false` / `-` は未指定扱い。
 - `PMD_XML_GLOB_OR_LIST` は以下を許容:
@@ -111,10 +113,13 @@ flowchart LR
   - `cloc_csv: Optional[Path]`
   - `pmd_xmls: list[Path]`
   - `git_numstat: Optional[Path]`
+  - `file_metrics_csv: Optional[Path]`
   - `output_dir: Path`
   - `remove_path_prefix: str`
   - `config_path: Optional[Path]`
   - `visualizations: list[dict]`
+  - `thresholds: dict[str, float]`
+  - `shared_dfs: dict[str, object]`
   - `warnings: list[str]`（未存在入力など）
 
 - `TaskResult`

@@ -188,24 +188,29 @@ thresholds:
 ## テスト
 
 ```bash
-bash tests/run_tests.sh           # 全テスト
-bash tests/run_tests.sh ac01 ac05 # 個別指定
-bash tests/run_tests.sh --list    # 一覧表示
+bash tests/run_tests.sh              # 全テスト（自動並列実行）
+bash tests/run_tests.sh -j 8         # 並列ジョブ数指定実行
+bash tests/run_tests.sh ac01 ac05    # 個別指定
+bash tests/run_tests.sh --list       # 一覧表示
 ```
 
 | ID | 検証内容 |
 |---|---|
 | ac01 | UND CSV パス正規化（`\` → `/`） |
-| ac02 | CLOC 入力で pie chart・CSV 生成 |
-| ac03 | 複数 PMD XML の統合解析 |
+| ac02 | CLOC 出力生成 |
+| ac03 | PMD 複数 XML 統合解析 |
 | ac04 | 部分入力での正常終了 |
 | ac05 | 全入力なしで終了コード 1 |
 | ac06 | マージ CSV にツール別プレフィックス付与 |
 | ac07 | config 指定のカスタム可視化 HTML 生成 |
 | ac08 | config 未指定の可視化は非生成 |
 | ac09 | YAML 構文エラー・不正カラムで終了コード 1 |
+| ac10 | 基準値超過関数の集計検証（関数・ファイル・ディレクトリ別） |
+| ac11 | ファイルメトリクス階層 Excel レポート検証 |
+| ac12 | 関数メトリクス Excel レポート検証 |
+| ac13 | ファイルメトリクス収集・連携検証 (AC-13〜AC-17) |
 
-詳細な受け入れ基準（AC-13〜AC-17 含む）は [docs/requirements.md](docs/requirements.md) を参照。
+詳細な受け入れ基準は [docs/requirements.md](docs/requirements.md) を参照。
 
 ---
 

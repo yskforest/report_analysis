@@ -217,9 +217,12 @@
   - 各入力が存在する場合に以下のシートを追加すること：
     - **UND (ファイル)**: `file_hierarchy` シート（ディレクトリ階層別のLoC・ファイル数集計、親子インデント表現）
     - **UND (関数)**: `func_detail`（各関数の詳細リスト）、`func_level_agg`（階層別平均値）、`func_dist_nesting` / `func_dist_cyclomatic` / `func_dist_essential`（度数分布）
+    - **UND (基準値超過)**: `exceeded_summary`（ファイル別集計）、`exceeded_functions`（関数別明細）、`exceeded_dir_summary`（ディレクトリ別階層集計）
     - **CLOC**: `cloc_summary` シート（言語別のコード・コメント・ファイル数集計）
     - **PMD**: `pmd_clone_ratio` シート（ファイルごとの重複コード率）
     - **Git Numstat**: `git_diff` シート（ファイルごとの追加・削除・変更行数）
+    - **File Metrics**: `file_metrics` シート（ファイルサイズ、文字コード、改行コード明細）
+    - **Hotspots**: `hotspots` シート（コード規模 × Git 変更量の高リスクファイル Top 20）
     - **総合マージ**: `metrics_merge` シート（全ツールの外部結合テーブル）
 
 ### 3.11 ファイルメトリクス解析
