@@ -140,12 +140,207 @@ def _render_plotly_px(vis: dict, df: pd.DataFrame, out_path: Path, vis_type: str
     fig.write_html(out_path)
 
 
+from concurrent.futures import ThreadPoolExecutor
+
+
+def generate_index_html(inputs: AnalysisInputs, vis_outputs: list[Path]) -> Path:
+    index_path = inputs.output_dir / "index.html"
+    
+    summary_csv = inputs.output_dir / "summary.csv"
+    summary_rows = []
+    if summary_csv.exists():
+        try:
+            summary_df = pd.read_csv(summary_csv)
+            summary_rows = summary_df.to_dict("records")
+        except Exception:
+            pass
+
+    loc_total = "-"
+    file_total = "-"
+    clone_ratio = "-"
+
+    for r in summary_rows:
+        val_loc = r.get("und_CountLineCode") or r.get("cloc_CountLineCode")
+        if val_loc:
+            try:
+                loc_total = f"{int(float(val_loc)):,}"
+            except ValueError:
+                pass
+
+        val_files = r.get("fm_TotalFiles") or r.get("und_FileCount") or r.get("cloc_Files")
+        if val_files:
+            try:
+                file_total = f"{int(float(val_files)):,}"
+            except ValueError:
+                pass
+
+        val_clone = r.get("pmd_CloneRatio")
+        if val_clone:
+            try:
+                clone_ratio = f"{float(val_clone):.2f}%"
+            except ValueError:
+                pass
+
+    vis_cards = ""
+    for out in sorted(vis_outputs):
+        try:
+            rel_path = out.relative_to(inputs.output_dir).as_posix()
+        except ValueError:
+            rel_path = out.name
+        name = out.stem.replace("_", " ").title()
+        vis_cards += f"""
+        <a class="card" href="{rel_path}" target="_blank">
+          <div class="card-icon">📊</div>
+          <div class="card-title">{name}</div>
+          <div class="card-sub">{rel_path}</div>
+        </a>"""
+
+    if not vis_cards:
+        vis_cards = "<p class='no-vis'>可視化ファイルは生成されていません。</p>"
+
+    artifacts = [
+        ("metrics_report.xlsx", "統合 Excel レポート", "📊", "エクセル形式の多角的詳細分析データ"),
+        ("metrics_merge.csv", "統合マスタ CSV", "📄", "全解析ツールの結合マスタデータ"),
+        ("summary.csv", "タスク実行サマリ CSV", "📝", "各タスクの実行結果とKPI概要"),
+    ]
+    art_cards = ""
+    for file_name, label, icon, desc in artifacts:
+        p = inputs.output_dir / file_name
+        if p.exists():
+            art_cards += f"""
+            <a class="card art-card" href="{file_name}">
+              <div class="card-icon">{icon}</div>
+              <div class="card-title">{label}</div>
+              <div class="card-sub">{file_name} — {desc}</div>
+            </a>"""
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Analysis Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {{
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --border: #334155;
+    }}
+    body {{
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 30px;
+    }}
+    .header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }}
+    h1 {{ font-size: 26px; margin: 0; color: var(--accent); }}
+    .kpi-container {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 35px;
+    }}
+    .kpi-card {{
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }}
+    .kpi-title {{ font-size: 13px; color: var(--subtext); margin-bottom: 6px; }}
+    .kpi-value {{ font-size: 24px; font-weight: 700; color: var(--accent); }}
+    
+    .section-title {{
+      font-size: 18px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+    }}
+    .grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 35px;
+    }}
+    .card {{
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.2s, border-color 0.2s;
+      display: block;
+    }}
+    .card:hover {{
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }}
+    .card-icon {{ font-size: 28px; margin-bottom: 10px; }}
+    .card-title {{ font-size: 16px; font-weight: 600; margin-bottom: 6px; }}
+    .card-sub {{ font-size: 12px; color: var(--subtext); word-break: break-all; }}
+    .art-card {{ border-color: #3b82f6; }}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>Report Analysis Dashboard</h1>
+      <p style="color: var(--subtext); margin: 5px 0 0 0;">静的解析・品質評価 統合レポートポータル</p>
+    </div>
+  </div>
+
+  <div class="kpi-container">
+    <div class="kpi-card">
+      <div class="kpi-title">総コード行数 (LoC)</div>
+      <div class="kpi-value">{loc_total}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">総ファイル数</div>
+      <div class="kpi-value">{file_total}</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">コード重複率 (PMD)</div>
+      <div class="kpi-value">{clone_ratio}</div>
+    </div>
+  </div>
+
+  <div class="section-title">📊 インタラクティブ可視化 HTML レポート</div>
+  <div class="grid">
+    {vis_cards}
+  </div>
+
+  <div class="section-title">📦 集計データ・ファイル成果物</div>
+  <div class="grid">
+    {art_cards}
+  </div>
+</body>
+</html>"""
+
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    return index_path
+
+
 def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
     if inputs.config_path is None:
+        index_p = generate_index_html(inputs, [])
         return TaskResult(
             name="visualize",
             executed=False,
             success=True,
+            outputs=[index_p],
             message="No config file specified, skipping visualizations",
         )
 
@@ -157,10 +352,12 @@ def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
                 raise FileNotFoundError(
                     f"Merged metrics file '{merge_file}' not found, but visualizations are requested in config."
                 )
+            index_p = generate_index_html(inputs, [])
             return TaskResult(
                 name="visualize",
                 executed=True,
                 success=True,
+                outputs=[index_p],
                 message="No visualizations executed (merge file not found and config visualizations list empty)",
             )
 
@@ -172,11 +369,11 @@ def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
                     f"Column '{col_name}' specified in '{vis_type}' visualization not found in metrics_merge.csv"
                 )
 
-        for i, vis in enumerate(inputs.visualizations):
+        def render_single_vis(vis: dict) -> Path:
             vis_type = vis.get("type")
             out_rel = vis.get("output_file")
             if not vis_type or not out_rel:
-                raise ValueError(f"Visualization spec at index {i} must contain 'type' and 'output_file'")
+                raise ValueError("Visualization spec must contain 'type' and 'output_file'")
 
             out_path = inputs.output_dir / out_rel
             out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -202,20 +399,32 @@ def run_advanced_visualizations(inputs: AnalysisInputs) -> TaskResult:
             else:
                 _render_plotly_px(vis, df, out_path, vis_type)
 
-            outputs.append(out_path)
+            return out_path
+
+        # 並列レンダリング (ThreadPoolExecutor)
+        if len(inputs.visualizations) > 1:
+            with ThreadPoolExecutor() as executor:
+                outputs = list(executor.map(render_single_vis, inputs.visualizations))
+        else:
+            outputs = [render_single_vis(v) for v in inputs.visualizations]
+
+        index_p = generate_index_html(inputs, outputs)
+        outputs.append(index_p)
 
         return TaskResult(
             name="visualize",
             executed=True,
             success=True,
             outputs=outputs,
-            message=f"Custom visualizations generated ({len(outputs)} files)",
+            message=f"Custom visualizations generated ({len(outputs) - 1} files + index.html)",
         )
     except Exception as exc:
+        index_p = generate_index_html(inputs, outputs)
         return TaskResult(
             name="visualize",
             executed=True,
             success=False,
-            outputs=outputs,
+            outputs=outputs + [index_p],
             message=f"Visualization failed: {exc}",
         )
+

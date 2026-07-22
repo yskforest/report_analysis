@@ -4,49 +4,23 @@
 # プレフィックス（cloc_, und_, pmd_, git_）付きのカラム名は、出力先の metrics_merge.csv のヘッダーに対応します。
 
 visualizations:
-  # 1. コード行数 (cloc_code) を面積、PMD重複率 (pmd_PmdCloneRatio) を色にしたTreemap (cloc + pmd の複合なので vis に配置)
+  # ==============================================================================
+  # 【主要可視化 5選（デフォルト有効）】
+  # ==============================================================================
+
+  # 1. コード行数 (cloc_code) を面積、PMD重複率 (pmd_PmdCloneRatio) を色にした Treemap
   - type: treemap
     metric_area: cloc_code
     metric_color: pmd_PmdCloneRatio
     output_file: "vis/cloc_pmd_treemap.html"
 
-  # 2. Understandのコード行数 (und_CountLineCode) を面積、複雑度平均 (und_AvgCyclomatic) を色にしたTreemap (und のみ使用のため und に配置)
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_AvgCyclomatic
-    output_file: "und/complexity_treemap.html"
-
-  # 3. Gitの合計変更行数 (git_ChangedLines) を面積、追加行数 (git_AddedLines) を色にしたTreemap (git のみ使用のため git に配置)
-  - type: treemap
-    metric_area: git_ChangedLines
-    metric_color: git_AddedLines
-    output_file: "git/diff_treemap.html"
-
-  # 4. CLOCの言語別コード行数の比率を示す円グラフ (cloc のみ使用のため cloc に配置)
+  # 2. CLOC の言語別コード行数比率を示す円グラフ
   - type: pie_chart
     metric: cloc_language
     value_metric: cloc_code
     output_file: "cloc/language_pie.html"
 
-  # 5. Understandのコード行数 (und_CountLineCode) を面積、コメント率 (und_RatioCommentToCode) を色にしたTreemap (und に配置)
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_RatioCommentToCode
-    output_file: "und/comment_ratio_treemap.html"
-
-  # 6. Understandのコード行数 (und_CountLineCode) を面積、基本複雑度平均 (und_AvgEssential) を色にしたTreemap (und に配置)
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_AvgEssential
-    output_file: "und/essential_complexity_treemap.html"
-
-  # 7. PMDの総トークン数 (pmd_PmdTotalTokens) を面積、重複率 (pmd_PmdCloneRatio) を色にしたTreemap (pmd に配置)
-  - type: treemap
-    metric_area: pmd_PmdTotalTokens
-    metric_color: pmd_PmdCloneRatio
-    output_file: "pmd/clone_tokens_treemap.html"
-
-  # 8. コード行数 (und_CountLineCode) と複雑度 (und_AvgCyclomatic) の関係を示す散布図 (und に配置)
+  # 3. コード行数 (und_CountLineCode) と複雑度 (und_AvgCyclomatic) の散布図
   - type: scatter
     metric_x: und_CountLineCode
     metric_y: und_AvgCyclomatic
@@ -54,139 +28,100 @@ visualizations:
     hover_name: File
     output_file: "und/loc_vs_cyclomatic_scatter.html"
 
-  # 9. 言語ごとのコード行数 (cloc_code) の分布を示す箱ひげ図 (cloc に配置)
-  - type: box
-    metric_x: cloc_language
-    metric_y: cloc_code
-    output_file: "cloc/language_loc_box.html"
-
-  # 10. コード行数 (und_CountLineCode) と複雑度 (und_AvgCyclomatic) のヒートマップ (und に配置)
-  - type: density_heatmap
-    metric_x: und_CountLineCode
-    metric_y: und_AvgCyclomatic
-    output_file: "und/loc_vs_cyclomatic_density.html"
-
-  # 11. 言語ごとのコード行数の分布を示すバイオリン図 (cloc に配置)
-  - type: violin
-    metric_x: cloc_language
-    metric_y: cloc_code
-    output_file: "cloc/language_loc_violin.html"
-
-  # 12. 複雑度 (und_AvgCyclomatic) の頻度分布を示すヒストグラム (und に配置)
+  # 4. 複雑度 (und_AvgCyclomatic) の分布を示すヒストグラム
   - type: histogram
     metric_x: und_AvgCyclomatic
     nbins: 60
     output_file: "und/cyclomatic_histogram.html"
 
-  # 13. PMDの重複率 (pmd_PmdCloneRatio) の累積分布関数 (ECDF) (pmd に配置)
-  - type: ecdf
-    metric_x: pmd_PmdCloneRatio
-    output_file: "pmd/clone_ratio_ecdf.html"
-
-  # 14. 重複行数 (pmd_PmdCloneTokensSum) の多い上位20ファイルを並べた棒グラフ (pmd に配置)
+  # 5. 重複トークン数 (pmd_PmdCloneTokensSum) の多い Top 20 ファイルの棒グラフ
   - type: bar
     metric_x: File
     metric_y: pmd_PmdCloneTokensSum
     top_n: 20
     output_file: "pmd/clone_tokens_bar.html"
 
-  # 15. 言語とファイルの階層構造とコード行数を示すサンバースト図 (cloc に配置)
-  - type: sunburst
-    path: [cloc_language, File]
-    metric_values: cloc_code
-    output_file: "cloc/lang_file_sunburst.html"
+  # ==============================================================================
+  # 【追加オプション可視化（アンコメントで即座に利用可能）】
+  # ==============================================================================
 
-  # 16. 各ファイルのコード行数を示す折れ線グラフ (cloc に配置)
-  - type: line
-    metric_x: File
-    metric_y: cloc_code
-    output_file: "cloc/file_loc_line.html"
+  # --- 追加ツリーマップ ---
+  # - type: treemap
+  #   metric_area: und_CountLineCode
+  #   metric_color: und_AvgCyclomatic
+  #   output_file: "und/complexity_treemap.html"
 
-  # 17. Understandのコード行数を面積、基準値超過関数率 (und_exceeded_ratio) を色にしたTreemap (und に配置)
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_exceeded_ratio
-    output_file: "und/exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: git_ChangedLines
+  #   metric_color: git_AddedLines
+  #   output_file: "git/diff_treemap.html"
 
-  # 18. ファイル中の関数数 (und_total_functions) を面積、基準値超過関数率 (und_exceeded_ratio) を色にしたTreemap (und に配置)
-  - type: treemap
-    metric_area: und_total_functions
-    metric_color: und_exceeded_ratio
-    output_file: "und/func_count_exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: und_CountLineCode
+  #   metric_color: und_RatioCommentToCode
+  #   output_file: "und/comment_ratio_treemap.html"
 
-  # 18-1. ファイル中の関数数 (und_total_functions) を面積、MaxNesting超過率 (und_MaxNesting_exceeded_ratio) を色にしたTreemap
-  - type: treemap
-    metric_area: und_total_functions
-    metric_color: und_MaxNesting_exceeded_ratio
-    output_file: "und/max_nesting_exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: und_CountLineCode
+  #   metric_color: und_AvgEssential
+  #   output_file: "und/essential_complexity_treemap.html"
 
-  # 18-2. ファイル中の関数数 (und_total_functions) を面積、Essential超過率 (und_Essential_exceeded_ratio) を色にしたTreemap
-  - type: treemap
-    metric_area: und_total_functions
-    metric_color: und_Essential_exceeded_ratio
-    output_file: "und/essential_exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: pmd_PmdTotalTokens
+  #   metric_color: pmd_PmdCloneRatio
+  #   output_file: "pmd/clone_tokens_treemap.html"
 
-  # 18-3. ファイル中の関数数 (und_total_functions) を面積、Cyclomatic超過率 (und_Cyclomatic_exceeded_ratio) を色にしたTreemap
-  - type: treemap
-    metric_area: und_total_functions
-    metric_color: und_Cyclomatic_exceeded_ratio
-    output_file: "und/cyclomatic_exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: und_CountLineCode
+  #   metric_color: und_exceeded_ratio
+  #   output_file: "und/exceeded_ratio_treemap.html"
 
-  # 18-4. ファイル中の関数数 (und_total_functions) を面積、CountLine超過率 (und_CountLine_exceeded_ratio) を色にしたTreemap
-  - type: treemap
-    metric_area: und_total_functions
-    metric_color: und_CountLine_exceeded_ratio
-    output_file: "und/count_line_exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: und_total_functions
+  #   metric_color: und_exceeded_ratio
+  #   output_file: "und/func_count_exceeded_ratio_treemap.html"
 
-  # 18-5. ファイル中の関数数 (und_total_functions) を面積、CountLineCode超過率 (und_CountLineCode_exceeded_ratio) を色にしたTreemap
-  - type: treemap
-    metric_area: und_total_functions
-    metric_color: und_CountLineCode_exceeded_ratio
-    output_file: "und/count_line_code_exceeded_ratio_treemap.html"
+  # - type: treemap
+  #   metric_area: fm_file_size_bytes
+  #   metric_color: fm_is_binary
+  #   output_file: "vis/file_size_treemap.html"
 
-  # 18-6. コード行数 (und_CountLineCode) を面積、MaxNesting超過件数 (und_MaxNesting_exceeded_count) を色にしたTreemap
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_MaxNesting_exceeded_count
-    output_file: "und/max_nesting_exceeded_count_treemap.html"
+  # - type: treemap
+  #   metric_area: und_CountLine
+  #   metric_color: git_AddedLines
+  #   output_file: "vis/und_line_git_add_treemap.html"
 
-  # 18-7. コード行数 (und_CountLineCode) を面積、Essential超過件数 (und_Essential_exceeded_count) を色にしたTreemap
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_Essential_exceeded_count
-    output_file: "und/essential_exceeded_count_treemap.html"
+  # --- 追加分布・比較グラフ ---
+  # - type: box
+  #   metric_x: cloc_language
+  #   metric_y: cloc_code
+  #   output_file: "cloc/language_loc_box.html"
 
-  # 18-8. コード行数 (und_CountLineCode) を面積、Cyclomatic超過件数 (und_Cyclomatic_exceeded_count) を色にしたTreemap
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_Cyclomatic_exceeded_count
-    output_file: "und/cyclomatic_exceeded_count_treemap.html"
+  # - type: density_heatmap
+  #   metric_x: und_CountLineCode
+  #   metric_y: und_AvgCyclomatic
+  #   output_file: "und/loc_vs_cyclomatic_density.html"
 
-  # 18-9. コード行数 (und_CountLineCode) を面積、CountLine超過件数 (und_CountLine_exceeded_count) を色にしたTreemap
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_CountLine_exceeded_count
-    output_file: "und/count_line_exceeded_count_treemap.html"
+  # - type: violin
+  #   metric_x: cloc_language
+  #   metric_y: cloc_code
+  #   output_file: "cloc/language_loc_violin.html"
 
-  # 18-10. コード行数 (und_CountLineCode) を面積、CountLineCode超過件数 (und_CountLineCode_exceeded_count) を色にしたTreemap
-  - type: treemap
-    metric_area: und_CountLineCode
-    metric_color: und_CountLineCode_exceeded_count
-    output_file: "und/count_line_code_exceeded_count_treemap.html"
+  # - type: ecdf
+  #   metric_x: pmd_PmdCloneRatio
+  #   output_file: "pmd/clone_ratio_ecdf.html"
 
-  - type: treemap
-    metric_area: fm_file_size_bytes
-    metric_color: fm_is_binary
-    output_file: vis/file_size_treemap.html
+  # - type: sunburst
+  #   path: [cloc_language, File]
+  #   metric_values: cloc_code
+  #   output_file: "cloc/lang_file_sunburst.html"
 
-  # 19. Understandの総行数 (und_CountLine) を面積、Gitの追加行数 (git_AddedLines) を色にしたTreemap
-  - type: treemap
-    metric_area: und_CountLine
-    metric_color: git_AddedLines
-    output_file: vis/und_line_git_add_treemap.html
+  # - type: line
+  #   metric_x: File
+  #   metric_y: cloc_code
+  #   output_file: "cloc/file_loc_line.html"
 
 # thresholds: Understandの関数・メソッドに関するメトリクスの基準値設定
-# ここで定義された値を超過（> threshold）する関数・メソッドが抽出・集計されます。
 thresholds:
   MaxNesting: 5
   Essential: 4

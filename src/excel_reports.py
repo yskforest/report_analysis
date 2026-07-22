@@ -59,6 +59,47 @@ def _distribution(df: pd.DataFrame, col: str) -> pd.DataFrame:
     return out
 
 
+def _build_refactoring_candidates(merge_df: pd.DataFrame) -> pd.DataFrame:
+    if merge_df is None or merge_df.empty or "File" not in merge_df.columns:
+        return pd.DataFrame()
+
+    rows = []
+    for _, row in merge_df.iterrows():
+        reasons = []
+        cyc = float(_safe_num(pd.Series([row.get("und_AvgCyclomatic", 0)]))[0])
+        loc = float(_safe_num(pd.Series([row.get("und_CountLineCode", row.get("cloc_code", 0))]))[0])
+        cmt_ratio = float(_safe_num(pd.Series([row.get("und_RatioCommentToCode", 100)]))[0])
+        clone_ratio = float(_safe_num(pd.Series([row.get("pmd_PmdCloneRatio", 0)]))[0])
+        git_changed = float(_safe_num(pd.Series([row.get("git_ChangedLines", 0)]))[0])
+
+        if cyc > 15:
+            reasons.append(f"High Complexity (Cyclomatic={cyc:.1f})")
+        if loc > 300:
+            reasons.append(f"Large Code Size (LoC={int(loc)})")
+        if cmt_ratio < 10 and loc > 50:
+            reasons.append(f"Low Comment Ratio ({cmt_ratio:.1f}%)")
+        if clone_ratio > 20:
+            reasons.append(f"High Duplication (CloneRatio={clone_ratio:.1f}%)")
+        if git_changed > 500:
+            reasons.append(f"High Churn (GitChanged={int(git_changed)})")
+
+        if len(reasons) >= 2 or (cyc > 20) or (clone_ratio > 30):
+            rows.append({
+                "File": row["File"],
+                "CodeSize": int(loc),
+                "AvgCyclomatic": round(cyc, 2),
+                "CommentRatio(%)": round(cmt_ratio, 2),
+                "CloneRatio(%)": round(clone_ratio, 2),
+                "GitChangedLines": int(git_changed),
+                "RiskFactors": "; ".join(reasons),
+            })
+
+    res_df = pd.DataFrame(rows)
+    if not res_df.empty:
+        res_df = res_df.sort_values(by=["AvgCyclomatic", "CodeSize"], ascending=False)
+    return res_df
+
+
 def _apply_common_styles(ws: openpyxl.worksheet.worksheet.Worksheet, has_header: bool = True, freeze_panes: str | None = None, enable_filter: bool = True) -> None:
     header_fill = PatternFill(start_color="1F4E79", end_color="1F4E79", fill_type="solid")
     header_font = Font(bold=True, color="FFFFFF")
@@ -293,6 +334,10 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
                             "Hotspot Score": hot_df["HotspotScore"].round(4)
                         })
                         disp_df.to_excel(writer, sheet_name="hotspots", index=False)
+
+                ref_candidates_df = _build_refactoring_candidates(merge_df)
+                if not ref_candidates_df.empty:
+                    ref_candidates_df.to_excel(writer, sheet_name="refactoring_candidates", index=False)
 
             # 3. UND (File / Hierarchy)
             if und_file_csv.exists() and und_file_df is not None:
