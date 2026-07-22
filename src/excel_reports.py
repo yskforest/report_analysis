@@ -151,6 +151,7 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
         file_metrics_df = pd.read_csv(file_metrics_csv) if file_metrics_csv.exists() else None
         exceeded_funcs_df = pd.read_csv(exceeded_funcs_csv) if exceeded_funcs_csv.exists() else None
         exceeded_summary_df = pd.read_csv(exceeded_summary_csv) if exceeded_summary_csv.exists() else None
+        exceeded_dir_summary_df = pd.read_csv(exceeded_dir_summary_csv) if exceeded_dir_summary_csv.exists() else None
         merge_df = pd.read_csv(metrics_merge_csv) if metrics_merge_csv.exists() else None
 
         # ── 1. サマリーデータの作成 ──
@@ -184,9 +185,13 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
             summary_rows.append({"項目 (Metric)": "■ 複雑度メトリクス (Complexity)", "値 (Value)": ""})
             summary_rows.append({"項目 (Metric)": "  総関数・メソッド数", "値 (Value)": len(und_func_df)})
             if "Cyclomatic" in und_func_df.columns:
-                summary_rows.append({"項目 (Metric)": "  平均サイクロマティック複雑度 (Avg Cyclomatic)", "値 (Value)": round(float(_safe_num(und_func_df["Cyclomatic"]).mean()), 2)})
+                cyc_nums = _safe_num(und_func_df["Cyclomatic"])
+                summary_rows.append({"項目 (Metric)": "  平均サイクロマティック複雑度 (Avg Cyclomatic)", "値 (Value)": round(float(cyc_nums.mean()), 2)})
+                summary_rows.append({"項目 (Metric)": "  最大サイクロマティック複雑度 (Max Cyclomatic)", "値 (Value)": int(cyc_nums.max()) if not cyc_nums.empty else 0})
             if "MaxNesting" in und_func_df.columns:
-                summary_rows.append({"項目 (Metric)": "  最大ネスト数平均 (Avg MaxNesting)", "値 (Value)": round(float(_safe_num(und_func_df["MaxNesting"]).mean()), 2)})
+                nest_nums = _safe_num(und_func_df["MaxNesting"])
+                summary_rows.append({"項目 (Metric)": "  最大ネスト数平均 (Avg MaxNesting)", "値 (Value)": round(float(nest_nums.mean()), 2)})
+                summary_rows.append({"項目 (Metric)": "  プロジェクト最大ネスト数 (Max Nesting)", "値 (Value)": int(nest_nums.max()) if not nest_nums.empty else 0})
             if "Essential" in und_func_df.columns:
                 summary_rows.append({"項目 (Metric)": "  基本複雑度平均 (Avg Essential)", "値 (Value)": round(float(_safe_num(und_func_df["Essential"]).mean()), 2)})
 
@@ -219,16 +224,24 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
             enc_series = file_metrics_df["encoding"].replace("", None).dropna()
             if not enc_series.empty:
                 summary_rows.append({"項目 (Metric)": "  主要な文字コード (Dominant Encoding)", "値 (Value)": enc_series.mode().iloc[0]})
+                non_utf8 = len(file_metrics_df[~file_metrics_df["encoding"].astype(str).str.lower().str.contains("utf-8|ascii", na=False)])
+                if non_utf8 > 0:
+                    summary_rows.append({"項目 (Metric)": "  非UTF-8 / 異物文字コードファイル数", "値 (Value)": non_utf8})
                 
             le_series = file_metrics_df["line_ending"].replace(["N/A", ""], [None, None]).dropna()
             if not le_series.empty:
                 summary_rows.append({"項目 (Metric)": "  主要な改行コード (Dominant Line Ending)", "値 (Value)": le_series.mode().iloc[0]})
+                crlf_count = len(file_metrics_df[file_metrics_df["line_ending"].astype(str) == "CRLF"])
+                if crlf_count > 0:
+                    summary_rows.append({"項目 (Metric)": "  CRLF 改行コードファイル数", "値 (Value)": crlf_count})
 
         # 基準値超過メトリクス
         if exceeded_funcs_df is not None:
             summary_rows.append({"項目 (Metric)": "■ 基準値超過メトリクス (Threshold Violations)", "値 (Value)": ""})
             summary_rows.append({"項目 (Metric)": "  基準値超過関数・メソッド数", "値 (Value)": len(exceeded_funcs_df)})
             summary_rows.append({"項目 (Metric)": "  基準値超過ファイル数", "値 (Value)": len(exceeded_summary_df) if exceeded_summary_df is not None else 0})
+            if exceeded_dir_summary_df is not None and not exceeded_dir_summary_df.empty:
+                summary_rows.append({"項目 (Metric)": "  基準値超過ディレクトリ数", "値 (Value)": len(exceeded_dir_summary_df[exceeded_dir_summary_df["total_exceeded_count"] > 0])})
             if und_func_df is not None and len(und_func_df) > 0:
                 violation_ratio = float(len(exceeded_funcs_df) / len(und_func_df) * 100.0)
                 summary_rows.append({"項目 (Metric)": "  関数全体に対する超過比率", "値 (Value)": round(violation_ratio, 2)})
@@ -385,6 +398,10 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
                 file_metrics_df.to_excel(writer, sheet_name="file_metrics", index=False)
 
             # 9. Threshold Exceeded Summary / Detail
+            if exceeded_dir_summary_csv.exists() and exceeded_dir_summary_df is not None and not exceeded_dir_summary_df.empty:
+                exceeded_dir_summary_df = exceeded_dir_summary_df.sort_values(by="total_exceeded_count", ascending=False)
+                exceeded_dir_summary_df.to_excel(writer, sheet_name="exceeded_dir_summary", index=False)
+
             if exceeded_summary_csv.exists() and exceeded_summary_df is not None and not exceeded_summary_df.empty:
                 exceeded_summary_df = exceeded_summary_df.sort_values(by="total_exceeded_count", ascending=False)
                 exceeded_summary_df = _normalize_paths(exceeded_summary_df, ["File"], inputs.remove_path_prefix)
@@ -394,6 +411,7 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
                 exceeded_funcs_df = _normalize_paths(exceeded_funcs_df, ["File"], inputs.remove_path_prefix)
                 exceeded_funcs_df.to_excel(writer, sheet_name="exceeded_functions", index=False)
 
+
             # 10. Metrics Merge
             if metrics_merge_csv.exists() and merge_df is not None and not merge_df.empty:
                 merge_df = _normalize_paths(merge_df, ["File"], inputs.remove_path_prefix)
@@ -402,7 +420,7 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
             # ── 11. スタイル設定 & 枠線 & チャートの生成 ──
             for name, ws in writer.sheets.items():
                 freeze = None
-                if name in ["func_detail", "metrics_merge", "git_diff", "pmd_clone_ratio", "file_metrics", "exceeded_functions", "hotspots"]:
+                if name in ["func_detail", "metrics_merge", "git_diff", "pmd_clone_ratio", "file_metrics", "exceeded_functions", "exceeded_summary", "exceeded_dir_summary", "hotspots"]:
                     freeze = "B2"
                 elif name == "file_hierarchy":
                     freeze = "C2"
