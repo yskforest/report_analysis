@@ -36,11 +36,12 @@ ALL_TESTS=(
 
 # ── ヘルプ / リスト表示 ──
 if [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
-  echo "Usage: bash tests/run_tests.sh [ac01 ac02 ...] [--list]"
+  echo "Usage: bash tests/run_tests.sh [ac01 ac02 ...] [-j JOBS] [--list]"
   echo ""
   echo "Options:"
-  echo "  --list    テスト一覧を表示"
-  echo "  --help    このヘルプを表示"
+  echo "  -j, --jobs N  並列実行数 (デフォルト: CPU コア数)"
+  echo "  --list        テスト一覧を表示"
+  echo "  --help        このヘルプを表示"
   echo ""
   echo "引数なしで全テスト実行。テストIDを指定すると個別実行。"
   exit 0
@@ -55,29 +56,42 @@ if [[ "${1:-}" == "--list" ]]; then
   exit 0
 fi
 
-# ── 実行対象の決定 ──
-SELECTED_IDS=()
-if [ $# -gt 0 ]; then
-  SELECTED_IDS=("$@")
+# ── 引数解析 ──
+DEFAULT_JOBS=4
+if command -v nproc >/dev/null 2>&1; then
+  DEFAULT_JOBS=$(nproc)
+elif command -v sysctl >/dev/null 2>&1; then
+  DEFAULT_JOBS=$(sysctl -n hw.ncpu 2>/dev/null || echo 4)
 fi
 
-# ── メイン実行 ──
-echo ""
-echo "======================================================"
-echo -e " ${BOLD}Requirements Verification Test Runner${NC}"
-echo "======================================================"
-echo ""
+JOBS="${DEFAULT_JOBS}"
+SELECTED_IDS=()
 
-TOTAL_PASS=0
-TOTAL_FAIL=0
-TOTAL_SKIP=0
-TOTAL_RUN=0
-RESULTS=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -j|--jobs)
+      JOBS="$2"
+      shift 2
+      ;;
+    -j*)
+      JOBS="${1#-j}"
+      shift
+      ;;
+    --jobs=*)
+      JOBS="${1#*=}"
+      shift
+      ;;
+    *)
+      SELECTED_IDS+=("$1")
+      shift
+      ;;
+  esac
+done
 
+# ── 対象テスト抽出 ──
+TARGET_TESTS=()
 for entry in "${ALL_TESTS[@]}"; do
   IFS=':' read -r id file desc <<< "${entry}"
-
-  # フィルタリング: 指定がある場合は一致するもののみ実行
   if [ ${#SELECTED_IDS[@]} -gt 0 ]; then
     match=false
     for sel in "${SELECTED_IDS[@]}"; do
@@ -90,38 +104,96 @@ for entry in "${ALL_TESTS[@]}"; do
       continue
     fi
   fi
+  TARGET_TESTS+=("${entry}")
+done
 
-  TOTAL_RUN=$((TOTAL_RUN + 1))
-  script_path="${TESTS_DIR}/${file}"
+# ── メイン実行 ──
+echo ""
+echo "======================================================"
+echo -e " ${BOLD}Requirements Verification Test Runner (Jobs: ${JOBS})${NC}"
+echo "======================================================"
+echo ""
+
+TOTAL_PASS=0
+TOTAL_FAIL=0
+TOTAL_SKIP=0
+TOTAL_RUN=${#TARGET_TESTS[@]}
+RESULTS=()
+
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf "${TMP_DIR}"' EXIT
+
+run_single_test() {
+  local idx="$1"
+  local entry="$2"
+  IFS=':' read -r id file desc <<< "${entry}"
+  local script_path="${TESTS_DIR}/${file}"
+  local out_file="${TMP_DIR}/test_${idx}.log"
+  local status_file="${TMP_DIR}/test_${idx}.status"
 
   if [ ! -f "${script_path}" ]; then
-    echo -e "${RED}[ERROR]${NC} Test script not found: ${file}"
-    TOTAL_FAIL=$((TOTAL_FAIL + 1))
-    RESULTS+=("${RED}FAIL${NC}  ${id}  ${desc}")
-    continue
+    echo -e "${RED}[ERROR]${NC} Test script not found: ${file}" > "${out_file}"
+    echo "FAIL:0:1:0" > "${status_file}"
+    return
   fi
 
-  # 各テストをサブシェルで実行（テスト間の状態汚染を防止）
   set +e
-  output=$(bash "${script_path}" 2>&1)
-  test_exit=$?
+  bash "${script_path}" > "${out_file}" 2>&1
+  local test_exit=$?
   set -e
 
-  # テスト出力を表示
-  echo "${output}"
+  local output
+  output=$(cat "${out_file}")
+  local local_pass=$(echo "${output}" | grep -c '\[PASS\]' || true)
+  local local_fail=$(echo "${output}" | grep -c '\[FAIL\]' || true)
+  local local_skip=$(echo "${output}" | grep -c '\[SKIP\]' || true)
 
-  # 結果を集計
-  local_pass=$(echo "${output}" | grep -c '\[PASS\]' || true)
-  local_fail=$(echo "${output}" | grep -c '\[FAIL\]' || true)
-  local_skip=$(echo "${output}" | grep -c '\[SKIP\]' || true)
-
-  TOTAL_PASS=$((TOTAL_PASS + local_pass))
-  TOTAL_FAIL=$((TOTAL_FAIL + local_fail))
-  TOTAL_SKIP=$((TOTAL_SKIP + local_skip))
-
+  local res_status="PASS"
   if [ "${local_fail}" -gt 0 ] || [ "${test_exit}" -ne 0 ]; then
-    RESULTS+=("${RED}FAIL${NC}  ${id}  ${desc}")
+    res_status="FAIL"
   elif [ "${local_skip}" -gt 0 ] && [ "${local_pass}" -eq 0 ]; then
+    res_status="SKIP"
+  fi
+
+  echo "${res_status}:${local_pass}:${local_fail}:${local_skip}" > "${status_file}"
+}
+
+if [ "${JOBS}" -le 1 ] || [ "${TOTAL_RUN}" -le 1 ]; then
+  for idx in "${!TARGET_TESTS[@]}"; do
+    run_single_test "${idx}" "${TARGET_TESTS[$idx]}"
+    cat "${TMP_DIR}/test_${idx}.log"
+  done
+else
+  running=0
+  for idx in "${!TARGET_TESTS[@]}"; do
+    run_single_test "${idx}" "${TARGET_TESTS[$idx]}" &
+    running=$((running + 1))
+    if [ "${running}" -ge "${JOBS}" ]; then
+      wait -n 2>/dev/null || wait
+      running=$((running - 1))
+    fi
+  done
+  wait
+
+  for idx in "${!TARGET_TESTS[@]}"; do
+    cat "${TMP_DIR}/test_${idx}.log"
+  done
+fi
+
+for idx in "${!TARGET_TESTS[@]}"; do
+  entry="${TARGET_TESTS[$idx]}"
+  IFS=':' read -r id file desc <<< "${entry}"
+
+  status_info=$(cat "${TMP_DIR}/test_${idx}.status" 2>/dev/null || echo "FAIL:0:1:0")
+  IFS=':' read -r res_status l_pass l_fail l_skip <<< "${status_info}"
+
+  TOTAL_PASS=$((TOTAL_PASS + l_pass))
+  TOTAL_FAIL=$((TOTAL_FAIL + l_fail))
+  TOTAL_SKIP=$((TOTAL_SKIP + l_skip))
+
+  if [ "${res_status}" == "FAIL" ]; then
+    RESULTS+=("${RED}FAIL${NC}  ${id}  ${desc}")
+  elif [ "${res_status}" == "SKIP" ]; then
     RESULTS+=("${YELLOW}SKIP${NC}  ${id}  ${desc}")
   else
     RESULTS+=("${GREEN}PASS${NC}  ${id}  ${desc}")
@@ -152,3 +224,4 @@ else
   echo -e "${GREEN}${BOLD}RESULT: PASSED${NC}"
   exit 0
 fi
+

@@ -237,6 +237,11 @@ generate_und_win_fixture() {
 
   mkdir -p "${FIXTURES_DIR}"
 
+  if [ -s "${output_csv}" ]; then
+    echo "${output_csv}"
+    return 0
+  fi
+
   if [ ! -f "${source_csv}" ]; then
     echo "[WARN] Source UND CSV not found: ${source_csv}" >&2
     return 1

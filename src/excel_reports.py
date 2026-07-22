@@ -60,7 +60,6 @@ def _distribution(df: pd.DataFrame, col: str) -> pd.DataFrame:
 
 
 def _apply_common_styles(ws: openpyxl.worksheet.worksheet.Worksheet, has_header: bool = True, freeze_panes: str | None = None, enable_filter: bool = True) -> None:
-    # ヘッダー背景色: ディープネイビー (#1F4E79)、文字: 白太字
     header_fill = PatternFill(start_color="1F4E79", end_color="1F4E79", fill_type="solid")
     header_font = Font(bold=True, color="FFFFFF")
     
@@ -73,43 +72,48 @@ def _apply_common_styles(ws: openpyxl.worksheet.worksheet.Worksheet, has_header:
     
     max_row = ws.max_row
     max_col = ws.max_column
-    
-    # 1. すべてのセルに枠線とフォントを適用 (ヘッダー除く)
-    for r in range(1, max_row + 1):
-        for c in range(1, max_col + 1):
-            cell = ws.cell(row=r, column=c)
-            cell.border = thin_border
-            if r > 1:
-                # 数値セルの書式設定
-                val = cell.value
-                if isinstance(val, (int, float)):
-                    if isinstance(val, int) or (isinstance(val, float) and val.is_integer()):
-                        cell.number_format = '#,##0'
-                    else:
-                        cell.number_format = '#,##0.00'
+    if max_row < 1 or max_col < 1:
+        return
 
-    # 2. ヘッダーの装飾とオートフィルター適用
-    if has_header and max_row >= 1:
+    # 1. ヘッダーの装飾と枠線
+    if has_header:
         for c in range(1, max_col + 1):
             cell = ws.cell(row=1, column=c)
             cell.fill = header_fill
             cell.font = header_font
+            cell.border = thin_border
             
         if enable_filter and max_row > 1:
             ws.auto_filter.ref = f"A1:{get_column_letter(max_col)}{max_row}"
-            
+
+    # 2. データセルの数値フォーマットと枠線（iter_rows で高速に巡回、大容量データは枠線描画を制限）
+    apply_border = (max_row <= 1000)
+    for row in ws.iter_rows(min_row=2, max_row=max_row, max_col=max_col):
+        for cell in row:
+            if apply_border:
+                cell.border = thin_border
+            val = cell.value
+            if isinstance(val, float):
+                if val.is_integer():
+                    cell.number_format = '#,##0'
+                else:
+                    cell.number_format = '#,##0.00'
+            elif isinstance(val, int) and not isinstance(val, bool):
+                cell.number_format = '#,##0'
+
     # 3. ウィンドウ枠固定
     if freeze_panes:
         ws.freeze_panes = freeze_panes
         
-    # 4. 列幅の自動調整 (先頭50行サンプリングによる簡易適用)
+    # 4. 列幅の自動調整 (先頭50行サンプリング)
     for col_idx in range(1, max_col + 1):
         col_letter = get_column_letter(col_idx)
         max_len = 0
-        for row_idx in range(1, min(max_row, 50) + 1):
-            val = str(ws.cell(row=row_idx, column=col_idx).value or '')
-            max_len = max(max_len, len(val))
+        for row in ws.iter_rows(min_row=1, max_row=min(max_row, 50), min_col=col_idx, max_col=col_idx):
+            cell_val = str(row[0].value or '')
+            max_len = max(max_len, len(cell_val))
         ws.column_dimensions[col_letter].width = max(min(max_len + 3, 50), 10)
+
 
 
 def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
@@ -395,115 +399,109 @@ def run_excel_report(inputs: AnalysisInputs) -> TaskResult:
                 merge_df = _normalize_paths(merge_df, ["File"], inputs.remove_path_prefix)
                 merge_df.to_excel(writer, sheet_name="metrics_merge", index=False)
 
-        # ── 11. スタイル設定 & 枠線 & チャートの生成 ──
-        wb = openpyxl.load_workbook(out_file)
-        
-        for name in wb.sheetnames:
-            ws = wb[name]
-            
-            freeze = None
-            if name in ["func_detail", "metrics_merge", "git_diff", "pmd_clone_ratio", "file_metrics", "exceeded_functions", "hotspots"]:
-                freeze = "B2"
-            elif name == "file_hierarchy":
-                freeze = "C2"
-                
-            _apply_common_styles(ws, has_header=True, freeze_panes=freeze, enable_filter=True)
-            
-            # Summary シート用のカスタムスタイル
-            if name == "summary":
-                ws.auto_filter.ref = None
-                for r in range(2, ws.max_row + 1):
-                    cell_a = ws.cell(row=r, column=1)
-                    cell_b = ws.cell(row=r, column=2)
-                    val_a = str(cell_a.value or "")
-                    if val_a.startswith("■"):
-                        fill = PatternFill(start_color="D9E1F2", end_color="D9E1F2", fill_type="solid")
-                        font = Font(bold=True, size=11, color="1F4E79")
-                        cell_a.fill = fill
-                        cell_b.fill = fill
-                        cell_a.font = font
-                        cell_b.font = font
-                    else:
-                        cell_a.font = Font(color="333333")
-                        val_b = cell_b.value
-                        if isinstance(val_b, (int, float)):
-                            if "%" in val_a or "率" in val_a:
-                                cell_b.number_format = '0.00"%"'
-                            elif isinstance(val_b, int) or (isinstance(val_b, float) and val_b.is_integer()):
-                                cell_b.number_format = '#,##0'
-                            else:
-                                cell_b.number_format = '#,##0.00'
-
-            # CLOC 円グラフの生成
-            if name == "cloc_summary" and ws.max_row > 2:
-                try:
-                    from openpyxl.chart import PieChart, Reference
-                    pie = PieChart()
-                    labels = Reference(ws, min_col=1, min_row=2, max_row=ws.max_row)
-                    data = Reference(ws, min_col=2, min_row=1, max_row=ws.max_row)
-                    pie.add_data(data, titles_from_data=True)
-                    pie.set_categories(labels)
-                    pie.title = "Language Distribution (LoC)"
-                    pie.width = 16
-                    pie.height = 11
-                    ws.add_chart(pie, "G2")
-                except Exception:
-                    pass
-
-            # 度数分布の棒グラフの生成
-            if name in ["func_dist_nesting", "func_dist_cyclomatic", "func_dist_essential"] and ws.max_row > 2:
-                try:
-                    from openpyxl.chart import BarChart, Reference
-                    chart = BarChart()
-                    chart.type = "col"
-                    chart.style = 10
-                    title_map = {
-                        "func_dist_nesting": "Nesting Depth Distribution",
-                        "func_dist_cyclomatic": "Cyclomatic Complexity Distribution",
-                        "func_dist_essential": "Essential Complexity Distribution"
-                    }
-                    x_map = {
-                        "func_dist_nesting": "Nesting Depth",
-                        "func_dist_cyclomatic": "Cyclomatic Complexity",
-                        "func_dist_essential": "Essential Complexity"
-                    }
-                    chart.title = title_map.get(name, "Distribution")
-                    chart.y_axis.title = "Number of Functions"
-                    chart.x_axis.title = x_map.get(name, "Metric")
+            # ── 11. スタイル設定 & 枠線 & チャートの生成 ──
+            for name, ws in writer.sheets.items():
+                freeze = None
+                if name in ["func_detail", "metrics_merge", "git_diff", "pmd_clone_ratio", "file_metrics", "exceeded_functions", "hotspots"]:
+                    freeze = "B2"
+                elif name == "file_hierarchy":
+                    freeze = "C2"
                     
-                    data = Reference(ws, min_col=2, min_row=1, max_row=ws.max_row)
-                    cats = Reference(ws, min_col=1, min_row=2, max_row=ws.max_row)
-                    chart.add_data(data, titles_from_data=True)
-                    chart.set_categories(cats)
-                    chart.legend = None
-                    chart.width = 15
-                    chart.height = 10
-                    ws.add_chart(chart, "D2")
-                except Exception:
-                    pass
-
-            # 基準値超過トップ10ファイルの横棒グラフ
-            if name == "exceeded_summary" and ws.max_row > 2:
-                try:
-                    from openpyxl.chart import BarChart, Reference
-                    chart = BarChart()
-                    chart.type = "bar" # horizontal
-                    chart.title = "Top 10 Files by Violation Count"
-                    chart.x_axis.title = "File"
-                    chart.y_axis.title = "Violation Count"
-                    
-                    data = Reference(ws, min_col=8, min_row=1, max_row=min(ws.max_row, 11))
-                    cats = Reference(ws, min_col=1, min_row=2, max_row=min(ws.max_row, 11))
-                    chart.add_data(data, titles_from_data=True)
-                    chart.set_categories(cats)
-                    chart.legend = None
-                    chart.width = 18
-                    chart.height = 12
-                    ws.add_chart(chart, "J2")
-                except Exception:
-                    pass
+                _apply_common_styles(ws, has_header=True, freeze_panes=freeze, enable_filter=True)
                 
-        wb.save(out_file)
+                # Summary シート用のカスタムスタイル
+                if name == "summary":
+                    ws.auto_filter.ref = None
+                    for r in range(2, ws.max_row + 1):
+                        cell_a = ws.cell(row=r, column=1)
+                        cell_b = ws.cell(row=r, column=2)
+                        val_a = str(cell_a.value or "")
+                        if val_a.startswith("■"):
+                            fill = PatternFill(start_color="D9E1F2", end_color="D9E1F2", fill_type="solid")
+                            font = Font(bold=True, size=11, color="1F4E79")
+                            cell_a.fill = fill
+                            cell_b.fill = fill
+                            cell_a.font = font
+                            cell_b.font = font
+                        else:
+                            cell_a.font = Font(color="333333")
+                            val_b = cell_b.value
+                            if isinstance(val_b, (int, float)):
+                                if "%" in val_a or "率" in val_a:
+                                    cell_b.number_format = '0.00"%"'
+                                elif isinstance(val_b, int) or (isinstance(val_b, float) and val_b.is_integer()):
+                                    cell_b.number_format = '#,##0'
+                                else:
+                                    cell_b.number_format = '#,##0.00'
+
+                # CLOC 円グラフの生成
+                if name == "cloc_summary" and ws.max_row > 2:
+                    try:
+                        from openpyxl.chart import PieChart, Reference
+                        pie = PieChart()
+                        labels = Reference(ws, min_col=1, min_row=2, max_row=ws.max_row)
+                        data = Reference(ws, min_col=2, min_row=1, max_row=ws.max_row)
+                        pie.add_data(data, titles_from_data=True)
+                        pie.set_categories(labels)
+                        pie.title = "Language Distribution (LoC)"
+                        pie.width = 16
+                        pie.height = 11
+                        ws.add_chart(pie, "G2")
+                    except Exception:
+                        pass
+
+                # 度数分布の棒グラフの生成
+                if name in ["func_dist_nesting", "func_dist_cyclomatic", "func_dist_essential"] and ws.max_row > 2:
+                    try:
+                        from openpyxl.chart import BarChart, Reference
+                        chart = BarChart()
+                        chart.type = "col"
+                        chart.style = 10
+                        title_map = {
+                            "func_dist_nesting": "Nesting Depth Distribution",
+                            "func_dist_cyclomatic": "Cyclomatic Complexity Distribution",
+                            "func_dist_essential": "Essential Complexity Distribution"
+                        }
+                        x_map = {
+                            "func_dist_nesting": "Nesting Depth",
+                            "func_dist_cyclomatic": "Cyclomatic Complexity",
+                            "func_dist_essential": "Essential Complexity"
+                        }
+                        chart.title = title_map.get(name, "Distribution")
+                        chart.y_axis.title = "Number of Functions"
+                        chart.x_axis.title = x_map.get(name, "Metric")
+                        
+                        data = Reference(ws, min_col=2, min_row=1, max_row=ws.max_row)
+                        cats = Reference(ws, min_col=1, min_row=2, max_row=ws.max_row)
+                        chart.add_data(data, titles_from_data=True)
+                        chart.set_categories(cats)
+                        chart.legend = None
+                        chart.width = 15
+                        chart.height = 10
+                        ws.add_chart(chart, "D2")
+                    except Exception:
+                        pass
+
+                # 基準値超過トップ10ファイルの横棒グラフ
+                if name == "exceeded_summary" and ws.max_row > 2:
+                    try:
+                        from openpyxl.chart import BarChart, Reference
+                        chart = BarChart()
+                        chart.type = "bar" # horizontal
+                        chart.title = "Top 10 Files by Violation Count"
+                        chart.x_axis.title = "File"
+                        chart.y_axis.title = "Violation Count"
+                        
+                        data = Reference(ws, min_col=8, min_row=1, max_row=min(ws.max_row, 11))
+                        cats = Reference(ws, min_col=1, min_row=2, max_row=min(ws.max_row, 11))
+                        chart.add_data(data, titles_from_data=True)
+                        chart.set_categories(cats)
+                        chart.legend = None
+                        chart.width = 18
+                        chart.height = 12
+                        ws.add_chart(chart, "J2")
+                    except Exception:
+                        pass
         
         return TaskResult(
             name="excel_report",
